@@ -1,49 +1,37 @@
-﻿from datetime import datetime, timedelta
+from datetime import datetime, timedelta
 import os
-import time  # <--- TAMBAHAN: Import time
+import time
 from agents.commodity_agent import get_commodity_prices
 from agents.economics_engine import build_economics_context
 from agents.validator import build_commodity_context, validate
-# Import modul internal yang udah lo buat sebelumnya
 from agents.web_agent import search_multiple, search_web
 from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL
 from memory.learning_store import build_learning_context, load_recent_learnings
-# <--- MODIFIKASI: Tambahkan log_session di akhir baris import ini
 from memory.session import log_session
 from openai import OpenAI
 import yfinance as yf
 
-# Inisialisasi Client OpenRouter/OpenAI
 client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
 
 
 def run_market_brief() -> str:
-    """Fungsi utama untuk mengumpulkan data pasar riil kemarin, menyaring berita makro,
+    start = time.time()
 
-    menyuntikkan aturan logika ekonomi deterministik, dan menghasilkan laporan
-    panduan harian (Daily Market Brief) sebelum pasar IDX dibuka.
-    """
-    start = time.time()  # <--- TAMBAHAN: Mulai hitung waktu di awal fungsi
-
-    # 1. Setup format penanggalan dinamis
     now = datetime.now()
-    current_date = now.strftime("%B %d, %Y")  # Contoh: June 03, 2026
-    yesterday = (now - timedelta(days=1)).strftime("%B %d, %Y")  # Contoh: June 02, 2026
-    yesterday_id = (now - timedelta(days=1)).strftime("%d %B %Y")  # Format Indonesia: 02 Juni 2026
+    current_date = now.strftime("%B %d, %Y")
+    yesterday = (now - timedelta(days=1)).strftime("%B %d, %Y")
+    yesterday_id = (now - timedelta(days=1)).strftime("%d %B %Y")
 
-    # 2. Setup query pencarian berita berdasarkan tanggal kemarin
     queries = {
         "Indonesian Economy": f"IHSG rupiah kurs BI rate inflasi ekonomi Indonesia {yesterday_id}",
         "Global Macro": f"The Fed suku bunga AS ekonomi China GDP inflasi {yesterday_id}",
         "Geopolitics": f"geopolitik perang dagang Asia tenggara pasar modal {yesterday_id}",
     }
 
-    # 3. Ambil data komoditas dasar teks dan suntik aturan dasarnya
     print("  [market_agent] Fetching text commodity data...")
     commodity_text_data = get_commodity_prices()
     commodity_text_context = build_commodity_context(commodity_text_data)
 
-    # 4. 🔥 Hitung persentase perubahan harga komoditas riil (DETERMINISTIC ENGINE via yfinance)
     print("  [market_agent] Calculating exact global commodity price changes via yfinance...")
 
     def _pct(ticker: str) -> float:
@@ -57,22 +45,17 @@ def run_market_brief() -> str:
             return 0.0
 
     commodity_changes = {
-        "Crude Oil": _pct("CL=F"),  # WTI Crude Futures
-        "Natural Gas": _pct("NG=F"),  # Henry Hub Natural Gas
-        # Lo bisa tambah ticker komoditas lain di sini jika dibutuhkan ke depan
+        "Crude Oil": _pct("CL=F"),
+        "Natural Gas": _pct("NG=F"),
     }
 
-    # Bangun konteks aturan ekonomi baku berdasarkan perubahan persentase di atas
     economics_context = build_economics_context(
         commodity_changes=commodity_changes, current_date=current_date
     )
 
-    # 5. Ambil data pergerakan pasar IDX (Top Movers, Volume, & Foreign Flow)
     print("  [market_agent] Fetching IDX market movers...")
     try:
-        top_movers = search_web(
-            f"saham naik turun terbesar IHSG top gainer loser {yesterday_id}", days=2
-        )
+        top_movers = search_web(f"saham naik turun terbesar IHSG top gainer loser {yesterday_id}", days=2)
         if len(top_movers.strip()) < 50:
             top_movers = "No fresh market mover data found."
     except Exception:
@@ -80,9 +63,7 @@ def run_market_brief() -> str:
 
     print("  [market_agent] Fetching trending stocks...")
     try:
-        trending_stocks = search_web(
-            f"saham paling aktif volume terbesar IDX BEI {yesterday_id}", days=2
-        )
+        trending_stocks = search_web(f"saham paling aktif volume terbesar IDX BEI {yesterday_id}", days=2)
         if len(trending_stocks.strip()) < 50:
             trending_stocks = "No fresh trending stock data found."
     except Exception:
@@ -90,42 +71,37 @@ def run_market_brief() -> str:
 
     print("  [market_agent] Fetching foreign flow data...")
     try:
-        foreign_flow = search_web(
-            f"asing net buy sell IHSG investor asing {yesterday_id}", days=2
-        )
+        foreign_flow = search_web(f"asing net buy sell IHSG investor asing {yesterday_id}", days=2)
         if len(foreign_flow.strip()) < 50:
             foreign_flow = "No fresh foreign flow data found."
     except Exception:
         foreign_flow = "Foreign flow data not available."
 
-    # 6. Jalankan pencarian berita makro (Multi-Threaded Search)
     print("  [market_agent] Running targeted macroeconomic searches...")
     raw_news = search_multiple(queries, days=2)
-
     for category in raw_news:
         if not raw_news[category] or len(raw_news[category].strip()) < 50:
             raw_news[category] = f"No major developments reported on {yesterday_id}."
 
-    recent_learnings = load_recent_learnings(days=14)
-    learning_context = build_learning_context(recent_learnings)
-    if learning_context:
-        context = learning_context + "\n\n" + context
-
-    # 7. ASSEMBLY CONTEXT: Satukan seluruh data mentah menjadi satu payload utuh untuk LLM
+    # 7. Assemble context
     context = "=== CORE MARKET DATA ===\n"
     context += f"{commodity_text_context}\n\n"
     context += f"## IDX Top Movers ({yesterday_id}):\n{top_movers}\n\n"
     context += f"## Trending IDX Stocks ({yesterday_id}):\n{trending_stocks}\n\n"
     context += f"## Foreign Flow ({yesterday_id}):\n{foreign_flow}\n\n"
-
     context += "=== GROUND TRUTH ECONOMIC LOGIC CONSTRAINTS ===\n"
     context += f"{economics_context}\n\n"
-
     context += "=== MACROECONOMIC & REGIONAL NEWS ===\n"
     for category, result in raw_news.items():
         context += f"\n## {category}:\n{result}\n"
 
-    # 8. Setup prompt instruksi ketat untuk LLM Analyst
+    # Inject learning context AFTER context is assembled
+    print("  [market_agent] Loading past learnings...")
+    recent_learnings = load_recent_learnings(days=14)
+    learning_context = build_learning_context(recent_learnings)
+    if learning_context:
+        context = learning_context + "\n\n" + context
+
     prompt = f"""
 You are an expert Indonesian Equity & Macroeconomic Research Analyst.
 BRIEF DATE = "{current_date}" (This is a pre-market brief written before today's market open)
@@ -199,21 +175,18 @@ Categorize sectors dynamically based on yesterday's data:
 ---
 """
 
-    # 9. Panggil OpenRouter API untuk eksekusi sintesis analisis
     print("  [market_agent] Generating market brief using LLM...")
     response = client.chat.completions.create(
         model="openai/gpt-oss-120b:free",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=3000,
-        temperature=0.2,  # Diturunkan biar hasilnya patuh format dan gak "ngaco"
+        temperature=0.2,
     )
 
-    # 10. Loloskan hasil ke validator akhir untuk memastikan arah bahasa & kontradiksi bersih
     final_output = response.choices[0].message.content
     print("  [market_agent] Validating output rules...")
     final_output = validate(final_output)
 
-    # <--- TAMBAHAN: Kirim log data ke memory session tepat sebelum fungsi selesai
     log_session(
         query="daily_brief",
         agent="market_agent",
