@@ -1,29 +1,17 @@
 import re
 import json
-from dataclasses import dataclass, field, asdict
-from typing import Optional
+from dataclasses import asdict
 
-
-@dataclass
-class MarketPrediction:
-    date: str
-    ihsg_signal: str                    # "Bullish" / "Bearish" / "Neutral"
-    ihsg_confidence: int                # 0-100
-    foreign_flow_signal: str            # "Accumulation" / "Distribution" / "Stagnant/Sideways"
-    foreign_flow_net: str               # e.g. "Net Buy Rp1.2T"
-    sector_bullish: list = field(default_factory=list)
-    sector_bearish: list = field(default_factory=list)
-    sector_neutral: list = field(default_factory=list)
-    recommended_tickers: list = field(default_factory=list)
-    key_risk: str = ""
-    commodities_predicted: dict = field(default_factory=dict)
+from schemas import MarketPrediction
 
 
 def _extract_signal_confidence(text: str, section_num: int) -> tuple:
-    pattern = rf"###\s*{section_num}\..*?Market Impact.*?\*\*(Bullish|Bearish|Neutral)\*\*.*?Confidence.*?(\d+)%"
+    # Relaxed regex: doesn't strictly require asterisks around the signal
+    pattern = rf"###\s*{section_num}\..*?Market Impact.*?(Bullish|Bearish|Neutral|Mixed).*?Confidence.*?(\d+)"
     match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
     if match:
-        return match.group(1), int(match.group(2))
+        signal = match.group(1).capitalize()
+        return signal if signal in ["Bullish", "Bearish", "Neutral"] else "Neutral", int(match.group(2))
     return "Neutral", 50
 
 
@@ -76,16 +64,21 @@ def _extract_sector_block(text: str) -> tuple:
         )
         if not block:
             return []
-        return [m.strip() for m in re.findall(r"-\s+([^:\n]+):", block.group(1))]
+        # Matches "- **Sector** :" or "- Sector -" or "- **Sector** –"
+        # We extract everything after the dash up to the delimiter (:, -, –, —)
+        return [m.strip().replace('*', '') for m in re.findall(r"-\s+\*?\*?([^\n:\–\—\-]+?)\*?\*?\s*(?:[:\–\—\-]|—)", block.group(1))]
 
     return _get("Bullish"), _get("Bearish"), _get("Neutral")
 
 
 def _extract_tickers(text: str) -> list:
     tickers = set(re.findall(r'\b([A-Z]{4})\b', text))
+    # Filter out common 4-letter uppercase English/Indonesian words or acronyms
     noise = {"IHSG", "FROM", "DATA", "WITH", "THIS", "THAT", "EACH", "ONLY",
              "THAN", "WHEN", "THEN", "OPEN", "HIGH", "WILL", "ALSO", "INTO",
-             "MORE", "MOST", "NEXT", "BEEN", "HAVE", "WERE", "BULL", "BEAR"}
+             "MORE", "MOST", "NEXT", "BEEN", "HAVE", "WERE", "BULL", "BEAR",
+             "BANK", "FLOW", "DROP", "RATE", "REAL", "NETT", "SELL", "NEWS",
+             "ASIA", "IDXR", "USDA"}
     return list(tickers - noise)
 
 
@@ -107,6 +100,10 @@ def _extract_commodity_signals(text: str) -> dict:
     return commodities
 
 
+def _extract_source_ids(text: str) -> list:
+    return sorted(set(re.findall(r"\bsrc_[a-f0-9]{10}\b", text)))
+
+
 def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
     ihsg_signal, ihsg_conf = _extract_overall_ihsg(brief_text)
     ff_signal, ff_net      = _extract_foreign_flow(brief_text)
@@ -124,6 +121,7 @@ def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
         recommended_tickers=_extract_tickers(brief_text),
         key_risk=_extract_key_risk(brief_text),
         commodities_predicted=_extract_commodity_signals(brief_text),
+        evidence_ids=_extract_source_ids(brief_text),
     )
 
 

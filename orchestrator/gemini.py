@@ -1,12 +1,9 @@
-﻿import json
-import time  # <--- TAMBAHAN: Import time
+import json
+import time
 from agents.code_agent import generate_code as _generate_code
 from agents.web_agent import search_web as _search_web
-from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL, OPENROUTER_MODEL
-from memory.session import log_session  # <--- TAMBAHAN: Import log_session
-from openai import OpenAI
-
-client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
+from llm_client import llm_chat
+from memory.session import log_session
 
 TOOLS = [
     {
@@ -37,7 +34,7 @@ TOOLS = [
 
 
 def run(query: str, context: str = "") -> str:
-    start = time.time()  # <--- TAMBAHAN: Mulai hitung waktu di awal fungsi
+    start = time.time()
 
     system = """You are Nexus, a multi-agent AI pipeline orchestrator.
 IMPORTANT: You MUST always call a tool. Never answer from memory.
@@ -49,9 +46,7 @@ IMPORTANT: You MUST always call a tool. Never answer from memory.
 
     messages = [{"role": "system", "content": system}, {"role": "user", "content": query}]
 
-    response = client.chat.completions.create(
-        model=OPENROUTER_MODEL, messages=messages, tools=TOOLS, tool_choice="auto"
-    )
+    response = llm_chat(messages=messages, tools=TOOLS, tool_choice="auto")
 
     msg = response.choices[0].message
 
@@ -72,16 +67,14 @@ IMPORTANT: You MUST always call a tool. Never answer from memory.
         messages.append(msg)
         messages.append({"role": "tool", "content": result, "tool_call_id": tool_call.id})
 
-        response = client.chat.completions.create(model=OPENROUTER_MODEL, messages=messages)
+        response = llm_chat(messages=messages)
 
-    # <--- MODIFIKASI: Simpan output ke variabel dulu sebelum di-log
     final_result = response.choices[0].message.content
 
-    # <--- TAMBAHAN: Kirim log data ke memory session
     log_session(
-        query=query,  # Menggunakan query dinamis yang dimasukkan user
+        query=query,
         agent="gemini_agent",
-        model=OPENROUTER_MODEL,  # Menggunakan model dinamis dari config
+        model="llm_client",
         result=final_result,
         duration_ms=int((time.time() - start) * 1000),
     )

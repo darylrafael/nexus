@@ -1,4 +1,4 @@
-﻿import re
+import re
 
 # --- 1. Commodity Economics ---
 # Hardcoded producer/consumer relationships
@@ -49,71 +49,24 @@ def fix_direction_language(text: str) -> str:
         has_negative = bool(re.search(r'[‑\-]\d+\.?\d*\s*%', line))
         has_positive = bool(re.search(r'\+\d+\.?\d*\s*%', line))
 
-        if has_negative:
+        # Skip lines that have both to avoid corrupting mixed-direction sentences
+        if has_negative and not has_positive:
             for term in BULLISH_TERMS:
-                pattern = re.compile(re.escape(term), re.IGNORECASE)
-                if pattern.search(line):
-                    line = pattern.sub("declined", line)
+                pattern = re.compile(r'\b' + re.escape(term) + r'\b', re.IGNORECASE)
+                line = pattern.sub("declined", line)
 
-        if has_positive:
+        elif has_positive and not has_negative:
             for term in BEARISH_TERMS:
-                pattern = re.compile(re.escape(term), re.IGNORECASE)
-                if pattern.search(line):
-                    line = pattern.sub("gained", line)
+                pattern = re.compile(r'\b' + re.escape(term) + r'\b', re.IGNORECASE)
+                line = pattern.sub("gained", line)
 
         fixed.append(line)
     return "\n".join(fixed)
 
 
-# --- 3. Ticker Cross-Validator ---
-def extract_tickers(text: str) -> set:
-    """Extract IDX-style tickers (3-4 uppercase letters) from text."""
-    return set(re.findall(r'\b[A-Z]{3,4}\b', text))
-
-def validate_ticker_consistency(text: str) -> str:
-    """
-    Find tickers listed as top gainers in commodity/macro sections
-    but also listed as distributed in foreign flow section.
-    Flag contradictions.
-    """
-    sections = text.split("### ")
-    gainer_tickers = set()
-    flow_section = ""
-
-    for section in sections:
-        if section.startswith("3.") or section.startswith("1.") or section.startswith("2."):
-            # Extract tickers next to positive percentages
-            for match in re.finditer(r'\*\*([A-Z]{3,4})\*\*[^‑\-]*?\+\d+', section):
-                gainer_tickers.add(match.group(1))
-        if section.startswith("5."):
-            flow_section = section
-
-    if not flow_section or not gainer_tickers:
-        return text
-
-    lines = text.split("\n")
-    result = []
-    in_flow = False
-
-    for line in lines:
-        if "### 5." in line:
-            in_flow = True
-        elif line.startswith("### 6."):
-            in_flow = False
-
-        if in_flow and ("Distributed" in line or "distributed" in line or "sell" in line.lower()):
-            tickers_in_line = extract_tickers(line)
-            contradictions = tickers_in_line & gainer_tickers
-            if contradictions:
-                line += f"  ⚠️ [No data confirms {', '.join(contradictions)} as distributed — these were top gainers. Remove unless explicit sell data exists.]"
-
-        result.append(line)
-
-    return "\n".join(result)
-
-
 def validate(text: str) -> str:
     """Run all validation passes."""
     text = fix_direction_language(text)
-    text = validate_ticker_consistency(text)
+    # Ticker consistency validator removed due to flawed assumptions about market mechanics
+    # (Top gainers CAN experience foreign net sell simultaneously).
     return text

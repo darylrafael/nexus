@@ -1,11 +1,8 @@
-﻿from openai import OpenAI
-from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL
+from llm_client import llm_chat
 
-client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
 
 def generate_code(task: str) -> str:
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-120b:free",
+    response = llm_chat(
         messages=[
             {
                 "role": "system",
@@ -16,6 +13,7 @@ def generate_code(task: str) -> str:
                 "content": task
             }
         ],
-        max_tokens=2000
+        max_tokens=2000,
+        temperature=0.2,
     )
     return response.choices[0].message.content

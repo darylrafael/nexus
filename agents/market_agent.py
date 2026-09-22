@@ -1,23 +1,23 @@
 from datetime import datetime, timedelta
-import os
 import time
 from agents.commodity_agent import get_commodity_prices
 from agents.economics_engine import build_economics_context
+from agents.prediction_extractor import extract_predictions
 from agents.validator import build_commodity_context, validate
 from agents.web_agent import search_multiple, search_web
-from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL
+from data_sources.market_data import fetch_yfinance_commodity, jakarta_now
+from llm_client import llm_chat
+from memory.artifacts import save_json_artifact, save_text_artifact
 from memory.learning_store import build_learning_context, load_recent_learnings
 from memory.session import log_session
-from openai import OpenAI
-import yfinance as yf
 
-client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
 
 
 def run_market_brief() -> str:
     start = time.time()
 
-    now = datetime.now()
+    now = jakarta_now()
+    date_key = now.strftime("%Y-%m-%d")
     current_date = now.strftime("%B %d, %Y")
     yesterday = (now - timedelta(days=1)).strftime("%B %d, %Y")
     yesterday_id = (now - timedelta(days=1)).strftime("%d %B %Y")
@@ -34,19 +34,17 @@ def run_market_brief() -> str:
 
     print("  [market_agent] Calculating exact global commodity price changes via yfinance...")
 
-    def _pct(ticker: str) -> float:
+    def _pct(name: str, ticker: str) -> float:
         try:
-            t = yf.Ticker(ticker)
-            p = t.fast_info.last_price
-            prev = t.fast_info.previous_close
-            return ((p - prev) / prev) * 100 if prev else 0.0
+            snapshot = fetch_yfinance_commodity(name, ticker)
+            return snapshot["change_pct"]
         except Exception as e:
-            print(f"  [yfinance warning] failed to fetch {ticker}: {e}")
+            print(f"  [yfinance warning] failed to fetch {name} ({ticker}): {e}")
             return 0.0
 
     commodity_changes = {
-        "Crude Oil": _pct("CL=F"),
-        "Natural Gas": _pct("NG=F"),
+        "Crude Oil": _pct("Crude Oil", "CL=F"),
+        "Natural Gas": _pct("Natural Gas", "NG=F"),
     }
 
     economics_context = build_economics_context(
@@ -112,6 +110,8 @@ STRICT RULES:
 - Only report events and data points from yesterday ({yesterday}). If data is older, explicitly write "No major developments yesterday."
 - Use EXACT prices, index points, and percentages from the DATA section. Do not approximate or invent numbers.
 - Identify affected stocks dynamically from the provided data. Do not hallucinate tickers that don't exist in the context.
+- When you use web-sourced evidence, include its Source ID from the DATA section in the relevant summary or rationale.
+- Do not invent Source IDs. Only cite Source IDs explicitly provided in the DATA section.
 - Foreign flow significance rule: If the net foreign flow is below Rp1 trillion in either direction, classify it as "Stagnant/Sideways" in your signal. Do NOT call it accumulation or distribution.
 - Market reaction takes precedence over textbook theory. Check actual stock price movements before assigning directions.
 - Confidence Score Guide: 80-100% = direct, quantifiable, confirmed impact. 50-79% = likely but indirect transmission. Below 50% = speculative noise.
@@ -176,8 +176,7 @@ Categorize sectors dynamically based on yesterday's data:
 """
 
     print("  [market_agent] Generating market brief using LLM...")
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-120b:free",
+    response = llm_chat(
         messages=[{"role": "user", "content": prompt}],
         max_tokens=3000,
         temperature=0.2,
@@ -187,10 +186,18 @@ Categorize sectors dynamically based on yesterday's data:
     print("  [market_agent] Validating output rules...")
     final_output = validate(final_output)
 
+    try:
+        prediction = extract_predictions(final_output, date_key)
+        save_text_artifact(date_key, "morning_brief.md", final_output)
+        save_json_artifact(date_key, "morning_prediction.json", prediction)
+        print(f"  [market_agent] saved structured artifacts for {date_key}")
+    except Exception as e:
+        print(f"  [market_agent] artifact save failed: {e}")
+
     log_session(
         query="daily_brief",
         agent="market_agent",
-        model="gpt-oss-120b",
+        model="llm_client",
         result=final_output,
         duration_ms=int((time.time() - start) * 1000),
     )

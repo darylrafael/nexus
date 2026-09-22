@@ -1,4 +1,4 @@
-﻿from agents.web_agent import search_web
+from agents.web_agent import search_web
 
 # Economic logic only — NO hardcoded tickers
 # Tickers are discovered dynamically via search
@@ -33,6 +33,8 @@ RUPIAH_LOGIC = {
 }
 
 
+from agents.web_agent import search_web, search_multiple
+
 def get_affected_stocks(commodity: str, direction: str, current_date: str) -> str:
     """Dynamically search for IDX stocks affected by this commodity move."""
     dir_word_id = "naik" if direction == "up" else "turun"
@@ -40,13 +42,12 @@ def get_affected_stocks(commodity: str, direction: str, current_date: str) -> st
 
     print(f"  [economics] searching affected stocks: {commodity} {dir_word_en}")
 
-    result_id = search_web(
-        f"saham IDX BEI terdampak harga {commodity} {dir_word_id} {current_date}", days=2
-    )
-    result_en = search_web(
-        f"IDX Indonesia stocks affected {commodity} price {dir_word_en} {current_date}", days=2
-    )
-    return f"{result_id}\n{result_en}"
+    queries = {
+        "id": f"saham IDX BEI terdampak harga {commodity} {dir_word_id} {current_date}",
+        "en": f"IDX Indonesia stocks affected {commodity} price {dir_word_en} {current_date}"
+    }
+    results = search_multiple(queries, days=2)
+    return f"{results['id']}\n{results['en']}"
 
 
 def build_economics_context(

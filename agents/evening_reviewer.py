@@ -4,36 +4,69 @@ Full 7-step post-market evaluation and learning pipeline.
 """
 import json
 import re
-import yfinance as yf
 from datetime import datetime
-from openai import OpenAI
-from dataclasses import asdict
-
-from agents.web_agent import search_web, search_multiple
+from pathlib import Path
+from llm_client import llm_chat
+from agents.web_agent import search_multiple
 from agents.prediction_extractor import extract_predictions, MarketPrediction
-from memory.obsidian import read_note, write_note
-from memory.learning_store import save_learning, load_recent_learnings, update_performance_stats
-from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL
-
-client = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
-
+from data_sources.market_data import (
+    COMMODITY_TICKERS,
+    fetch_ihsg_snapshot,
+    fetch_usdidr_snapshot,
+    fetch_yfinance_commodity,
+    jakarta_now,
+)
+from data_sources.news import search_text_with_sources
+from memory.artifacts import load_json_artifact, save_json_artifact
+from memory.obsidian import read_note
+from memory.learning_store import save_learning, update_performance_stats
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# STEP 1 — Read morning brief from Obsidian
+# STEP 1 — Read morning brief (Obsidian → local artifact fallback)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def load_morning_brief(date_key: str) -> tuple:
     """
-    Read morning brief note from Obsidian.
+    Read morning brief — tries Obsidian first, falls back to local artifact.
+
+    Fallback path: runs/{date_key}/morning_brief.md
+    This file is always written by market_agent.run_market_brief() regardless
+    of whether Obsidian is running, so the evening review is resilient to
+    Obsidian being offline.
+
     Returns (MarketPrediction, raw_brief_text) or (None, None) if not found.
     """
     note_title = f"{date_key} - IHSG Market Brief"
     raw = read_note(note_title)
+
+    # Fallback: Obsidian unavailable or returned empty — read local artifact
+    if not raw or len(raw.strip()) < 100:
+        print(f"  [step1] ⚠️  Obsidian returned nothing. Trying local artifact...")
+        artifact_path = Path(__file__).parent.parent / "runs" / date_key / "morning_brief.md"
+        if artifact_path.exists():
+            raw = artifact_path.read_text(encoding="utf-8")
+            print(f"  [step1] 📁 Loaded morning brief from local file: {artifact_path}")
+        else:
+            print(f"  [step1] ❌ No local artifact found either: {artifact_path}")
+
     if not raw or len(raw.strip()) < 100:
         print(f"  [step1] ❌ Morning brief not found for {date_key}. Stopping.")
         return None, None
-    pred = extract_predictions(raw, date_key)
-    print(f"  [step1] ✅ Brief loaded. IHSG pred={pred.ihsg_signal} ({pred.ihsg_confidence}%)")
+
+    # Try structured JSON artifact first (faster + exact), fall back to parsing markdown
+    structured = load_json_artifact(date_key, "morning_prediction.json")
+    if structured:
+        try:
+            pred = MarketPrediction(**structured)
+            print(f"  [step1] ✅ Structured prediction loaded from JSON artifact.")
+        except Exception:
+            pred = extract_predictions(raw, date_key)
+            print(f"  [step1] ✅ Brief loaded (JSON artifact malformed; parsed markdown).")
+    else:
+        pred = extract_predictions(raw, date_key)
+        print(f"  [step1] ✅ Brief loaded (no JSON artifact; parsed markdown).")
+
+    print(f"  [step1]    IHSG pred={pred.ihsg_signal} ({pred.ihsg_confidence}%)")
     return pred, raw
 
 
@@ -44,28 +77,12 @@ def load_morning_brief(date_key: str) -> tuple:
 def collect_actual_data(date_id: str) -> dict:
     """Fetch IHSG, commodities, rupiah, top movers from yfinance + web search."""
     data = {}
+    data["evidence_ids"] = []
 
     # IHSG
     print("  [step2] fetching IHSG actual...")
     try:
-        ihsg = yf.Ticker("^JKSE")
-        hist = ihsg.history(period="2d")
-        if len(hist) >= 2:
-            close = hist.iloc[-1]["Close"]
-            prev  = hist.iloc[-2]["Close"]
-            pct   = (close - prev) / prev * 100
-            pts   = close - prev
-            data["ihsg_close"]    = round(close, 2)
-            data["ihsg_prev"]     = round(prev, 2)
-            data["ihsg_change_pct"] = round(pct, 2)
-            data["ihsg_change_pts"] = round(pts, 2)
-            data["ihsg_signal"]   = "Bullish" if pct > 0.2 else ("Bearish" if pct < -0.2 else "Neutral")
-            data["ihsg_open"]     = round(hist.iloc[-1]["Open"], 2)
-            data["ihsg_high"]     = round(hist.iloc[-1]["High"], 2)
-            data["ihsg_low"]      = round(hist.iloc[-1]["Low"], 2)
-            data["ihsg_volume"]   = int(hist.iloc[-1]["Volume"])
-        else:
-            data["ihsg_signal"] = "Unknown"
+        data.update(fetch_ihsg_snapshot())
     except Exception as e:
         print(f"  [step2] IHSG error: {e}")
         data["ihsg_signal"] = "Unknown"
@@ -73,38 +90,19 @@ def collect_actual_data(date_id: str) -> dict:
     # Rupiah (USD/IDR)
     print("  [step2] fetching USD/IDR...")
     try:
-        idr = yf.Ticker("USDIDR=X")
-        fi  = idr.fast_info
-        rate = fi.last_price
-        prev_rate = fi.previous_close
-        pct_idr = (rate - prev_rate) / prev_rate * 100 if prev_rate else 0
-        data["usdidr"]         = round(rate, 0)
-        data["usdidr_change_pct"] = round(pct_idr, 3)
-        data["rupiah_signal"]  = "Weakened" if pct_idr > 0 else "Strengthened"
+        data.update(fetch_usdidr_snapshot())
     except Exception as e:
         print(f"  [step2] USD/IDR error: {e}")
         data["usdidr"] = "N/A"
 
     # Commodities via yfinance
     print("  [step2] fetching commodity prices...")
-    commodity_tickers = {
-        "Crude Oil (WTI)": "CL=F",
-        "Natural Gas":     "NG=F",
-        "Brent Crude":     "BZ=F",
-    }
     data["commodities"] = {}
-    for name, ticker in commodity_tickers.items():
+    for name, ticker in COMMODITY_TICKERS.items():
         try:
-            t     = yf.Ticker(ticker)
-            price = t.fast_info.last_price
-            prev  = t.fast_info.previous_close
-            pct   = (price - prev) / prev * 100 if prev else 0
-            data["commodities"][name] = {
-                "price": round(price, 2),
-                "change_pct": round(pct, 2),
-                "signal": "Up" if pct > 0 else "Down"
-            }
-        except:
+            data["commodities"][name] = fetch_yfinance_commodity(name, ticker)
+        except Exception as e:
+            print(f"  [step2] commodity error for {name}: {e}")
             data["commodities"][name] = {"price": "N/A", "change_pct": 0, "signal": "Unknown"}
 
     # Coal, CPO, Nickel — web search (no free yfinance ticker)
@@ -115,34 +113,54 @@ def collect_actual_data(date_id: str) -> dict:
         "Nickel (LME)":      f"harga nikel LME hari ini {date_id}",
     }.items():
         try:
-            result = search_web(query, days=1)
-            data["commodities"][name] = {"raw": result[:200]}
-        except:
+            result, source_ids = search_text_with_sources(query, days=1, category=name, limit_chars=200)
+            data["commodities"][name] = {"raw": result}
+            data["evidence_ids"].extend(source_ids)
+        except Exception as e:
+            print(f"  [step2] web commodity error for {name}: {e}")
             data["commodities"][name] = {"raw": "N/A"}
 
     # Top gainers / losers
     print("  [step2] fetching top movers...")
     try:
-        data["top_movers"] = search_web(
-            f"saham naik turun terbesar IHSG top gainer loser {date_id}", days=1
-        )[:600]
-    except:
+        text, source_ids = search_text_with_sources(
+            f"saham naik turun terbesar IHSG top gainer loser {date_id}",
+            days=1,
+            category="top_movers",
+            limit_chars=600,
+        )
+        data["top_movers"] = text
+        data["evidence_ids"].extend(source_ids)
+    except Exception as e:
+        print(f"  [step2] top movers error: {e}")
         data["top_movers"] = "N/A"
 
     # Sector performance (crucial for sector accuracy evaluation)
     print("  [step2] fetching sector performance...")
     try:
-        data["sector_performance"] = search_web(
-            f"performa sektor IHSG hari ini {date_id} sektor naik turun terbesar", days=1
-        )[:600]
-    except:
+        text, source_ids = search_text_with_sources(
+            f"performa sektor IHSG hari ini {date_id} sektor naik turun terbesar",
+            days=1,
+            category="sector_performance",
+            limit_chars=600,
+        )
+        data["sector_performance"] = text
+        data["evidence_ids"].extend(source_ids)
+    except Exception as e:
+        print(f"  [step2] sector performance error: {e}")
         data["sector_performance"] = "N/A"
 
     # Foreign flow
     print("  [step2] fetching foreign flow...")
     try:
-        ff_raw = search_web(f"asing net buy sell IHSG investor asing {date_id}", days=1)
+        ff_raw, source_ids = search_text_with_sources(
+            f"asing net buy sell IHSG investor asing {date_id}",
+            days=1,
+            category="foreign_flow",
+            limit_chars=500,
+        )
         data["foreign_flow_raw"] = ff_raw[:500]
+        data["evidence_ids"].extend(source_ids)
         t = ff_raw.lower()
         if "net buy" in t or "beli asing" in t:
             data["foreign_flow_signal"] = "Accumulation"
@@ -150,7 +168,8 @@ def collect_actual_data(date_id: str) -> dict:
             data["foreign_flow_signal"] = "Distribution"
         else:
             data["foreign_flow_signal"] = "Stagnant/Sideways"
-    except:
+    except Exception as e:
+        print(f"  [step2] foreign flow error: {e}")
         data["foreign_flow_signal"] = "Unknown"
         data["foreign_flow_raw"]    = "N/A"
 
@@ -207,6 +226,9 @@ def run_llm_analysis(
         elif isinstance(val, dict) and "raw" in val:
             commodity_str += f"  - {name}: {val['raw'][:100]}\n"
 
+    volume = actual.get("ihsg_volume")
+    volume_str = f"{volume:,}" if isinstance(volume, (int, float)) else "N/A"
+
     prompt = f"""You are a quantitative analyst performing a post-market evaluation of a morning brief prediction.
 Date: {date} ({date_id})
 
@@ -223,7 +245,7 @@ Tickers Mentioned: {', '.join(pred.recommended_tickers[:15])}
 ═══ ACTUAL RESULTS ═══
 IHSG Close: {actual.get('ihsg_close', 'N/A')} ({actual.get('ihsg_change_pct', 0):+.2f}%, {actual.get('ihsg_change_pts', 0):+.1f} pts)
 IHSG Open/High/Low: {actual.get('ihsg_open','?')} / {actual.get('ihsg_high','?')} / {actual.get('ihsg_low','?')}
-IHSG Volume: {actual.get('ihsg_volume', 'N/A'):,}
+IHSG Volume: {volume_str}
 IHSG Signal: {actual.get('ihsg_signal', 'Unknown')}
 USD/IDR: {actual.get('usdidr', 'N/A')} ({actual.get('usdidr_change_pct', 0):+.3f}%) — Rupiah {actual.get('rupiah_signal', '?')}
 Foreign Flow Actual: {actual.get('foreign_flow_signal', 'Unknown')}
@@ -281,14 +303,16 @@ CRITICAL RULES:
 """
 
     try:
-        response = client.chat.completions.create(
-            model="openai/gpt-oss-120b:free",
+        response = llm_chat(
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1500,
-            temperature=0.1
+            temperature=0.1,
         )
         raw = response.choices[0].message.content
-        raw = re.sub(r"```json|```", "", raw).strip()
+        # Extract everything inside the outermost { } to ignore markdown/intro text
+        match = re.search(r'\{[\s\S]*\}', raw)
+        if match:
+            raw = match.group(0)
         return json.loads(raw)
     except Exception as e:
         print(f"  [step4-6] LLM failed: {e}")
@@ -299,7 +323,6 @@ CRITICAL RULES:
                 "ihsg_actual": actual.get("ihsg_signal", "Unknown"),
                 "ihsg_actual_pct": actual.get("ihsg_change_pct", 0),
                 "foreign_flow_correct": actual.get("foreign_flow_signal") == pred.foreign_flow_signal,
-                "error_rate_pct": 50
             },
             "step5_rca": {
                 "unanticipated_factors": [],
@@ -346,7 +369,7 @@ def run_evening_review() -> dict | None:
     Full 7-step evening review pipeline.
     Returns learning dict, or None if morning brief not found.
     """
-    now      = datetime.now()
+    now      = jakarta_now()
     date_key = now.strftime("%Y-%m-%d")
     date_str = now.strftime("%B %d, %Y")
     date_id  = now.strftime("%d %B %Y")
@@ -363,6 +386,10 @@ def run_evening_review() -> dict | None:
     # ── Step 2: Collect actuals ─────────────────────────────────
     print("\n[Step 2] Collecting actual market data...")
     actual = collect_actual_data(date_id)
+    try:
+        save_json_artifact(date_key, "evening_actuals.json", actual)
+    except Exception as e:
+        print(f"  [evening_reviewer] actuals artifact save failed: {e}")
 
     # ── Step 3: Unexpected news ─────────────────────────────────
     print("\n[Step 3] Searching unexpected news...")
@@ -388,7 +415,6 @@ def run_evening_review() -> dict | None:
         "foreign_flow_actual":     ev.get("foreign_flow_actual", actual.get("foreign_flow_signal", "?")),
         "foreign_flow_correct":    ev.get("foreign_flow_correct", False),
         "sector_accuracy":         ev.get("sector_accuracy", {}),
-        "ticker_accuracy":         ev.get("ticker_accuracy", {}),
         "error_rate_pct":          ev.get("error_rate_pct", 100 - accuracy),
         "accuracy_score":          accuracy,
         "rca_unanticipated":       analysis.get("step5_rca", {}).get("unanticipated_factors", []),
@@ -404,6 +430,10 @@ def run_evening_review() -> dict | None:
 
     # Save structured learning note
     save_learning(date_key, learning)
+    try:
+        save_json_artifact(date_key, "evening_review.json", learning)
+    except Exception as e:
+        print(f"  [evening_reviewer] review artifact save failed: {e}")
 
     # Update rolling performance stats
     update_performance_stats(learning)
