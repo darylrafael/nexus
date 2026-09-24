@@ -32,7 +32,12 @@ def load_json_artifact(date_key: str, filename: str) -> Any | None:
     path = ARTIFACT_ROOT / date_key / filename
     if not path.exists():
         return None
-    return json.loads(path.read_text(encoding="utf-8"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        # Artifacts are a resilience layer; a partial write must not abort a run.
+        print(f"  [artifacts] skipped unreadable JSON artifact {path.name}: {exc}")
+        return None
 
 
 def save_text_artifact(date_key: str, filename: str, content: str) -> Path:

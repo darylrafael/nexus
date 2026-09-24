@@ -6,9 +6,12 @@ import Database from 'better-sqlite3';
 export async function GET() {
   try {
     const nexusRoot = path.join(process.cwd(), '..');
+    const isDemo = process.env.NEXUS_DEMO_MODE === 'true';
     
-    // 1. Get runs from the file system (Artifacts)
-    const runsDir = path.join(nexusRoot, 'runs');
+    // Demo fixtures are opt-in so illustrative forecasts never mix with live runs.
+    const runsDir = isDemo
+      ? path.join(nexusRoot, 'demo_data', 'runs')
+      : path.join(nexusRoot, 'runs');
     let reviews = [];
     
     if (fs.existsSync(runsDir)) {
@@ -34,7 +37,7 @@ export async function GET() {
     const dbPath = path.join(nexusRoot, 'nexus_sessions.db');
     let totalRuns = 0;
     
-    if (fs.existsSync(dbPath)) {
+    if (!isDemo && fs.existsSync(dbPath)) {
       const db = new Database(dbPath, { readonly: true });
       const row = db.prepare('SELECT COUNT(id) as total_runs FROM sessions').get();
       if (row) {
@@ -61,10 +64,11 @@ export async function GET() {
     
     return NextResponse.json({
       success: true,
+      isDemo,
       stats: {
         totalDays,
         avgAccuracy,
-        totalRuns
+        totalRuns: isDemo ? reviews.length * 2 : totalRuns
       },
       recentLessons: recentLessons.slice(0, 10), // Top 10 most recent
       reviews

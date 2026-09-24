@@ -125,6 +125,13 @@ def update_performance_stats(learning: dict) -> bool:
     """Append today's result to cumulative stats and save to local JSON + Obsidian."""
     stats = load_performance_stats()
 
+    processed_dates = stats.setdefault("processed_dates", [])
+    already_processed = learning.get("date") in processed_dates
+    if already_processed:
+        print(f"  [learning_store] stats already include {learning.get('date')}; skipping duplicate count")
+        return True
+
+    processed_dates.append(learning.get("date"))
     stats["total_sessions"] += 1
     stats["total_accuracy_sum"] += learning.get("accuracy_score", 0)
     stats["rolling_avg_accuracy"] = round(
@@ -272,6 +279,7 @@ def _empty_stats() -> dict:
         "ff_accuracy_pct": 0.0,
         "missed_factor_counts": {},
         "all_lessons": [],
+        "processed_dates": [],
         "last_updated": ""
     }
 

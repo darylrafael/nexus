@@ -3,14 +3,14 @@ from agents.market_agent import run_market_brief
 from agents.evening_reviewer import run_evening_review
 from delivery.telegram import send_report
 from memory.obsidian import write_note
-from datetime import datetime
+from data_sources.market_data import jakarta_now
 import traceback
 
 scheduler = BlockingScheduler(timezone="Asia/Jakarta")
 
 
 def daily_brief():
-    now          = datetime.now()
+    now          = jakarta_now()
     date_key     = now.strftime("%Y-%m-%d")
     current_date = now.strftime("%B %d, %Y")
 
@@ -37,7 +37,7 @@ def daily_brief():
 
 
 def evening_review():
-    now      = datetime.now()
+    now      = jakarta_now()
     date_key = now.strftime("%Y-%m-%d")
 
     print(f"\n[scheduler] Evening review starting -- {now.strftime('%H:%M')}")
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     try:
         send_report(
             f"\U0001f7e2 *Nexus Scheduler Started*\n"
-            f"_{datetime.now().strftime('%Y-%m-%d %H:%M')}_\n\n"
+            f"_{jakarta_now().strftime('%Y-%m-%d %H:%M')}_\n\n"
             f"Morning brief: Mon-Fri 07:00\n"
             f"Evening review: Mon-Fri 19:00"
         )

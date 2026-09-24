@@ -78,7 +78,7 @@ The morning brief LLM receives a **calibration block** containing:
 
 | Component | Tool | Role |
 |-----------|------|------|
-| Orchestration | OpenRouter (GPT-OSS-120B) | Market brief generation, RCA, reflection |
+| Orchestration | OpenRouter + Gemini fallback | Market brief generation, RCA, reflection |
 | Web search | Tavily | News, commodity prices, market movers |
 | Market data | yfinance | IHSG, Oil, Gas, Brent, USD/IDR live prices |
 | Memory | Obsidian Local REST API | Persistent note storage across sessions |
@@ -142,6 +142,31 @@ python -c "from scheduler import evening_review; evening_review()"
 python scheduler.py
 ```
 
+On Windows, `register_tasks.ps1` registers the two weekday tasks using paths relative to the cloned repository:
+
+```powershell
+.\register_tasks.ps1
+```
+
+### Dashboard demo
+
+The local dashboard reads generated artifacts and session counts directly from the project folder. Run it after at least one evening review:
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+Open [http://127.0.0.1:3001](http://127.0.0.1:3001). For a production-mode demo, use `npm run build` followed by `npm run start`.
+
+### Verification
+
+```bash
+python -m unittest discover -s tests -v
+cd dashboard && npm run lint && npm run build
+```
+
 ---
 
 ## Project Structure
@@ -195,4 +220,12 @@ nexus/
 
 ---
 
-*Built with Python 3.11 · OpenRouter · Tavily · yfinance · Obsidian · Telegram*
+## Notes for reviewers
+
+- This is an educational portfolio project, not investment advice. Market outputs are hypotheses generated from public data and may be wrong.
+- Credentials stay in `.env`, which is ignored by Git. Start from `.env.example`; never commit a populated `.env` file.
+- LLM model IDs can be overridden in `.env`, so provider changes do not require source-code edits.
+- Obsidian and Telegram are optional delivery integrations. Local artifacts in `runs/` keep the evening-review and dashboard demo usable when Obsidian is offline.
+- If a virtual environment was copied or moved, recreate it with the setup commands above; virtual environments embed the path to the Python installation that created them.
+
+*Built with Python 3.11 · OpenRouter · Tavily · yfinance · Obsidian · Telegram · Next.js*

@@ -1,8 +1,8 @@
 # PowerShell script to register Nexus tasks to wake up and run at 06:59 and 18:59 Mon-Fri
 
-# Define actions
-$BriefAction = New-ScheduledTaskAction -Execute "C:\Users\Lenovo\nexus\run_brief.bat"
-$ReviewAction = New-ScheduledTaskAction -Execute "C:\Users\Lenovo\nexus\run_review.bat"
+# Define actions relative to this repository so clones work anywhere.
+$BriefAction = New-ScheduledTaskAction -Execute (Join-Path $PSScriptRoot "run_brief.bat")
+$ReviewAction = New-ScheduledTaskAction -Execute (Join-Path $PSScriptRoot "run_review.bat")
 
 # Define triggers (Weekly trigger for Mon-Fri at 6:59 AM and 6:59 PM)
 $BriefTrigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday, Tuesday, Wednesday, Thursday, Friday -At 6:59AM

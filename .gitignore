@@ -22,3 +22,6 @@ runs/
 # OS
 .DS_Store
 Thumbs.db
+
+# Agent / IDE internal
+.superpowers/

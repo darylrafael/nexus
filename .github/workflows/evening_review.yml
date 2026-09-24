@@ -1,0 +1,54 @@
+name: Nexus Evening Review
+
+on:
+  schedule:
+    # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri
+    - cron: '55 11 * * 1-5'
+  workflow_dispatch: # Allows manual on-demand trigger from GitHub Web & Mobile App
+
+jobs:
+  evening-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Evening Review
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUTF8: "1"
+        run: |
+          python -c "from scheduler import evening_review; evening_review()"
+
+      - name: Commit and push run artifacts
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add -f runs/
+          if git diff --staged --quiet; then
+            echo "No new artifacts to commit."
+          else
+            git commit -m "chore(data): auto-archive evening review artifacts [skip ci]"
+            git push
+          fi

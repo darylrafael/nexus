@@ -39,18 +39,18 @@ def load_morning_brief(date_key: str) -> tuple:
     note_title = f"{date_key} - IHSG Market Brief"
     raw = read_note(note_title)
 
-    # Fallback: Obsidian unavailable or returned empty — read local artifact
+    # Fallback to local artifacts directory if Obsidian is offline
     if not raw or len(raw.strip()) < 100:
-        print(f"  [step1] ⚠️  Obsidian returned nothing. Trying local artifact...")
+        print(f"  [step1] [WARN] Obsidian returned nothing. Trying local artifact...")
         artifact_path = Path(__file__).parent.parent / "runs" / date_key / "morning_brief.md"
         if artifact_path.exists():
             raw = artifact_path.read_text(encoding="utf-8")
-            print(f"  [step1] 📁 Loaded morning brief from local file: {artifact_path}")
+            print(f"  [step1] [OK] Loaded morning brief from local file: {artifact_path}")
         else:
-            print(f"  [step1] ❌ No local artifact found either: {artifact_path}")
+            print(f"  [step1] [ERR] No local artifact found either: {artifact_path}")
 
     if not raw or len(raw.strip()) < 100:
-        print(f"  [step1] ❌ Morning brief not found for {date_key}. Stopping.")
+        print(f"  [step1] [ERR] Morning brief not found for {date_key}. Stopping.")
         return None, None
 
     # Try structured JSON artifact first (faster + exact), fall back to parsing markdown
@@ -313,7 +313,10 @@ CRITICAL RULES:
         match = re.search(r'\{[\s\S]*\}', raw)
         if match:
             raw = match.group(0)
-        return json.loads(raw)
+        analysis = json.loads(raw)
+        if not isinstance(analysis, dict):
+            raise ValueError("LLM evaluation must be a JSON object")
+        return analysis
     except Exception as e:
         print(f"  [step4-6] LLM failed: {e}")
         return {
@@ -342,6 +345,7 @@ CRITICAL RULES:
 
 def _accuracy_from_analysis(analysis: dict) -> int:
     ev = analysis.get("step4_evaluation", {})
+    ev = ev if isinstance(ev, dict) else {}
     correct = 0
     total   = 0
 
@@ -352,12 +356,33 @@ def _accuracy_from_analysis(analysis: dict) -> int:
             total   += 1
 
     # Only count sectors where LLM had actual data (true/false), skip null
-    for val in ev.get("sector_accuracy", {}).values():
+    sector_accuracy = ev.get("sector_accuracy", {})
+    sector_accuracy = sector_accuracy if isinstance(sector_accuracy, dict) else {}
+    for val in sector_accuracy.values():
         if isinstance(val, bool):
             correct += int(val)
             total   += 1
 
     return int(correct / total * 100) if total > 0 else 0
+
+
+def _number(value, default: float = 0.0) -> float:
+    """Return a safe numeric value when an LLM/API field is absent or malformed."""
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _boolean(value) -> bool:
+    """Only accept real booleans; JSON strings such as 'false' are not truthy."""
+    return value is True
+
+
+def _string_list(value) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [item for item in value if isinstance(item, str) and item.strip()]
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -403,27 +428,33 @@ def run_evening_review() -> dict | None:
     print("\n[Step 7] Saving learning and updating performance stats...")
     accuracy = _accuracy_from_analysis(analysis)
     ev = analysis.get("step4_evaluation", {})
+    ev = ev if isinstance(ev, dict) else {}
+
+    rca = analysis.get("step5_rca", {})
+    rca = rca if isinstance(rca, dict) else {}
+    sector_accuracy = ev.get("sector_accuracy", {})
+    sector_accuracy = sector_accuracy if isinstance(sector_accuracy, dict) else {}
 
     learning = {
         "date":                    date_key,
         "ihsg_predicted":          pred.ihsg_signal,
         "ihsg_confidence":         pred.ihsg_confidence,
         "ihsg_actual":             ev.get("ihsg_actual", actual.get("ihsg_signal", "?")),
-        "ihsg_actual_pct":         ev.get("ihsg_actual_pct", actual.get("ihsg_change_pct", 0)),
-        "ihsg_correct":            ev.get("ihsg_correct", False),
+        "ihsg_actual_pct":         _number(ev.get("ihsg_actual_pct", actual.get("ihsg_change_pct", 0))),
+        "ihsg_correct":            _boolean(ev.get("ihsg_correct")),
         "foreign_flow_predicted":  pred.foreign_flow_signal,
         "foreign_flow_actual":     ev.get("foreign_flow_actual", actual.get("foreign_flow_signal", "?")),
-        "foreign_flow_correct":    ev.get("foreign_flow_correct", False),
-        "sector_accuracy":         ev.get("sector_accuracy", {}),
-        "error_rate_pct":          ev.get("error_rate_pct", 100 - accuracy),
+        "foreign_flow_correct":    _boolean(ev.get("foreign_flow_correct")),
+        "sector_accuracy":         sector_accuracy,
+        "error_rate_pct":          100 - accuracy,
         "accuracy_score":          accuracy,
-        "rca_unanticipated":       analysis.get("step5_rca", {}).get("unanticipated_factors", []),
-        "rca_overestimated":       analysis.get("step5_rca", {}).get("overestimated_factors", []),
-        "rca_underestimated":      analysis.get("step5_rca", {}).get("underestimated_factors", []),
-        "rca_info_delay":          analysis.get("step5_rca", {}).get("information_delay_factors", []),
-        "rca_inverse_correlation": analysis.get("step5_rca", {}).get("inverse_correlation_cases", []),
-        "lessons":                 analysis.get("step6_lessons", []),
-        "summary":                 analysis.get("summary_sentence", ""),
+        "rca_unanticipated":       _string_list(rca.get("unanticipated_factors")),
+        "rca_overestimated":       _string_list(rca.get("overestimated_factors")),
+        "rca_underestimated":      _string_list(rca.get("underestimated_factors")),
+        "rca_info_delay":          _string_list(rca.get("information_delay_factors")),
+        "rca_inverse_correlation": _string_list(rca.get("inverse_correlation_cases")),
+        "lessons":                 _string_list(analysis.get("step6_lessons")),
+        "summary":                 analysis.get("summary_sentence", "") if isinstance(analysis.get("summary_sentence", ""), str) else "",
         "actual_usdidr":           actual.get("usdidr", "N/A"),
         "actual_commodities":      {k: v for k, v in actual.get("commodities", {}).items()},
     }
