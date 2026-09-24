@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import LessonsDatabaseView from "../components/views/LessonsDatabaseView";
 
 const formatPct = (value) => {
   const num = Number(value);
@@ -474,7 +475,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
   );
 }
 
-function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
+function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'market', onSelectView }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -487,7 +488,11 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
       <nav className="sidebar-nav">
         <div className="nav-group">
           <div className="nav-section-title">Intelligence</div>
-          <a className="nav-item active">
+          <a 
+            className={`nav-item ${currentView === 'market' ? 'active' : ''}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('market'); }}
+            href="#market"
+          >
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
               <line x1="3" y1="9" x2="21" y2="9" />
@@ -495,7 +500,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
             </svg>
             Market Reviews
           </a>
-          <a className="nav-item">
+          <a className="nav-item" style={{ opacity: 0.5, cursor: 'default' }} title="Embedded in Market Reviews">
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
             </svg>
@@ -504,13 +509,17 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
         </div>
         <div className="nav-group">
           <div className="nav-section-title">System Operations</div>
-          <a className="nav-item">
+          <a 
+            className={`nav-item ${currentView === 'lessons' ? 'active' : ''}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('lessons'); }}
+            href="#lessons"
+          >
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
             Lessons Database
           </a>
-          <a className="nav-item">
+          <a className="nav-item" style={{ opacity: 0.5, cursor: 'default' }} title="Locked system parameters">
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <circle cx="12" cy="12" r="3" />
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -530,7 +539,10 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
               <button
                 key={r.date}
                 className={`sidebar-session-item ${isSel ? "active" : ""}`}
-                onClick={() => onSelectDate && onSelectDate(r.date)}
+                onClick={() => {
+                  if (onSelectView) onSelectView('market');
+                  if (onSelectDate) onSelectDate(r.date);
+                }}
               >
                 <span className="font-mono">{formatHeaderDate(r.date)}</span>
                 <span className={`font-mono ${r.isPendingReview ? "text-warning" : (r.ihsg_correct ? "text-matched" : "text-missed")}`}>
@@ -581,6 +593,7 @@ export default function Dashboard() {
   const [theme, setTheme] = useState("dark");
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState(null);
+  const [currentView, setCurrentView] = useState("market");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("nexus-theme") || "dark";
@@ -692,9 +705,12 @@ export default function Dashboard() {
         reviews={dashboard.reviews}
         selectedDate={selectedDate}
         onSelectDate={setSelectedDate}
+        currentView={currentView}
+        onSelectView={setCurrentView}
       />
 
       <main className="main-viewport">
+        {currentView === "market" && (
         <div className="content-container">
           <header className="page-header">
             <div>
@@ -1080,6 +1096,11 @@ export default function Dashboard() {
             </div>
           </section>
         </div>
+        )}
+
+        {currentView === "lessons" && (
+          <LessonsDatabaseView theme={theme} toggleTheme={toggleTheme} />
+        )}
       </main>
     </div>
   );
