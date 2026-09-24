@@ -45,10 +45,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git pull --rebase
-          git add -f runs/
+          mkdir -p dashboard/data/runs
+          cp -r runs/* dashboard/data/runs/ 2>/dev/null || true
+          git add -f runs/ dashboard/data/runs/
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
-            git commit -m "chore(data): auto-archive morning brief artifacts [skip ci]"
+            git commit -m "chore(data): auto-archive morning brief artifacts"
             git push
           fi
