@@ -251,7 +251,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       </div>
 
       {/* 01 · KPI Header */}
-      <div className="section-eyebrow font-mono">01 · AUTONOMOUS REFLECTION &amp; KNOWLEDGE OVERVIEW</div>
+      <div className="section-eyebrow font-mono">
+        <span className="console-prompt">//</span> 01 · AUTONOMOUS REFLECTION &amp; KNOWLEDGE OVERVIEW
+      </div>
       <section className="kpi-row">
         {/* Card 1: Total Lessons */}
         <div className="kpi-card">
@@ -336,7 +338,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       </section>
 
       {/* 02 · Twin Panes: Blind Spots & Operational Logic */}
-      <div className="section-eyebrow font-mono">02 · RECURRING FACTOR ATTRIBUTION &amp; SELF-CORRECTION</div>
+      <div className="section-eyebrow font-mono">
+        <span className="console-prompt">//</span> 02 · RECURRING FACTOR ATTRIBUTION &amp; SELF-CORRECTION
+      </div>
       <section className="eval-section">
         <header className="eval-header">
           <div className="eval-header-title">Macro Risk Factor Attribution &amp; Feedback Cycle</div>
@@ -415,7 +419,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       </section>
 
       {/* 03 · Table: Heuristic Rules & Provenance Ledger */}
-      <div className="section-eyebrow font-mono">03 · AUDITABLE HEURISTICS REPOSITORY</div>
+      <div className="section-eyebrow font-mono">
+        <span className="console-prompt">//</span> 03 · AUDITABLE HEURISTICS REPOSITORY
+      </div>
       <section className="history-section">
         <header className="history-header">
           <div>
