@@ -487,18 +487,22 @@ body {
   font-weight: 400;
 }
 
-/* Section Eyebrow (Technical CAD / Blueprint Prefix) */
+/* Section Eyebrow (Cadence Separator) */
 .section-eyebrow {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--text-tertiary);
+  color: #334155;
   text-transform: uppercase;
   margin-top: 36px;
   margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+[data-theme="dark"] .section-eyebrow {
+  color: #94a3b8;
 }
 
 .section-eyebrow:first-of-type {
@@ -1049,11 +1053,11 @@ body {
 }
 
 .macro-strip-cell {
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .macro-strip-cell:last-child {
@@ -1261,10 +1265,15 @@ body {
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
   font-family: var(--font-mono);
+  min-width: 110px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .type-unanticipated {

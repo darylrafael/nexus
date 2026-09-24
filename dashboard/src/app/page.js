@@ -275,7 +275,7 @@ function RCAPanel({ review }) {
             {lessons.map((lesson, idx) => (
               <div key={idx} className="rca-memory-card">
                 <div className="memory-card-label">
-                  <span className="memory-title font-mono">IDENTIFIED MARKET DYNAMIC</span>
+                  <span className="memory-title font-mono">HEURISTIC RULE</span>
                   <span className="memory-injected-pill font-mono">Injected → 07:00 Brief</span>
                 </div>
                 <p className="rca-lesson-text">"{cleanNarrative(lesson)}"</p>
@@ -614,6 +614,15 @@ export default function Dashboard() {
 
   const isHistorical = Boolean(activeReview && dashboard?.latest && activeReview.date !== dashboard.latest.date);
 
+  const benchmarkValue = useMemo(() => {
+    const lat = dashboard?.latest;
+    if (!lat) return "6,277.04";
+    if (lat.ihsg_close && Number.isFinite(Number(lat.ihsg_close))) return formatNumber(lat.ihsg_close);
+    const summaryMatch = (lat.summary || "").match(/(?:JCI|IHSG)\s+(?:closed at\s+)?([0-9,.]+)/i);
+    if (summaryMatch && summaryMatch[1]) return summaryMatch[1];
+    return "6,277.04";
+  }, [dashboard]);
+
   const filteredReviews = useMemo(() => {
     if (!dashboard) return [];
     if (filter === "matched") return dashboard.reviews.filter((r) => r.ihsg_correct);
@@ -706,7 +715,7 @@ export default function Dashboard() {
             <div className="context-item">
               <span className="context-label font-mono">BENCHMARK</span>
               <div className={`context-value font-mono font-semibold ${Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}`}>
-                {dashboard.latest?.ihsg_actual || "6,277.04"}{" "}
+                {benchmarkValue}{" "}
                 <span className="context-sub font-mono">({formatPct(dashboard.latest?.ihsg_actual_pct)})</span>
               </div>
             </div>
@@ -917,7 +926,7 @@ export default function Dashboard() {
                   <div className="eval-pane">
                     <div className="eval-pane-header">
                       <div className="eval-pane-header-left">
-                        <span className="eval-pane-title">Executive Synthesis &amp; Signals</span>
+                        <span className="eval-pane-title">Market Synthesis &amp; Signals</span>
                         <span className="eval-section-tag font-mono">07:00 → 19:00</span>
                       </div>
                       <span className="eval-section-tag font-mono">
@@ -928,7 +937,7 @@ export default function Dashboard() {
                     <div className="eval-pane-body" style={{ padding: 0 }}>
                       <div className="eval-pane-section">
                         <div className="eval-pane-section-header">
-                          <span className="eval-section-heading">Executive Market Brief</span>
+                          <span className="eval-section-heading">Session Briefing</span>
                           <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
                         </div>
                         <p className="eval-summary-text">{cleanNarrative(activeReview.summary) || "No executive summary logged."}</p>
