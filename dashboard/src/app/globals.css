@@ -101,6 +101,7 @@ body {
 .font-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .text-matched { color: var(--matched-text); }
 .text-missed { color: var(--missed-text); }
+.text-warning { color: var(--warning-text); }
 .text-muted { color: var(--text-secondary); }
 .text-xs { font-size: 11px; }
 .text-sm { font-size: 13px; }
@@ -729,6 +730,12 @@ body {
   border: 1px solid var(--missed-border);
 }
 
+.pip-pending {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border: 1px solid var(--warning-border);
+}
+
 .kpi-tag-visual {
   font-size: 11px;
   background-color: var(--surface-subtle);
@@ -872,6 +879,13 @@ body {
   background-color: var(--missed-bg);
   color: var(--missed-text);
   border: 1px solid var(--missed-border);
+}
+
+.dir-pending,
+.badge-pending {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border: 1px solid var(--warning-border);
 }
 
 /* 4-Column Execution Variance Bridge - Quantitative Attribution Matrix */
@@ -1657,6 +1671,12 @@ nextjs-portal,
   background-color: var(--missed-bg);
   color: var(--missed-text);
   border: 1px solid var(--missed-border);
+}
+
+.status-pending {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border: 1px solid var(--warning-border);
 }
 
 /* Empty / Center States */

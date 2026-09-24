@@ -105,7 +105,15 @@ function PerformanceSparkline({ reviews = [] }) {
   );
 }
 
-function StatusBadge({ correct, size = "md" }) {
+function StatusBadge({ correct, isPending, size = "md" }) {
+  if (isPending || correct === null || correct === undefined) {
+    return (
+      <span className={`status-pill status-pending ${size === "sm" ? "status-sm" : ""}`}>
+        <span className="status-indicator-dot" />
+        <span className="status-text">IN PROGRESS</span>
+      </span>
+    );
+  }
   return (
     <span className={`status-pill ${correct ? "status-matched" : "status-missed"} ${size === "sm" ? "status-sm" : ""}`}>
       <span className="status-indicator-dot" />
@@ -118,7 +126,10 @@ function DirectionBadge({ direction }) {
   const dir = (direction || "").toLowerCase();
   let badgeClass = "dir-neutral";
   let arrow = "—";
-  if (dir.includes("bullish") || dir.includes("up")) {
+  if (dir.includes("pending")) {
+    badgeClass = "dir-pending";
+    arrow = "⏳";
+  } else if (dir.includes("bullish") || dir.includes("up")) {
     badgeClass = "dir-bullish";
     arrow = "▲";
   } else if (dir.includes("bearish") || dir.includes("down")) {
@@ -139,21 +150,36 @@ function SectorAttribution({ review }) {
 
   if (entries.length === 0) return null;
 
+  const isPending = review?.isPendingReview;
+
   return (
     <div className="eval-pane-section">
       <div className="eval-pane-section-header">
         <span className="eval-section-heading">Deterministic Sector Engine</span>
-        <span className="eval-section-tag font-mono">Rule-Based Impact</span>
+        <span className="eval-section-tag font-mono">
+          {isPending ? "Today's Sector Bias" : "Rule-Based Impact"}
+        </span>
       </div>
       <div className="sector-tape">
-        {entries.map(([sector, isCorrect]) => (
-          <div className="sector-tile" key={sector}>
-            <span className="sector-name">{sector}</span>
-            <span className={`sector-indicator font-mono ${isCorrect ? "text-matched" : "text-missed"}`}>
-              {isCorrect ? "● Match" : "▲ Miss"}
-            </span>
-          </div>
-        ))}
+        {entries.map(([sector, statusOrHit]) => {
+          let label = "▲ Miss";
+          let cls = "text-missed";
+          if (isPending) {
+            cls = statusOrHit === 'BULLISH' ? "text-matched" : (statusOrHit === 'BEARISH' ? "text-missed" : "text-muted");
+            label = statusOrHit;
+          } else if (statusOrHit) {
+            cls = "text-matched";
+            label = "● Match";
+          }
+          return (
+            <div className="sector-tile" key={sector}>
+              <span className="sector-name">{sector}</span>
+              <span className={`sector-indicator font-mono ${cls}`}>
+                {label}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -290,7 +316,9 @@ function RCAPanel({ review }) {
 
         {!hasDiagnostics && lessons.length === 0 && (
           <p className="rca-content-muted">
-            Model parameters converged within target error bands. No active parameter revisions injected.
+            {review?.isPendingReview
+              ? "Trading session currently underway. Automated post-market attribution and root-cause analysis will execute at 18:55 WIB."
+              : "Model parameters converged within target error bands. No active parameter revisions injected."}
           </p>
         )}
       </div>
@@ -305,7 +333,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
   const bpsNum = Math.round(Number(review.ihsg_actual_pct || 0) * 100);
 
   const secEntries = Object.entries(review.sector_accuracy || {});
-  const secMatches = secEntries.filter(([_, hit]) => hit).length;
+  const secMatches = secEntries.filter(([_, hit]) => hit === true).length;
   const secTotal = secEntries.length;
 
   const rowUsdIdr = Number.isFinite(Number(review.actual_usdidr))
@@ -346,18 +374,22 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
           </div>
         </td>
         <td>
-          <DirectionBadge direction={review.ihsg_actual} />
+          <DirectionBadge direction={review.isPendingReview ? "PENDING" : review.ihsg_actual} />
         </td>
         <td>
-          <div className="delta-cell font-mono">
-            <span className={isUp ? "text-matched" : "text-missed"}>{formatPct(review.ihsg_actual_pct)}</span>
-            <span className="bps-text text-muted">({bpsNum > 0 ? `+${bpsNum}` : bpsNum} bps)</span>
-          </div>
+          {review.isPendingReview ? (
+            <span className="font-mono text-xs text-muted">In Progress</span>
+          ) : (
+            <div className="delta-cell font-mono">
+              <span className={isUp ? "text-matched" : "text-missed"}>{formatPct(review.ihsg_actual_pct)}</span>
+              <span className="bps-text text-muted">({bpsNum > 0 ? `+${bpsNum}` : bpsNum} bps)</span>
+            </div>
+          )}
         </td>
         <td>
           <div className="font-mono text-xs flow-cell">
             <span>{review.foreign_flow_actual || "N/A"}</span>
-            {review.foreign_flow_correct !== undefined && (
+            {review.foreign_flow_correct !== undefined && review.foreign_flow_correct !== null && (
               <span className={`font-semibold ${review.foreign_flow_correct ? "text-matched" : "text-missed"}`}>
                 ({review.foreign_flow_correct ? "✓" : "✗"})
               </span>
@@ -366,19 +398,25 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
         </td>
         <td>
           <span className="font-mono text-xs text-muted">
-            {secTotal > 0 ? `${secMatches}/${secTotal} (${Math.round((secMatches / secTotal) * 100)}%)` : "—"}
+            {review.isPendingReview
+              ? `${secTotal} Tracked`
+              : (secTotal > 0 ? `${secMatches}/${secTotal} (${Math.round((secMatches / secTotal) * 100)}%)` : "—")}
           </span>
         </td>
         <td>
-          <div className="accuracy-cell font-mono">
-            <span className="accuracy-text">{formatNumber(review.accuracy_score)}%</span>
-            <div className="accuracy-bar-track">
-              <div className="accuracy-bar-fill" style={{ width: `${accuracyNum}%` }} />
+          {review.isPendingReview ? (
+            <span className="font-mono text-xs text-muted">Pending</span>
+          ) : (
+            <div className="accuracy-cell font-mono">
+              <span className="accuracy-text">{formatNumber(review.accuracy_score)}%</span>
+              <div className="accuracy-bar-track">
+                <div className="accuracy-bar-fill" style={{ width: `${accuracyNum}%` }} />
+              </div>
             </div>
-          </div>
+          )}
         </td>
         <td>
-          <StatusBadge correct={review.ihsg_correct} size="sm" />
+          <StatusBadge correct={review.ihsg_correct} isPending={review.isPendingReview} size="sm" />
         </td>
       </tr>
       {expanded && (
@@ -495,8 +533,8 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
                 onClick={() => onSelectDate && onSelectDate(r.date)}
               >
                 <span className="font-mono">{formatHeaderDate(r.date)}</span>
-                <span className={`font-mono ${r.ihsg_correct ? "text-matched" : "text-missed"}`}>
-                  {r.ihsg_correct ? "● Hit" : "▲ Miss"}
+                <span className={`font-mono ${r.isPendingReview ? "text-warning" : (r.ihsg_correct ? "text-matched" : "text-missed")}`}>
+                  {r.isPendingReview ? "⏳ Live" : (r.ihsg_correct ? "● Hit" : "▲ Miss")}
                 </span>
               </button>
             );
@@ -576,16 +614,17 @@ export default function Dashboard() {
 
     const reviews = data.reviews || [];
     const latest = reviews[0];
-    const wins = reviews.filter((review) => review.ihsg_correct).length;
-    const winRate = reviews.length ? ((wins / reviews.length) * 100).toFixed(1) : "0.0";
+    const evaluatedReviews = reviews.filter((r) => !r.isPendingReview);
+    const wins = evaluatedReviews.filter((review) => review.ihsg_correct).length;
+    const winRate = evaluatedReviews.length ? ((wins / evaluatedReviews.length) * 100).toFixed(1) : "0.0";
     const avgAccuracy = Number(data.stats?.avgAccuracy || 0).toFixed(1);
 
     let totalSectorChecks = 0;
     let totalSectorHits = 0;
-    reviews.forEach((r) => {
+    evaluatedReviews.forEach((r) => {
       Object.values(r.sector_accuracy || {}).forEach((hit) => {
         totalSectorChecks += 1;
-        if (hit) totalSectorHits += 1;
+        if (hit === true) totalSectorHits += 1;
       });
     });
     const sectorHitRate = totalSectorChecks > 0 ? ((totalSectorHits / totalSectorChecks) * 100).toFixed(1) : "50.0";
@@ -594,10 +633,12 @@ export default function Dashboard() {
     return {
       stats: data.stats || {},
       reviews,
+      evaluatedReviews,
       latest,
       avgAccuracy,
       winRate,
       wins,
+      evaluatedCount: evaluatedReviews.length,
       totalSectorChecks,
       totalSectorHits,
       sectorHitRate,
@@ -625,8 +666,8 @@ export default function Dashboard() {
 
   const filteredReviews = useMemo(() => {
     if (!dashboard) return [];
-    if (filter === "matched") return dashboard.reviews.filter((r) => r.ihsg_correct);
-    if (filter === "missed") return dashboard.reviews.filter((r) => !r.ihsg_correct);
+    if (filter === "matched") return dashboard.reviews.filter((r) => r.ihsg_correct === true);
+    if (filter === "missed") return dashboard.reviews.filter((r) => !r.isPendingReview && r.ihsg_correct === false);
     return dashboard.reviews;
   }, [dashboard, filter]);
 
@@ -751,16 +792,16 @@ export default function Dashboard() {
                   {dashboard.reviews.map((r) => (
                     <span
                       key={r.date}
-                      className={`outcome-pip ${r.ihsg_correct ? "pip-hit" : "pip-miss"}`}
-                      title={`${formatHeaderDate(r.date)}: ${r.ihsg_correct ? "Hit" : "Miss"}`}
+                      className={`outcome-pip ${r.isPendingReview ? "pip-pending" : (r.ihsg_correct ? "pip-hit" : "pip-miss")}`}
+                      title={`${formatHeaderDate(r.date)}: ${r.isPendingReview ? "Live Session In Progress" : (r.ihsg_correct ? "Hit" : "Miss")}`}
                     >
-                      {r.ihsg_correct ? "● Hit" : "▲ Miss"}
+                      {r.isPendingReview ? "⏳ Live" : (r.ihsg_correct ? "● Hit" : "▲ Miss")}
                     </span>
                   ))}
                 </div>
               </div>
               <div className="kpi-context">
-                <span>{dashboard.wins} of {dashboard.reviews.length} sessions matched call</span>
+                <span>{dashboard.wins} of {dashboard.evaluatedCount} evaluated sessions matched call</span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -849,7 +890,9 @@ export default function Dashboard() {
               <section className="eval-section">
                 <header className="eval-header">
                   <div className="eval-header-title">
-                    {isHistorical ? "Historical Session Audit" : "Post-Market Evaluation"}
+                    {activeReview.isPendingReview
+                      ? "Active Trading Session — Pending 18:55 Review"
+                      : (isHistorical ? "Historical Session Audit" : "Post-Market Evaluation")}
                   </div>
                   <div className="eval-header-right">
                     {isHistorical && (
@@ -882,29 +925,43 @@ export default function Dashboard() {
                   <div className="bridge-cell">
                     <div className="bridge-cell-header font-mono">SESSION CLOSE (16:00)</div>
                     <div className="bridge-cell-body">
-                      <DirectionBadge direction={activeReview.ihsg_actual} />
-                      <span className={`font-mono text-sm font-semibold ${isUp ? "text-matched" : "text-missed"}`}>
-                        ({formatPct(activeReview.ihsg_actual_pct)})
-                      </span>
+                      {activeReview.isPendingReview ? (
+                        <span className="font-mono text-xs text-warning">Trading In Progress</span>
+                      ) : (
+                        <>
+                          <DirectionBadge direction={activeReview.ihsg_actual} />
+                          <span className={`font-mono text-sm font-semibold ${isUp ? "text-matched" : "text-missed"}`}>
+                            ({formatPct(activeReview.ihsg_actual_pct)})
+                          </span>
+                        </>
+                      )}
                     </div>
                     <div className="bridge-cell-sub">
-                      Act. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_actual || "N/A"}</span>
+                      Act. Flow: <span className="text-secondary font-medium font-mono">
+                        {activeReview.isPendingReview ? "Pending Close" : (activeReview.foreign_flow_actual || "N/A")}
+                      </span>
                     </div>
                   </div>
 
                   <div className="bridge-cell">
                     <div className="bridge-cell-header font-mono">SPREAD &amp; DELTA</div>
                     <div className="bridge-cell-body">
-                      <span className={`font-mono text-base font-bold ${isUp ? "text-matched" : "text-missed"}`}>
-                        {formatPct(activeReview.ihsg_actual_pct)}
-                      </span>
-                      <span className="font-mono text-xs text-muted">
-                        ({Math.round(Number(activeReview.ihsg_actual_pct || 0) * 100)} bps)
-                      </span>
+                      {activeReview.isPendingReview ? (
+                        <span className="font-mono text-xs text-muted">Awaiting Market Close</span>
+                      ) : (
+                        <>
+                          <span className={`font-mono text-base font-bold ${isUp ? "text-matched" : "text-missed"}`}>
+                            {formatPct(activeReview.ihsg_actual_pct)}
+                          </span>
+                          <span className="font-mono text-xs text-muted">
+                            ({Math.round(Number(activeReview.ihsg_actual_pct || 0) * 100)} bps)
+                          </span>
+                        </>
+                      )}
                     </div>
                     <div className="bridge-cell-sub">
-                      Variance: <span className={`font-mono ${isMatched ? "text-matched font-medium" : "text-missed font-medium"}`}>
-                        {isMatched ? "Direction Aligned" : "Direction Divergence"}
+                      Variance: <span className={`font-mono ${activeReview.isPendingReview ? "text-muted" : (isMatched ? "text-matched font-medium" : "text-missed font-medium")}`}>
+                        {activeReview.isPendingReview ? "Session Active" : (isMatched ? "Direction Aligned" : "Direction Divergence")}
                       </span>
                     </div>
                   </div>
@@ -912,10 +969,12 @@ export default function Dashboard() {
                   <div className="bridge-cell" style={{ borderRight: "none" }}>
                     <div className="bridge-cell-header font-mono">ATTRIBUTION VERDICT</div>
                     <div className="bridge-cell-body">
-                      <StatusBadge correct={isMatched} />
+                      <StatusBadge correct={isMatched} isPending={activeReview.isPendingReview} />
                     </div>
                     <div className="bridge-cell-sub">
-                      Accuracy Score: <span className="text-primary font-bold font-mono">{formatNumber(activeReview.accuracy_score)}%</span>
+                      Accuracy Score: <span className="text-primary font-bold font-mono">
+                        {activeReview.isPendingReview ? "Awaiting 18:55 Review" : `${formatNumber(activeReview.accuracy_score)}%`}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -982,7 +1041,7 @@ export default function Dashboard() {
                   className={`filter-tab-btn ${filter === "missed" ? "active" : ""}`}
                   onClick={() => setFilter("missed")}
                 >
-                  Missed ({dashboard.reviews.length - dashboard.wins})
+                  Missed ({dashboard.evaluatedCount - dashboard.wins})
                 </button>
               </div>
             </header>
