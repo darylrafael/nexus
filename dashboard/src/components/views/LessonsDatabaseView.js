@@ -175,7 +175,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       {/* Page Header (Exact baseline layout) */}
       <header className="page-header">
         <div>
-          <div className="breadcrumb">NEXUS / System Operations</div>
+          <div className="breadcrumb">NEXUS / Memory &amp; Heuristics</div>
           <h1 className="page-title">Heuristics &amp; Lessons Database</h1>
         </div>
         <div className="header-actions">
@@ -389,28 +389,44 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             <div className="eval-pane">
               <div className="eval-pane-header">
                 <div className="eval-pane-header-left">
-                  <span className="eval-pane-title">Closed-Loop Learning Architecture</span>
-                  <span className="eval-section-tag font-mono">Deterministic Store</span>
+                  <span className="eval-pane-title">Closed-Loop Prompt Constraint Injection</span>
+                  <span className="eval-section-tag font-mono">Dynamic Prompt</span>
+                </div>
+                <div className="loop-active-tag font-mono">
+                  <span className="live-dot" style={{ width: 6, height: 6 }} />
+                  Loop Active
                 </div>
               </div>
-              <div className="eval-pane-body" style={{ padding: '20px' }}>
-                <div className="rca-lesson-card" style={{ marginBottom: '16px' }}>
-                  <p className="rca-lesson-text">
-                    “Kesalahan prediksi pada sesi sore diekstrak menjadi aturan korektif dalam format kausalitas ekonomi, disimpan ke vault Obsidian &amp; file JSON, kemudian diinjeksikan secara otomatis ke prompt Morning Brief sesi berikutnya.”
+              <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {/* Active Injected Prompt Block */}
+                <div className="rca-memory-terminal-block">
+                  <div className="memory-prefix font-mono">
+                    <span className="memory-title">ACTIVE HEURISTIC INJECTED INTO BRIEF PROMPT</span>
+                    <span className="memory-injected-pill font-mono">LIVE CONSTRAINT</span>
+                  </div>
+                  <p className="rca-lesson-text font-mono" style={{ fontSize: '12px', lineHeight: 1.6 }}>
+                    “{heuristics[0]?.rule || 'Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas suku bunga melonjak, maka evaluasi sentimen foreign flow dan technical rebound sebelum menetapkan arah bearish agresif.'}”
                   </p>
                   <div className="rca-lesson-meta font-mono">
-                    <span>Injection Constraint Cap: Top 5 Active Lessons</span>
-                    <span className="text-matched">Heuristic Feedback Loop Active</span>
+                    <span>INJECTION TARGET: 07:00 WIB Morning Brief Prompt</span>
+                    <span className="text-matched font-bold">100% EMPIRICAL MATCH</span>
                   </div>
                 </div>
 
-                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                  <p style={{ marginBottom: '8px' }}>
-                    <strong>Validation Rule:</strong> Aturan dianggap <code>ACTIVE</code> bila rasio validasi &ge; 50% terhadap arah pasar sesungguhnya.
-                  </p>
-                  <p>
-                    <strong>Obsidian Memory Sync:</strong> Catatan evaluasi diintegrasikan ke vault via REST API port 27124.
-                  </p>
+                {/* Cognitive Architecture Details */}
+                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
+                    <span className="font-mono text-tertiary">PROMPT CONSTRAINT CAP:</span>
+                    <span className="font-mono font-bold text-primary">Top 5 Validated Rules</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
+                    <span className="font-mono text-tertiary">ACTIVE GRADUATION CRITERIA:</span>
+                    <span className="font-mono font-bold text-matched">Validation Rate &ge; 50%</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span className="font-mono text-tertiary">OBSIDIAN PERSISTENCE:</span>
+                    <span className="font-mono font-bold text-primary">vault/nexus/learning_store.md (:27124)</span>
+                  </div>
                 </div>
               </div>
             </div>

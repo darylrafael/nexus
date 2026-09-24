@@ -296,7 +296,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
       {/* Page Header (Exact baseline layout) */}
       <header className="page-header">
         <div>
-          <div className="breadcrumb">NEXUS / System Operations</div>
+          <div className="breadcrumb">NEXUS / Execution Telemetry</div>
           <h1 className="page-title">Execution Telemetry &amp; Agent Health</h1>
         </div>
         <div className="header-actions">

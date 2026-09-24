@@ -803,7 +803,9 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="section-eyebrow font-mono">01 · QUANTITATIVE MODEL PERFORMANCE</div>
+          <div className="section-eyebrow font-mono">
+            <span className="console-prompt">//</span> 01 · QUANTITATIVE MODEL PERFORMANCE
+          </div>
 
           {/* Metric KPIs */}
           <section className="kpi-row">
@@ -912,7 +914,7 @@ export default function Dashboard() {
           {activeReview && (
             <>
               <div className="section-eyebrow font-mono">
-                02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
+                <span className="console-prompt">//</span> 02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
               </div>
               <section className="eval-section">
                 <header className="eval-header">
@@ -1043,8 +1045,9 @@ export default function Dashboard() {
             </>
           )}
 
-          {/* Historical Outcomes */}
-          <div className="section-eyebrow font-mono">03 · AUDITABLE EXECUTION ARCHIVE</div>
+          <div className="section-eyebrow font-mono">
+            <span className="console-prompt">//</span> 03 · AUDITABLE EXECUTION ARCHIVE
+          </div>
           <section className="history-section">
             <header className="history-header">
               <div>
