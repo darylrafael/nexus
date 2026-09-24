@@ -12,7 +12,7 @@ export function StatusBadge({ correct, isPending, size = 'md' }) {
   return (
     <span className={`status-pill ${correct ? 'status-matched' : 'status-missed'} ${size === 'sm' ? 'status-sm' : ''}`}>
       <span className="status-indicator-dot" />
-      <span className="status-text font-mono">{correct ? 'MATCHED' : 'DIVERGED'}</span>
+      <span className="status-text font-mono">{correct ? 'MATCHED' : 'MISSED'}</span>
     </span>
   );
 }

@@ -255,7 +255,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
         <div className="header-actions">
           <div className="market-status-chip">
-            <span>SQLITE LEDGER</span>
+            <span>CADENCE: 07:00 / 19:00</span>
           </div>
           <div className="live-badge">
             <span className="live-dot" />

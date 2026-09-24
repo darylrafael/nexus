@@ -269,6 +269,34 @@ function RCAPanel({ review }) {
       </div>
 
       <div className="eval-pane-body">
+        {/* Causal Flow Chain: Prediction → Cause/Divergence → Result */}
+        {!review?.isPendingReview && (
+          <div style={{ padding: "14px 22px 0 22px" }}>
+            <div className="rca-causal-flow">
+              <span className="causal-node text-secondary font-mono">
+                CALL: <strong className="text-primary">{review?.ihsg_predicted || "Neutral"}</strong> {review?.ihsg_confidence ? `(${review.ihsg_confidence}%)` : ""}
+              </span>
+              <span className="causal-arrow">──►</span>
+              <span className="causal-node font-mono" style={{ borderColor: review?.ihsg_correct ? "var(--matched-border)" : "var(--warning-border)" }}>
+                {review?.ihsg_correct ? (
+                  <span className="text-matched">ALIGNED: Factor Thesis Confirmed</span>
+                ) : (
+                  <span className="text-warning">
+                    DIVERGENCE: {cleanNarrative(unanticipated[0] || underestimated[0] || "Macro Variance")?.slice(0, 42)}
+                  </span>
+                )}
+              </span>
+              <span className="causal-arrow">──►</span>
+              <span className="causal-node font-mono">
+                RESULT: <strong className={Number(review?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}>{formatPct(review?.ihsg_actual_pct)}</strong>
+                <span className={review?.ihsg_correct ? "text-matched font-bold" : "text-missed font-bold"} style={{ marginLeft: "4px" }}>
+                  [{review?.ihsg_correct ? "HIT" : "MISS"}]
+                </span>
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Structured Diagnostic Drivers */}
         {hasDiagnostics && (
           <div className="rca-diagnostic-section">

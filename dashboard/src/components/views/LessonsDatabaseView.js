@@ -378,12 +378,17 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               <div className="eval-pane-body" style={{ padding: '16px 20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {blindSpots.map((item, idx) => {
-                    const pct = Math.min(100, Math.max(15, (item.count / maxBlindSpotCount) * 100));
+                    const pct = Math.min(100, Math.max(12, (item.count / maxBlindSpotCount) * 100));
                     return (
-                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                          <span className="font-mono text-primary font-medium">{item.name}</span>
-                          <span className="font-mono text-warning font-semibold">{item.count} {item.count === 1 ? 'hit' : 'hits'}</span>
+                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '8px 12px', background: 'var(--surface-subtle)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span className="font-mono text-tertiary" style={{ fontSize: '10px', fontWeight: 700 }}>#{String(idx + 1).padStart(2, '0')}</span>
+                            <span className="font-mono text-primary font-semibold">{item.name}</span>
+                          </div>
+                          <span className="font-mono text-warning font-semibold text-xs" style={{ background: 'var(--warning-bg)', border: '1px solid var(--warning-border)', padding: '1px 6px', borderRadius: '3px' }}>
+                            {item.count} {item.count === 1 ? 'hit' : 'hits'}
+                          </span>
                         </div>
                         <div style={{ height: '4px', width: '100%', background: 'var(--surface-well)', borderRadius: '2px', overflow: 'hidden' }}>
                           <div style={{ height: '100%', width: `${pct}%`, background: 'var(--warning-text)', borderRadius: '2px' }} />
