@@ -7,11 +7,15 @@ Runs automatically every weekday: morning brief at 07:00, evening review at 19:0
 ## Project Structure
 ```
 nexus/
+├── .github/
+│   └── workflows/
+│       ├── morning_brief.yml      # 06:55 WIB cloud scheduled morning brief
+│       └── evening_review.yml     # 18:55 WIB cloud scheduled evening review
 ├── main.py                        # CLI entry point
 ├── config.py                      # API keys via dotenv
-├── scheduler.py                   # APScheduler: 07:00 brief, 19:00 review
+├── scheduler.py                   # APScheduler / local cron
 ├── orchestrator/
-│   └── gemini.py                  # Tool-calling orchestrator (OpenRouter)
+│   └── gemini.py                  # Tool-calling orchestrator (OpenRouter + Gemini fallback)
 ├── agents/
 │   ├── web_agent.py               # Tavily search wrapper
 │   ├── code_agent.py              # Code generation (OpenRouter)
@@ -25,13 +29,18 @@ nexus/
 │   ├── obsidian.py                # Obsidian Local REST API (read/write notes)
 │   ├── learning_store.py          # Save/load learning entries + performance stats
 │   └── session.py                 # SQLite session tracking
-└── delivery/
-    └── telegram.py                # Telegram bot delivery
+├── delivery/
+│   └── telegram.py                # Telegram bot delivery
+└── dashboard/                     # Next.js 14 telemetry & performance dashboard
 ```
 
 ## How to Run
 ```bash
-# One-off query
+# Cloud automated:
+# GitHub Actions runs morning brief at 06:55 WIB and evening review at 18:55 WIB.
+# Manual trigger available via GitHub Actions Web UI / Mobile App (workflow_dispatch).
+
+# One-off local query
 python main.py "your query here"
 
 # Manual morning brief
@@ -40,7 +49,7 @@ python -c "from scheduler import daily_brief; daily_brief()"
 # Manual evening review
 python -c "from scheduler import evening_review; evening_review()"
 
-# Start full scheduler
+# Start local scheduler
 python scheduler.py
 
 # Check session stats
@@ -50,6 +59,7 @@ python -c "from memory.session import print_summary; print_summary()"
 ## Environment Variables (.env)
 ```
 OPENROUTER_API_KEY=
+GEMINI_API_KEY=
 DEEPINFRA_TOKEN=
 TAVILY_API_KEY=
 OBSIDIAN_API_KEY=

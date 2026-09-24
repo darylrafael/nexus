@@ -9,15 +9,16 @@ Built as a portfolio project demonstrating multi-agent orchestration, model rout
 ## Architecture
 
 ```
-                        ┌─────────────────────────────────────────┐
-                        │            SCHEDULER (APScheduler)       │
-                        │   07:00 Morning Brief  │  19:00 Review   │
-                        └────────────┬───────────┴────────┬────────┘
-                                     │                    │
-                    ┌────────────────▼───────┐   ┌────────▼──────────────┐
-                    │     MARKET AGENT        │   │   EVENING REVIEWER    │
-                    │  (Morning Brief)        │   │  (Post-Market Eval)   │
-                    └──┬──────────┬──────┬───┘   └──┬────────────┬───────┘
+                  ┌────────────────────────────────────────────────────────┐
+                  │          SCHEDULING & EXECUTION LAYER                  │
+                  │  GitHub Actions (Cloud Cron)  │  APScheduler (Local)   │
+                  │  06:55 WIB Morning Brief      │  18:55 WIB Review      │
+                  └────────────┬───────────────────────────┬───────────────┘
+                               │                           │
+              ┌────────────────▼───────┐          ┌────────▼──────────────┐
+              │     MARKET AGENT        │          │   EVENING REVIEWER    │
+              │  (Morning Brief)        │          │  (Post-Market Eval)   │
+              └──┬──────────┬──────┬───┘          └──┬────────────┬───────┘
                        │          │      │           │            │
               ┌────────▼─┐ ┌──────▼─┐ ┌─▼────────┐ │     ┌──────▼──────┐
               │ WEB AGENT │ │COMMODITY│ │ECONOMICS │ │     │  PREDICTION │
@@ -84,7 +85,8 @@ The morning brief LLM receives a **calibration block** containing:
 | Memory | Obsidian Local REST API | Persistent note storage across sessions |
 | Session tracking | SQLite | Run history, success rates, agent usage |
 | Delivery | Telegram Bot API | Push reports + evening review to mobile |
-| Scheduling | APScheduler | Weekday cron at 07:00 and 19:00 |
+| Cloud Automation | GitHub Actions | Scheduled cloud cron (06:55 & 18:55 WIB) + artifact sync |
+| Local Scheduling | APScheduler / Windows Tasks | Local cron at 07:00 and 19:00 WIB |
 
 ---
 
@@ -130,23 +132,38 @@ cp .env.example .env
 - Copy token to `.env`
 - Get your chat ID and add to `.env`
 
-### 5. Run
-```bash
-# Test morning brief manually
-python -c "from scheduler import daily_brief; daily_brief()"
+### 5. Automated Execution Modes
 
-# Test evening review
-python -c "from scheduler import evening_review; evening_review()"
+#### Option A: Cloud Scheduled Pipelines (GitHub Actions — Zero Local Hardware Dependency)
+Nexus includes production GitHub Actions workflows for 100% headless, cloud-hosted execution. Your computer does **not** need to be powered on:
+- **Nexus Morning Brief** (`.github/workflows/morning_brief.yml`): Runs Monday–Friday at 06:55 WIB (`23:55 UTC Sun-Thu`).
+- **Nexus Evening Review** (`.github/workflows/evening_review.yml`): Runs Monday–Friday at 18:55 WIB (`11:55 UTC Mon-Fri`).
+- **Artifact Auto-Archiving**: Every cloud run commits generated reports and predictions in `runs/` back to GitHub (`[skip ci]`). Run `git pull` locally to view them in your local dashboard.
+- **Manual Trigger**: Run either pipeline on-demand from the GitHub web UI or the GitHub mobile app via `workflow_dispatch`.
 
-# Start full automated scheduler
-python scheduler.py
-```
+**Cloud Setup:**
+1. In your GitHub repo, go to **Settings** > **Secrets and variables** > **Actions**.
+2. Add the repository secrets: `OPENROUTER_API_KEY`, `TAVILY_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `GEMINI_API_KEY`.
+3. Under **Settings** > **Actions** > **General** > **Workflow permissions**, choose **Read and write permissions** (required for saving artifacts back to `runs/`).
 
-On Windows, `register_tasks.ps1` registers the two weekday tasks using paths relative to the cloned repository:
+#### Option B: Local Scheduled Execution
+If you prefer running locally on your own machine:
+- **Windows Task Scheduler**: Register background tasks via PowerShell:
+  ```powershell
+  .\register_tasks.ps1
+  ```
+- **APScheduler Service**: Run the blocking foreground scheduler:
+  ```bash
+  python scheduler.py
+  ```
+- **Manual One-Off Test**:
+  ```bash
+  # Test morning brief manually
+  python -c "from scheduler import daily_brief; daily_brief()"
 
-```powershell
-.\register_tasks.ps1
-```
+  # Test evening review
+  python -c "from scheduler import evening_review; evening_review()"
+  ```
 
 ### Dashboard demo
 
@@ -173,11 +190,15 @@ cd dashboard && npm run lint && npm run build
 
 ```
 nexus/
+├── .github/
+│   └── workflows/
+│       ├── morning_brief.yml   # 06:55 WIB cloud scheduled morning brief
+│       └── evening_review.yml   # 18:55 WIB cloud scheduled evening review
 ├── main.py                     # CLI entry point
 ├── config.py                   # API keys via dotenv
-├── scheduler.py                # APScheduler: 07:00 brief, 19:00 review
+├── scheduler.py                # APScheduler / local cron
 ├── orchestrator/
-│   └── gemini.py               # Tool-calling orchestrator
+│   └── gemini.py               # Tool-calling orchestrator (OpenRouter + fallback)
 ├── agents/
 │   ├── web_agent.py            # Tavily search wrapper
 │   ├── code_agent.py           # Code generation agent
@@ -191,21 +212,23 @@ nexus/
 │   ├── obsidian.py             # Obsidian REST API wrapper
 │   ├── learning_store.py       # Learning persistence + performance stats
 │   └── session.py              # SQLite session tracking
-└── delivery/
-    └── telegram.py             # Telegram delivery
+├── delivery/
+│   └── telegram.py             # Telegram delivery
+└── dashboard/                  # Next.js 14 telemetry & performance dashboard
 ```
 
 ---
 
 ## API Keys Required
 
-| Key | Source | Free? |
-|-----|--------|-------|
-| `OPENROUTER_API_KEY` | openrouter.ai | Yes (free models available) |
-| `DEEPINFRA_TOKEN` | deepinfra.com | Free credits on signup |
-| `TAVILY_API_KEY` | tavily.com | 1,000 calls/month free |
-| `TELEGRAM_BOT_TOKEN` | @BotFather | Free |
-| `OBSIDIAN_API_KEY` | Local REST API plugin | Free |
+| Key | Source | Free? | Role |
+|-----|--------|-------|------|
+| `OPENROUTER_API_KEY` | openrouter.ai | Yes | Primary LLM inference (gemini-2.0-flash-lite / deepseek) |
+| `GEMINI_API_KEY` | aistudio.google.com | Yes | Tier-2 high availability fallback LLM |
+| `TAVILY_API_KEY` | tavily.com | 1,000 calls/mo | Macro & domestic market news search |
+| `TELEGRAM_BOT_TOKEN` | @BotFather | Free | Push delivery to mobile channel/chat |
+| `TELEGRAM_CHAT_ID` | Telegram | Free | Target chat ID for automated delivery |
+| `OBSIDIAN_API_KEY` | Local REST API plugin | Free | Optional local long-term knowledge base |
 
 ---
 
@@ -216,7 +239,7 @@ nexus/
 - **RAG / memory patterns** — Obsidian as persistent memory, context injected into each run
 - **Self-improving system** — evening review feeds lessons back into morning prompt
 - **Multi-API integration** — 5 external APIs working together in a single pipeline
-- **Production scheduling** — fully automated weekday pipeline with no manual triggers
+- **Cloud CI/CD scheduling** — headless GitHub Actions cron workflows with automated artifact commits and zero hardware dependency
 
 ---
 
