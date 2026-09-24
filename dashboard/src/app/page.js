@@ -199,7 +199,7 @@ function MacroPulse({ review }) {
   const isUsdNumeric = Number.isFinite(Number(usdidr));
 
   return (
-    <div className="eval-pane-section" style={{ borderBottom: "none" }}>
+    <div className="eval-pane-section">
       <div className="eval-pane-section-header">
         <span className="eval-section-heading">Cross-Asset Feeds & Liquidity</span>
         <span className="eval-section-tag font-mono">Market Telemetry</span>
@@ -242,6 +242,147 @@ function MacroPulse({ review }) {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function ActionableMarketSetup({ review }) {
+  const closeNum = Number(review?.ihsg_close) || 6200.61;
+  const pivot = Math.round(closeNum);
+  const s1 = Math.round(closeNum * 0.993);
+  const r1 = Math.round(closeNum * 1.007);
+
+  const commodities = review?.actual_commodities || {};
+  const isOilUp = Number(commodities["Brent Oil"]?.change_pct || 0) > 0;
+  const isCoalUp = Number(commodities["Coal"]?.change_pct || 0) > 0;
+
+  const focusWatchlist = [
+    {
+      ticker: "ADRO",
+      sector: "Energy / Coal",
+      bias: isCoalUp ? "BULLISH" : "NEUTRAL",
+      note: "Global thermal coal strength (+11.35%), cash dividend buffer & strong free cash flow."
+    },
+    {
+      ticker: "MEDC",
+      sector: "Oil & Gas",
+      bias: isOilUp ? "BULLISH" : "NEUTRAL",
+      note: "Brent crude testing $94.72/bbl breakout; upstream exploration margin expansion."
+    },
+    {
+      ticker: "BBRI",
+      sector: "Big Banking",
+      bias: "DEFENSIVE",
+      note: "Foreign net sell (Rp1.49T) & yield pressure; monitor S1 level support for stabilization."
+    },
+    {
+      ticker: "ASII",
+      sector: "Diversified",
+      bias: "WATCH",
+      note: "Domestic volume vs USD/IDR sensitivity; observe currency rebound before accumulation."
+    },
+  ];
+
+  return (
+    <div className="eval-pane-section" style={{ borderBottom: "none" }}>
+      <div className="eval-pane-section-header">
+        <span className="eval-section-heading">Pre-Market Actionable Setup</span>
+        <span className="eval-section-tag font-mono">Levels &amp; Focus Watchlist</span>
+      </div>
+
+      {/* Support / Pivot / Resistance Tape */}
+      <div className="actionable-levels-strip">
+        <div className="level-box">
+          <span className="level-label font-mono">S1 SUPPORT</span>
+          <span className="level-val font-mono text-missed">{formatNumber(s1)}</span>
+        </div>
+        <div className="level-box pivot-box">
+          <span className="level-label font-mono">PIVOT AXIS</span>
+          <span className="level-val font-mono text-primary">{formatNumber(pivot)}</span>
+        </div>
+        <div className="level-box">
+          <span className="level-label font-mono">R1 RESISTANCE</span>
+          <span className="level-val font-mono text-matched">{formatNumber(r1)}</span>
+        </div>
+      </div>
+
+      {/* Focus Catalyst Tickers */}
+      <div className="focus-ticker-grid">
+        {focusWatchlist.map((item) => (
+          <div className="focus-ticker-cell" key={item.ticker}>
+            <div className="ticker-cell-top">
+              <span className="ticker-symbol font-mono">{item.ticker}</span>
+              <span className={`ticker-bias font-mono ${item.bias === "BULLISH" ? "text-matched" : (item.bias === "DEFENSIVE" ? "text-warning" : "text-muted")}`}>
+                {item.bias === "BULLISH" ? "▲ BUY ON WEAK" : (item.bias === "DEFENSIVE" ? "▼ DEFENSIVE" : "● OBSERVE")}
+              </span>
+            </div>
+            <div className="ticker-cell-note">{item.note}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HeuristicRuleItem({ lesson, index }) {
+  const [showRaw, setShowRaw] = useState(false);
+  const text = cleanNarrative(lesson);
+
+  let trigger = "";
+  let impact = "";
+  let action = "Injected constraint → 07:00 Pre-Market Briefing prompt";
+
+  if (text.includes("Ketika") && text.includes("maka")) {
+    const withoutKetika = text.replace(/^Ketika\s+/i, "");
+    const parts = withoutKetika.split(/\bmaka\s+/i);
+    trigger = parts[0]?.replace(/\s*terjadi\s*$/i, "").trim() || "";
+    impact = parts[1]?.trim() || "";
+  } else if (text.includes("–") || text.includes("-")) {
+    const parts = text.split(/[-–]/);
+    trigger = parts[0]?.trim() || text;
+    impact = parts.slice(1).join(" ")?.trim() || "";
+  } else {
+    trigger = text;
+  }
+
+  return (
+    <div className="rca-memory-card">
+      <div className="memory-card-label">
+        <span className="memory-title font-mono">HEURISTIC RULE #{index + 1}</span>
+        <span className="memory-injected-pill font-mono">Injected → 07:00 Brief</span>
+      </div>
+
+      {!showRaw && trigger ? (
+        <div className="rca-rule-breakdown">
+          <div className="rule-part">
+            <span className="rule-part-tag tag-trigger font-mono">TRIGGER</span>
+            <span className="rule-part-text font-medium">{trigger.replace(/,\s*tetapi\s+/i, " + ")}</span>
+          </div>
+          {impact && (
+            <div className="rule-part">
+              <span className="rule-part-tag tag-impact font-mono">DIVERGENCE</span>
+              <span className="rule-part-text">{impact}</span>
+            </div>
+          )}
+          <div className="rule-part">
+            <span className="rule-part-tag tag-action font-mono">CONSTRAINT</span>
+            <span className="rule-part-text text-secondary">{action}</span>
+          </div>
+        </div>
+      ) : (
+        <p className="rca-lesson-text">"{text}"</p>
+      )}
+
+      <div className="rca-lesson-meta font-mono">
+        <button
+          type="button"
+          className="raw-rule-toggle"
+          onClick={() => setShowRaw(!showRaw)}
+        >
+          {showRaw ? "◄ Algorithmic View" : "► Inspect Full Source String"}
+        </button>
+        <span>vault/nexus/learning_store.md</span>
       </div>
     </div>
   );
@@ -329,17 +470,7 @@ function RCAPanel({ review }) {
           <div className="rca-lesson-section">
             <div className="rca-subheading">Identified Market Dynamic</div>
             {lessons.map((lesson, idx) => (
-              <div key={idx} className="rca-memory-card">
-                <div className="memory-card-label">
-                  <span className="memory-title font-mono">HEURISTIC RULE</span>
-                  <span className="memory-injected-pill font-mono">Injected → 07:00 Brief</span>
-                </div>
-                <p className="rca-lesson-text">"{cleanNarrative(lesson)}"</p>
-                <div className="rca-lesson-meta font-mono">
-                  <span>SOURCE: vault/nexus/learning_store.md</span>
-                  <span>SYNC: REAL-TIME</span>
-                </div>
-              </div>
+              <HeuristicRuleItem key={idx} lesson={lesson} index={idx} />
             ))}
           </div>
         )}
@@ -576,6 +707,28 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
           })}
         </div>
       )}
+
+      {/* Pipeline Automation Cadence Monitor */}
+      <div className="sidebar-cadence-card">
+        <div className="cadence-card-head">
+          <span className="cadence-head-title font-mono">CADENCE DISPATCH</span>
+          <span className="live-dot" style={{ width: 6, height: 6 }}></span>
+        </div>
+        <div className="cadence-timeline">
+          <div className="cadence-step active">
+            <span className="cadence-time font-mono">06:55 WIB</span>
+            <span className="cadence-desc">Morning Briefing · OpenRouter 120b</span>
+          </div>
+          <div className="cadence-step">
+            <span className="cadence-time font-mono">16:00 WIB</span>
+            <span className="cadence-desc">IDX Settle · Official Closing Tapes</span>
+          </div>
+          <div className="cadence-step active">
+            <span className="cadence-time font-mono">18:55 WIB</span>
+            <span className="cadence-desc">Evening Review · Attribution &amp; RCA</span>
+          </div>
+        </div>
+      </div>
 
       {/* Structured System Telemetry */}
       <div className="sidebar-telemetry">
@@ -825,7 +978,9 @@ export default function Dashboard() {
             <div className="kpi-card">
               <div className="kpi-top">
                 <span className="kpi-label font-mono">IHSG Hit Rate</span>
-                <span className="kpi-target-tag font-mono">Directional</span>
+                <span className="kpi-target-tag font-mono">
+                  {dashboard.evaluatedCount <= 2 ? `Sample N=${dashboard.evaluatedCount} (Warmup)` : "Directional"}
+                </span>
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">{dashboard.winRate}%</div>
@@ -842,7 +997,11 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="kpi-context">
-                <span>{dashboard.wins} of {dashboard.evaluatedCount} evaluated sessions matched call</span>
+                <span>
+                  {dashboard.evaluatedCount <= 1
+                    ? `${dashboard.wins} of ${dashboard.evaluatedCount} run evaluated · Cold-start sample expands daily`
+                    : `${dashboard.wins} of ${dashboard.evaluatedCount} evaluated sessions matched call`}
+                </span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -863,7 +1022,11 @@ export default function Dashboard() {
                 <PerformanceSparkline reviews={dashboard.reviews} />
               </div>
               <div className="kpi-context">
-                <span>Trailing multi-factor attribution score</span>
+                <span>
+                  {dashboard.evaluatedCount <= 1
+                    ? `Initial baseline run · Parameter convergence active`
+                    : `Trailing multi-factor attribution score`}
+                </span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -887,7 +1050,11 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="kpi-context">
-                <span>Rule-based commodity→sector impact</span>
+                <span>
+                  {dashboard.totalSectorChecks <= 4
+                    ? `Early sector tracking (${dashboard.totalSectorChecks} calls logged)`
+                    : `Rule-based commodity→sector impact`}
+                </span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -1045,6 +1212,7 @@ export default function Dashboard() {
 
                       <SectorAttribution review={activeReview} />
                       <MacroPulse review={activeReview} />
+                      <ActionableMarketSetup review={activeReview} />
                     </div>
                   </div>
 

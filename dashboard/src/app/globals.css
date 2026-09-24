@@ -287,6 +287,68 @@ body {
   font-weight: 600;
 }
 
+/* Sidebar Cadence Dispatch Card (Fills dead space) */
+.sidebar-cadence-card {
+  margin: 10px 12px;
+  padding: 10px 12px;
+  background-color: var(--surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="dark"] .sidebar-cadence-card {
+  background-color: var(--surface-subtle);
+  border-color: var(--border-subtle);
+}
+
+.cadence-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cadence-head-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+.cadence-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cadence-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 8px;
+  border-left: 2px solid var(--border-default);
+}
+
+.cadence-step.active {
+  border-left-color: var(--accent-cyan);
+}
+
+.cadence-time {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cadence-desc {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  line-height: 1.3;
+}
+
 /* Sidebar Telemetry Block - Anchored neatly above footer */
 .sidebar-telemetry {
   margin: auto 12px 12px 12px;
@@ -1301,6 +1363,89 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
+   PRE-MARKET ACTIONABLE SETUP (Support / Pivot / Resistance & Watchlist)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+.actionable-levels-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.level-box {
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.level-box.pivot-box {
+  background-color: var(--surface);
+  border-color: var(--border-default);
+}
+
+.level-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+}
+
+.level-val {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.focus-ticker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.focus-ticker-cell {
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.focus-ticker-cell:hover {
+  border-color: var(--border-default);
+  background-color: var(--surface);
+}
+
+.ticker-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticker-symbol {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ticker-bias {
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.ticker-cell-note {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
    ROOT CAUSE ANALYSIS (RCA) & ATTRIBUTION BENCH
    ═══════════════════════════════════════════════════════════════════════════════ */
 .rca-causal-flow {
@@ -1462,6 +1607,75 @@ body {
   line-height: 1.5;
   color: var(--text-primary);
   font-style: italic;
+}
+
+/* Algorithmic Heuristic Rule Breakdown */
+.rca-rule-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+.rule-part {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.rule-part-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 1.5px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  min-width: 68px;
+  text-align: center;
+  font-family: var(--font-mono);
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+.rule-part-text {
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.tag-trigger {
+  background-color: var(--surface-well);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.tag-impact {
+  background-color: var(--missed-bg);
+  color: var(--missed-text);
+  border: 1px solid var(--missed-border);
+}
+
+.tag-action {
+  background-color: var(--matched-bg);
+  color: var(--matched-text);
+  border: 1px solid var(--matched-border);
+}
+
+.raw-rule-toggle {
+  font-size: 10px;
+  color: var(--accent-cyan);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--font-mono);
+  margin-top: 2px;
+  text-align: left;
+}
+
+.raw-rule-toggle:hover {
+  text-decoration: underline;
 }
 
 .rca-lesson-meta {
