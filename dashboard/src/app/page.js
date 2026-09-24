@@ -143,14 +143,14 @@ function SectorAttribution({ review }) {
     <div className="eval-pane-section">
       <div className="eval-pane-section-header">
         <span className="eval-section-heading">Deterministic Sector Engine</span>
-        <span className="eval-section-tag">Rule-Based Impact</span>
+        <span className="eval-section-tag font-mono">Rule-Based Impact</span>
       </div>
       <div className="sector-tape">
         {entries.map(([sector, isCorrect]) => (
           <div className="sector-tile" key={sector}>
             <span className="sector-name">{sector}</span>
-            <span className={`sector-indicator ${isCorrect ? "text-matched" : "text-missed"}`}>
-              {isCorrect ? "● MATCH" : "▲ MISS"}
+            <span className={`sector-indicator font-mono ${isCorrect ? "text-matched" : "text-missed"}`}>
+              {isCorrect ? "● Match" : "▲ Miss"}
             </span>
           </div>
         ))}
@@ -174,7 +174,7 @@ function MacroPulse({ review }) {
     <div className="eval-pane-section" style={{ borderBottom: "none" }}>
       <div className="eval-pane-section-header">
         <span className="eval-section-heading">Cross-Asset Feeds & Liquidity</span>
-        <span className="eval-section-tag">Telemetric Stream</span>
+        <span className="eval-section-tag font-mono">Market Telemetry</span>
       </div>
       <div className="macro-tape-strip">
         {/* Foreign Flow Tape */}
@@ -231,12 +231,12 @@ function RCAPanel({ review }) {
     <div className="eval-pane">
       <div className="eval-pane-header">
         <div className="eval-pane-header-left">
-          <span className="diagnostic-tag font-mono">CORE // RCA</span>
-          <span className="eval-pane-title font-mono">DIAGNOSTIC & ATTRIBUTION ENGINE</span>
+          <span className="eval-pane-title">Attribution &amp; Root Cause Analysis</span>
+          <span className="eval-section-tag font-mono">Diagnostic Engine</span>
         </div>
         <div className="loop-active-tag font-mono">
           <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-          FEEDBACK_LOOP_ACTIVE
+          Feedback Loop Active
         </div>
       </div>
 
@@ -244,23 +244,23 @@ function RCAPanel({ review }) {
         {/* Structured Diagnostic Drivers */}
         {hasDiagnostics && (
           <div className="rca-diagnostic-section">
-            <div className="rca-subheading font-mono">// ATTRIBUTION_BREAKDOWN</div>
+            <div className="rca-subheading">Attribution Breakdown</div>
             <div className="rca-diagnostic-list">
               {unanticipated.map((item, idx) => (
-                <div key={`unant-${idx}`} className="rca-diagnostic-item font-mono">
-                  <span className="rca-diagnostic-type type-unanticipated">UNANTICIPATED</span>
+                <div key={`unant-${idx}`} className="rca-diagnostic-item">
+                  <span className="rca-diagnostic-type type-unanticipated font-mono">UNANTICIPATED</span>
                   <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
                 </div>
               ))}
               {underestimated.map((item, idx) => (
-                <div key={`under-${idx}`} className="rca-diagnostic-item font-mono">
-                  <span className="rca-diagnostic-type type-underestimated">UNDERESTIMATED</span>
+                <div key={`under-${idx}`} className="rca-diagnostic-item">
+                  <span className="rca-diagnostic-type type-underestimated font-mono">UNDERESTIMATED</span>
                   <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
                 </div>
               ))}
               {overestimated.map((item, idx) => (
-                <div key={`over-${idx}`} className="rca-diagnostic-item font-mono">
-                  <span className="rca-diagnostic-type type-overestimated">OVERWEIGHTED</span>
+                <div key={`over-${idx}`} className="rca-diagnostic-item">
+                  <span className="rca-diagnostic-type type-overestimated font-mono">OVERWEIGHTED</span>
                   <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
                 </div>
               ))}
@@ -271,12 +271,12 @@ function RCAPanel({ review }) {
         {/* Memory Injection / Lesson Learned */}
         {lessons.length > 0 && (
           <div className="rca-lesson-section">
-            <div className="rca-subheading font-mono">// PERSISTED_HEURISTIC_DISCOVERY</div>
+            <div className="rca-subheading">Identified Market Dynamic</div>
             {lessons.map((lesson, idx) => (
               <div key={idx} className="rca-memory-card">
-                <div className="memory-card-label font-mono">
-                  <span>IDENTIFIED MARKET DYNAMIC</span>
-                  <span className="text-matched">INJECTED → 07:00 BRIEF</span>
+                <div className="memory-card-label">
+                  <span className="memory-title font-mono">IDENTIFIED MARKET DYNAMIC</span>
+                  <span className="memory-injected-pill font-mono">Injected → 07:00 Brief</span>
                 </div>
                 <p className="rca-lesson-text">"{cleanNarrative(lesson)}"</p>
                 <div className="rca-lesson-meta font-mono">
@@ -289,8 +289,8 @@ function RCAPanel({ review }) {
         )}
 
         {!hasDiagnostics && lessons.length === 0 && (
-          <p className="rca-content-muted font-mono">
-            &gt; Model parameters converged within target error bands. No active parameter revisions injected.
+          <p className="rca-content-muted">
+            Model parameters converged within target error bands. No active parameter revisions injected.
           </p>
         )}
       </div>
@@ -482,21 +482,21 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
         </div>
       </nav>
 
-      {/* Interactive Quick Session Switcher filling the vertical void */}
+      {/* Interactive Quick Session Switcher */}
       {reviews.length > 0 && (
         <div className="sidebar-sessions">
-          <div className="sidebar-session-title font-mono">// RECENT EVALUATIONS</div>
+          <div className="sidebar-session-title">Recent Evaluations</div>
           {reviews.map((r) => {
             const isSel = (!selectedDate && r.date === reviews[0]?.date) || selectedDate === r.date;
             return (
               <button
                 key={r.date}
-                className={`sidebar-session-item font-mono ${isSel ? "active" : ""}`}
+                className={`sidebar-session-item ${isSel ? "active" : ""}`}
                 onClick={() => onSelectDate && onSelectDate(r.date)}
               >
-                <span>{formatHeaderDate(r.date)}</span>
-                <span className={r.ihsg_correct ? "text-matched" : "text-missed"}>
-                  {r.ihsg_correct ? "● HIT" : "▲ MISS"}
+                <span className="font-mono">{formatHeaderDate(r.date)}</span>
+                <span className={`font-mono ${r.ihsg_correct ? "text-matched" : "text-missed"}`}>
+                  {r.ihsg_correct ? "● Hit" : "▲ Miss"}
                 </span>
               </button>
             );
@@ -504,24 +504,24 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
         </div>
       )}
 
-      {/* Real Infrastructure Telemetry Box filling sidebar void */}
+      {/* Structured System Telemetry */}
       <div className="sidebar-telemetry">
-        <div className="telemetry-box-title font-mono">// DAEMON TELEMETRY</div>
+        <div className="telemetry-box-title">System Telemetry</div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">CADENCE</span>
+          <span className="telemetry-box-label">Cadence</span>
           <span className="telemetry-box-val font-mono">07:00 / 19:00</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">LLM CORE</span>
+          <span className="telemetry-box-label">LLM Core</span>
           <span className="telemetry-box-val font-mono">gpt-oss-120b</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">VAULT API</span>
-          <span className="telemetry-box-val font-mono text-matched">:27124 LIVE</span>
+          <span className="telemetry-box-label">Vault API</span>
+          <span className="telemetry-box-val font-mono text-matched">:27124 Live</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">RCA LOOP</span>
-          <span className="telemetry-box-val font-mono text-matched">ACTIVE</span>
+          <span className="telemetry-box-label">Feedback Loop</span>
+          <span className="telemetry-box-val font-mono text-matched">Active</span>
         </div>
       </div>
 
@@ -530,7 +530,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate }) {
           <span className="live-dot" style={{ width: 6, height: 6 }}></span>
           <span>Obsidian Live</span>
         </div>
-        <span className="system-tag">v2.4-PRO</span>
+        <span className="system-tag font-mono">v2.4-PRO</span>
       </div>
     </aside>
   );
@@ -688,62 +688,70 @@ export default function Dashboard() {
             </div>
           </header>
 
-          {/* Real-Time Telemetry Bar (Unique Macro & Execution Metrics) */}
-          <div className="telemetry-bar">
-            <div className="telemetry-item">
-              <span className="telemetry-tag">ENGINE</span>
-              <span className="telemetry-val text-matched">DAEMON_ACTIVE</span>
+          {/* Structured System Context Bar */}
+          <div className="system-context-strip">
+            <div className="context-item">
+              <span className="context-label font-mono">STATUS</span>
+              <div className="context-value">
+                <span className="live-dot" style={{ width: 6, height: 6 }}></span>
+                <span>Engine Active</span>
+              </div>
             </div>
-            <span className="telemetry-sep">·</span>
-            <div className="telemetry-item">
-              <span className="telemetry-tag">REGIME</span>
-              <span className="telemetry-val">IDX:COMPOSITE</span>
+            <div className="context-divider" />
+            <div className="context-item">
+              <span className="context-label font-mono">REGIME</span>
+              <div className="context-value font-medium">IDX Composite</div>
             </div>
-            <span className="telemetry-sep">·</span>
-            <div className="telemetry-item">
-              <span className="telemetry-tag">BENCHMARK</span>
-              <span className={`telemetry-val font-mono ${Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}`}>
-                {dashboard.latest?.ihsg_actual || "6,277.04"} ({formatPct(dashboard.latest?.ihsg_actual_pct)})
-              </span>
+            <div className="context-divider" />
+            <div className="context-item">
+              <span className="context-label font-mono">BENCHMARK</span>
+              <div className={`context-value font-mono font-semibold ${Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}`}>
+                {dashboard.latest?.ihsg_actual || "6,277.04"}{" "}
+                <span className="context-sub font-mono">({formatPct(dashboard.latest?.ihsg_actual_pct)})</span>
+              </div>
             </div>
-            <span className="telemetry-sep">·</span>
-            <div className="telemetry-item">
-              <span className="telemetry-tag">FOREIGN BIAS</span>
-              <span className="telemetry-val font-mono">{dashboard.latest?.foreign_flow_actual || "NET OUTFLOW"}</span>
+            <div className="context-divider" />
+            <div className="context-item">
+              <span className="context-label font-mono">FOREIGN BIAS</span>
+              <div className="context-value font-medium">
+                {dashboard.latest?.foreign_flow_actual || "Distribution"}
+              </div>
             </div>
-            <span className="telemetry-sep">·</span>
-            <div className="telemetry-item">
-              <span className="telemetry-tag">HEURISTIC MEMORY</span>
-              <span className="telemetry-val font-mono text-matched">OBSIDIAN_REST :27124</span>
+            <div className="context-divider" />
+            <div className="context-item">
+              <span className="context-label font-mono">HEURISTIC SYNC</span>
+              <div className="context-value font-mono text-matched">
+                Obsidian :27124
+              </div>
             </div>
           </div>
 
-          <div className="section-eyebrow font-mono">// 01 · QUANTITATIVE MODEL PERFORMANCE</div>
+          <div className="section-eyebrow font-mono">01 · QUANTITATIVE MODEL PERFORMANCE</div>
 
           {/* Metric KPIs */}
           <section className="kpi-row">
             {/* Card 1: Directional IHSG Hit Rate */}
             <div className="kpi-card">
               <div className="kpi-top">
-                <span className="kpi-label">IHSG Hit Rate</span>
-                <span className="kpi-target-tag">Directional</span>
+                <span className="kpi-label font-mono">IHSG Hit Rate</span>
+                <span className="kpi-target-tag font-mono">Directional</span>
               </div>
               <div className="kpi-val-row">
-                <div className="kpi-value">{dashboard.winRate}%</div>
-                <div className="outcome-pips">
+                <div className="kpi-value font-mono">{dashboard.winRate}%</div>
+                <div className="outcome-pips font-mono">
                   {dashboard.reviews.map((r) => (
                     <span
                       key={r.date}
-                      className={`outcome-pip font-mono ${r.ihsg_correct ? "pip-hit" : "pip-miss"}`}
-                      title={`${formatHeaderDate(r.date)}: ${r.ihsg_correct ? "HIT" : "MISS"}`}
+                      className={`outcome-pip ${r.ihsg_correct ? "pip-hit" : "pip-miss"}`}
+                      title={`${formatHeaderDate(r.date)}: ${r.ihsg_correct ? "Hit" : "Miss"}`}
                     >
-                      {r.ihsg_correct ? "● HIT" : "▲ MISS"}
+                      {r.ihsg_correct ? "● Hit" : "▲ Miss"}
                     </span>
                   ))}
                 </div>
               </div>
               <div className="kpi-context">
-                <span>{dashboard.wins} of {dashboard.reviews.length} sessions matched</span>
+                <span>{dashboard.wins} of {dashboard.reviews.length} sessions matched call</span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -756,11 +764,11 @@ export default function Dashboard() {
             {/* Card 2: Composite Accuracy Trajectory */}
             <div className="kpi-card">
               <div className="kpi-top">
-                <span className="kpi-label">Overall Accuracy</span>
-                <span className="kpi-target-tag">Target ≥60%</span>
+                <span className="kpi-label font-mono">Overall Accuracy</span>
+                <span className="kpi-target-tag font-mono">Target ≥60%</span>
               </div>
               <div className="kpi-val-row">
-                <div className="kpi-value">{dashboard.avgAccuracy}%</div>
+                <div className="kpi-value font-mono">{dashboard.avgAccuracy}%</div>
                 <PerformanceSparkline reviews={dashboard.reviews} />
               </div>
               <div className="kpi-context">
@@ -777,14 +785,14 @@ export default function Dashboard() {
             {/* Card 3: Deterministic Sector Engine */}
             <div className="kpi-card">
               <div className="kpi-top">
-                <span className="kpi-label">Sector Engine</span>
-                <span className="kpi-target-tag">Deterministic</span>
+                <span className="kpi-label font-mono">Sector Engine</span>
+                <span className="kpi-target-tag font-mono">Deterministic</span>
               </div>
               <div className="kpi-val-row">
-                <div className="kpi-value">{dashboard.sectorHitRate}%</div>
+                <div className="kpi-value font-mono">{dashboard.sectorHitRate}%</div>
                 <div className="kpi-tag-visual font-mono">
                   <span className="text-matched font-semibold">{dashboard.totalSectorHits} Hits</span>
-                  <span className="text-muted">/ {dashboard.totalSectorChecks} Calls</span>
+                  <span className="text-muted"> / {dashboard.totalSectorChecks} Calls</span>
                 </div>
               </div>
               <div className="kpi-context">
@@ -801,17 +809,17 @@ export default function Dashboard() {
             {/* Card 4: Closed-Loop Heuristic Memory */}
             <div className="kpi-card">
               <div className="kpi-top">
-                <span className="kpi-label">Heuristic Memory</span>
-                <span className="kpi-target-tag">Obsidian :27124</span>
+                <span className="kpi-label font-mono">Heuristic Memory</span>
+                <span className="kpi-target-tag font-mono">Obsidian :27124</span>
               </div>
               <div className="kpi-val-row">
-                <div className="kpi-value">
+                <div className="kpi-value font-mono">
                   {dashboard.totalLessons}{" "}
                   <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--text-secondary)" }}>Rules</span>
                 </div>
                 <span className="memory-active-pill font-mono">
                   <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-                  100% INJECTED
+                  Active Injected
                 </span>
               </div>
               <div className="kpi-context">
@@ -827,13 +835,12 @@ export default function Dashboard() {
           {activeReview && (
             <>
               <div className="section-eyebrow font-mono">
-                // 02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
+                02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
               </div>
               <section className="eval-section">
                 <header className="eval-header">
                   <div className="eval-header-title">
-                    <span className="console-prompt font-mono">&gt;</span>
-                    {isHistorical ? "Historical Session Audit" : "Latest Post-Market Evaluation"}
+                    {isHistorical ? "Historical Session Audit" : "Post-Market Evaluation"}
                   </div>
                   <div className="eval-header-right">
                     {isHistorical && (
@@ -844,40 +851,40 @@ export default function Dashboard() {
                         ← Jump to Latest ({formatHeaderDate(dashboard.latest?.date)})
                       </button>
                     )}
-                    <div className="eval-date-badge">{formatHeaderDate(activeReview.date)}</div>
+                    <div className="eval-date-badge font-mono">{formatHeaderDate(activeReview.date)}</div>
                   </div>
                 </header>
 
                 {/* 4-Column Execution Variance Bridge */}
                 <div className="variance-bridge-grid">
                   <div className="bridge-cell">
-                    <div className="bridge-cell-header">07:00 PRE-MARKET THESIS</div>
+                    <div className="bridge-cell-header font-mono">PRE-MARKET THESIS (07:00)</div>
                     <div className="bridge-cell-body">
                       <DirectionBadge direction={activeReview.ihsg_predicted} />
                       {activeReview.ihsg_confidence && (
                         <span className="confidence-pill font-mono">{activeReview.ihsg_confidence}% Conf</span>
                       )}
                     </div>
-                    <div className="bridge-cell-sub font-mono">
-                      Exp. Flow: <span className="text-secondary font-medium">{activeReview.foreign_flow_predicted || "Neutral"}</span>
+                    <div className="bridge-cell-sub">
+                      Exp. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_predicted || "Neutral"}</span>
                     </div>
                   </div>
 
                   <div className="bridge-cell">
-                    <div className="bridge-cell-header">16:00 SESSION CLOSE</div>
+                    <div className="bridge-cell-header font-mono">SESSION CLOSE (16:00)</div>
                     <div className="bridge-cell-body">
                       <DirectionBadge direction={activeReview.ihsg_actual} />
                       <span className={`font-mono text-sm font-semibold ${isUp ? "text-matched" : "text-missed"}`}>
                         ({formatPct(activeReview.ihsg_actual_pct)})
                       </span>
                     </div>
-                    <div className="bridge-cell-sub font-mono">
-                      Act. Flow: <span className="text-secondary font-medium">{activeReview.foreign_flow_actual || "N/A"}</span>
+                    <div className="bridge-cell-sub">
+                      Act. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_actual || "N/A"}</span>
                     </div>
                   </div>
 
                   <div className="bridge-cell">
-                    <div className="bridge-cell-header">SESSION SPREAD &amp; DELTA</div>
+                    <div className="bridge-cell-header font-mono">SPREAD &amp; DELTA</div>
                     <div className="bridge-cell-body">
                       <span className={`font-mono text-base font-bold ${isUp ? "text-matched" : "text-missed"}`}>
                         {formatPct(activeReview.ihsg_actual_pct)}
@@ -886,20 +893,20 @@ export default function Dashboard() {
                         ({Math.round(Number(activeReview.ihsg_actual_pct || 0) * 100)} bps)
                       </span>
                     </div>
-                    <div className="bridge-cell-sub font-mono">
-                      Variance: <span className={isMatched ? "text-matched font-semibold" : "text-missed font-semibold"}>
-                        {isMatched ? "DIRECTION_MATCHED" : "DIRECTION_MISMATCHED"}
+                    <div className="bridge-cell-sub">
+                      Variance: <span className={`font-mono ${isMatched ? "text-matched font-medium" : "text-missed font-medium"}`}>
+                        {isMatched ? "Direction Aligned" : "Direction Divergence"}
                       </span>
                     </div>
                   </div>
 
                   <div className="bridge-cell" style={{ borderRight: "none" }}>
-                    <div className="bridge-cell-header">ATTRIBUTION VERDICT</div>
+                    <div className="bridge-cell-header font-mono">ATTRIBUTION VERDICT</div>
                     <div className="bridge-cell-body">
                       <StatusBadge correct={isMatched} />
                     </div>
-                    <div className="bridge-cell-sub font-mono">
-                      Accuracy Score: <span className="text-primary font-bold">{formatNumber(activeReview.accuracy_score)}%</span>
+                    <div className="bridge-cell-sub">
+                      Accuracy Score: <span className="text-primary font-bold font-mono">{formatNumber(activeReview.accuracy_score)}%</span>
                     </div>
                   </div>
                 </div>
@@ -910,19 +917,19 @@ export default function Dashboard() {
                   <div className="eval-pane">
                     <div className="eval-pane-header">
                       <div className="eval-pane-header-left">
-                        <span className="diagnostic-tag font-mono">07:00 → 19:00</span>
-                        <span className="eval-pane-title font-mono">EXECUTIVE SYNTHESIS &amp; SIGNALS</span>
+                        <span className="eval-pane-title">Executive Synthesis &amp; Signals</span>
+                        <span className="eval-section-tag font-mono">07:00 → 19:00</span>
                       </div>
                       <span className="eval-section-tag font-mono">
-                        {isHistorical ? `AUDIT · ${activeReview.date}` : `SESSION #${activeReview.date.replace(/-/g, "")}`}
+                        {isHistorical ? `Audit · ${activeReview.date}` : `Session #${activeReview.date.replace(/-/g, "")}`}
                       </span>
                     </div>
 
                     <div className="eval-pane-body" style={{ padding: 0 }}>
                       <div className="eval-pane-section">
                         <div className="eval-pane-section-header">
-                          <span className="eval-section-heading">EXECUTIVE MARKET BRIEF</span>
-                          <span className="eval-section-tag">OPENROUTER / 120B</span>
+                          <span className="eval-section-heading">Executive Market Brief</span>
+                          <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
                         </div>
                         <p className="eval-summary-text">{cleanNarrative(activeReview.summary) || "No executive summary logged."}</p>
                       </div>
@@ -942,7 +949,7 @@ export default function Dashboard() {
           )}
 
           {/* Historical Outcomes */}
-          <div className="section-eyebrow font-mono">// 03 · AUDITABLE EXECUTION ARCHIVE</div>
+          <div className="section-eyebrow font-mono">03 · AUDITABLE EXECUTION ARCHIVE</div>
           <section className="history-section">
             <header className="history-header">
               <div>
