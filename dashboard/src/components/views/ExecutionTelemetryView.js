@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
+import RunDetailDrawer from '../execution-telemetry/RunDetailDrawer';
 
 function formatDuration(ms) {
   if (ms === null || ms === undefined) return '—';
@@ -26,7 +27,7 @@ function formatTimestamp(isoStr) {
   }
 }
 
-function SessionRow({ session, expanded, onToggle }) {
+function CompactSessionRow({ session, expanded, onToggle, onDeepInspect }) {
   const isSuccess = Number(session.success) === 1;
 
   return (
@@ -34,8 +35,9 @@ function SessionRow({ session, expanded, onToggle }) {
       <tr 
         className={`table-row ${expanded ? 'expanded' : ''}`}
         onClick={onToggle}
+        style={{ cursor: 'pointer' }}
       >
-        <td className="font-mono text-xs">
+        <td className="font-mono text-xs" style={{ width: '100px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
             <svg
               className={`chevron-icon ${expanded ? 'rotated' : ''}`}
@@ -53,7 +55,7 @@ function SessionRow({ session, expanded, onToggle }) {
             <span className="font-bold text-primary">#{session.id}</span>
           </div>
         </td>
-        <td className="font-mono text-xs text-secondary">
+        <td className="font-mono text-xs text-secondary" style={{ width: '180px' }}>
           {formatTimestamp(session.timestamp)}
         </td>
         <td>
@@ -61,20 +63,10 @@ function SessionRow({ session, expanded, onToggle }) {
             {session.agent}
           </span>
         </td>
-        <td>
-          <span className="font-mono text-xs text-tertiary">
-            {session.model || 'llm_client'}
-          </span>
-        </td>
-        <td>
-          <span className="font-mono text-xs text-primary font-medium">
-            {session.query}
-          </span>
-        </td>
-        <td className="font-mono text-xs font-semibold">
+        <td className="font-mono text-xs font-semibold" style={{ width: '130px' }}>
           {formatDuration(session.duration_ms)}
         </td>
-        <td>
+        <td style={{ width: '130px' }}>
           <span className={`status-pill ${isSuccess ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
             <span className="status-indicator-dot" />
             <span className="status-text">{isSuccess ? 'SUCCESS' : 'FAILED'}</span>
@@ -83,74 +75,35 @@ function SessionRow({ session, expanded, onToggle }) {
       </tr>
       {expanded && (
         <tr className="expanded-row">
-          <td colSpan={7} style={{ padding: 0 }}>
-            <div className="expanded-panel">
-              <div className="expanded-grid">
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Session ID &amp; Agent</div>
-                  <div className="detail-value font-mono">#{session.id} · {session.agent}</div>
-                  <div className="detail-sub font-mono">Model Engine: {session.model || 'llm_client'}</div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Execution Wall Clock</div>
-                  <div className="detail-value font-mono">{formatDuration(session.duration_ms)}</div>
-                  <div className="detail-sub font-mono">{session.duration_ms ? `${session.duration_ms.toLocaleString()} ms elapsed` : 'No duration metric'}</div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Timestamp &amp; Exit Code</div>
-                  <div className="detail-value font-mono">{formatTimestamp(session.timestamp)}</div>
-                  <div className="detail-sub font-mono">
-                    {isSuccess ? 'Exit Status: 1 (Completed cleanly)' : 'Exit Status: 0 (Execution Exception)'}
+          <td colSpan={5} style={{ padding: 0 }}>
+            <div className="expanded-panel" style={{ padding: '12px 18px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '12px' }}>
+                  <div>
+                    <span className="font-mono text-tertiary" style={{ marginRight: '6px' }}>TASK:</span>
+                    <span className="font-mono font-bold text-primary">{session.query}</span>
+                  </div>
+                  <div>
+                    <span className="font-mono text-tertiary" style={{ marginRight: '6px' }}>ENGINE:</span>
+                    <span className="font-mono font-medium text-secondary">{session.model || 'llm_client'}</span>
+                  </div>
+                  <div>
+                    <span className="font-mono text-tertiary" style={{ marginRight: '6px' }}>DURATION:</span>
+                    <span className="font-mono font-medium text-primary">
+                      {session.duration_ms ? `${session.duration_ms.toLocaleString()} ms` : '—'}
+                    </span>
                   </div>
                 </div>
-              </div>
-
-              {/* Error Callout if Failed */}
-              {session.error_msg && (
-                <div style={{ marginTop: '14px', padding: '12px 16px', background: 'var(--missed-bg)', border: '1px solid var(--missed-border)', borderRadius: 'var(--radius-sm)' }}>
-                  <div className="font-mono text-xs font-bold text-missed" style={{ marginBottom: '4px' }}>
-                    [FATAL_EXCEPTION_LOG]:
-                  </div>
-                  <pre style={{ margin: 0, fontSize: '11px', color: 'var(--missed-text)', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
-                    {session.error_msg}
-                  </pre>
-                </div>
-              )}
-
-              {/* Execution Result Log */}
-              <div className="rca-memory-terminal-block" style={{ marginTop: '14px' }}>
-                <div className="memory-prefix font-mono">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span className="memory-title">RAW PIPELINE OUTPUT PAYLOAD</span>
-                    <span className="font-mono text-xs text-tertiary">#session-{session.id}</span>
-                  </div>
-                  <span className="memory-injected-pill font-mono">VERIFIED PERSISTENCE</span>
-                </div>
-                <div style={{
-                  background: 'var(--canvas)',
-                  padding: '14px 16px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--border-subtle)',
-                  maxHeight: '280px',
-                  overflowY: 'auto',
-                  marginTop: '8px'
-                }}>
-                  <pre style={{
-                    margin: 0,
-                    fontSize: '11.5px',
-                    lineHeight: '1.6',
-                    color: 'var(--text-secondary)',
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'break-word',
-                    fontFamily: 'var(--font-mono)'
-                  }}>
-                    {session.result || 'No output payload recorded.'}
-                  </pre>
-                </div>
-                <div className="rca-lesson-meta font-mono">
-                  <span>SOURCE: sqlite3://nexus_sessions.db (table: sessions)</span>
-                  <span>SYNC: REAL-TIME REPLICA</span>
-                </div>
+                <button
+                  className="brief-read-btn font-mono"
+                  style={{ padding: '4px 10px', fontSize: '11px' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeepInspect(session);
+                  }}
+                >
+                  Deep Inspection (Payload &amp; Trace) ↗
+                </button>
               </div>
             </div>
           </td>
@@ -224,6 +177,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
   const [expandedId, setExpandedId] = useState(null);
+  const [selectedRun, setSelectedRun] = useState(null);
 
   useEffect(() => {
     fetch('/api/telemetry')
@@ -269,7 +223,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
       <div className="content-container">
         <header className="page-header">
           <div>
-            <div className="breadcrumb">NEXUS / System Operations</div>
+            <div className="breadcrumb">NEXUS / Execution Telemetry</div>
             <h1 className="page-title">Execution Telemetry</h1>
           </div>
         </header>
@@ -293,7 +247,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
   return (
     <div className="content-container">
-      {/* Page Header (Exact baseline layout) */}
+      {/* Page Header */}
       <header className="page-header">
         <div>
           <div className="breadcrumb">NEXUS / Execution Telemetry</div>
@@ -617,7 +571,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* 03 · Table Card: Session Ledger */}
+      {/* 03 · Compact Historical Execution Ledger */}
       <div className="section-eyebrow font-mono">
         <span className="console-prompt">//</span> 03 · HISTORICAL EXECUTION LEDGER
       </div>
@@ -626,7 +580,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           <div>
             <h2 className="history-title">Historical Execution Ledger</h2>
             <div className="history-subtitle font-mono text-xs">
-              Chronological SQLite transaction log of autonomous pipeline runs (click row to inspect payload)
+              Chronological SQLite transaction log of autonomous pipeline runs (click row to inspect compact summary)
             </div>
           </div>
           <div className="filter-tabs">
@@ -657,25 +611,24 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
               <tr>
                 <th style={{ width: '100px' }}>Run ID</th>
                 <th style={{ width: '180px' }}>Timestamp</th>
-                <th style={{ width: '150px' }}>Agent Name</th>
-                <th style={{ width: '130px' }}>Model Engine</th>
-                <th>Target Task / Query</th>
-                <th style={{ width: '120px' }}>Wall Latency</th>
-                <th style={{ width: '120px' }}>Execution Verdict</th>
+                <th>Agent Name</th>
+                <th style={{ width: '130px' }}>Wall Latency</th>
+                <th style={{ width: '130px' }}>Execution Verdict</th>
               </tr>
             </thead>
             <tbody>
               {filteredSessions.map((session) => (
-                <SessionRow
+                <CompactSessionRow
                   key={session.id}
                   session={session}
                   expanded={expandedId === session.id}
                   onToggle={() => setExpandedId(expandedId === session.id ? null : session.id)}
+                  onDeepInspect={(run) => setSelectedRun(run)}
                 />
               ))}
               {filteredSessions.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '32px 0' }}>
+                  <td colSpan={5} className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '32px 0' }}>
                     No execution sessions match the selected filter.
                   </td>
                 </tr>
@@ -684,6 +637,13 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           </table>
         </div>
       </section>
+
+      {/* Level 3: Deep Inspection SideSheet for Run Audit */}
+      <RunDetailDrawer
+        isOpen={!!selectedRun}
+        onClose={() => setSelectedRun(null)}
+        run={selectedRun}
+      />
     </div>
   );
 }

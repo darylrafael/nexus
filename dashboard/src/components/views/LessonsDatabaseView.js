@@ -1,5 +1,8 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
+import SideSheet from '../common/SideSheet';
+import EvidenceDrawer from '../memory-heuristics/EvidenceDrawer';
+import { HeuristicStatusBadge } from '../common/Badges';
 
 function formatPct(val) {
   if (val === null || val === undefined || val === '') return '—';
@@ -8,117 +11,73 @@ function formatPct(val) {
   return `${num > 0 ? '+' : ''}${num.toFixed(2)}%`;
 }
 
-function HeuristicRow({ item, expanded, onToggle }) {
-  const tested = item.validated + item.contradicted;
+function CompactHeuristicRow({ item, onInspect }) {
   const isUp = item.validationRate >= 50;
 
   return (
-    <>
-      <tr 
-        className={`table-row ${expanded ? 'expanded' : ''}`}
-        onClick={onToggle}
-      >
-        <td className="font-mono font-medium">
-          <div className="table-call-cell">
-            <span className={`chevron-icon ${expanded ? 'rotated' : ''}`}>
-              ▶
-            </span>
-            <span>{item.id}</span>
-          </div>
-        </td>
-        <td>
-          <span className="font-mono text-xs text-secondary font-medium">
-            {item.category}
+    <tr 
+      className="table-row"
+      onClick={() => onInspect(item)}
+      style={{ cursor: 'pointer' }}
+    >
+      <td className="font-mono font-bold text-xs" style={{ width: '90px' }}>
+        <span className="text-primary">{item.id}</span>
+      </td>
+      <td style={{ width: '140px' }}>
+        <span className="font-mono text-xs text-secondary font-medium">
+          {item.category}
+        </span>
+      </td>
+      <td style={{ maxWidth: '440px', padding: '10px 14px' }}>
+        <span 
+          className="font-medium text-xs leading-normal text-primary"
+          style={{
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}
+          title={item.rule}
+        >
+          “{item.rule}”
+        </span>
+      </td>
+      <td className="font-mono text-xs" style={{ width: '80px' }}>
+        {item.observed} {item.observed === 1 ? 'run' : 'runs'}
+      </td>
+      <td className="font-mono text-xs text-matched font-bold" style={{ width: '70px' }}>
+        {item.validated}
+      </td>
+      <td className="font-mono text-xs text-missed font-bold" style={{ width: '70px' }}>
+        {item.contradicted}
+      </td>
+      <td style={{ width: '100px' }}>
+        <div className="delta-cell font-mono">
+          <span className={isUp ? 'text-matched font-bold' : 'text-missed font-bold'}>
+            {item.validationRate !== null ? `${item.validationRate}%` : 'Unresolved'}
           </span>
-        </td>
-        <td style={{ maxWidth: '420px', whiteSpace: 'normal', padding: '12px 14px' }}>
-          <span className="font-medium text-xs leading-relaxed">
-            “{item.rule}”
-          </span>
-        </td>
-        <td className="font-mono text-xs">
-          {item.observed} {item.observed === 1 ? 'run' : 'runs'}
-        </td>
-        <td className="font-mono text-xs text-matched font-bold">
-          {item.validated}
-        </td>
-        <td className="font-mono text-xs text-missed font-bold">
-          {item.contradicted}
-        </td>
-        <td>
-          <div className="delta-cell font-mono">
-            <span className={isUp ? 'text-matched' : 'text-missed'}>
-              {item.validationRate !== null ? `${item.validationRate}%` : 'Unresolved'}
-            </span>
-          </div>
-        </td>
-        <td>
-          <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
-            <span className="status-indicator-dot" />
-            <span>{item.status}</span>
-          </span>
-        </td>
-      </tr>
-      {expanded && (
-        <tr className="expanded-row">
-          <td colSpan="8" className="expanded-cell">
-            <div className="expanded-panel">
-              <div className="expanded-grid">
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Categorical Classification</div>
-                  <div className="detail-value">{item.category}</div>
-                  <div className="detail-sub font-mono">Active prompt constraint</div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Empirical Validation Rate</div>
-                  <div className="detail-value font-mono">
-                    {item.validated} of {tested} tested sessions ({item.validationRate !== null ? `${item.validationRate}%` : 'Pending tests'})
-                  </div>
-                  <div className="detail-sub font-mono">Unresolved cases excluded</div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-label font-mono">Last Observed In Market</div>
-                  <div className="detail-value font-mono">{item.lastObserved || 'Historical'}</div>
-                  <div className="detail-sub font-mono">{item.evidence?.length || 0} historical trace logs</div>
-                </div>
-              </div>
-
-              {/* Historical Provenance Trace */}
-              <div className="expanded-lesson">
-                <div className="detail-label font-mono" style={{ marginBottom: '8px' }}>
-                  Auditable Evidence &amp; Observation Provenance
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {(item.evidence || []).map((ev, i) => (
-                    <div 
-                      key={i} 
-                      style={{ 
-                        background: 'var(--surface)', 
-                        padding: '10px 14px', 
-                        borderRadius: 'var(--radius-sm)', 
-                        border: '1px solid var(--border-subtle)',
-                        fontSize: '12px'
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <span className="font-mono font-bold text-primary">{ev.date}</span>
-                        <span className={`font-mono text-xs font-bold ${ev.outcome === 'VALIDATED' ? 'text-matched' : 'text-missed'}`}>
-                          [{ev.outcome}] · IHSG: {ev.ihsg_actual} {ev.ihsg_actual_pct ? `(${formatPct(ev.ihsg_actual_pct)})` : ''}
-                        </span>
-                      </div>
-                      <p className="text-secondary" style={{ lineHeight: 1.45 }}>{ev.summary}</p>
-                    </div>
-                  ))}
-                  {(!item.evidence || item.evidence.length === 0) && (
-                    <p className="expanded-lesson-text">No direct transaction log linked.</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-      )}
-    </>
+        </div>
+      </td>
+      <td style={{ width: '90px' }}>
+        <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
+          <span className="status-indicator-dot" />
+          <span>{item.status}</span>
+        </span>
+      </td>
+      <td style={{ width: '130px', textAlign: 'right' }}>
+        <button
+          className="brief-read-btn font-mono"
+          style={{ padding: '3px 8px', fontSize: '10px' }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onInspect(item);
+          }}
+        >
+          Deep Inspect ↗
+        </button>
+      </td>
+    </tr>
   );
 }
 
@@ -127,7 +86,8 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
-  const [expandedId, setExpandedId] = useState(null);
+  const [selectedHeuristic, setSelectedHeuristic] = useState(null);
+  const [showPromptDrawer, setShowPromptDrawer] = useState(false);
 
   useEffect(() => {
     fetch('/api/memory')
@@ -169,10 +129,12 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   }
 
   const maxBlindSpotCount = Math.max(...blindSpots.map((b) => b.count), 1);
+  const activeCount = heuristics.filter((h) => h.status === 'ACTIVE').length;
+  const supersededCount = heuristics.filter((h) => h.status !== 'ACTIVE').length;
 
   return (
     <div className="content-container">
-      {/* Page Header (Exact baseline layout) */}
+      {/* Page Header */}
       <header className="page-header">
         <div>
           <div className="breadcrumb">NEXUS / Memory &amp; Heuristics</div>
@@ -343,9 +305,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       </div>
       <section className="eval-section">
         <header className="eval-header">
-          <div className="eval-header-title">Macro Risk Factor Attribution &amp; Feedback Cycle</div>
+          <div className="eval-header-title">Macro Risk Factor Attribution &amp; Prompt Ingestion</div>
           <div className="eval-header-right">
-            <div className="eval-date-badge font-mono">Continuous Feedback</div>
+            <div className="eval-date-badge font-mono">Closed-Loop Memory</div>
           </div>
         </header>
 
@@ -384,7 +346,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             </div>
           </div>
 
-          {/* Right Column: Prompt Constraints Logic */}
+          {/* Right Column: Minimized Prompt Constraint Injection Section */}
           <div className="eval-column-right">
             <div className="eval-pane">
               <div className="eval-pane-header">
@@ -397,35 +359,30 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                   Loop Active
                 </div>
               </div>
-              <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {/* Active Injected Prompt Block */}
-                <div className="rca-memory-terminal-block">
-                  <div className="memory-prefix font-mono">
-                    <span className="memory-title">ACTIVE HEURISTIC INJECTED INTO BRIEF PROMPT</span>
-                    <span className="memory-injected-pill font-mono">LIVE CONSTRAINT</span>
+              <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {/* Minimized Compact Summary Card */}
+                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="font-mono text-xs font-bold text-primary">
+                      {activeCount} Active Constraints Injected
+                    </span>
+                    <span className="font-mono text-xs text-matched font-semibold">
+                      Cap: Top 5 Rules
+                    </span>
                   </div>
-                  <p className="rca-lesson-text font-mono" style={{ fontSize: '12px', lineHeight: 1.6 }}>
-                    “{heuristics[0]?.rule || 'Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas suku bunga melonjak, maka evaluasi sentimen foreign flow dan technical rebound sebelum menetapkan arah bearish agresif.'}”
+                  <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45 }}>
+                    Validated rules from post-market reviews are injected as prompt constraints into the 07:00 WIB brief to prevent recurring forecasting biases.
                   </p>
-                  <div className="rca-lesson-meta font-mono">
-                    <span>INJECTION TARGET: 07:00 WIB Morning Brief Prompt</span>
-                    <span className="text-matched font-bold">100% EMPIRICAL MATCH</span>
-                  </div>
-                </div>
-
-                {/* Cognitive Architecture Details */}
-                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
-                    <span className="font-mono text-tertiary">PROMPT CONSTRAINT CAP:</span>
-                    <span className="font-mono font-bold text-primary">Top 5 Validated Rules</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
-                    <span className="font-mono text-tertiary">ACTIVE GRADUATION CRITERIA:</span>
-                    <span className="font-mono font-bold text-matched">Validation Rate &ge; 50%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span className="font-mono text-tertiary">OBSIDIAN PERSISTENCE:</span>
-                    <span className="font-mono font-bold text-primary">vault/nexus/learning_store.md (:27124)</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
+                    <span className="font-mono text-xs text-tertiary">
+                      SOURCE: vault/nexus/learning_store.md (:27124)
+                    </span>
+                    <button
+                      className="brief-read-btn font-mono"
+                      onClick={() => setShowPromptDrawer(true)}
+                    >
+                      Deep Inspect Injected Prompt ↗
+                    </button>
                   </div>
                 </div>
               </div>
@@ -434,7 +391,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* 03 · Table: Heuristic Rules & Provenance Ledger */}
+      {/* 03 · Compact Heuristics Repository Table */}
       <div className="section-eyebrow font-mono">
         <span className="console-prompt">//</span> 03 · AUDITABLE HEURISTICS REPOSITORY
       </div>
@@ -443,7 +400,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           <div>
             <h2 className="history-title">Heuristic Rules &amp; Provenance Ledger</h2>
             <div className="history-subtitle font-mono text-xs">
-              Repository of autonomous market rules and verifiable evidence traces (click row to inspect)
+              Repository of autonomous market rules and verifiable evidence traces (click row to inspect full provenance)
             </div>
           </div>
           <div className="filter-tabs">
@@ -457,13 +414,13 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               className={`filter-tab-btn font-mono ${filter === 'active' ? 'active' : ''}`}
               onClick={() => setFilter('active')}
             >
-              Active ({heuristics.filter((h) => h.status === 'ACTIVE').length})
+              Active ({activeCount})
             </button>
             <button
               className={`filter-tab-btn font-mono ${filter === 'superseded' ? 'active' : ''}`}
               onClick={() => setFilter('superseded')}
             >
-              Superseded ({heuristics.filter((h) => h.status !== 'ACTIVE').length})
+              Superseded ({supersededCount})
             </button>
           </div>
         </header>
@@ -472,28 +429,28 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           <table className="data-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Category</th>
-                <th>Formulated Rule</th>
-                <th>Observed</th>
-                <th>Validated</th>
-                <th>Contradicted</th>
-                <th>Validation Rate</th>
-                <th>Status</th>
+                <th style={{ width: '90px' }}>Rule ID</th>
+                <th style={{ width: '140px' }}>Domain</th>
+                <th>Formulated Heuristic Rule</th>
+                <th style={{ width: '80px' }}>Observed</th>
+                <th style={{ width: '70px' }}>Validated</th>
+                <th style={{ width: '70px' }}>Contradicted</th>
+                <th style={{ width: '100px' }}>Validation Rate</th>
+                <th style={{ width: '90px' }}>Status</th>
+                <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
               </tr>
             </thead>
             <tbody>
               {filteredHeuristics.map((item) => (
-                <HeuristicRow
+                <CompactHeuristicRow
                   key={item.id}
                   item={item}
-                  expanded={expandedId === item.id}
-                  onToggle={() => setExpandedId(expandedId === item.id ? null : item.id)}
+                  onInspect={(h) => setSelectedHeuristic(h)}
                 />
               ))}
               {filteredHeuristics.length === 0 && (
                 <tr>
-                  <td colSpan="8" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
+                  <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
                     No heuristic rules match the selected filter.
                   </td>
                 </tr>
@@ -502,6 +459,69 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           </table>
         </div>
       </section>
+
+      {/* Level 3: Deep Inspection SideSheet for Rule Evidence */}
+      <EvidenceDrawer
+        isOpen={!!selectedHeuristic}
+        onClose={() => setSelectedHeuristic(null)}
+        heuristic={selectedHeuristic}
+      />
+
+      {/* Level 3: Deep Inspection SideSheet for Full Prompt Injection */}
+      <SideSheet
+        isOpen={showPromptDrawer}
+        onClose={() => setShowPromptDrawer(false)}
+        title="Prompt Constraint Injection Audit"
+        subtitle="Ingested dynamically into 07:00 WIB Morning Brief"
+        tag="Active Injection"
+        maxWidth="680px"
+      >
+        <div className="evidence-panel-root">
+          <div className="evidence-rule-card">
+            <div className="evidence-rule-header">
+              <span className="detail-label font-mono">System Prompt Constraint Preamble</span>
+              <span className="status-pill status-matched status-sm font-mono">
+                <span className="status-indicator-dot" />
+                <span>INJECTED</span>
+              </span>
+            </div>
+            <p className="evidence-rule-text font-mono" style={{ fontSize: '12px', lineHeight: 1.6 }}>
+              “Prior session reflection has formulated the following empirical constraints. When analyzing pre-market catalysts, prioritize these causal conditions over raw narrative bias:”
+            </p>
+          </div>
+
+          <div className="evidence-ledger-header">
+            <span className="eval-section-heading">Active Injected Constraints</span>
+            <span className="eval-section-tag font-mono">{activeCount} Rules Active</span>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {heuristics.filter((h) => h.status === 'ACTIVE').map((h, i) => (
+              <div key={h.id} style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span className="font-mono text-xs font-bold text-primary">#{i + 1} · {h.category}</span>
+                  <span className="font-mono text-xs text-matched font-bold">100% Validated</span>
+                </div>
+                <p className="font-mono text-xs text-secondary" style={{ lineHeight: 1.5, margin: 0 }}>
+                  “{h.rule}”
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rca-memory-terminal-block" style={{ marginTop: '16px' }}>
+            <div className="memory-prefix font-mono">
+              <span className="memory-title">OBSIDIAN PERSISTENCE PROVENANCE</span>
+              <span className="memory-injected-pill font-mono">READ-ONLY SYNC</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '11px', marginTop: '6px' }}>
+              <div><span className="font-mono text-tertiary">VAULT NOTE:</span> <span className="font-mono text-primary">vault/nexus/learning_store.md</span></div>
+              <div><span className="font-mono text-tertiary">REST PORT:</span> <span className="font-mono text-matched">27124 (Local HTTPS)</span></div>
+              <div><span className="font-mono text-tertiary">INJECTION POINT:</span> <span className="font-mono text-primary">orchestrator/gemini.py · build_prompt()</span></div>
+            </div>
+          </div>
+        </div>
+      </SideSheet>
     </div>
   );
 }
