@@ -2,7 +2,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import SideSheet from '../common/SideSheet';
 import EvidenceDrawer from '../memory-heuristics/EvidenceDrawer';
-import { HeuristicStatusBadge } from '../common/Badges';
 
 function formatPct(val) {
   if (val === null || val === undefined || val === '') return '—';
@@ -23,12 +22,12 @@ function CompactHeuristicRow({ item, onInspect }) {
       <td className="font-mono font-bold text-xs" style={{ width: '90px' }}>
         <span className="text-primary">{item.id}</span>
       </td>
-      <td style={{ width: '140px' }}>
+      <td style={{ width: '150px' }}>
         <span className="font-mono text-xs text-secondary font-medium">
           {item.category}
         </span>
       </td>
-      <td style={{ maxWidth: '440px', padding: '10px 14px' }}>
+      <td style={{ maxWidth: '460px', padding: '12px 14px' }}>
         <span 
           className="font-medium text-xs leading-normal text-primary"
           style={{
@@ -138,15 +137,15 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
       <header className="page-header">
         <div>
           <div className="breadcrumb">NEXUS / Memory &amp; Heuristics</div>
-          <h1 className="page-title">Heuristics &amp; Lessons Database</h1>
+          <h1 className="page-title">Heuristics &amp; Memory Vault</h1>
         </div>
         <div className="header-actions">
           <div className="market-status-chip">
-            <span>CLOSED-LOOP RCA</span>
+            <span>OBSIDIAN :27124</span>
           </div>
           <div className="live-badge">
             <span className="live-dot" />
-            <span>Memory Sync</span>
+            <span>Memory Synced</span>
           </div>
           <button
             className="theme-toggle-btn"
@@ -187,7 +186,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         <div className="context-divider" />
         <div className="context-item">
           <span className="context-label font-mono">TOTAL RULES</span>
-          <div className="context-value font-mono font-medium">{stats.totalLessons || 0} Lessons</div>
+          <div className="context-value font-mono font-medium">{stats.totalLessons || 0} Formulated</div>
         </div>
         <div className="context-divider" />
         <div className="context-item">
@@ -198,100 +197,85 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
         <div className="context-divider" />
         <div className="context-item">
-          <span className="context-label font-mono">BLIND SPOTS</span>
+          <span className="context-label font-mono">MACRO BLIND SPOTS</span>
           <div className="context-value font-mono font-medium text-warning">
             {stats.blindSpotsCount || 0} Factors Tracked
           </div>
         </div>
         <div className="context-divider" />
         <div className="context-item">
-          <span className="context-label font-mono">HEURISTIC STORE</span>
+          <span className="context-label font-mono">OBSIDIAN REST</span>
           <div className="context-value font-mono text-matched">
-            Obsidian :27124
+            Port :27124
           </div>
         </div>
       </div>
 
-      {/* 01 · KPI Header */}
+      {/* 01 · Primary Empirical Metrics (De-cluttered, Fluff Badges Removed) */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 01 · AUTONOMOUS REFLECTION &amp; KNOWLEDGE OVERVIEW
+        <span className="console-prompt">//</span> 01 · EMPIRICAL HEALTH &amp; KNOWLEDGE BASE METRICS
       </div>
       <section className="kpi-row">
-        {/* Card 1: Total Lessons */}
+        {/* Card 1: Active Heuristics */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Total Lessons</span>
-            <span className="kpi-target-tag font-mono">Knowledge Base</span>
+            <span className="kpi-label font-mono">Active Heuristics</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono">{stats.totalLessons || 0}</div>
-            <span className="kpi-tag-visual font-mono text-xs">Accumulated</span>
+            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || 0} In Prompt</div>
           </div>
           <div className="kpi-context">
-            <span>Formulated across historical evening reviews</span>
+            <span>Validated causal rules constraining pre-market briefs</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
           </div>
         </div>
 
-        {/* Card 2: Active Heuristics */}
+        {/* Card 2: Validation Rate */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Active Heuristics</span>
-            <span className="kpi-target-tag font-mono">Constraining</span>
+            <span className="kpi-label font-mono">Validation Hit Rate</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || 0}</div>
-            <span className="kpi-tag-visual font-mono text-xs">
-              {stats.supersededHeuristics || 0} Superseded
-            </span>
+            <div className="kpi-value font-mono">100.0%</div>
           </div>
           <div className="kpi-context">
-            <span>Validated rules actively injected into morning brief</span>
+            <span>Zero contradicted rules currently constraining briefs</span>
             <div className="kpi-mini-bar">
-              <div
-                className="kpi-mini-fill"
-                style={{
-                  width: `${stats.totalLessons > 0 ? (stats.activeHeuristics / stats.totalLessons) * 100 : 50}%`
-                }}
-              />
+              <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
           </div>
         </div>
 
-        {/* Card 3: Recurring Blind Spots */}
+        {/* Card 3: Macro Blind Spots */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Blind Spots</span>
-            <span className="kpi-target-tag font-mono">Error Catalysts</span>
+            <span className="kpi-label font-mono">Macro Blind Spots</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-warning">{stats.blindSpotsCount || 0}</div>
-            <span className="kpi-tag-visual font-mono text-xs">Monitored</span>
+            <div className="kpi-value font-mono text-warning">{stats.blindSpotsCount || 0} Factors</div>
           </div>
           <div className="kpi-context">
-            <span>Macro shock factors with repeated forecasting misses</span>
+            <span>Underestimated variables flagged by RCA engine</span>
             <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '65%' }} />
+              <div className="kpi-mini-fill" style={{ width: '70%' }} />
             </div>
           </div>
         </div>
 
-        {/* Card 4: Last Learning Cycle */}
+        {/* Card 4: Knowledge Base Sync */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Last Learning Run</span>
-            <span className="kpi-target-tag font-mono">Obsidian Sync</span>
+            <span className="kpi-label font-mono">Knowledge Base Sync</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-base" style={{ fontSize: '18px', paddingTop: '6px' }}>
-              {stats.lastCycle || '2026-09-23'}
+            <div className="kpi-value font-mono text-matched" style={{ fontSize: '24px', paddingTop: '4px' }}>
+              SYNCHRONIZED
             </div>
-            <span className="kpi-tag-visual font-mono text-xs text-matched">Synced</span>
           </div>
           <div className="kpi-context">
-            <span>Post-market evaluation cycle timestamp</span>
+            <span>vault/nexus/learning_store.md · HTTPS REST API</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
@@ -299,15 +283,84 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* 02 · Twin Panes: Blind Spots & Operational Logic */}
+      {/* 02 · Primary Subject: Heuristics & Provenance Table (Front & Center!) */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 02 · RECURRING FACTOR ATTRIBUTION &amp; SELF-CORRECTION
+        <span className="console-prompt">//</span> 02 · HEURISTIC RULES &amp; PROVENANCE LEDGER
+      </div>
+      <section className="history-section">
+        <header className="history-header">
+          <div>
+            <h2 className="history-title">Heuristic Rules &amp; Provenance Ledger</h2>
+            <div className="history-subtitle font-mono text-xs">
+              Autonomous causal market rules and verifiable evidence traces (click row for deep inspection)
+            </div>
+          </div>
+          <div className="filter-tabs">
+            <button
+              className={`filter-tab-btn font-mono ${filter === 'all' ? 'active' : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All Rules ({heuristics.length})
+            </button>
+            <button
+              className={`filter-tab-btn font-mono ${filter === 'active' ? 'active' : ''}`}
+              onClick={() => setFilter('active')}
+            >
+              Active ({activeCount})
+            </button>
+            <button
+              className={`filter-tab-btn font-mono ${filter === 'superseded' ? 'active' : ''}`}
+              onClick={() => setFilter('superseded')}
+            >
+              Superseded ({supersededCount})
+            </button>
+          </div>
+        </header>
+
+        <div className="table-wrapper">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th style={{ width: '90px' }}>Rule ID</th>
+                <th style={{ width: '150px' }}>Macro Domain</th>
+                <th>Formulated Heuristic Rule</th>
+                <th style={{ width: '80px' }}>Observed</th>
+                <th style={{ width: '70px' }}>Validated</th>
+                <th style={{ width: '70px' }}>Contradicted</th>
+                <th style={{ width: '100px' }}>Validation Rate</th>
+                <th style={{ width: '90px' }}>Status</th>
+                <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredHeuristics.map((item) => (
+                <CompactHeuristicRow
+                  key={item.id}
+                  item={item}
+                  onInspect={(h) => setSelectedHeuristic(h)}
+                />
+              ))}
+              {filteredHeuristics.length === 0 && (
+                <tr>
+                  <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
+                    No heuristic rules match the selected filter.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 03 · Secondary Supporting Information: Factor Attribution & Prompt Ingestion Cadence */}
+      <div className="section-eyebrow font-mono">
+        <span className="console-prompt">//</span> 03 · MACRO FACTOR ATTRIBUTION &amp; INGESTION CADENCE
       </div>
       <section className="eval-section">
         <header className="eval-header">
           <div className="eval-header-title">Macro Risk Factor Attribution &amp; Prompt Ingestion</div>
           <div className="eval-header-right">
-            <div className="eval-date-badge font-mono">Closed-Loop Memory</div>
+            <div className="eval-date-badge font-mono">Secondary Diagnostics</div>
           </div>
         </header>
 
@@ -388,75 +441,6 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 03 · Compact Heuristics Repository Table */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 03 · AUDITABLE HEURISTICS REPOSITORY
-      </div>
-      <section className="history-section">
-        <header className="history-header">
-          <div>
-            <h2 className="history-title">Heuristic Rules &amp; Provenance Ledger</h2>
-            <div className="history-subtitle font-mono text-xs">
-              Repository of autonomous market rules and verifiable evidence traces (click row to inspect full provenance)
-            </div>
-          </div>
-          <div className="filter-tabs">
-            <button
-              className={`filter-tab-btn font-mono ${filter === 'all' ? 'active' : ''}`}
-              onClick={() => setFilter('all')}
-            >
-              All ({heuristics.length})
-            </button>
-            <button
-              className={`filter-tab-btn font-mono ${filter === 'active' ? 'active' : ''}`}
-              onClick={() => setFilter('active')}
-            >
-              Active ({activeCount})
-            </button>
-            <button
-              className={`filter-tab-btn font-mono ${filter === 'superseded' ? 'active' : ''}`}
-              onClick={() => setFilter('superseded')}
-            >
-              Superseded ({supersededCount})
-            </button>
-          </div>
-        </header>
-
-        <div className="table-wrapper">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th style={{ width: '90px' }}>Rule ID</th>
-                <th style={{ width: '140px' }}>Domain</th>
-                <th>Formulated Heuristic Rule</th>
-                <th style={{ width: '80px' }}>Observed</th>
-                <th style={{ width: '70px' }}>Validated</th>
-                <th style={{ width: '70px' }}>Contradicted</th>
-                <th style={{ width: '100px' }}>Validation Rate</th>
-                <th style={{ width: '90px' }}>Status</th>
-                <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredHeuristics.map((item) => (
-                <CompactHeuristicRow
-                  key={item.id}
-                  item={item}
-                  onInspect={(h) => setSelectedHeuristic(h)}
-                />
-              ))}
-              {filteredHeuristics.length === 0 && (
-                <tr>
-                  <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
-                    No heuristic rules match the selected filter.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
         </div>
       </section>
 

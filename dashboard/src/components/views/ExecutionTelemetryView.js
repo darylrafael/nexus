@@ -336,7 +336,6 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Pipeline Success Rate</span>
-            <span className="kpi-target-tag font-mono">Critical Path</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono text-matched">{stats.successRate}%</div>
@@ -367,16 +366,12 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Total Invocations</span>
-            <span className="kpi-target-tag font-mono">Session Ledger</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono">{stats.totalRuns} Runs</div>
-            <span className="kpi-tag-visual font-mono text-xs">
-              {stats.runsToday} Today
-            </span>
           </div>
           <div className="kpi-context">
-            <span>Indexed in local SQLite session database</span>
+            <span>{stats.runsToday} executed today · indexed in SQLite session database</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
@@ -387,16 +382,12 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Mean Pipeline Latency</span>
-            <span className="kpi-target-tag font-mono">End-to-End</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono">{formatDuration(stats.avgDurationMs)}</div>
-            <span className="kpi-tag-visual font-mono text-xs">
-              LLM + Tool Calling
-            </span>
           </div>
           <div className="kpi-context">
-            <span>Averaged across multi-turn synthesis turns</span>
+            <span>End-to-end multi-agent synthesis &amp; web crawl overhead</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '75%' }} />
             </div>
@@ -407,18 +398,14 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Storage Engine</span>
-            <span className="kpi-target-tag font-mono">Local Replica</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono text-matched" style={{ fontSize: '24px', paddingTop: '4px' }}>
               ONLINE
             </div>
-            <span className="kpi-tag-visual font-mono text-xs text-matched">
-              <span className="live-dot" style={{ width: 5, height: 5 }} /> WAL Mode
-            </span>
           </div>
           <div className="kpi-context">
-            <span>Read-only queries to nexus_sessions.db</span>
+            <span>nexus_sessions.db · WAL mode read-only replica</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>

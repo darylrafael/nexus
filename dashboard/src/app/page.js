@@ -488,7 +488,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
       </div>
       <nav className="sidebar-nav">
         <div className="nav-group">
-          <div className="nav-section-title">Intelligence</div>
+          <div className="nav-section-title">Core Intelligence</div>
           <a 
             className={`nav-item ${currentView === 'market' ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('market'); }}
@@ -499,17 +499,8 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
               <line x1="3" y1="9" x2="21" y2="9" />
               <line x1="9" y1="21" x2="9" y2="9" />
             </svg>
-            Market Reviews
+            Market Intelligence
           </a>
-          <a className="nav-item" style={{ opacity: 0.5, cursor: 'default' }} title="Embedded in Market Reviews">
-            <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
-            Commodity Tape
-          </a>
-        </div>
-        <div className="nav-group">
-          <div className="nav-section-title">System Operations</div>
           <a 
             className={`nav-item ${currentView === 'lessons' ? 'active' : ''}`}
             onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('lessons'); }}
@@ -518,7 +509,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
-            Lessons Database
+            Memory &amp; Heuristics
           </a>
           <a 
             className={`nav-item ${currentView === 'telemetry' ? 'active' : ''}`}
@@ -529,13 +520,6 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
             Execution Telemetry
-          </a>
-          <a className="nav-item" style={{ opacity: 0.5, cursor: 'default' }} title="Locked system parameters">
-            <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="12" cy="12" r="3" />
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-            </svg>
-            Configuration
           </a>
         </div>
       </nav>
