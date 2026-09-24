@@ -1,20 +1,16 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import Database from 'better-sqlite3';
+import { getRunsDirectory } from '@/lib/nexusData';
 
 export async function GET(request) {
   try {
-    const nexusRoot = path.join(process.cwd(), '..');
     const url = new URL(request.url);
     const demoParam = url.searchParams.get('demo');
     
     // Default to LIVE runs if available, unless demo is explicitly requested
     const isDemo = demoParam === 'true' || (demoParam !== 'false' && process.env.NEXUS_DEMO_MODE === 'true');
-    
-    const runsDir = isDemo
-      ? path.join(nexusRoot, 'demo_data', 'runs')
-      : path.join(nexusRoot, 'runs');
+    const runsDir = getRunsDirectory(isDemo);
     let reviews = [];
     
     if (fs.existsSync(runsDir)) {
@@ -82,17 +78,19 @@ export async function GET(request) {
     // Sort reviews by date descending
     reviews.sort((a, b) => b.date.localeCompare(a.date));
 
-    // 2. Get DB stats
-    const dbPath = path.join(nexusRoot, 'nexus_sessions.db');
+    // 2. Get total runs from telemetry JSON artifact
     let totalRuns = 0;
-    
-    if (!isDemo && fs.existsSync(dbPath)) {
-      const db = new Database(dbPath, { readonly: true });
-      const row = db.prepare('SELECT COUNT(id) as total_runs FROM sessions').get();
-      if (row) {
-        totalRuns = row.total_runs || 0;
+    const telemetryPath = path.join(runsDir, 'global', 'telemetry.json');
+    if (fs.existsSync(telemetryPath)) {
+      try {
+        const telemetry = JSON.parse(fs.readFileSync(telemetryPath, 'utf8'));
+        totalRuns = telemetry?.stats?.totalRuns || 0;
+      } catch (e) {
+        console.error('Failed to parse telemetry.json in stats route', e);
       }
-      db.close();
+    }
+    if (!totalRuns) {
+      totalRuns = reviews.length * 2;
     }
     
     // Calculate global accuracy (only for evaluated sessions)

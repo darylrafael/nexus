@@ -1,17 +1,14 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { getRunsDirectory } from '@/lib/nexusData';
 
 export async function GET(request) {
   try {
-    const nexusRoot = path.join(process.cwd(), '..');
     const url = new URL(request.url);
     const demoParam = url.searchParams.get('demo');
     const isDemo = demoParam === 'true' || (demoParam !== 'false' && process.env.NEXUS_DEMO_MODE === 'true');
-
-    const runsDir = isDemo
-      ? path.join(nexusRoot, 'demo_data', 'runs')
-      : path.join(nexusRoot, 'runs');
+    const runsDir = getRunsDirectory(isDemo);
 
     let allLessons = [];
     let missedFactorCounts = {};
