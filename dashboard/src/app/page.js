@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import LessonsDatabaseView from "../components/views/LessonsDatabaseView";
+import ExecutionTelemetryView from "../components/views/ExecutionTelemetryView";
 
 const formatPct = (value) => {
   const num = Number(value);
@@ -518,6 +519,16 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
             Lessons Database
+          </a>
+          <a 
+            className={`nav-item ${currentView === 'telemetry' ? 'active' : ''}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('telemetry'); }}
+            href="#telemetry"
+          >
+            <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Execution Telemetry
           </a>
           <a className="nav-item" style={{ opacity: 0.5, cursor: 'default' }} title="Locked system parameters">
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -1100,6 +1111,10 @@ export default function Dashboard() {
 
         {currentView === "lessons" && (
           <LessonsDatabaseView theme={theme} toggleTheme={toggleTheme} />
+        )}
+
+        {currentView === "telemetry" && (
+          <ExecutionTelemetryView theme={theme} toggleTheme={toggleTheme} />
         )}
       </main>
     </div>
