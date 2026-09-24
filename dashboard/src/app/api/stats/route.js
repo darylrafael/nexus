@@ -114,13 +114,27 @@ export async function GET(request) {
     
     const avgAccuracy = evaluatedDays > 0 ? (sumAccuracy / evaluatedDays).toFixed(1) : 0;
     
+    // Calculate deterministic sector breadth from latest session
+    let sectorBreadth = { bullish: 0, bearish: 0, neutral: 0, total: 0 };
+    if (reviews.length > 0) {
+      const latestSec = reviews[0].sector_accuracy || {};
+      for (const [_, val] of Object.entries(latestSec)) {
+        sectorBreadth.total += 1;
+        const v = String(val).toUpperCase();
+        if (v === 'BULLISH' || val === true) sectorBreadth.bullish += 1;
+        else if (v === 'BEARISH' || val === false) sectorBreadth.bearish += 1;
+        else sectorBreadth.neutral += 1;
+      }
+    }
+
     return NextResponse.json({
       success: true,
       isDemo,
       stats: {
         totalDays: evaluatedDays,
         avgAccuracy,
-        totalRuns: isDemo ? reviews.length * 2 : totalRuns
+        totalRuns: isDemo ? reviews.length * 2 : totalRuns,
+        sectorBreadth
       },
       recentLessons: recentLessons.slice(0, 10), // Top 10 most recent
       reviews
