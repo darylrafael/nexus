@@ -162,21 +162,21 @@ function SectorAttribution({ review }) {
           {isPending ? "Today's Sector Bias" : "Rule-Based Impact"}
         </span>
       </div>
-      <div className="sector-tape">
+      <div className="sector-matrix-grid">
         {entries.map(([sector, statusOrHit]) => {
           let label = "▲ Miss";
-          let cls = "text-missed";
+          let badgeCls = "badge-missed";
           if (isPending) {
-            cls = statusOrHit === 'BULLISH' ? "text-matched" : (statusOrHit === 'BEARISH' ? "text-missed" : "text-muted");
+            badgeCls = statusOrHit === 'BULLISH' ? "badge-matched" : (statusOrHit === 'BEARISH' ? "badge-missed" : "badge-neutral");
             label = statusOrHit;
           } else if (statusOrHit) {
-            cls = "text-matched";
+            badgeCls = "badge-matched";
             label = "● Match";
           }
           return (
-            <div className="sector-tile" key={sector}>
-              <span className="sector-name">{sector}</span>
-              <span className={`sector-indicator font-mono ${cls}`}>
+            <div className="sector-grid-cell" key={sector}>
+              <span className="sector-cell-name" title={sector}>{sector}</span>
+              <span className={`sector-cell-badge font-mono ${badgeCls}`}>
                 {label}
               </span>
             </div>
