@@ -1,0 +1,22 @@
+{
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 55,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.69,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {"Financials": false, "Energy": true},
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": ["Broad risk-off selling overwhelmed the neutral index scenario."],
+  "rca_overestimated": ["The forecast gave too much weight to a limited set of defensive signals."],
+  "rca_underestimated": ["Market breadth and foreign selling needed a larger penalty in the final score."],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": ["When foreign distribution and weak breadth align, do not keep an index call neutral without a strong counter-signal."],
+  "summary": "JCI closed at 6,277.04 (-1.69%); the neutral pre-market forecast missed the magnitude of the sell-off.",
+  "actual_usdidr": 15385,
+  "actual_commodities": {"Brent Crude": {"name": "Brent Crude", "ticker": "BZ=F", "price": 100.19, "change_pct": -4.4}}
+}
