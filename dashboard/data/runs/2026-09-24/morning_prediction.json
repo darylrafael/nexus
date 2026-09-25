@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-24",
+  "ihsg_signal": "Bullish",
+  "ihsg_confidence": 83,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Stagnant/Sideways (Data transaksi asing harian spesifik secara agregat tidak menunjukkan akumulasi masif di atas Rp1 triliun; namun aktivitas beli-jual harian tercatat pada saham-saham pilihan).",
+  "sector_bullish": [
+    "Sektor Barang Baku (Basic Materials)",
+    "Sektor Energi (Energy)"
+  ],
+  "sector_bearish": [
+    "Sektor Barang Konsumen Non"
+  ],
+  "sector_neutral": [
+    "Sektor Keuangan (Financials)"
+  ],
+  "recommended_tickers": [
+    "ANTM",
+    "CUAN",
+    "DSSA",
+    "INCO",
+    "BBCA",
+    "ASII",
+    "VKTR",
+    "ZATA",
+    "UNVR",
+    "KLCI",
+    "AALI",
+    "BBRI",
+    "TPIA",
+    "LSIP",
+    "SRSN",
+    "BUMI",
+    "TLKM",
+    "MDKA",
+    "KOTA",
+    "BMRI",
+    "MEDC",
+    "INET",
+    "ADRO",
+    "IATA"
+  ],
+  "key_risk": "Volatilitas nilai tukar Rupiah terhadap Dolar AS di tengah ketahanan ekonomi global dan arah kebijakan lanjutan Federal Reserve menjadi risiko utama yang dapat memicu tekanan jual tak terduga pada sesi perdagangan hari ini.",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_0c5d46621e",
+    "src_3f09d1a948",
+    "src_6260cb48d0",
+    "src_754cfbeb7b",
+    "src_b77e197c9b",
+    "src_c97b8fff8d",
+    "src_d9828c92c2"
+  ]
+}

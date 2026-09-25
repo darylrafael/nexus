@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-24",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 83,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.2,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Sektor Barang Baku": null,
+    "Sektor Energi": false,
+    "Sektor Barang Konsumen Non-Primer": null,
+    "Sektor Keuangan": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)",
+    "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta",
+    "Tekanan jual masif asing dengan net sell Rp 1,49 triliun"
+  ],
+  "rca_overestimated": [
+    "Keputusan Bank Indonesia menahan suku bunga acuan BI-Rate di 5,75% yang sebelumnya dianggap mampu menjaga sentimen bullish"
+  ],
+  "rca_underestimated": [
+    "Sensitivitas pasar domestik terhadap kenaikan yield US Treasury dan pelemahan Rupiah ke level 17.893.0"
+  ],
+  "rca_info_delay": [
+    "Data lonjakan US Treasury yield dan dinamika eksternal Wall Street yang berdampak langsung pada pembukaan bursa pagi hari"
+  ],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan keputusan BI menahan suku bunga akan melanjutkan penguatan IHSG, tetapi tekanan eksternal dari lonjakan US Treasury yield 5,11% justru memicu aksi jual masif membuat IHSG turun 1,20% ke level 6.298,61."
+  ],
+  "lessons": [
+    "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
+    "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%."
+  ],
+  "summary": "Meskipun brief memprediksi sentimen Bullish berkat keputusan BI menahan suku bunga, IHSG justru anjlok 1,20% ke level 6.298,61 akibat lonjakan US Treasury yield ke 5,11%, pelemahan Rupiah, serta aksi unjuk rasa buruh yang memicu tekanan jual dan net sell asing.",
+  "actual_usdidr": 17893.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 96.72,
+      "previous_close": 91.3,
+      "change_pct": 5.94,
+      "signal": "Up",
+      "retrieved_at": "2026-09-24T23:12:03+07:00",
+      "source": "yfinance:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 108.11,
+      "previous_close": 97.22,
+      "change_pct": 11.2,
+      "signal": "Up",
+      "retrieved_at": "2026-09-24T23:12:04+07:00",
+      "source": "yfinance:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.35,
+      "previous_close": 3.19,
+      "change_pct": 4.86,
+      "signal": "Up",
+      "retrieved_at": "2026-09-24T23:12:04+07:00",
+      "source": "yfinance:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Newcastle Coal hari ini - Investing.com\nAmbil Diskon 50%\n\nIkl\nSource IDs: src_2860e4904c, src_611595dc0f, src_171c2fa6b0, src_ee9f97789b, src_a277ed8ce1, src_4d907b14ac, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] Harga Referensi CPO September Naik 1,1% Jadi USD 1.007,51 per Ton |\nSource IDs: src_3eacadce28, src_9c7bf9e109, src_8f0e2177d4, src_f9be6e1198, src_fbbd4653a1, src_b3f825f6b8, src_56b4172631"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel - Price - Chart - Historical Data - News\n## Nickel fell to 1\nSource IDs: src_f1dad1f235, src_1de5e9219f, src_3a6be14baf, src_dc295145ae, src_bf08793d8b, src_a5bc66cd97, src_d82bd6dcd4"
+    }
+  }
+}

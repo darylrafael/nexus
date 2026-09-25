@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-23",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 87,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Sell Rp920,34 miliar di seluruh pasar (Net Sell Rp1,11 triliun di pasar reguler, Net Buy Rp192,85 miliar di pasar tunai dan negosiasi) [src_c63575ffa7].",
+  "sector_bullish": [
+    "Barang Konsumen Non"
+  ],
+  "sector_bearish": [
+    "Energi",
+    "Properti & Industri"
+  ],
+  "sector_neutral": [
+    "Keuangan"
+  ],
+  "recommended_tickers": [
+    "FORU",
+    "DMAS",
+    "BBRI",
+    "ANTM",
+    "BPTR",
+    "TINS",
+    "BMRI",
+    "GOTO",
+    "ADRO",
+    "BYAN",
+    "TAPG",
+    "ASII",
+    "APIC",
+    "BBCA",
+    "INDY"
+  ],
+  "key_risk": "Pergerakan nilai tukar rupiah terhadap dolar AS (USD/IDR di kisaran Rp17.813) serta hasil pengumuman resmi BI Rate akan menjadi penentu utama apakah IHSG mampu melakukan *rebound* atau justru melanjutkan tren pelemahan ke bawah level psikologis 6.250 [src_7857e20ee0].",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_12f88016da",
+    "src_1de5e9219f",
+    "src_20e8a80514",
+    "src_4952a121ce",
+    "src_4de8f15c96",
+    "src_4df586c2dc",
+    "src_5dea8cfbff",
+    "src_7857e20ee0",
+    "src_b135acadb2",
+    "src_c63575ffa7",
+    "src_d773ec74d5",
+    "src_dc60b82baa",
+    "src_ed70769def",
+    "src_f1dad1f235",
+    "src_f362c315e6"
+  ]
+}

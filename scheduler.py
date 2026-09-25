@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from apscheduler.schedulers.blocking import BlockingScheduler
 from agents.market_agent import run_market_brief
 from agents.evening_reviewer import run_evening_review
@@ -9,10 +11,16 @@ import traceback
 scheduler = BlockingScheduler(timezone="Asia/Jakarta")
 
 
-def daily_brief():
+def daily_brief(force: bool = False):
     now          = jakarta_now()
     date_key     = now.strftime("%Y-%m-%d")
     current_date = now.strftime("%B %d, %Y")
+
+    is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
+    brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
+    if brief_artifact.exists() and not is_forced:
+        print(f"\n[scheduler] Morning brief for {date_key} already exists. Skipping duplicate execution.")
+        return
 
     print(f"\n[scheduler] Morning brief starting -- {now.strftime('%H:%M')}")
 
@@ -36,9 +44,15 @@ def daily_brief():
         )
 
 
-def evening_review():
+def evening_review(force: bool = False):
     now      = jakarta_now()
     date_key = now.strftime("%Y-%m-%d")
+
+    is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
+    review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
+    if review_artifact.exists() and not is_forced:
+        print(f"\n[scheduler] Evening review for {date_key} already exists. Skipping duplicate execution.")
+        return
 
     print(f"\n[scheduler] Evening review starting -- {now.strftime('%H:%M')}")
 

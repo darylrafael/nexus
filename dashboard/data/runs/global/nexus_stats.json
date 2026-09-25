@@ -1,0 +1,23 @@
+{
+  "total_sessions": 1,
+  "total_accuracy_sum": 0,
+  "rolling_avg_accuracy": 0.0,
+  "ihsg_correct_count": 0,
+  "ff_correct_count": 0,
+  "ihsg_accuracy_pct": 0.0,
+  "ff_accuracy_pct": 0.0,
+  "missed_factor_counts": {
+    "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
+    "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
+    "Tekanan jual masif asing dengan net sell Rp 1,49 triliun": 1,
+    "Sensitivitas pasar domestik terhadap kenaikan yield US Treasury dan pelemahan Rupiah ke level 17.893.0": 1
+  },
+  "all_lessons": [
+    "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
+    "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%."
+  ],
+  "processed_dates": [
+    "2026-09-24"
+  ],
+  "last_updated": "2026-09-24"
+}

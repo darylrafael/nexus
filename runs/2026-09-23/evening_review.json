@@ -1,0 +1,79 @@
+{
+  "date": "2026-09-23",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 87,
+  "ihsg_actual": "Neutral",
+  "ihsg_actual_pct": 0.0,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Energi": false,
+    "Properti & Industri": false,
+    "Barang Konsumen Non": true,
+    "Keuangan": null
+  },
+  "error_rate_pct": 80,
+  "accuracy_score": 20,
+  "rca_unanticipated": [
+    "Bank Indonesia memutuskan mempertahankan BI Rate di level 5,75% sesuai antisipasi, meredakan ketidakpastian pasar."
+  ],
+  "rca_overestimated": [
+    "Tekanan pelemahan rupiah terhadap USD/IDR, di mana rupiah justru menguat tipis 0,447% ke level 17.798."
+  ],
+  "rca_underestimated": [
+    "Potensi technical rebound setelah IHSG merosot tajam sebesar 1,69% pada sesi sebelumnya ke level 6.277,04."
+  ],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan tekanan pelemahan USD/IDR di kisaran 17.813 akan melanjutkan tren bearish, tetapi penguatan rupiah ke 17.798 dan keputusan BI Rate yang menahan suku bunga justru memicu rebound IHSG ditutup flat ke level 6374.91 (+0,00%)."
+  ],
+  "lessons": [
+    "Ketika IHSG diproyeksikan bearish dengan sentimen pelemahan rupiah di level 17.813, tetapi Bank Indonesia mempertahankan BI Rate di 5,75% dan rupiah berbalik menguat 0,447% ke 17.798, maka IHSG justru melakukan rebound dan ditutup flat ke level 6.374,91 (+0,00%).",
+    "Ketika sektor energi dan industri diprediksi bearish menyusul kejatuhan sesi sebelumnya, tetapi terjadi aksi akumulasi asing dan peredaan sentimen makroekonomi, maka sebagian sektor defensif dan konsumer tetap mampu mencatatkan penguatan."
+  ],
+  "summary": "Morning brief memperkirakan tren lanjutan bearish dan aliran dana asing yang stagnan, namun faktanya IHSG berhasil mencatatkan rebound flat di level 6.374,91 (+0,00%) didorong oleh keputusan BI Rate yang menahan suku bunga di 5,75% serta penguatan nilai tukar rupiah.",
+  "actual_usdidr": 17798.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 92.05,
+      "previous_close": 89.35,
+      "change_pct": 3.02,
+      "signal": "Up",
+      "retrieved_at": "2026-09-23T21:58:50+07:00",
+      "source": "yfinance:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.63,
+      "previous_close": 98.45,
+      "change_pct": -0.83,
+      "signal": "Down",
+      "retrieved_at": "2026-09-23T21:58:50+07:00",
+      "source": "yfinance:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.13,
+      "previous_close": 3.17,
+      "change_pct": -1.26,
+      "signal": "Down",
+      "retrieved_at": "2026-09-23T21:58:50+07:00",
+      "source": "yfinance:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] FedEx Global Home - Select Your Location\nZambia | English\n\nZimbabwe\nSource IDs: src_eb03e15462, src_87bff83e0d, src_b42b03a6f5, src_0af310c9ef, src_69627f99c2, src_f6f82a5a59, src_e6c9e51265"
+    },
+    "CPO": {
+      "raw": "[no date] Instagram\nSign up\n\nLog in\n\nPhoto by Julong_Indonesia on September 1\nSource IDs: src_f9be6e1198, src_9c7bf9e109, src_fbbd4653a1, src_21ae48cf96, src_56b4172631, src_6399c9b951, src_23f556bbca"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today | Live LME Nickel Spot Price (2026)\n--.--\n\n•\n\nLC\nSource IDs: src_cae0526bbb, src_e7b01f3b12, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_3d959b8119"
+    }
+  }
+}

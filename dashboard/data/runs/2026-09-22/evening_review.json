@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-22",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.69,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Transport & Logistics": null,
+    "Oil & Gas Upstream": null,
+    "Telecommunications & Technology": null,
+    "Consumer Goods": null,
+    "Energy & Mining": null
+  },
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": [
+    "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes",
+    "Geopolitical tensions impacting broader Asian markets"
+  ],
+  "rca_overestimated": [
+    "Domestic labor union protest threats regarding the labor law revision"
+  ],
+  "rca_underestimated": [
+    "Sustained currency depreciation pressures pushing USD/IDR to 17878.0"
+  ],
+  "rca_info_delay": [
+    "Real-time intraday foreign flow accumulation shifts occurring against historical monthly averages"
+  ],
+  "rca_inverse_correlation": [
+    "Brief anticipated stagnant foreign flow, but actual session recorded foreign accumulation despite a 1.69% market correction due to institutional selling."
+  ],
+  "lessons": [
+    "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
+    "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik."
+  ],
+  "summary": "Meskipun arah pergerakan Bearish pada IHSG berhasil diprediksi secara akurat dengan penurunan -1.69% ke level 6277.04, brief pagi meremehkan eskalasi sentimen suku bunga global dari The Fed serta tekanan depresiasi nilai tukar rupiah terhadap USD yang mencapai 17878.0.",
+  "actual_usdidr": 17878.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 90.44,
+      "previous_close": 92.97,
+      "change_pct": -2.72,
+      "signal": "Down",
+      "retrieved_at": "2026-09-22T21:10:19+07:00",
+      "source": "yfinance:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 98.99,
+      "previous_close": 97.1,
+      "change_pct": 1.95,
+      "signal": "Up",
+      "retrieved_at": "2026-09-22T21:10:19+07:00",
+      "source": "yfinance:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.04,
+      "previous_close": 2.85,
+      "change_pct": 6.78,
+      "signal": "Up",
+      "retrieved_at": "2026-09-22T21:10:20+07:00",
+      "source": "yfinance:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Membara, Permintaan Meledak\nharga batu bara Newcast\nSource IDs: src_87788c03c2, src_2860e4904c, src_611595dc0f, src_e066ffdec2, src_4d4b55251b, src_5595643374, src_6d2880116c"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n### Palm Oil fell\nSource IDs: src_9c7bf9e109, src_fbbd4653a1, src_56b4172631, src_6399c9b951, src_8714d7e80a, src_3662c6a357, src_23f556bbca"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026\nLME NICKEL CASH\nSource IDs: src_c8c625dc7b, src_f1dad1f235, src_40978f34e2, src_57067b670a, src_dc295145ae, src_f7e08abcd2, src_3d959b8119"
+    }
+  }
+}

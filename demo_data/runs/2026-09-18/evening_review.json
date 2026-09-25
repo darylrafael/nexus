@@ -1,0 +1,22 @@
+{
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 58,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.33,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {"Metals": true, "Financials": false},
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": ["Foreign selling was stronger than the pre-market scenario assumed."],
+  "rca_overestimated": [],
+  "rca_underestimated": ["Metal-stock resilience was underweighted."],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": ["Treat a large foreign outflow as a separate risk even when commodity-linked shares are resilient."],
+  "summary": "JCI closed at 6,441 (-0.33%) with reported all-market foreign net selling of Rp1.8 trillion.",
+  "actual_usdidr": 15340,
+  "actual_commodities": {"Brent Crude": {"name": "Brent Crude", "ticker": "BZ=F", "price": 102.7, "change_pct": -2.0}}
+}

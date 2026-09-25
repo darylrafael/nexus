@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-25",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 81,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Sell Rp1,42 Triliun [src_c43415b0dd]",
+  "sector_bullish": [
+    "[Consumer Non",
+    "[Energy & Mining]"
+  ],
+  "sector_bearish": [
+    "[Technology & Infrastructure]"
+  ],
+  "sector_neutral": [
+    "[Banking]"
+  ],
+  "recommended_tickers": [
+    "BBNI",
+    "BUMN",
+    "ICBP",
+    "TLKM",
+    "UNVR",
+    "BBRI",
+    "GOTO",
+    "MBMA",
+    "BUMI",
+    "AMMN",
+    "SRSN",
+    "BBCA",
+    "ZATA",
+    "DSSA",
+    "MDKA"
+  ],
+  "key_risk": "Lonjakan lanjutan pada imbal hasil US Treasury 10 tahun (mendekati 5,135%) serta pelemahan Rupiah menuju level kritis Rp17.900/USD yang dapat memicu eskalasi aksi jual institusional asing pada sesi perdagangan hari ini [src_9ea4c9fad2].",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_51e8e513a2",
+    "src_85788b0655",
+    "src_985d4bf468",
+    "src_9bee32248d",
+    "src_9c7bf9e109",
+    "src_9ea4c9fad2",
+    "src_9fe8c9ffe1",
+    "src_c43415b0dd",
+    "src_d773ec74d5",
+    "src_e2b6b06831",
+    "src_f1dad1f235"
+  ]
+}

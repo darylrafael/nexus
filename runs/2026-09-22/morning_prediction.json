@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-22",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 81,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Sell Rp503 miliar [src_27dbfd77b2].",
+  "sector_bullish": [
+    "Transport & Logistics"
+  ],
+  "sector_bearish": [
+    "Oil & Gas Upstream",
+    "Telecommunications & Technology"
+  ],
+  "sector_neutral": [
+    "Consumer Goods",
+    "Energy & Mining"
+  ],
+  "recommended_tickers": [
+    "BBRI",
+    "BUKA",
+    "ENRG",
+    "OASA",
+    "SMIL",
+    "MEDC",
+    "UNVR",
+    "BBCA",
+    "SMDR",
+    "AALI",
+    "ICBP",
+    "MBMA",
+    "BMRI",
+    "ADRO",
+    "GOTO",
+    "BUMI",
+    "EXCL",
+    "ANTM"
+  ],
+  "key_risk": "Sustained currency depreciation and foreign capital outflows crossing critical Rupiah exchange rate thresholds against the US dollar could trigger aggressive domestic institutional selling and deepen the IHSG correction.",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_20e8a80514",
+    "src_27dbfd77b2",
+    "src_4e60982c98",
+    "src_597a39f1d3",
+    "src_68c2332359",
+    "src_6a991b8d13",
+    "src_86508aaca8",
+    "src_9c7bf9e109",
+    "src_9edb4e5db0",
+    "src_b40c1be3da",
+    "src_c97b8fff8d",
+    "src_cae0526bbb",
+    "src_da1df2a769",
+    "src_fd114099c0"
+  ]
+}

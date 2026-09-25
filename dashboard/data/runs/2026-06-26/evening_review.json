@@ -1,0 +1,78 @@
+{
+  "date": "2026-06-26",
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 50,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.72,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {},
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Net foreign selling of approx. Rp 2.58 trillion (Distribution) despite the brief’s expectation of stagnant/sideways flow",
+    "Rupiah weakening to USD/IDR 17,957 (above the 17,600 risk threshold) without breaching the flagged level"
+  ],
+  "rca_overestimated": [
+    "The brief’s emphasis on a potential breach of USD/IDR 17,600 as a primary risk driver (the rate did not breach this level, yet the market still fell)"
+  ],
+  "rca_underestimated": [
+    "The magnitude of foreign outflows, which turned strongly negative and amplified the sell‑off",
+    "The impact of the recent BI rate hike (5.75%) on corporate financing costs, which contributed to broader bearish sentiment"
+  ],
+  "rca_info_delay": [
+    "Details of the BI rate hike implementation and its immediate market reaction were released after the typical 08:30 briefing cutoff"
+  ],
+  "rca_inverse_correlation": [
+    "The brief assumed a neutral market outlook would keep IHSG stable, but the combination of unexpected large foreign outflows and heightened rate‑hike concerns caused the index to drop 1.72%."
+  ],
+  "lessons": [
+    "Ketika pasar diprediksi netral namun terjadi penjualan asing besar‑besar, maka IHSG turun 1.72% (dari 6010 ke 5896) karena tekanan jual luar negeri.",
+    "Ketika risiko rupiah dianggap hanya pada level 17,600 namun rupiah melemah ke 17,957 tanpa brea​k, maka sentimen tetap bearish dan indeks jatuh 1.72%."
+  ],
+  "summary": "Prediksi pasar netral dan aliran asing stagnan tidak terbukti; penjualan asing yang kuat dan pelemahan rupiah menjerumuskan IHSG turun 1.72%.",
+  "actual_usdidr": 17957.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 69.73,
+      "previous_close": 70.59,
+      "change_pct": -1.22,
+      "signal": "Down",
+      "retrieved_at": "2026-06-26T20:28:08+07:00",
+      "source": "yfinance:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 73.11,
+      "previous_close": 74.22,
+      "change_pct": -1.5,
+      "signal": "Down",
+      "retrieved_at": "2026-06-26T20:28:08+07:00",
+      "source": "yfinance:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.34,
+      "previous_close": 3.28,
+      "change_pct": 1.8,
+      "signal": "Up",
+      "retrieved_at": "2026-06-26T20:28:09+07:00",
+      "source": "yfinance:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Instagram\nPhoto by Stockbit Sekuritas on March 02, 2026. Harga batu\nSource IDs: src_4d907b14ac, src_a517d8fb0b, src_18f7d10864, src_bab8982ecb, src_a277ed8ce1, src_d022ee1172, src_50535694de"
+    },
+    "CPO": {
+      "raw": "[no date] Instagram\nVideo by kumparan on April 04, 2026. Indonesia Palm Oil S\nSource IDs: src_8c55cb7719, src_24f63481ca, src_b96556a95b, src_e28d73b4c6, src_e70c4e7dd9, src_56b4172631, src_6399c9b951"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] LMEselect Nickel 3 Month, LME LMEselect Futures Price, Futures Pric\nSource IDs: src_2b3392f6ea, src_51269b600f, src_e7b01f3b12, src_dc295145ae, src_c6c580d0e1, src_bf08793d8b, src_91d5ebd3c2"
+    }
+  }
+}

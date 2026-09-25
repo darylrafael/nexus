@@ -1,0 +1,32 @@
+{
+  "date": "2026-06-16",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 50,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "**Net Buy Rp 257.8 million** (foreign investors bought slightly more than they sold) – **Stagnant/Sideways** (below the Rp 1 trillion threshold). *(src_e1ebb37c0d)*",
+  "sector_bullish": [],
+  "sector_bearish": [],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "BAJA",
+    "MEDC",
+    "BBCA",
+    "BIPI",
+    "BBRI",
+    "RUIS",
+    "GPSO",
+    "BMRI",
+    "ABDA",
+    "ATAP",
+    "TRON",
+    "ENRG"
+  ],
+  "key_risk": "**Rupiah volatility**: A sudden weakening of the rupiah beyond **Rp 17,800/USD** could reverse today’s bullish bias by raising import costs for consumer‑goods and airline sectors.",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_66c45f7800",
+    "src_97b7d2c846",
+    "src_9cb67e2c21",
+    "src_e1ebb37c0d"
+  ]
+}

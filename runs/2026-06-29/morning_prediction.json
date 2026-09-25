@@ -1,0 +1,45 @@
+{
+  "date": "2026-06-29",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 50,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "The only foreign‑flow figures available refer to earlier June dates (e.g., net sell Rp 5.57 trillion on 11 Jun, net sell Rp 2.58 trillion on 9 Jun). No net‑flow number is provided for 28 June 2026, so we must treat the flow as **Stagnant/Sideways** (below the Rp 1 trillion threshold).",
+  "sector_bullish": [],
+  "sector_bearish": [],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "INDF",
+    "ICBP",
+    "UNVR",
+    "INCO",
+    "ADRO",
+    "LSIP",
+    "ENRG",
+    "TBLA",
+    "MBMA",
+    "HRUM",
+    "AALI",
+    "BUMI",
+    "MEDC",
+    "SIMP",
+    "BYAN",
+    "RUIS",
+    "ITMG",
+    "MYOR",
+    "NCKL",
+    "ANTM",
+    "PTBA"
+  ],
+  "key_risk": "**Risk**: A sudden reversal in foreign‑investor sentiment (e.g., a net sell > Rp 1 trillion triggered by unexpected global data) could override the modest commodity‑driven bias and push the IHSG lower.",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bearish",
+    "CPO": "bullish",
+    "Nickel": "bearish"
+  },
+  "evidence_ids": [
+    "src_0b12862f48",
+    "src_21a27bbc6a",
+    "src_48f3c1fc43"
+  ]
+}

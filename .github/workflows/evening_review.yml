@@ -4,7 +4,13 @@ on:
   schedule:
     # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri
     - cron: '55 11 * * 1-5'
-  workflow_dispatch: # Allows manual on-demand trigger from GitHub Web & Mobile App
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force re-run even if already completed today'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   evening-review:
@@ -17,6 +23,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,6 +44,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FORCE_RUN: ${{ inputs.force || 'false' }}
           PYTHONUTF8: "1"
         run: |
           python -c "from scheduler import evening_review; evening_review()"
@@ -44,7 +53,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
           mkdir -p dashboard/data/runs
           cp -r runs/* dashboard/data/runs/ 2>/dev/null || true
           git add -f runs/ dashboard/data/runs/
@@ -52,5 +60,6 @@ jobs:
             echo "No new artifacts to commit."
           else
             git commit -m "chore(data): auto-archive evening review artifacts"
-            git push
+            git pull --rebase --autostash origin main || (git rebase --abort && git pull -s recursive -X ours origin main)
+            git push origin main
           fi

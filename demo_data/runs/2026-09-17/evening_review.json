@@ -1,0 +1,22 @@
+{
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 62,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.4,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Accumulation",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {"Energy": true, "Financials": false},
+  "error_rate_pct": 25,
+  "accuracy_score": 75,
+  "rca_unanticipated": [],
+  "rca_overestimated": ["The forecast overstated broad bank participation."],
+  "rca_underestimated": [],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": ["When index breadth is mixed, validate bank participation before raising confidence."],
+  "summary": "JCI closed at 6,462.43 (+0.40%); the bullish call matched direction but overstated breadth.",
+  "actual_usdidr": 15310,
+  "actual_commodities": {"Brent Crude": {"name": "Brent Crude", "ticker": "BZ=F", "price": 104.82, "change_pct": -1.0}}
+}

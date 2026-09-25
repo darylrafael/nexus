@@ -1,0 +1,45 @@
+{
+  "date": "2026-06-22",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 50,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "No specific foreign‑flow figure for 21 June 2026 is provided in the data set.",
+  "sector_bullish": [],
+  "sector_bearish": [],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "TBLA",
+    "INCO",
+    "MBMA",
+    "INDF",
+    "TLKM",
+    "RUIS",
+    "BUMI",
+    "ENRG",
+    "AALI",
+    "GOTO",
+    "ADRO",
+    "BYAN",
+    "ICBP",
+    "PTBA",
+    "NCKL",
+    "LSIP",
+    "SIMP",
+    "UNVR",
+    "ANTM",
+    "MEDC",
+    "MYOR"
+  ],
+  "key_risk": "**Risk**: A sudden reversal in crude‑oil prices (e.g., a sharp rebound above $80 /bbl) could instantly flip the transport‑sector bias and pressure oil‑upstream stocks, overriding today’s otherwise muted sentiment.",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Coal": "neutral",
+    "CPO": "bullish",
+    "Nickel": "neutral"
+  },
+  "evidence_ids": [
+    "src_6d56b7b119",
+    "src_8196d5f917",
+    "src_e3249a3f30"
+  ]
+}

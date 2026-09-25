@@ -13,9 +13,6 @@ __pycache__/
 # Database
 *.db
 
-# Generated run artifacts
-runs/
-
 # Logs
 *.log
 
