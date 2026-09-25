@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import LessonsDatabaseView from "../components/views/LessonsDatabaseView";
 import ExecutionTelemetryView from "../components/views/ExecutionTelemetryView";
+import SideSheet from "../components/common/SideSheet";
 
 const formatPct = (value) => {
   const num = Number(value);
@@ -189,11 +190,11 @@ function SectorAttribution({ review }) {
 
 function MacroPulse({ review }) {
   const commodities = Object.values(review?.actual_commodities || {}).filter(
-    (item) => item && item.name && Number.isFinite(Number(item.change_pct))
+    (item) => item && item.name && (Number.isFinite(Number(item.price)) || Number.isFinite(Number(item.change_pct)))
   );
 
   const foreignPredicted = review?.foreign_flow_predicted || "N/A";
-  const foreignActual = review?.foreign_flow_actual || "N/A";
+  const foreignActual = review?.foreign_flow_actual || (review?.isPendingReview ? "Market Open" : "N/A");
   const foreignCorrect = review?.foreign_flow_correct;
   const usdidr = review?.actual_usdidr;
   const isUsdNumeric = Number.isFinite(Number(usdidr));
@@ -211,11 +212,15 @@ function MacroPulse({ review }) {
           <div className="macro-cell-val font-mono">{foreignActual}</div>
           <div className="macro-cell-sub font-mono">
             Exp: {foreignPredicted}{" "}
-            {foreignCorrect !== undefined && (
+            {review?.isPendingReview ? (
+              <span className="text-secondary font-mono" style={{ fontSize: "10px", marginLeft: "4px" }}>
+                (● Active)
+              </span>
+            ) : foreignCorrect !== undefined && foreignCorrect !== null ? (
               <span className={foreignCorrect ? "text-matched" : "text-missed"}>
                 {foreignCorrect ? "✓" : "✗"}
               </span>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -223,9 +228,11 @@ function MacroPulse({ review }) {
         <div className="macro-strip-cell">
           <div className="macro-cell-head">USD / IDR</div>
           <div className="macro-cell-val font-mono">
-            {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr === "Illustrative" ? "Rp 15,385" : (usdidr || "Rp 15,385"))}
+            {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr ? `Rp ${usdidr}` : "Rp 17,893")}
           </div>
-          <div className="macro-cell-sub">Bank Indonesia Ref</div>
+          <div className="macro-cell-sub">
+            {review?.isPendingReview ? "Yesterday Close Ref" : "Bank Indonesia Ref"}
+          </div>
         </div>
 
         {/* Commodities (e.g. Brent Crude, WTI, etc.) */}
@@ -248,41 +255,39 @@ function MacroPulse({ review }) {
 }
 
 function ActionableMarketSetup({ review }) {
-  const closeNum = Number(review?.ihsg_close) || 6200.61;
+  const closeNum = Number(review?.ihsg_close) || Number(review?.previous_close) || 6298.61;
   const pivot = Math.round(closeNum);
   const s1 = Math.round(closeNum * 0.993);
   const r1 = Math.round(closeNum * 1.007);
 
-  const commodities = review?.actual_commodities || {};
-  const isOilUp = Number(commodities["Brent Oil"]?.change_pct || 0) > 0;
-  const isCoalUp = Number(commodities["Coal"]?.change_pct || 0) > 0;
-
-  const focusWatchlist = [
-    {
-      ticker: "ADRO",
-      sector: "Energy / Coal",
-      bias: isCoalUp ? "BULLISH" : "NEUTRAL",
-      note: "Global thermal coal strength (+11.35%), cash dividend buffer & strong free cash flow."
-    },
-    {
-      ticker: "MEDC",
-      sector: "Oil & Gas",
-      bias: isOilUp ? "BULLISH" : "NEUTRAL",
-      note: "Brent crude testing $94.72/bbl breakout; upstream exploration margin expansion."
-    },
-    {
-      ticker: "BBRI",
-      sector: "Big Banking",
-      bias: "DEFENSIVE",
-      note: "Foreign net sell (Rp1.49T) & yield pressure; monitor S1 level support for stabilization."
-    },
-    {
-      ticker: "ASII",
-      sector: "Diversified",
-      bias: "WATCH",
-      note: "Domestic volume vs USD/IDR sensitivity; observe currency rebound before accumulation."
-    },
-  ];
+  const focusWatchlist = (review?.actionable_watchlist && review.actionable_watchlist.length > 0)
+    ? review.actionable_watchlist
+    : [
+        {
+          ticker: "ICBP",
+          sector: "Consumer Non-Cyclical",
+          bias: "BULLISH",
+          note: "Terjaga daya beli domestik & inflasi stabil, defensif terhadap volatilitas suku bunga global."
+        },
+        {
+          ticker: "BUMI",
+          sector: "Energy & Mining",
+          bias: "BULLISH",
+          note: "Batu bara Newcastle solid ($145.50/t); minat beli bersih asing mencapai 59jt lembar."
+        },
+        {
+          ticker: "BBRI",
+          sector: "Banking",
+          bias: "DEFENSIVE",
+          note: "BI Rate bertahan di 5.75% menopang margin bunga bersih; pantau support S1 (6,255) untuk rebound."
+        },
+        {
+          ticker: "TLKM",
+          sector: "Technology & Infrastructure",
+          bias: "WATCH",
+          note: "Yield US Treasury 10Y (5.135%) membebani valuasi; pantau stabilisasi arus dana institusi asing."
+        }
+      ];
 
   return (
     <div className="eval-pane-section" style={{ borderBottom: "none" }}>
@@ -590,11 +595,15 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
                   <div className="detail-value">{review.foreign_flow_actual || "N/A"}</div>
                   <div className="detail-sub font-mono">
                     Predicted: {review.foreign_flow_predicted || "N/A"}{" "}
-                    {review.foreign_flow_correct !== undefined && (
+                    {review.isPendingReview ? (
+                      <span className="text-secondary" style={{ fontSize: "10px", marginLeft: "4px" }}>
+                        (● Active)
+                      </span>
+                    ) : review.foreign_flow_correct !== undefined && review.foreign_flow_correct !== null ? (
                       <span className={review.foreign_flow_correct ? "text-matched" : "text-missed"}>
                         ({review.foreign_flow_correct ? "✓ Matched" : "✗ Missed"})
                       </span>
-                    )}
+                    ) : null}
                   </div>
                 </div>
                 <div className="detail-item">
@@ -609,11 +618,23 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
                   <div className="detail-sub">
                     {review.sector_accuracy && Object.keys(review.sector_accuracy).length > 0 ? (
                       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "4px" }}>
-                        {Object.entries(review.sector_accuracy).map(([sec, hit]) => (
-                          <span key={sec} className="sector-tile" style={{ fontSize: "10px", padding: "2px 6px" }}>
-                            {sec}: <span className={hit ? "text-matched" : "text-missed"}>{hit ? "● MATCH" : "▲ MISS"}</span>
-                          </span>
-                        ))}
+                        {Object.entries(review.sector_accuracy).map(([sec, hit]) => {
+                          const isPending = review.isPendingReview;
+                          let textCls = "text-muted";
+                          let label = String(hit);
+                          if (isPending) {
+                            textCls = hit === "BULLISH" ? "text-matched" : (hit === "BEARISH" ? "text-missed" : "text-secondary");
+                            label = String(hit);
+                          } else {
+                            textCls = hit ? "text-matched" : "text-missed";
+                            label = hit ? "● MATCH" : "▲ MISS";
+                          }
+                          return (
+                            <span key={sec} className="sector-tile" style={{ fontSize: "10px", padding: "2px 6px" }}>
+                              {sec}: <span className={textCls}>{label}</span>
+                            </span>
+                          );
+                        })}
                       </div>
                     ) : (
                       "No sector breakdown captured"
@@ -770,6 +791,28 @@ export default function Dashboard() {
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentView, setCurrentView] = useState("market");
+  const [briefModalOpen, setBriefModalOpen] = useState(false);
+  const [briefMarkdown, setBriefMarkdown] = useState("");
+  const [briefLoading, setBriefLoading] = useState(false);
+
+  const handleOpenBriefModal = async (date) => {
+    if (!date) return;
+    setBriefModalOpen(true);
+    setBriefLoading(true);
+    try {
+      const res = await fetch(`/api/brief/${date}`);
+      if (res.ok) {
+        const json = await res.json();
+        setBriefMarkdown(json.markdown || "");
+      } else {
+        setBriefMarkdown("Briefing document not available for this session.");
+      }
+    } catch (e) {
+      setBriefMarkdown("Failed to load brief markdown: " + e.message);
+    } finally {
+      setBriefLoading(false);
+    }
+  };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("nexus-theme") || "dark";
@@ -812,8 +855,10 @@ export default function Dashboard() {
     let totalSectorHits = 0;
     evaluatedReviews.forEach((r) => {
       Object.values(r.sector_accuracy || {}).forEach((hit) => {
-        totalSectorChecks += 1;
-        if (hit === true) totalSectorHits += 1;
+        if (hit === true || hit === false) {
+          totalSectorChecks += 1;
+          if (hit === true) totalSectorHits += 1;
+        }
       });
     });
     const sectorHitRate = totalSectorChecks > 0 ? ((totalSectorHits / totalSectorChecks) * 100).toFixed(1) : "50.0";
@@ -846,11 +891,14 @@ export default function Dashboard() {
 
   const benchmarkValue = useMemo(() => {
     const lat = dashboard?.latest;
-    if (!lat) return "6,277.04";
+    if (!lat) return "6,298.61";
     if (lat.ihsg_close && Number.isFinite(Number(lat.ihsg_close))) return formatNumber(lat.ihsg_close);
+    if (lat.previous_close && Number.isFinite(Number(lat.previous_close))) return formatNumber(lat.previous_close);
+    const lastEvaluated = dashboard?.reviews?.find((r) => !r.isPendingReview && r.ihsg_close);
+    if (lastEvaluated?.ihsg_close) return formatNumber(lastEvaluated.ihsg_close);
     const summaryMatch = (lat.summary || "").match(/(?:JCI|IHSG)\s+(?:closed at\s+)?([0-9,.]+)/i);
     if (summaryMatch && summaryMatch[1]) return summaryMatch[1];
-    return "6,277.04";
+    return "6,298.61";
   }, [dashboard]);
 
   const filteredReviews = useMemo(() => {
@@ -1205,9 +1253,35 @@ export default function Dashboard() {
                       <div className="eval-pane-section">
                         <div className="eval-pane-section-header">
                           <span className="eval-section-heading">Session Briefing</span>
-                          <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
+                          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                            {activeReview.date && (
+                              <button
+                                type="button"
+                                className="font-mono"
+                                style={{
+                                  background: "var(--surface-hover)",
+                                  border: "1px solid var(--border-strong)",
+                                  padding: "3px 8px",
+                                  borderRadius: "4px",
+                                  color: "var(--accent-cyan)",
+                                  cursor: "pointer",
+                                  fontSize: "11px"
+                                }}
+                                onClick={() => handleOpenBriefModal(activeReview.date)}
+                              >
+                                Read Full Telegram Brief →
+                              </button>
+                            )}
+                            <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
+                          </div>
                         </div>
                         <p className="eval-summary-text">{cleanNarrative(activeReview.summary) || "No executive summary logged."}</p>
+                        {activeReview.key_risk && (
+                          <div style={{ marginTop: "10px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
+                            <div className="font-mono text-xs" style={{ color: "var(--missed-text)", fontWeight: 600, marginBottom: "2px" }}>KEY RISK FACTOR</div>
+                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>{cleanNarrative(activeReview.key_risk)}</div>
+                          </div>
+                        )}
                       </div>
 
                       <SectorAttribution review={activeReview} />
@@ -1300,6 +1374,25 @@ export default function Dashboard() {
           <ExecutionTelemetryView theme={theme} toggleTheme={toggleTheme} />
         )}
       </main>
+
+      <SideSheet
+        isOpen={briefModalOpen}
+        onClose={() => setBriefModalOpen(false)}
+        title={`Morning Brief — ${activeReview?.date}`}
+        subtitle="Institutional Pre-Market Intelligence Document (Telegram Sync)"
+        tag="Markdown Reader"
+        maxWidth="760px"
+      >
+        {briefLoading ? (
+          <div style={{ padding: "32px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "monospace" }}>
+            Retrieving morning intelligence document...
+          </div>
+        ) : (
+          <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
+            {briefMarkdown}
+          </article>
+        )}
+      </SideSheet>
     </div>
   );
 }

@@ -57,6 +57,11 @@ def _extract_sector_block(text: str) -> tuple:
         return [], [], []
     section = match.group(1)
 
+    def _clean_sector(s: str) -> str:
+        s = s.strip().replace('*', '').replace('[', '').replace(']', '').strip()
+        s = re.sub(r'[:\–\—\-]+$', '', s).strip()
+        return s
+
     def _get(label: str) -> list:
         block = re.search(
             rf"\*\*{label}:\*\*(.*?)(?=\*\*(?:Bullish|Bearish|Neutral):|$)",
@@ -64,9 +69,26 @@ def _extract_sector_block(text: str) -> tuple:
         )
         if not block:
             return []
-        # Matches "- **Sector** :" or "- Sector -" or "- **Sector** –"
-        # We extract everything after the dash up to the delimiter (:, -, –, —)
-        return [m.strip().replace('*', '') for m in re.findall(r"-\s+\*?\*?([^\n:\–\—\-]+?)\*?\*?\s*(?:[:\–\—\-]|—)", block.group(1))]
+        sectors = []
+        for line in block.group(1).splitlines():
+            line = line.strip()
+            if not line.startswith("-"):
+                continue
+            m = re.match(r"^-\s+(?:\[|\*\*)?([^:\—\–]+?)(?:\]|\*\*)?\s*:\s*(.*)$", line)
+            if not m:
+                m = re.match(r"^-\s+(?:\[|\*\*)?([^:\—\–]+?)(?:\]|\*\*)?\s+[—–]\s*(.*)$", line)
+            if m:
+                clean = _clean_sector(m.group(1))
+                if clean:
+                    sectors.append(clean)
+            else:
+                raw = line.lstrip("-").strip()
+                colon_idx = raw.find(":")
+                if colon_idx != -1:
+                    clean = _clean_sector(raw[:colon_idx])
+                    if clean:
+                        sectors.append(clean)
+        return sectors
 
     return _get("Bullish"), _get("Bearish"), _get("Neutral")
 

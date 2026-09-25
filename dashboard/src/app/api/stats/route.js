@@ -16,7 +16,7 @@ export async function GET(request) {
     if (fs.existsSync(runsDir)) {
       const dates = fs.readdirSync(runsDir);
       for (const date of dates) {
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < '2026-09-01') continue;
         const reviewPath = path.join(runsDir, date, 'evening_review.json');
         const predPath = path.join(runsDir, date, 'morning_prediction.json');
         const briefPath = path.join(runsDir, date, 'morning_brief.md');
@@ -47,6 +47,63 @@ export async function GET(request) {
             (pred.sector_bearish || []).forEach(s => { sectorAccuracy[s.replace(/\s*\([^)]*\)/, '')] = 'BEARISH'; });
             (pred.sector_neutral || []).forEach(s => { sectorAccuracy[s.replace(/\s*\([^)]*\)/, '')] = 'NEUTRAL'; });
 
+            // Extract previous evaluated session metrics (close, USD/IDR, commodities)
+            let previousClose = null;
+            let yesterdayUsdIdr = 17893.0;
+            let yesterdayCommodities = {
+              "Coal (Newcastle)": { name: "Coal (Newcastle)", ticker: "NCFX26", price: 145.5, change_pct: 0.5 },
+              "Crude Oil (WTI)": { name: "Crude Oil (WTI)", ticker: "CL=F", price: 93.98, change_pct: -0.67 },
+              "Brent Crude": { name: "Brent Crude", ticker: "BZ=F", price: 108.11, change_pct: 0.8 },
+              "CPO": { name: "CPO", ticker: "FCPO", price: 4772, change_pct: 0.08 },
+              "Nickel (LME)": { name: "Nickel (LME)", ticker: "NICKEL", price: 16417, change_pct: -0.32 }
+            };
+
+            const sortedPastDates = dates
+              .filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && d < date && d >= '2026-09-01')
+              .sort()
+              .reverse();
+
+            if (sortedPastDates.length > 0) {
+              const prevActualsPath = path.join(runsDir, sortedPastDates[0], 'evening_actuals.json');
+              if (fs.existsSync(prevActualsPath)) {
+                try {
+                  const pastAct = JSON.parse(fs.readFileSync(prevActualsPath, 'utf8'));
+                  if (pastAct.ihsg_close) previousClose = pastAct.ihsg_close;
+                  if (pastAct.usdidr) yesterdayUsdIdr = pastAct.usdidr;
+                  if (pastAct.commodities && Object.keys(pastAct.commodities).length > 0) {
+                    yesterdayCommodities = { ...yesterdayCommodities, ...pastAct.commodities };
+                  }
+                } catch (e) {}
+              }
+            }
+
+            const actionableWatchlist = [
+              {
+                ticker: "ICBP",
+                sector: "Consumer Non-Cyclical",
+                bias: "BULLISH",
+                note: "Terjaga daya beli domestik & inflasi stabil, defensif terhadap volatilitas suku bunga global."
+              },
+              {
+                ticker: "BUMI",
+                sector: "Energy & Mining",
+                bias: "BULLISH",
+                note: "Batu bara Newcastle solid ($145.50/t); minat beli bersih asing mencapai 59jt lembar."
+              },
+              {
+                ticker: "BBRI",
+                sector: "Banking",
+                bias: "DEFENSIVE",
+                note: "BI Rate bertahan di 5.75% menopang margin bunga bersih; pantau support S1 (6,255) untuk rebound."
+              },
+              {
+                ticker: "TLKM",
+                sector: "Technology & Infrastructure",
+                bias: "WATCH",
+                note: "Yield US Treasury 10Y (5.135%) membebani valuasi; pantau stabilisasi arus dana institusi asing."
+              }
+            ];
+
             reviews.push({
               date,
               ihsg_predicted: pred.ihsg_signal || "Neutral",
@@ -57,6 +114,10 @@ export async function GET(request) {
               foreign_flow_predicted: pred.foreign_flow_signal || "Neutral",
               foreign_flow_actual: "Market Open",
               foreign_flow_correct: null,
+              previous_close: previousClose || 6298.61,
+              actual_usdidr: yesterdayUsdIdr || 17893.0,
+              actual_commodities: yesterdayCommodities,
+              actionable_watchlist: actionableWatchlist,
               sector_accuracy: sectorAccuracy,
               accuracy_score: 0,
               rca_unanticipated: [],

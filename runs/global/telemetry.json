@@ -1,17 +1,17 @@
 {
   "stats": {
-    "totalRuns": 9,
-    "successfulRuns": 9,
+    "totalRuns": 4,
+    "successfulRuns": 4,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 106734,
+    "avgDurationMs": 76848,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
-      "total_calls": 9,
-      "avg_duration_ms": 106734.3,
+      "total_calls": 4,
+      "avg_duration_ms": 76848.3,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -23,7 +23,7 @@
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Pasar Keuangan Ditutup Positif Didukung Keputusan BI Tahan Suku Bunga\n- **Summary**: Pasar keuangan Indonesia ditutup positif pada perdagangan Rabu, dengan IHSG dan rupiah sama-sama menguat didukung oleh keputusan Bank Indonesia (BI) mempertahankan BI-Rate di level 5,75% untuk ketiga kalinya berturut-turut demi menjaga stabilitas nilai tukar rupiah [src_9ea4c9fad2]. Keputusan ini diambil di tengah tingginya ketidakpastian global serta risiko penguatan dolar AS dan harga minyak [src_9ea4c9fad2].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga acuan meredakan kekhawatiran pengetatan moneter lanjutan di dalam negeri, memberikan kepastian bagi sektor perbankan dan industri padat modal, serta menjaga momentum pertumbuhan ekonomi kuartal berjalan.\n- **Affected Stocks**: BBRI (Net Buy asing 77,52 juta lembar) [src_d773ec74d5], BBNI (turun 1,02% pada data historis LQ45) [src_85788b0655] \u2014 dipengaruhi oleh ",
+      "result": "---\n### 1. Indonesian Economic News: Pasar Keuangan Ditutup Positif Didukung Keputusan BI Tahan Suku Bunga\n- **Summary**: Pasar keuangan Indonesia ditutup positif pada perdagangan Rabu, dengan IHSG dan rupiah sama-sama menguat didukung oleh keputusan Bank Indonesia (BI) mempertahankan BI-Rate di level 5,75% untuk ketiga kalinya berturut-turut demi menjaga stabilitas nilai tukar rupiah [src_9ea4c9fad2]. Keputusan ini diambil di tengah tingginya ketidakpastian global serta risiko penguatan dolar AS dan harga minyak [src_9ea4c9fad2].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga acuan meredakan kekhawatiran pengetatan moneter lanjutan di dalam negeri, memberikan kepastian bagi sektor perbankan dan industri padat modal, serta menjaga momentum pertumbuhan ekonomi kuartal berjalan.\n- **Affected Stocks**: BBRI (Net Buy asing 77,52 juta lembar) [src_d773ec74d5], BBNI (turun 1,02% pada data historis LQ45) [src_85788b0655] — dipengaruhi oleh ",
       "success": 1,
       "error_msg": null,
       "duration_ms": 34122
@@ -34,7 +34,7 @@
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Bank Indonesia Tahan BI Rate di Level 5,75%\n- **Summary**: Bank Indonesia (BI) secara resmi memutuskan untuk mempertahankan suku bunga acuan BI Rate tetap di level 5,75% dalam Rapat Dewan Gubernur (RDG) pada 22\u201323 September 2026 [src_3f09d1a948]. Keputusan ini juga mempertahankan suku bunga *Deposit Facility* di level 4,75% dan *Lending Facility* di level 6,50% guna memperkuat stabilitas nilai tukar rupiah di tengah ketidakpastian eksternal [src_3f09d1a948, src_1e6aef3acd].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga meredakan ketidakpastian pasar setelah sebelumnya dibayangi kekhawatiran pengetatan moneter lanjutan [src_3f09d1a948, src_6260cb48d0], mendorong IHSG *rebound* dan ditutup menguat 1,56% ke level 6.374,91 pada perdagangan kemarin [src_3f09d1a948].\n- **Affected Stocks**: BBRI (tidak ada perubahan harga spesifik kemarin, namun diuntungkan oleh kejelasan suku bunga perbankan); AMRT (-0",
+      "result": "---\n### 1. Indonesian Economic News: Bank Indonesia Tahan BI Rate di Level 5,75%\n- **Summary**: Bank Indonesia (BI) secara resmi memutuskan untuk mempertahankan suku bunga acuan BI Rate tetap di level 5,75% dalam Rapat Dewan Gubernur (RDG) pada 22–23 September 2026 [src_3f09d1a948]. Keputusan ini juga mempertahankan suku bunga *Deposit Facility* di level 4,75% dan *Lending Facility* di level 6,50% guna memperkuat stabilitas nilai tukar rupiah di tengah ketidakpastian eksternal [src_3f09d1a948, src_1e6aef3acd].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga meredakan ketidakpastian pasar setelah sebelumnya dibayangi kekhawatiran pengetatan moneter lanjutan [src_3f09d1a948, src_6260cb48d0], mendorong IHSG *rebound* dan ditutup menguat 1,56% ke level 6.374,91 pada perdagangan kemarin [src_3f09d1a948].\n- **Affected Stocks**: BBRI (tidak ada perubahan harga spesifik kemarin, namun diuntungkan oleh kejelasan suku bunga perbankan); AMRT (-0",
       "success": 1,
       "error_msg": null,
       "duration_ms": 78299
@@ -56,66 +56,11 @@
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Market Update 21 Sep 2026 [src_fd114099c0]\n- **Summary**: On September 21, 2026, the IHSG closed down 1.69% at 6,277.04, with an intraday high of 6,423.84 and low of 6,258.44 [Core Market Data]. Market participants closely monitored Bank Indonesia's upcoming interest rate decision while navigating continued currency pressures and domestic volatility. Total transaction value reached Rp11,85 triliun across 26,91 miliar shares [src_b40c1be3da].\n- **Market Impact**: Bearish | **Confidence**: 90%\n- **Rationale**: The sharp downward correction in the IHSG alongside heavy selling pressure indicates fragile domestic sentiment, setting a cautious or defensive tone for today's market open as investors price in domestic monetary policy suspense and broader macroeconomic headwinds.\n- **Affected Stocks**: BBRI (-), BMRI (-), BUMI (-) \u2014 experienced heavy trading activity and foreign flow shifts amid overall index weakness [src_86508aaca8, src_c97b8fff8d, src_27db",
+      "result": "---\n### 1. Indonesian Economic News: Market Update 21 Sep 2026 [src_fd114099c0]\n- **Summary**: On September 21, 2026, the IHSG closed down 1.69% at 6,277.04, with an intraday high of 6,423.84 and low of 6,258.44 [Core Market Data]. Market participants closely monitored Bank Indonesia's upcoming interest rate decision while navigating continued currency pressures and domestic volatility. Total transaction value reached Rp11,85 triliun across 26,91 miliar shares [src_b40c1be3da].\n- **Market Impact**: Bearish | **Confidence**: 90%\n- **Rationale**: The sharp downward correction in the IHSG alongside heavy selling pressure indicates fragile domestic sentiment, setting a cautious or defensive tone for today's market open as investors price in domestic monetary policy suspense and broader macroeconomic headwinds.\n- **Affected Stocks**: BBRI (-), BMRI (-), BUMI (-) — experienced heavy trading activity and foreign flow shifts amid overall index weakness [src_86508aaca8, src_c97b8fff8d, src_27db",
       "success": 1,
       "error_msg": null,
       "duration_ms": 137411
-    },
-    {
-      "id": 5,
-      "timestamp": "2026-06-29T09:14:50.478563",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---  \n### 1. Indonesian Economic News: **No major developments yesterday**  \n- **Summary**: There were no notable domestic macro\u2011economic releases, policy announcements, or fiscal events reported for 28\u202fJune\u202f2026.  \n- **Market Impact**: Neutral | **Confidence**: 85%  \n- **Rationale**: In the absence of fresh data, market participants will likely price\u2011in existing fundamentals and look to external cues (commodity moves, foreign flows) to set the tone for today\u2019s opening.  \n- **Affected Stocks**: *None identified from the data set for 28\u202fJune\u202f2026.*  \n\n---  \n### 2. Global Macroeconomic Updates: **No major global releases yesterday**  \n- **Summary**: No new global central\u2011bank decisions, major GDP or inflation releases, or geopolitical events were recorded for 28\u202fJune\u202f2026 in the supplied data.  \n- **Market Impact**: Neutral | **Confidence**: 80%  \n- **Rationale**: With global headlines unchanged, the Indonesian market will continue to react primarily to commodity price shifts and the lat",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 130036
-    },
-    {
-      "id": 4,
-      "timestamp": "2026-06-26T14:36:27.715374",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---  \n### 1. Indonesian Economic News: **BI\u2011Rate hike to 5,75\u202f% (18\u201119\u202fJun\u202f2026)**  \n- **Summary**: Bank Indonesia raised the policy rate by 25\u202fbps to 5,75\u202f% on 18\u201119\u202fJun\u202f2026, citing the need to curb inflation that was 3,08\u202f% YoY in May and to stabilise the rupiah. The move also lifted the Deposit Facility to 4,75\u202f% and the Lending Facility to 6,50\u202f%.  \n- **Market Impact**: **Bearish** | **Confidence**: **85\u202f%**  \n- **Rationale**: Higher rates increase funding costs for corporates and dampen consumer credit, pressuring sectors that are rate\u2011sensitive (property, consumer goods, automotive). The index opened lower on 26\u202fJun, reflecting the drag from tighter monetary policy.  \n- **Affected Stocks**:  \n  * **TLKM** \u2013 down 7,19\u202f% on 25\u202fJun (source\u202fsrc_b135acadb2); higher financing costs hurt telecom capex.  \n  * **BRPT** \u2013 down 5,42\u202f% on 25\u202fJun (source\u202fsrc_44ee32db07); higher borrowing costs compress upstream margins.  \n\n---  \n### 2. Global Macroeconomic Updates: **U.S. Fed holds rates at ",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 148041
-    },
-    {
-      "id": 3,
-      "timestamp": "2026-06-23T09:15:12.947079",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---  \n### 1. Indonesian Economic News: **IHSG tumbuh lemah 0,98\u202f% pada 22\u202fJun\u202f2026**  \n- **Summary**: The Jakarta Composite Index (IHSG) closed at **6.116,69**, down **0,98\u202f%** (\u201160,45 points) in the afternoon session (src_11362a623d).  The decline was led by heavy selling in the LQ45 component, where the index fell **1,67\u202f%** to **599,20** (src_781e4744f9).  The market was pressured by a weaker rupiah at **Rp\u202f17.845/USD** and a modest rise in inflation (May YoY\u202f3,08\u202f%).  \n- **Market Impact**: **Bearish** | **Confidence**: **85\u202f%**  \n- **Rationale**: A sub\u20111\u202f% slide in the benchmark signals risk\u2011off sentiment for the opening trade. The weaker rupiah raises import\u2011cost pressure on consumer\u2011goods firms, while the modest inflation declined may keep the central bank hawkish, limiting equity upside.  \n- **Affected Stocks**:  \n  - **BRPT** \u2013 listed among the top losers in the morning session (src_c58533cd1d).  \n  - **MBMA** \u2013 also a top loser (src_c58533cd1d).  \n  - **DEWA** \u2013 likewise a top",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 160139
-    },
-    {
-      "id": 2,
-      "timestamp": "2026-06-22T12:27:02.562316",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---  \n### 1. Indonesian Economic News: **No major developments yesterday**  \n- **Summary**: There were no notable domestic macro\u2011economic releases, policy announcements, or major corporate events reported for 21\u202fJune\u202f2026.  \n- **Market Impact**: Neutral | **Confidence**: 90%  \n- **Rationale**: In the absence of fresh data, market participants will largely price\u2011in existing fundamentals and look to external cues (global commodity moves, foreign flows) to set the opening tone.  \n- **Affected Stocks**: \u2013  \n\n---  \n### 2. Global Macroeconomic Updates: **No major developments yesterday**  \n- **Summary**: No new global macro releases (e.g., US Fed, Eurozone data) were published on 21\u202fJune\u202f2026 that are captured in the supplied data set.  \n- **Market Impact**: Neutral | **Confidence**: 85%  \n- **Rationale**: With global headlines static, the Indonesian market will be driven primarily by domestic commodity price changes and the latest foreign\u2011flow snapshot.  \n- **Affected Stocks**: \u2013  \n\n---  \n#",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 123935
-    },
-    {
-      "id": 1,
-      "timestamp": "2026-06-16T14:28:27.459078",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: **Rupiah Strengthens to Rp\u202f17,697/USD** (15\u202fJun\u202f2026)  \n- **Summary**: The Indonesian rupiah closed the day stronger at **Rp\u202f17,697 per US$**, supporting a **+0.2\u202f%** move in the IHSG intraday. Bank Indonesia signalled a possible rate hike in the upcoming board meeting (17\u201118\u202fJun) to curb inflation, reinforcing the currency\u2019s upward bias. The stronger rupiah reduces import\u2011cost pressure for consumer\u2011goods makers and airlines, while tightening margins for exporters of commodities priced in dollars.  \n- **Market Impact**: **Bullish** | **Confidence**: **84\u202f%**  \n- **Rationale**: A firmer rupiah improves the purchasing power of domestic consumers and lowers input costs for sectors that import fuel or raw materials, likely sustaining today\u2019s positive bias in the IHSG opening.  \n- **Affected Stocks**:  \n  - **TRON** \u2013\u202f+33.78\u202f% (top gainer, IT services) \u2013 benefits from lower imported\u2011software costs. *(src_9cb67e2c21, src_66c45f7800)*  \n  - **BAJA** \u2013\u202f+28.",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 91065
     }
   ],
-  "exported_at": "2026-09-25T10:58:25.475341"
+  "exported_at": "2026-09-25T11:30:00.000000"
 }
