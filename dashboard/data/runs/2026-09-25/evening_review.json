@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-25",
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.9,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Consumer Non-Cyclical": false,
+    "Energy & Mining": false,
+    "Technology": false,
+    "Infrastructure": false,
+    "Banking": false
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Penurunan seluruh 11 sektor IDX-IC secara serentak dengan sektor industri jatuh paling dalam 2,52%."
+  ],
+  "rca_overestimated": [
+    "Ekspektasi bahwa keputusan Bank Indonesia mempertahankan suku bunga akan memberikan kepastian dan sentimen positif bagi pasar."
+  ],
+  "rca_underestimated": [
+    "Lonjakan imbal hasil US Treasury 10 tahun mendekati 5,135% dan pelemahan Rupiah menuju level kritis Rp17.900/USD."
+  ],
+  "rca_info_delay": [
+    "Ketegangan geopolitik di Asia yang memicu pelemahan bursa regional."
+  ],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan keputusan BI menahan suku bunga akan meredakan kekhawatiran, namun tekanan eksternal global serta pelemahan Rupiah ke 17.912/USD mendominasi pasar sehingga IHSG justru turun 0,90%."
+  ],
+  "lessons": [
+    "Ketika US Treasury 10 tahun mendekati 5,135% dan Rupiah melemah ke level 17.912/USD, tetapi BI menahan suku bunga di 5,75%, maka IHSG tetap tertekan turun sebesar 0,90% dan seluruh 11 sektor mengalami koreksi.",
+    "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89."
+  ],
+  "summary": "Meskipun brief memprediksi IHSG bergerak netral dengan dukungan kebijakan BI, pasar justru ditutup bearish dengan IHSG merosot 0,90% ke level 6.241,89 akibat dominasi tekanan eksternal, pelemahan Rupiah ke 17.912/USD, dan koreksi serentak di seluruh 11 sektor.",
+  "actual_usdidr": 17912.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 92.03,
+      "previous_close": 93.12,
+      "change_pct": -1.17,
+      "signal": "Down",
+      "retrieved_at": "2026-09-25T23:12:34+07:00",
+      "source": "yfinance:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.07,
+      "previous_close": 105.69,
+      "change_pct": -8.16,
+      "signal": "Down",
+      "retrieved_at": "2026-09-25T23:12:34+07:00",
+      "source": "yfinance:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.2,
+      "previous_close": 3.27,
+      "change_pct": -2.02,
+      "signal": "Down",
+      "retrieved_at": "2026-09-25T23:12:34+07:00",
+      "source": "yfinance:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batubara Hari Ini | Harga Batu Bara Live\nOil Price API\n\nOil P\nSource IDs: src_bf87caef32, src_611595dc0f, src_e2b6b06831, src_ee9f97789b, src_e444ae5438, src_4d4b55251b, src_246e569ec8"
+    },
+    "CPO": {
+      "raw": "[no date] Harga Referensi CPO September Naik 1,1% Jadi USD 1.007,51 per Ton |\nSource IDs: src_3eacadce28, src_e28d73b4c6, src_f9be6e1198, src_dfe2efcb90, src_56b4172631, src_c0a99d32e5, src_23f556bbca"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] LME Nickel - Metals\nCurrent and historical Nickel prices, stocks an\nSource IDs: src_4f342dd2e4, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_2db748e979, src_5d82c6d985"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "total_sessions": 1,
+  "total_sessions": 2,
   "total_accuracy_sum": 0,
   "rolling_avg_accuracy": 0.0,
   "ihsg_correct_count": 0,
@@ -10,14 +10,19 @@
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
     "Tekanan jual masif asing dengan net sell Rp 1,49 triliun": 1,
-    "Sensitivitas pasar domestik terhadap kenaikan yield US Treasury dan pelemahan Rupiah ke level 17.893.0": 1
+    "Sensitivitas pasar domestik terhadap kenaikan yield US Treasury dan pelemahan Rupiah ke level 17.893.0": 1,
+    "Penurunan seluruh 11 sektor IDX-IC secara serentak dengan sektor industri jatuh paling dalam 2,52%.": 1,
+    "Lonjakan imbal hasil US Treasury 10 tahun mendekati 5,135% dan pelemahan Rupiah menuju level kritis Rp17.900/USD.": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
-    "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%."
+    "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%.",
+    "Ketika US Treasury 10 tahun mendekati 5,135% dan Rupiah melemah ke level 17.912/USD, tetapi BI menahan suku bunga di 5,75%, maka IHSG tetap tertekan turun sebesar 0,90% dan seluruh 11 sektor mengalami koreksi.",
+    "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89."
   ],
   "processed_dates": [
-    "2026-09-24"
+    "2026-09-24",
+    "2026-09-25"
   ],
-  "last_updated": "2026-09-24"
+  "last_updated": "2026-09-25"
 }
