@@ -2,8 +2,8 @@ name: Nexus Morning Brief
 
 on:
   schedule:
-    # 23:55 UTC Sun-Thu = 06:55 WIB Mon-Fri
-    - cron: '55 23 * * 0-4'
+    # 00:30 UTC Mon-Fri = 07:30 WIB Mon-Fri
+    - cron: '30 0 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
