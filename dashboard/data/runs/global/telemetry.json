@@ -1,66 +1,33 @@
 {
   "stats": {
-    "totalRuns": 4,
-    "successfulRuns": 4,
+    "totalRuns": 1,
+    "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 76848,
+    "avgDurationMs": 21164,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
-      "total_calls": 4,
-      "avg_duration_ms": 76848.3,
+      "total_calls": 1,
+      "avg_duration_ms": 21164.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
   ],
   "sessions": [
     {
-      "id": 9,
-      "timestamp": "2026-09-25T10:58:25.449689",
+      "id": 1,
+      "timestamp": "2026-09-28T00:31:08.082373",
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Pasar Keuangan Ditutup Positif Didukung Keputusan BI Tahan Suku Bunga\n- **Summary**: Pasar keuangan Indonesia ditutup positif pada perdagangan Rabu, dengan IHSG dan rupiah sama-sama menguat didukung oleh keputusan Bank Indonesia (BI) mempertahankan BI-Rate di level 5,75% untuk ketiga kalinya berturut-turut demi menjaga stabilitas nilai tukar rupiah [src_9ea4c9fad2]. Keputusan ini diambil di tengah tingginya ketidakpastian global serta risiko penguatan dolar AS dan harga minyak [src_9ea4c9fad2].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga acuan meredakan kekhawatiran pengetatan moneter lanjutan di dalam negeri, memberikan kepastian bagi sektor perbankan dan industri padat modal, serta menjaga momentum pertumbuhan ekonomi kuartal berjalan.\n- **Affected Stocks**: BBRI (Net Buy asing 77,52 juta lembar) [src_d773ec74d5], BBNI (turun 1,02% pada data historis LQ45) [src_85788b0655] — dipengaruhi oleh ",
+      "result": "---\n### 1. Indonesian Economic News: No major developments yesterday.\n- **Summary**: There were no major domestic macroeconomic data releases or policy updates reported for yesterday, September 27, 2026. Market participants continue to digest the recent Bank Indonesia decision to hold the BI Rate at 5.75% to stabilize the rupiah amid external pressures [src_f638c7dfc3, src_caa381e990].\n- **Market Impact**: Neutral | **Confidence**: 50%\n- **Rationale**: In the absence of fresh domestic economic catalysts from yesterday, trading sentiment will rely on pre-existing monetary stances and upcoming regulatory shifts such as the IDX implementation of lower share price minimums and adjusted ARB rules [src_7112740ec5].\n- **Affected Stocks**: No major developments yesterday.\n---\n\n### 2. Global Macroeconomic Updates: Global Markets Digest Fed Rate Realignment and Steady US Core Metrics\n- **Summary**: Global markets finished the recent sessions evaluating the Federal Reserve's rate hike to 3.75%\u20134.",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 34122
-    },
-    {
-      "id": 8,
-      "timestamp": "2026-09-24T07:33:12.087449",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Bank Indonesia Tahan BI Rate di Level 5,75%\n- **Summary**: Bank Indonesia (BI) secara resmi memutuskan untuk mempertahankan suku bunga acuan BI Rate tetap di level 5,75% dalam Rapat Dewan Gubernur (RDG) pada 22–23 September 2026 [src_3f09d1a948]. Keputusan ini juga mempertahankan suku bunga *Deposit Facility* di level 4,75% dan *Lending Facility* di level 6,50% guna memperkuat stabilitas nilai tukar rupiah di tengah ketidakpastian eksternal [src_3f09d1a948, src_1e6aef3acd].\n- **Market Impact**: Bullish | **Confidence**: 85%\n- **Rationale**: Keputusan BI menahan suku bunga meredakan ketidakpastian pasar setelah sebelumnya dibayangi kekhawatiran pengetatan moneter lanjutan [src_3f09d1a948, src_6260cb48d0], mendorong IHSG *rebound* dan ditutup menguat 1,56% ke level 6.374,91 pada perdagangan kemarin [src_3f09d1a948].\n- **Affected Stocks**: BBRI (tidak ada perubahan harga spesifik kemarin, namun diuntungkan oleh kejelasan suku bunga perbankan); AMRT (-0",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 78299
-    },
-    {
-      "id": 7,
-      "timestamp": "2026-09-23T13:50:50.313398",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: IHSG Merosot 1,69% ke Level 6.277,04 Jelang Pengumuman BI Rate\n- **Summary**: Indeks Harga Saham Gabungan (IHSG) ditutup merosot tajam sebesar 1,69% atau turun 107,68 poin ke level 6.277,04 pada perdagangan Selasa, 22 September 2026 [src_12f88016da, src_5dea8cfbff]. Sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik, sementara nilai tukar rupiah berada di level USD/IDR Rp17.813 (+0,38%) [src_5dea8cfbff, src_7857e20ee0]. Pasar secara luas berada dalam mode *risk-off* menantikan hasil Rapat Dewan Gubernur Bank Indonesia terkait keputusan suku bunga acuan BI Rate [src_7857e20ee0, src_4df586c2dc].\n- **Market Impact**: Bearish | **Confidence**: 95%\n- **Rationale**: Tekanan jual yang masif pada sesi sebelumnya menunjukkan bahwa pelaku pasar domestik mengambil posisi defensif sambil menunggu kejelasan arah kebijakan moneter Bank Indonesia dalam menjaga stabilitas rupiah terhadap dolar AS.\n- **Affected Stocks**: BBCA (Aktivitas tr",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 57561
-    },
-    {
-      "id": 6,
-      "timestamp": "2026-09-22T21:09:59.022041",
-      "query": "daily_brief",
-      "agent": "market_agent",
-      "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Market Update 21 Sep 2026 [src_fd114099c0]\n- **Summary**: On September 21, 2026, the IHSG closed down 1.69% at 6,277.04, with an intraday high of 6,423.84 and low of 6,258.44 [Core Market Data]. Market participants closely monitored Bank Indonesia's upcoming interest rate decision while navigating continued currency pressures and domestic volatility. Total transaction value reached Rp11,85 triliun across 26,91 miliar shares [src_b40c1be3da].\n- **Market Impact**: Bearish | **Confidence**: 90%\n- **Rationale**: The sharp downward correction in the IHSG alongside heavy selling pressure indicates fragile domestic sentiment, setting a cautious or defensive tone for today's market open as investors price in domestic monetary policy suspense and broader macroeconomic headwinds.\n- **Affected Stocks**: BBRI (-), BMRI (-), BUMI (-) — experienced heavy trading activity and foreign flow shifts amid overall index weakness [src_86508aaca8, src_c97b8fff8d, src_27db",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 137411
+      "duration_ms": 21164
     }
   ],
-  "exported_at": "2026-09-25T11:30:00.000000"
+  "exported_at": "2026-09-28T00:31:08.084117"
 }
