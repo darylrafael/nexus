@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-29",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 81,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "No major developments yesterday / Stagnant (Data spesifik nominal harian transaksi asing bersih gabungan seluruh pasar tidak tercatat secara rinci dalam rentang data terbaru kemarin; merujuk pada pola historis rentang sideway, arus modal masuk/keluar berada di bawah ambang batas Rp1 triliun).",
+  "sector_bullish": [
+    "Energy (Batu Bara)",
+    "Transportasi & Logistik"
+  ],
+  "sector_bearish": [
+    "Perkebunan (CPO)",
+    "Pertambangan Mineral / Nikkel"
+  ],
+  "sector_neutral": [
+    "Perbankan (Big Banks)"
+  ],
+  "recommended_tickers": [
+    "AADI",
+    "TLKM",
+    "BMRI",
+    "BBNI",
+    "MEDC",
+    "BBRI",
+    "ADRO",
+    "CPIN",
+    "PTBA",
+    "INCO",
+    "TINS",
+    "LSIP",
+    "ITMG",
+    "AALI",
+    "ANTM",
+    "BBCA",
+    "TAMU",
+    "ASII",
+    "MBMA"
+  ],
+  "key_risk": "Volatilitas nilai tukar Rupiah terhadap Dolar AS di sekitar level Rp17.880/USD yang dapat memicu aksi jual lanjutan dari investor asing jika tekanan likuiditas global meningkat.",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_192219a461",
+    "src_46efc5d7f2",
+    "src_5a9afd7887",
+    "src_9643799c21",
+    "src_9d004da40a",
+    "src_b06cf41a68",
+    "src_d9d2da4931",
+    "src_f362c315e6"
+  ]
+}

@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 21164,
+    "avgDurationMs": 31142,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 21164.0,
+      "avg_duration_ms": 31142.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,15 +19,15 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-09-28T00:31:08.082373",
+      "timestamp": "2026-09-29T00:31:22.238442",
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: No major developments yesterday.\n- **Summary**: There were no major domestic macroeconomic data releases or policy updates reported for yesterday, September 27, 2026. Market participants continue to digest the recent Bank Indonesia decision to hold the BI Rate at 5.75% to stabilize the rupiah amid external pressures [src_f638c7dfc3, src_caa381e990].\n- **Market Impact**: Neutral | **Confidence**: 50%\n- **Rationale**: In the absence of fresh domestic economic catalysts from yesterday, trading sentiment will rely on pre-existing monetary stances and upcoming regulatory shifts such as the IDX implementation of lower share price minimums and adjusted ARB rules [src_7112740ec5].\n- **Affected Stocks**: No major developments yesterday.\n---\n\n### 2. Global Macroeconomic Updates: Global Markets Digest Fed Rate Realignment and Steady US Core Metrics\n- **Summary**: Global markets finished the recent sessions evaluating the Federal Reserve's rate hike to 3.75%\u20134.",
+      "result": "---\n### 1. Indonesian Economic News: IHSG Ditutup Melemah -0,82% di Level 6.247,07\n- **Summary**: Pada perdagangan hari sebelumnya, Senin, 28 September 2026, Indeks Harga Saham Gabungan (IHSG) ditutup melemah -0,82% di level 6.247,07 (src_9d004da40a). Sementara itu, nilai tukar Rupiah ditutup menguat tipis +0,03% di level 17.880/USD (src_9d004da40a). Tekanan jual domestik dan sentimen eksternal yang masih membayangi pasar keuangan domestik terus menempatkan indeks pada tren konsolidasi melemah.\n- **Market Impact**: Bearish | **Confidence**: 85%\n- **Rationale**: Penutupan IHSG yang tergerus ke bawah level 6.250 menunjukkan kurangnya tenaga beli domestik yang kuat menjelang pembukaan sesi hari ini, memberikan tekanan lanjutan bagi pelaku pasar untuk bersikap defensif.\n- **Affected Stocks**: BBCA (src_9643799c21), ANTM (src_9643799c21) \u2014 tidak ada perubahan harga spesifik sesi kemarin yang dicatat bersamaan dengan pergerakan -0,82% secara agregat indeks, namun merefleksikan tekanan jual u",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 21164
+      "duration_ms": 31142
     }
   ],
-  "exported_at": "2026-09-28T00:31:08.084117"
+  "exported_at": "2026-09-29T00:31:22.240765"
 }
