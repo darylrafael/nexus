@@ -1258,6 +1258,7 @@ body {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   transition: border-color 0.15s ease, background-color 0.15s ease;
+  min-width: 0;
 }
 
 .sector-grid-cell:hover {
@@ -1319,10 +1320,10 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* Seamless Horizontal Macro Tape Strip */
+/* Seamless Structured Macro Tape Strip */
 .macro-tape-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  display: flex;
+  flex-direction: column;
   background-color: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
@@ -1330,16 +1331,33 @@ body {
   margin-top: 2px;
 }
 
-.macro-strip-cell {
-  padding: 10px 14px;
-  border-right: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.macro-tape-row {
+  display: grid;
+  width: 100%;
 }
 
-.macro-strip-cell:last-child {
-  border-right: none;
+.macro-tape-row.liquidity-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.macro-tape-row.liquidity-row:not(:last-child) {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.macro-tape-row.commodities-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.macro-strip-cell {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.macro-tape-row > .macro-strip-cell:not(:last-child) {
+  border-right: 1px solid var(--border-subtle);
 }
 
 .macro-cell-head {
@@ -1349,17 +1367,71 @@ body {
   letter-spacing: 0.05em;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .macro-cell-val {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .macro-cell-sub {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.macro-sub-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.macro-match-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.macro-match-tag.is-match {
+  background-color: var(--matched-bg);
+  color: var(--matched-text);
+  border: 1px solid var(--matched-border);
+}
+
+.macro-match-tag.is-miss {
+  background-color: var(--missed-bg);
+  color: var(--missed-text);
+  border: 1px solid var(--missed-border);
+}
+
+@media (max-width: 520px) {
+  .macro-tape-row.liquidity-row {
+    grid-template-columns: 1fr;
+  }
+  .macro-tape-row.liquidity-row > .macro-strip-cell:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════

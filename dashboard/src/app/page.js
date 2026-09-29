@@ -233,7 +233,7 @@ function SectorAttribution({ review }) {
       </div>
       <div className="sector-matrix-grid">
         {entries.map(([sector, statusOrHit]) => {
-          let label = "▲ Miss";
+          let label = "● Miss";
           let badgeCls = "badge-missed";
           if (isPending) {
             badgeCls = statusOrHit === 'BULLISH' ? "badge-matched" : (statusOrHit === 'BEARISH' ? "badge-missed" : "badge-neutral");
@@ -261,8 +261,12 @@ function MacroPulse({ review }) {
     (item) => item && item.name && (Number.isFinite(Number(item.price)) || Number.isFinite(Number(item.change_pct)))
   );
 
-  const foreignPredicted = review?.foreign_flow_predicted || "N/A";
-  const foreignActual = review?.foreign_flow_actual || (review?.isPendingReview ? "Market Open" : "N/A");
+  const rawPred = review?.foreign_flow_predicted;
+  const rawAct = review?.foreign_flow_actual;
+  const foreignPredicted = rawPred ? rawPred.replace("/", " / ") : "N/A";
+  const foreignActual = rawAct 
+    ? rawAct.replace("/", " / ") 
+    : (review?.isPendingReview ? "Market Open" : "N/A");
   const foreignCorrect = review?.foreign_flow_correct;
   const usdidr = review?.actual_usdidr;
   const isUsdNumeric = Number.isFinite(Number(usdidr));
@@ -274,49 +278,59 @@ function MacroPulse({ review }) {
         <span className="eval-section-tag font-mono">Market Telemetry</span>
       </div>
       <div className="macro-tape-strip">
-        {/* Foreign Flow Tape */}
-        <div className="macro-strip-cell">
-          <div className="macro-cell-head">Foreign Flow (IDX)</div>
-          <div className="macro-cell-val font-mono">{foreignActual}</div>
-          <div className="macro-cell-sub font-mono">
-            Exp: {foreignPredicted}{" "}
-            {review?.isPendingReview ? (
-              <span className="text-secondary font-mono" style={{ fontSize: "10px", marginLeft: "4px" }}>
-                (● Active)
-              </span>
-            ) : foreignCorrect !== undefined && foreignCorrect !== null ? (
-              <span className={foreignCorrect ? "text-matched" : "text-missed"}>
-                {foreignCorrect ? "✓" : "✗"}
-              </span>
-            ) : null}
-          </div>
-        </div>
-
-        {/* USD / IDR Rate */}
-        <div className="macro-strip-cell">
-          <div className="macro-cell-head">USD / IDR</div>
-          <div className="macro-cell-val font-mono">
-            {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr ? `Rp ${usdidr}` : "Rp 17,893")}
-          </div>
-          <div className="macro-cell-sub">
-            {review?.isPendingReview ? "Yesterday Close Ref" : "Bank Indonesia Ref"}
-          </div>
-        </div>
-
-        {/* Commodities (e.g. Brent Crude, WTI, etc.) */}
-        {commodities.map((item) => {
-          const change = Number(item.change_pct);
-          const isUp = change >= 0;
-          return (
-            <div className="macro-strip-cell" key={item.ticker || item.name}>
-              <div className="macro-cell-head">{item.name}</div>
-              <div className="macro-cell-val font-mono">${formatNumber(item.price)}</div>
-              <div className={`macro-cell-sub font-mono ${isUp ? "text-matched" : "text-missed"}`}>
-                {formatPct(item.change_pct)} 1D
-              </div>
+        {/* Tier 1: Macro Liquidity & Institutional Flow (2 equal columns) */}
+        <div className="macro-tape-row liquidity-row">
+          {/* Foreign Flow Tape */}
+          <div className="macro-strip-cell">
+            <div className="macro-cell-head">Foreign Flow (IDX)</div>
+            <div className="macro-cell-val font-mono">{foreignActual}</div>
+            <div className="macro-cell-sub font-mono">
+              <span className="macro-sub-label">Exp: {foreignPredicted}</span>
+              {review?.isPendingReview ? (
+                <span className="text-secondary font-mono" style={{ fontSize: "10px" }}>
+                  (● Active)
+                </span>
+              ) : foreignCorrect !== undefined && foreignCorrect !== null ? (
+                <span className={`macro-match-tag font-mono ${foreignCorrect ? "is-match" : "is-miss"}`}>
+                  {foreignCorrect ? "✓ Match" : "✗ Miss"}
+                </span>
+              ) : null}
             </div>
-          );
-        })}
+          </div>
+
+          {/* USD / IDR Rate */}
+          <div className="macro-strip-cell">
+            <div className="macro-cell-head">USD / IDR</div>
+            <div className="macro-cell-val font-mono">
+              {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr ? `Rp ${usdidr}` : "Rp 17,893")}
+            </div>
+            <div className="macro-cell-sub">
+              {review?.isPendingReview ? "Yesterday Close Ref" : "Bank Indonesia Ref"}
+            </div>
+          </div>
+        </div>
+
+        {/* Tier 2: Commodities (Equal balanced columns) */}
+        {commodities.length > 0 && (
+          <div
+            className="macro-tape-row commodities-row"
+            style={{ gridTemplateColumns: `repeat(${commodities.length}, minmax(0, 1fr))` }}
+          >
+            {commodities.map((item) => {
+              const change = Number(item.change_pct);
+              const isUp = change >= 0;
+              return (
+                <div className="macro-strip-cell" key={item.ticker || item.name}>
+                  <div className="macro-cell-head">{item.name}</div>
+                  <div className="macro-cell-val font-mono">${formatNumber(item.price)}</div>
+                  <div className={`macro-cell-sub font-mono ${isUp ? "text-matched" : "text-missed"}`}>
+                    {formatPct(item.change_pct)} 1D
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1067,23 +1081,27 @@ export default function Dashboard() {
             <div className="context-divider" />
             <div className="context-item">
               <span className="context-label font-mono">BENCHMARK</span>
-              <div className={`context-value font-mono font-semibold ${Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}`}>
+              <div className={`context-value font-mono font-semibold ${dashboard.latest?.isPendingReview ? "text-secondary" : (Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed")}`}>
                 {benchmarkValue}{" "}
-                <span className="context-sub font-mono">({formatPct(dashboard.latest?.ihsg_actual_pct)})</span>
+                <span className="context-sub font-mono">
+                  ({dashboard.latest?.isPendingReview ? "Prev Close" : formatPct(dashboard.latest?.ihsg_actual_pct)})
+                </span>
               </div>
             </div>
             <div className="context-divider" />
             <div className="context-item">
               <span className="context-label font-mono">FOREIGN BIAS</span>
               <div className="context-value font-medium">
-                {dashboard.latest?.foreign_flow_actual || "Distribution"}
+                {dashboard.latest?.isPendingReview
+                  ? (dashboard.latest?.foreign_flow_predicted ? `Exp: ${dashboard.latest.foreign_flow_predicted.replace("/", " / ")}` : "Pending Close")
+                  : (dashboard.latest?.foreign_flow_actual ? dashboard.latest.foreign_flow_actual.replace("/", " / ") : "Neutral")}
               </div>
             </div>
             <div className="context-divider" />
             <div className="context-item">
               <span className="context-label font-mono">HEURISTIC SYNC</span>
               <div className="context-value font-mono text-matched">
-                Obsidian :27124
+                Obsidian:27124
               </div>
             </div>
           </div>
@@ -1188,7 +1206,7 @@ export default function Dashboard() {
             <div className="kpi-card">
               <div className="kpi-top">
                 <span className="kpi-label font-mono">Heuristic Memory</span>
-                <span className="kpi-target-tag font-mono">Obsidian :27124</span>
+                <span className="kpi-target-tag font-mono">Obsidian:27124</span>
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">
