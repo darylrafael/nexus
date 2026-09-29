@@ -607,6 +607,24 @@ body {
   border: 1px solid var(--border-default);
   border-radius: 9999px;
   box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.market-status-chip.is-open {
+  border-color: rgba(16, 185, 129, 0.35);
+  color: var(--matched-text);
+  background-color: var(--matched-bg);
+}
+
+.market-status-chip.is-recess {
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #d97706;
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.market-status-chip.is-closed {
+  color: var(--text-tertiary);
+  border-color: var(--border-default);
 }
 
 .live-badge {
@@ -631,6 +649,21 @@ body {
   background-color: var(--matched-text);
   border-radius: 50%;
   box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.2);
+}
+
+.live-dot.dot-open {
+  background-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+
+.live-dot.dot-amber {
+  background-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+.live-dot.dot-closed {
+  background-color: var(--text-tertiary);
+  box-shadow: none;
 }
 
 /* Theme Switcher Button - Unified Pill */

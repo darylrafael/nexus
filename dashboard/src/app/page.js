@@ -41,6 +41,55 @@ const cleanNarrative = (str) => {
     .trim();
 };
 
+const getIdxMarketStatus = () => {
+  try {
+    const now = new Date();
+    const wibStr = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+    const wib = new Date(wibStr);
+    const day = wib.getDay(); // 0 = Sun, 6 = Sat
+    const hour = wib.getHours();
+    const min = wib.getMinutes();
+    const totalMin = hour * 60 + min;
+
+    // Weekend
+    if (day === 0 || day === 6) {
+      return { isOpen: false, status: "closed", label: "IDX: CLOSED (WEEKEND)" };
+    }
+
+    // Monday - Thursday
+    if (day >= 1 && day <= 4) {
+      if (totalMin >= 540 && totalMin < 720) {
+        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
+      }
+      if (totalMin >= 720 && totalMin < 810) {
+        return { isOpen: false, status: "recess", label: "IDX: BREAK" };
+      }
+      if (totalMin >= 810 && totalMin < 960) {
+        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 2)" };
+      }
+      return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+    }
+
+    // Friday
+    if (day === 5) {
+      if (totalMin >= 540 && totalMin < 690) {
+        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
+      }
+      if (totalMin >= 690 && totalMin < 840) {
+        return { isOpen: false, status: "recess", label: "IDX: BREAK" };
+      }
+      if (totalMin >= 840 && totalMin < 960) {
+        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 2)" };
+      }
+      return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+    }
+
+    return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+  } catch (e) {
+    return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+  }
+};
+
 function RenderWithSources({ text, sources = {} }) {
   if (!text || typeof text !== "string") return null;
 
@@ -873,6 +922,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentView, setCurrentView] = useState("market");
+  const [marketStatus, setMarketStatus] = useState({ isOpen: false, status: "closed", label: "IDX: CLOSED" });
   const [briefModalOpen, setBriefModalOpen] = useState(false);
   const [briefMarkdown, setBriefMarkdown] = useState("");
   const [briefSources, setBriefSources] = useState({});
@@ -918,6 +968,14 @@ export default function Dashboard() {
         setError(err.message);
       })
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    setMarketStatus(getIdxMarketStatus());
+    const statusTimer = setInterval(() => {
+      setMarketStatus(getIdxMarketStatus());
+    }, 15000);
+    return () => clearInterval(statusTimer);
   }, []);
 
   const toggleTheme = () => {
@@ -1028,8 +1086,9 @@ export default function Dashboard() {
               <h1 className="page-title">Daily Intelligence Report</h1>
             </div>
             <div className="header-actions">
-              <div className="market-status-chip">
-                <span>IDX: CLOSED</span>
+              <div className={`market-status-chip is-${marketStatus.status}`}>
+                <span className={`live-dot ${marketStatus.isOpen ? "dot-open" : (marketStatus.status === "recess" ? "dot-amber" : "dot-closed")}`}></span>
+                <span>{marketStatus.label}</span>
               </div>
               <div className="live-badge">
                 <span className="live-dot"></span>
