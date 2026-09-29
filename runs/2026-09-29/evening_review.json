@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-29",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.51,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Energy (Batu Bara)": false,
+    "Transportasi & Logistik": null,
+    "Perkebunan (CPO)": null,
+    "Pertambangan Mineral / Nikkel": null,
+    "Perbankan (Big Banks)": null
+  },
+  "error_rate_pct": 67,
+  "accuracy_score": 33,
+  "rca_unanticipated": [
+    "Geopolitics Surprise: Ancaman Inflasi & Konflik Geopolitik",
+    "Global Market Shock: heightened market expectations of persistently high inflation, higher commodity prices, and a global recession",
+    "Labor / Demo: Buruh Akan Demo di Depan DPR Besok",
+    "BI Policy Surprise: kebijakan makroprudensial akomodatif"
+  ],
+  "rca_overestimated": [
+    "Potensi aksi jual lanjutan dari investor asing akibat volatilitas nilai tukar Rupiah, meskipun Rupiah melemah signifikan, asing justru akumulasi."
+  ],
+  "rca_underestimated": [
+    "Magnitude penurunan harga komoditas global (Crude Oil -4.32%, Brent Crude -9.07%, Natural Gas -7.92%)",
+    "Penurunan signifikan pada sektor teknologi (-3.37%)"
+  ],
+  "rca_info_delay": [
+    "Geopolitics Surprise: Ancaman Inflasi & Konflik Geopolitik",
+    "Global Market Shock: heightened market expectations of persistently high inflation, higher commodity prices, and a global recession",
+    "Labor / Demo: Buruh Akan Demo di Depan DPR Besok",
+    "BI Policy Surprise: kebijakan makroprudensial akomodatif"
+  ],
+  "rca_inverse_correlation": [
+    "Brief berasumsi pelemahan Rupiah di sekitar Rp17.880/USD akan memicu aksi jual asing, namun Rupiah melemah ke Rp17.993/USD (+1.056%) dan asing justru mencatatkan akumulasi."
+  ],
+  "lessons": [
+    "Ketika Rupiah melemah signifikan (dari Rp17.880/USD ke Rp17.993/USD, +1.056%), tetapi arus dana asing mencatatkan akumulasi, maka prediksi aksi jual asing akibat pelemahan Rupiah tidak terjadi.",
+    "Ketika sinyal komoditas tidak tercatat di pagi hari, tetapi harga komoditas utama seperti Brent Crude (-9.07%) dan Natural Gas (-7.92%) anjlok tajam, maka sektor terkait seperti Energi dapat mengalami penurunan signifikan (-1.10%).",
+    "Ketika brief tidak mencatat risiko geopolitik dan guncangan pasar global, tetapi berita mengenai ancaman inflasi, konflik geopolitik, dan resesi global muncul, maka IHSG dapat anjlok lebih dalam (-1.51%) dari perkiraan awal."
+  ],
+  "summary": "IHSG bergerak sesuai prediksi bearish dengan penurunan -1.51%, namun arus dana asing menunjukkan akumulasi berlawanan dengan prediksi stagnan/sideways, dan sektor energi yang diprediksi bullish justru melemah, dipengaruhi oleh faktor global tak terduga dan anjloknya harga komoditas.",
+  "actual_usdidr": 17993.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 90.52,
+      "previous_close": 94.61,
+      "change_pct": -4.32,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T00:20:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 96.93,
+      "previous_close": 106.6,
+      "change_pct": -9.07,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T00:20:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.04,
+      "previous_close": 3.3,
+      "change_pct": -7.92,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T00:20:56+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Terpukul Pelemahan Impor China\nBerdasarkan data per\nSource IDs: src_70217d42f2, src_611595dc0f, src_171c2fa6b0, src_a277ed8ce1, src_ee9f97789b, src_4d907b14ac, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil fell\nSource IDs: src_9c7bf9e109, src_fbbd4653a1, src_b363e40885, src_716b85fb79, src_56b4172631, src_6399c9b951, src_c0a99d32e5"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel - Price - Chart - Historical Data - News\n### Nickel fell to\nSource IDs: src_f1dad1f235, src_1de5e9219f, src_9e65e1e7dd, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4, src_bae08dce04"
+    }
+  }
+}

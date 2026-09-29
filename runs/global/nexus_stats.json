@@ -1,29 +1,39 @@
 {
-  "total_sessions": 3,
-  "total_accuracy_sum": 100,
-  "rolling_avg_accuracy": 33.3,
-  "ihsg_correct_count": 1,
+  "total_sessions": 4,
+  "total_accuracy_sum": 133,
+  "rolling_avg_accuracy": 33.2,
+  "ihsg_correct_count": 2,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 33.3,
-  "ff_accuracy_pct": 33.3,
+  "ihsg_accuracy_pct": 50.0,
+  "ff_accuracy_pct": 25.0,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
     "Tekanan jual masif asing dengan net sell Rp 1,49 triliun": 1,
     "Sensitivitas pasar domestik terhadap kenaikan yield US Treasury dan pelemahan Rupiah ke level 17.893.0": 1,
     "Penurunan seluruh 11 sektor IDX-IC secara serentak dengan sektor industri jatuh paling dalam 2,52%.": 1,
-    "Lonjakan imbal hasil US Treasury 10 tahun mendekati 5,135% dan pelemahan Rupiah menuju level kritis Rp17.900/USD.": 1
+    "Lonjakan imbal hasil US Treasury 10 tahun mendekati 5,135% dan pelemahan Rupiah menuju level kritis Rp17.900/USD.": 1,
+    "Geopolitics Surprise: Ancaman Inflasi & Konflik Geopolitik": 1,
+    "Global Market Shock: heightened market expectations of persistently high inflation, higher commodity prices, and a global recession": 1,
+    "Labor / Demo: Buruh Akan Demo di Depan DPR Besok": 1,
+    "BI Policy Surprise: kebijakan makroprudensial akomodatif": 1,
+    "Magnitude penurunan harga komoditas global (Crude Oil -4.32%, Brent Crude -9.07%, Natural Gas -7.92%)": 1,
+    "Penurunan signifikan pada sektor teknologi (-3.37%)": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
     "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%.",
     "Ketika US Treasury 10 tahun mendekati 5,135% dan Rupiah melemah ke level 17.912/USD, tetapi BI menahan suku bunga di 5,75%, maka IHSG tetap tertekan turun sebesar 0,90% dan seluruh 11 sektor mengalami koreksi.",
-    "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89."
+    "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89.",
+    "Ketika Rupiah melemah signifikan (dari Rp17.880/USD ke Rp17.993/USD, +1.056%), tetapi arus dana asing mencatatkan akumulasi, maka prediksi aksi jual asing akibat pelemahan Rupiah tidak terjadi.",
+    "Ketika sinyal komoditas tidak tercatat di pagi hari, tetapi harga komoditas utama seperti Brent Crude (-9.07%) dan Natural Gas (-7.92%) anjlok tajam, maka sektor terkait seperti Energi dapat mengalami penurunan signifikan (-1.10%).",
+    "Ketika brief tidak mencatat risiko geopolitik dan guncangan pasar global, tetapi berita mengenai ancaman inflasi, konflik geopolitik, dan resesi global muncul, maka IHSG dapat anjlok lebih dalam (-1.51%) dari perkiraan awal."
   ],
   "processed_dates": [
     "2026-09-24",
     "2026-09-25",
-    "2026-09-28"
+    "2026-09-28",
+    "2026-09-29"
   ],
-  "last_updated": "2026-09-28"
+  "last_updated": "2026-09-29"
 }
