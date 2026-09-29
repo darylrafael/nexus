@@ -5,6 +5,15 @@ from config import TAVILY_API_KEY
 from schemas import SourceRecord
 
 client = None
+_SOURCE_REGISTRY = {}
+
+
+def get_source_registry() -> dict:
+    return _SOURCE_REGISTRY.copy()
+
+
+def clear_source_registry() -> None:
+    _SOURCE_REGISTRY.clear()
 
 
 def _get_client():
@@ -45,8 +54,15 @@ def search_web_records(
 
         title = result.get("title", "")
         url = result.get("url", "")
+        sid = _source_id(url, title)
+        _SOURCE_REGISTRY[sid] = {
+            "title": title,
+            "url": url,
+            "published_at": pub or None,
+            "category": category,
+        }
         records.append(SourceRecord(
-            id=_source_id(url, title),
+            id=sid,
             category=category,
             title=title,
             url=url,

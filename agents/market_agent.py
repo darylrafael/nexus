@@ -4,7 +4,7 @@ from agents.commodity_agent import get_commodity_prices
 from agents.economics_engine import build_economics_context
 from agents.prediction_extractor import extract_predictions
 from agents.validator import build_commodity_context, validate
-from agents.web_agent import search_multiple, search_web
+from agents.web_agent import get_source_registry, search_multiple, search_web
 from data_sources.market_data import fetch_yfinance_commodity, jakarta_now
 from llm_client import llm_chat
 from memory.artifacts import save_json_artifact, save_text_artifact
@@ -190,6 +190,7 @@ Categorize sectors dynamically based on yesterday's data:
         prediction = extract_predictions(final_output, date_key)
         save_text_artifact(date_key, "morning_brief.md", final_output)
         save_json_artifact(date_key, "morning_prediction.json", prediction)
+        save_json_artifact(date_key, "sources.json", get_source_registry())
         print(f"  [market_agent] saved structured artifacts for {date_key}")
     except Exception as e:
         print(f"  [market_agent] artifact save failed: {e}")

@@ -41,6 +41,74 @@ const cleanNarrative = (str) => {
     .trim();
 };
 
+function RenderWithSources({ text, sources = {} }) {
+  if (!text || typeof text !== "string") return null;
+
+  const citationRegex = /\[(src_[a-zA-Z0-9_-]+)\]/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = citationRegex.exec(text)) !== null) {
+    const matchStart = match.index;
+    const matchEnd = citationRegex.lastIndex;
+    const sourceId = match[1];
+
+    if (matchStart > lastIndex) {
+      parts.push(text.slice(lastIndex, matchStart));
+    }
+
+    const sourceData = sources?.[sourceId] || sources?.[sourceId.replace("src_", "")];
+    const url = sourceData?.url;
+    const title = sourceData?.title || "";
+
+    if (url) {
+      let domain = "";
+      try {
+        domain = new URL(url).hostname.replace(/^www\./, "");
+      } catch (e) {
+        domain = sourceId;
+      }
+      const displayLabel = domain ? (domain.length > 20 ? domain.slice(0, 18) + "…" : domain) : sourceId;
+
+      parts.push(
+        <a
+          key={`src-${sourceId}-${matchStart}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="source-citation-pill"
+          title={title ? `${title}\n${url}` : url}
+        >
+          <span className="source-citation-icon">🔗</span>
+          <span>{displayLabel}</span>
+          <span className="source-citation-arrow">↗</span>
+        </a>
+      );
+    } else {
+      parts.push(
+        <span
+          key={`src-missing-${sourceId}-${matchStart}`}
+          className="source-citation-pill"
+          style={{ opacity: 0.6, cursor: "default" }}
+          title={`Source ${sourceId} not indexed in this session`}
+        >
+          <span className="source-citation-icon">🔗</span>
+          <span>{sourceId}</span>
+        </span>
+      );
+    }
+
+    lastIndex = matchEnd;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return <>{parts}</>;
+}
+
 function PerformanceSparkline({ reviews = [] }) {
   if (!reviews || reviews.length === 0) return null;
   const chronPoints = [...reviews].reverse().map((r, i) => ({
@@ -451,19 +519,19 @@ function RCAPanel({ review }) {
               {unanticipated.map((item, idx) => (
                 <div key={`unant-${idx}`} className="rca-diagnostic-item">
                   <span className="rca-diagnostic-type type-unanticipated font-mono">UNANTICIPATED</span>
-                  <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
+                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
                 </div>
               ))}
               {underestimated.map((item, idx) => (
                 <div key={`under-${idx}`} className="rca-diagnostic-item">
                   <span className="rca-diagnostic-type type-underestimated font-mono">UNDERESTIMATED</span>
-                  <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
+                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
                 </div>
               ))}
               {overestimated.map((item, idx) => (
                 <div key={`over-${idx}`} className="rca-diagnostic-item">
                   <span className="rca-diagnostic-type type-overestimated font-mono">OVERWEIGHTED</span>
-                  <span className="rca-diagnostic-text">{cleanNarrative(item)}</span>
+                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
                 </div>
               ))}
             </div>
@@ -793,6 +861,7 @@ export default function Dashboard() {
   const [currentView, setCurrentView] = useState("market");
   const [briefModalOpen, setBriefModalOpen] = useState(false);
   const [briefMarkdown, setBriefMarkdown] = useState("");
+  const [briefSources, setBriefSources] = useState({});
   const [briefLoading, setBriefLoading] = useState(false);
 
   const handleOpenBriefModal = async (date) => {
@@ -804,11 +873,14 @@ export default function Dashboard() {
       if (res.ok) {
         const json = await res.json();
         setBriefMarkdown(json.markdown || "");
+        setBriefSources(json.sources && Object.keys(json.sources).length > 0 ? json.sources : (activeReview?.sources || {}));
       } else {
         setBriefMarkdown("Briefing document not available for this session.");
+        setBriefSources(activeReview?.sources || {});
       }
     } catch (e) {
       setBriefMarkdown("Failed to load brief markdown: " + e.message);
+      setBriefSources(activeReview?.sources || {});
     } finally {
       setBriefLoading(false);
     }
@@ -1275,11 +1347,16 @@ export default function Dashboard() {
                             <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
                           </div>
                         </div>
-                        <p className="eval-summary-text">{cleanNarrative(activeReview.summary) || "No executive summary logged."}</p>
+                        <p className="eval-summary-text">
+                          <RenderWithSources text={cleanNarrative(activeReview.summary)} sources={activeReview.sources} />
+                          {!activeReview.summary && "No executive summary logged."}
+                        </p>
                         {activeReview.key_risk && (
                           <div style={{ marginTop: "10px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
                             <div className="font-mono text-xs" style={{ color: "var(--missed-text)", fontWeight: 600, marginBottom: "2px" }}>KEY RISK FACTOR</div>
-                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>{cleanNarrative(activeReview.key_risk)}</div>
+                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                              <RenderWithSources text={cleanNarrative(activeReview.key_risk)} sources={activeReview.sources} />
+                            </div>
                           </div>
                         )}
                       </div>
@@ -1389,7 +1466,7 @@ export default function Dashboard() {
           </div>
         ) : (
           <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
-            {briefMarkdown}
+            <RenderWithSources text={briefMarkdown} sources={briefSources} />
           </article>
         )}
       </SideSheet>

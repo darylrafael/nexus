@@ -34,11 +34,19 @@ export async function GET(request, context) {
     }
 
     const markdown = fs.readFileSync(briefPath, 'utf8');
+    const sourcesPath = path.join(runsDir, date, 'sources.json');
+    let sources = {};
+    if (fs.existsSync(sourcesPath)) {
+      try {
+        sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'));
+      } catch (e) {}
+    }
 
     return NextResponse.json({
       success: true,
       date,
-      markdown
+      markdown,
+      sources
     });
 
   } catch (error) {

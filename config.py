@@ -20,7 +20,7 @@ OPENROUTER_BASE_URL       = "https://openrouter.ai/api/v1"
 
 # Gemini — optional fallback tier 2 (only used if GEMINI_API_KEY is set)
 GEMINI_API_KEY  = os.getenv("GEMINI_API_KEY")
-GEMINI_MODEL    = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+GEMINI_MODEL    = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 OBSIDIAN_BASE_URL = "https://127.0.0.1:27124"

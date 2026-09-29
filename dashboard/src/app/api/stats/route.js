@@ -20,12 +20,20 @@ export async function GET(request) {
         const reviewPath = path.join(runsDir, date, 'evening_review.json');
         const predPath = path.join(runsDir, date, 'morning_prediction.json');
         const briefPath = path.join(runsDir, date, 'morning_brief.md');
+        const sourcesPath = path.join(runsDir, date, 'sources.json');
+
+        let sourcesMap = {};
+        if (fs.existsSync(sourcesPath)) {
+          try {
+            sourcesMap = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'));
+          } catch (e) {}
+        }
 
         if (fs.existsSync(reviewPath)) {
           const content = fs.readFileSync(reviewPath, 'utf8');
           try {
             const data = JSON.parse(content);
-            reviews.push({ date, ...data, isPendingReview: false });
+            reviews.push({ date, ...data, sources: sourcesMap, isPendingReview: false });
           } catch (e) {
             console.error(`Failed to parse ${reviewPath}`, e);
           }
@@ -127,6 +135,7 @@ export async function GET(request) {
               summary: summaryText,
               key_risk: pred.key_risk || "",
               recommended_tickers: pred.recommended_tickers || [],
+              sources: sourcesMap,
               isPendingReview: true
             });
           } catch (e) {
