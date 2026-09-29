@@ -1,5 +1,12 @@
 import os
+import sys
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from apscheduler.schedulers.blocking import BlockingScheduler
 from agents.market_agent import run_market_brief
 from agents.evening_reviewer import run_evening_review
@@ -44,9 +51,49 @@ def daily_brief(force: bool = False):
         )
 
 
-def evening_review(force: bool = False):
+def resolve_evening_review_date(target_date: str = None) -> str:
+    """
+    Resolve which session date to evaluate for evening review:
+    1. If target_date is given (or TARGET_DATE env var), use it.
+    2. Check the most recent session directory in `runs/` that has
+       morning_prediction.json (or morning_brief.md) and NO evening_review.json.
+       If that date is today, only select it if the market has closed (after 16:00 WIB).
+    3. If all sessions have reviews, default to today in Jakarta time.
+    """
+    if target_date:
+        return target_date
+    env_date = os.getenv("TARGET_DATE")
+    if env_date:
+        return env_date
+
+    now = jakarta_now()
+    today_key = now.strftime("%Y-%m-%d")
+
+    runs_dir = Path(__file__).parent / "runs"
+    if runs_dir.exists():
+        import re
+        candidate_dirs = sorted(
+            [d.name for d in runs_dir.iterdir() if d.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", d.name)],
+            reverse=True
+        )
+        for date_str in candidate_dirs:
+            # Skip future dates
+            if date_str > today_key:
+                continue
+            # If candidate is today, only evaluate if market has closed (>= 16:00 WIB)
+            if date_str == today_key and now.hour < 16:
+                continue
+            has_morning = (runs_dir / date_str / "morning_prediction.json").exists() or (runs_dir / date_str / "morning_brief.md").exists()
+            has_evening = (runs_dir / date_str / "evening_review.json").exists()
+            if has_morning and not has_evening:
+                return date_str
+
+    return today_key
+
+
+def evening_review(force: bool = False, target_date: str = None):
     now      = jakarta_now()
-    date_key = now.strftime("%Y-%m-%d")
+    date_key = resolve_evening_review_date(target_date)
 
     is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
     review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
@@ -54,10 +101,10 @@ def evening_review(force: bool = False):
         print(f"\n[scheduler] Evening review for {date_key} already exists. Skipping duplicate execution.")
         return
 
-    print(f"\n[scheduler] Evening review starting -- {now.strftime('%H:%M')}")
+    print(f"\n[scheduler] Evening review starting for session {date_key} -- {now.strftime('%H:%M WIB')}")
 
     try:
-        learning = run_evening_review()
+        learning = run_evening_review(date_key)
 
         if learning is None:
             print("[scheduler] Evening review skipped -- no morning brief found.")
@@ -106,25 +153,25 @@ def evening_review(force: bool = False):
         )
 
 
-# Morning brief:  Mon-Fri 07:00
-scheduler.add_job(daily_brief,    'cron', day_of_week='mon-fri', hour=7,  minute=0)
+# Morning brief:  Mon-Fri 07:30 WIB
+scheduler.add_job(daily_brief,    'cron', day_of_week='mon-fri', hour=7,  minute=30)
 
-# Evening review: Mon-Fri 19:00
-scheduler.add_job(evening_review, 'cron', day_of_week='mon-fri', hour=19, minute=0)
+# Evening review: Mon-Fri 18:55 WIB
+scheduler.add_job(evening_review, 'cron', day_of_week='mon-fri', hour=18, minute=55)
 
 
 if __name__ == "__main__":
     print("Nexus scheduler started.")
-    print("  Morning brief:  Mon-Fri 07:00")
-    print("  Evening review: Mon-Fri 19:00")
+    print("  Morning brief:  Mon-Fri 07:30 WIB")
+    print("  Evening review: Mon-Fri 18:55 WIB")
     print("Press Ctrl+C to stop.")
 
     try:
         send_report(
             f"\U0001f7e2 *Nexus Scheduler Started*\n"
             f"_{jakarta_now().strftime('%Y-%m-%d %H:%M')}_\n\n"
-            f"Morning brief: Mon-Fri 07:00\n"
-            f"Evening review: Mon-Fri 19:00"
+            f"Morning brief: Mon-Fri 07:30 WIB\n"
+            f"Evening review: Mon-Fri 18:55 WIB"
         )
     except Exception:
         pass

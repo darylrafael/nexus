@@ -1,11 +1,11 @@
 {
-  "total_sessions": 2,
-  "total_accuracy_sum": 0,
-  "rolling_avg_accuracy": 0.0,
-  "ihsg_correct_count": 0,
-  "ff_correct_count": 0,
-  "ihsg_accuracy_pct": 0.0,
-  "ff_accuracy_pct": 0.0,
+  "total_sessions": 3,
+  "total_accuracy_sum": 100,
+  "rolling_avg_accuracy": 33.3,
+  "ihsg_correct_count": 1,
+  "ff_correct_count": 1,
+  "ihsg_accuracy_pct": 33.3,
+  "ff_accuracy_pct": 33.3,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -22,7 +22,8 @@
   ],
   "processed_dates": [
     "2026-09-24",
-    "2026-09-25"
+    "2026-09-25",
+    "2026-09-28"
   ],
-  "last_updated": "2026-09-25"
+  "last_updated": "2026-09-28"
 }

@@ -1,0 +1,80 @@
+{
+  "date": "2026-09-28",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 68,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.51,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Stagnant/Sideways",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Energy": true,
+    "Transport & Aviation": false,
+    "Financials": null
+  },
+  "error_rate_pct": 25,
+  "accuracy_score": 75,
+  "rca_unanticipated": [
+    "Resilience of the global economy in the face of significant negative shocks, including rising U.S. tariffs and trade wars.",
+    "Continued geopolitical instability in the Middle East impacting capital markets."
+  ],
+  "rca_overestimated": [
+    "The risk of a sudden escalation in foreign capital outflows from large-cap heavyweights, as actual foreign flow remained stagnant/sideways."
+  ],
+  "rca_underestimated": [
+    "The underlying negative sentiment or domestic factors contributing to the IHSG's decline, despite the brief's assessment of 'No major developments yesterday' for Indonesian economic news."
+  ],
+  "rca_info_delay": [
+    "Global Market Shock regarding the resilience of the global economy and trade wars.",
+    "Geopolitics Surprise concerning Middle East instability."
+  ],
+  "rca_inverse_correlation": [],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan risiko pelemahan Rupiah, tetapi Rupiah melemah sebesar +0.871%, maka IHSG ditutup Bearish dengan penurunan -1.51%.",
+    "Ketika sektor Energi diprediksi Bullish, tetapi sektor transportasi dan logistik yang diprediksi Bearish justru menguat 0,47%, maka sektor Energi hanya naik tipis 0,04%."
+  ],
+  "summary": "The market correctly predicted a bearish IHSG and stagnant foreign flow, but underestimated the magnitude of the decline and saw an unexpected positive performance in the transportation sector, while global and geopolitical factors emerged as unanticipated influences.",
+  "actual_usdidr": 17960.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 93.74,
+      "previous_close": 92.16,
+      "change_pct": 1.71,
+      "signal": "Up",
+      "retrieved_at": "2026-09-29T10:12:52+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 99.26,
+      "previous_close": 103.08,
+      "change_pct": -3.71,
+      "signal": "Down",
+      "retrieved_at": "2026-09-29T10:12:53+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.14,
+      "previous_close": 3.02,
+      "change_pct": 3.8,
+      "signal": "Up",
+      "retrieved_at": "2026-09-29T10:12:54+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Historis Newcastle Coal Futures\nData Historis Newcastle Coal\nSource IDs: src_f9ffe21bef, src_611595dc0f, src_a277ed8ce1, src_ee9f97789b, src_4d907b14ac, src_4d4b55251b, src_6492559f58"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil fell\nSource IDs: src_9c7bf9e109, src_e28d73b4c6, src_56b4172631, src_6399c9b951, src_33d5af8fff, src_c0a99d32e5, src_23f556bbca"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Price LME Nickel September 2026 forward (official Trade cond price)\nSource IDs: src_224e792c1c, src_51ccb30753, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4"
+    }
+  }
+}

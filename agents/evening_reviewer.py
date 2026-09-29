@@ -3,9 +3,16 @@ Evening Reviewer — runs at 19:00 WIB weekdays.
 Full 7-step post-market evaluation and learning pipeline.
 """
 import json
+import os
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 from llm_client import llm_chat
 from agents.web_agent import search_multiple
 from agents.prediction_extractor import extract_predictions, MarketPrediction
@@ -74,15 +81,15 @@ def load_morning_brief(date_key: str) -> tuple:
 # STEP 2 — Collect actual market data
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def collect_actual_data(date_id: str) -> dict:
-    """Fetch IHSG, commodities, rupiah, top movers from yfinance + web search."""
+def collect_actual_data(date_id: str, target_date: str = None) -> dict:
+    """Fetch IHSG, commodities, rupiah, top movers from yfinance/Yahoo + web search."""
     data = {}
     data["evidence_ids"] = []
 
     # IHSG
     print("  [step2] fetching IHSG actual...")
     try:
-        data.update(fetch_ihsg_snapshot())
+        data.update(fetch_ihsg_snapshot(target_date=target_date))
     except Exception as e:
         print(f"  [step2] IHSG error: {e}")
         data["ihsg_signal"] = "Unknown"
@@ -305,8 +312,9 @@ CRITICAL RULES:
     try:
         response = llm_chat(
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=1500,
+            max_tokens=4096,
             temperature=0.1,
+            response_format={"type": "json_object"},
         )
         raw = response.choices[0].message.content
         # Extract everything inside the outermost { } to ignore markdown/intro text
@@ -318,7 +326,7 @@ CRITICAL RULES:
             raise ValueError("LLM evaluation must be a JSON object")
         return analysis
     except Exception as e:
-        print(f"  [step4-6] LLM failed: {e}")
+        print(f"  [step4-6] LLM failed: {e}. Raw: {repr(raw if 'raw' in locals() else None)[:300]}")
         return {
             "step4_evaluation": {
                 "ihsg_correct": actual.get("ihsg_signal") == pred.ihsg_signal,
@@ -389,18 +397,26 @@ def _string_list(value) -> list[str]:
 # MAIN ENTRY POINT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def run_evening_review() -> dict | None:
+def run_evening_review(date_key: str = None) -> dict | None:
     """
     Full 7-step evening review pipeline.
     Returns learning dict, or None if morning brief not found.
     """
-    now      = jakarta_now()
-    date_key = now.strftime("%Y-%m-%d")
-    date_str = now.strftime("%B %d, %Y")
-    date_id  = now.strftime("%d %B %Y")
+    now = jakarta_now()
+    if not date_key:
+        from scheduler import resolve_evening_review_date
+        date_key = resolve_evening_review_date()
+
+    try:
+        target_dt = datetime.strptime(date_key, "%Y-%m-%d")
+        date_str  = target_dt.strftime("%B %d, %Y")
+        date_id   = target_dt.strftime("%d %B %Y")
+    except Exception:
+        date_str = now.strftime("%B %d, %Y")
+        date_id  = now.strftime("%d %B %Y")
 
     print(f"\n{'='*60}")
-    print(f"[evening_reviewer] Starting review for {date_key} at {now.strftime('%H:%M')}")
+    print(f"[evening_reviewer] Starting review for session {date_key} at {now.strftime('%H:%M WIB')}")
     print(f"{'='*60}")
 
     # ── Step 1: Load morning brief ──────────────────────────────
@@ -410,7 +426,7 @@ def run_evening_review() -> dict | None:
 
     # ── Step 2: Collect actuals ─────────────────────────────────
     print("\n[Step 2] Collecting actual market data...")
-    actual = collect_actual_data(date_id)
+    actual = collect_actual_data(date_id, target_date=date_key)
     try:
         save_json_artifact(date_key, "evening_actuals.json", actual)
     except Exception as e:

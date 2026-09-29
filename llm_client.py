@@ -47,17 +47,19 @@ def llm_chat(
     temperature: float = 0.2,
     tools: list = None,
     tool_choice=None,
+    response_format=None,
 ) -> object:
     """
     Chat completion with automatic 3-tier free fallback.
 
     Args:
-        messages:     OpenAI-format message list.
-        model:        Override primary OpenRouter model (optional).
-        max_tokens:   Max tokens to generate.
-        temperature:  Sampling temperature.
-        tools:        Optional tool definitions (function calling).
-        tool_choice:  Optional tool_choice value.
+        messages:        OpenAI-format message list.
+        model:           Override primary OpenRouter model (optional).
+        max_tokens:      Max tokens to generate.
+        temperature:     Sampling temperature.
+        tools:           Optional tool definitions (function calling).
+        tool_choice:     Optional tool_choice value.
+        response_format: Optional response format (e.g. {"type": "json_object"}).
 
     Returns:
         openai ChatCompletion response object.
@@ -69,45 +71,38 @@ def llm_chat(
         kwargs["tools"] = tools
     if tool_choice is not None:
         kwargs["tool_choice"] = tool_choice
+    if response_format is not None:
+        kwargs["response_format"] = response_format
 
+    # ── Tier 1: Gemini direct (fastest & highest quota if key is present) ──
+    if GEMINI_API_KEY:
+        try:
+            gemini = OpenAI(api_key=GEMINI_API_KEY, base_url=GEMINI_BASE_URL)
+            response = _call(gemini, GEMINI_MODEL, kwargs)
+            return response
+        except Exception as e:
+            if not _is_retriable_error(e):
+                raise
+            print(f"  [llm_client] [WARN] Gemini ({GEMINI_MODEL}) failed: {e}. Falling back to OpenRouter...")
+
+    # ── Tier 2: OpenRouter primary model ────────────────────────────────────
     openrouter = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
-
-    # ── Tier 1: OpenRouter primary model ────────────────────────────────────
     try:
         response = _call(openrouter, model or OPENROUTER_MODEL, kwargs)
         return response
     except Exception as e:
         if not _is_retriable_error(e):
             raise
-        print(f"  [llm_client] [WARN] Tier 1 ({OPENROUTER_MODEL}) limited/failed: {e}")
+        print(f"  [llm_client] [WARN] OpenRouter Tier 1 ({OPENROUTER_MODEL}) failed: {e}")
 
-    # ── Tier 2: OpenRouter fallback model (same key) ─────────────────────────
+    # ── Tier 3: OpenRouter fallback model ─────────────────────────────────
     try:
-        print(f"  [llm_client] [INFO] Tier 2 -> {OPENROUTER_FALLBACK_MODEL}")
+        print(f"  [llm_client] [INFO] OpenRouter Fallback -> {OPENROUTER_FALLBACK_MODEL}")
         response = _call(openrouter, OPENROUTER_FALLBACK_MODEL, kwargs)
-        print(f"  [llm_client] [OK] Tier 2 responded.")
-        return response
-    except Exception as e:
-        if not _is_retriable_error(e):
-            raise
-        print(f"  [llm_client] [WARN] Tier 2 ({OPENROUTER_FALLBACK_MODEL}) limited/failed: {e}")
-
-    # ── Tier 3: Gemini direct (free Google AI Studio key) ────────────────────
-    if not GEMINI_API_KEY:
-        raise RuntimeError(
-            "All OpenRouter free tiers are rate-limited and GEMINI_API_KEY is not set.\n"
-            "Get a free key at: https://aistudio.google.com/app/apikey\n"
-            "Then add GEMINI_API_KEY=... to your .env file."
-        )
-
-    try:
-        print(f"  [llm_client] [INFO] Tier 3 -> Gemini ({GEMINI_MODEL})")
-        gemini = OpenAI(api_key=GEMINI_API_KEY, base_url=GEMINI_BASE_URL)
-        response = _call(gemini, GEMINI_MODEL, kwargs)
-        print(f"  [llm_client] [OK] Tier 3 (Gemini) responded.")
+        print(f"  [llm_client] [OK] OpenRouter Fallback responded.")
         return response
     except Exception as e:
         raise RuntimeError(
-            f"All 3 LLM tiers failed. Last error (Gemini): {e}\n"
+            f"All LLM tiers failed. Last error: {e}\n"
             "Check your API keys and network connection."
         ) from e
