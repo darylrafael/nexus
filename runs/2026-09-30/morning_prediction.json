@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-30",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 62,
+  "foreign_flow_signal": "Unknown",
+  "foreign_flow_net": "",
+  "sector_bullish": [],
+  "sector_bearish": [],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "DATE"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": []
+}
