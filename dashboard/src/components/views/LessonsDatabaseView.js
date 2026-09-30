@@ -294,6 +294,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             <div className="history-subtitle font-mono text-xs">
               Autonomous causal market rules and verifiable evidence traces (click row for deep inspection)
             </div>
+            <div className="table-scroll-hint font-mono text-xs">
+              ← Geser tabel ke kanan untuk melihat seluruh kolom audit →
+            </div>
           </div>
           <div className="filter-tabs">
             <button
@@ -375,18 +378,59 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                 </div>
                 <span className="eval-section-tag font-mono">{blindSpots.length} Factors</span>
               </div>
-              <div className="eval-pane-body" style={{ padding: '16px 20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div className="eval-pane-body" style={{ padding: '14px 16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {blindSpots.map((item, idx) => {
                     const pct = Math.min(100, Math.max(12, (item.count / maxBlindSpotCount) * 100));
                     return (
-                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '8px 12px', background: 'var(--surface-subtle)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span className="font-mono text-tertiary" style={{ fontSize: '10px', fontWeight: 700 }}>#{String(idx + 1).padStart(2, '0')}</span>
-                            <span className="font-mono text-primary font-semibold">{item.name}</span>
+                      <div 
+                        key={idx} 
+                        style={{ 
+                          display: 'flex', 
+                          flexDirection: 'column', 
+                          gap: '8px', 
+                          padding: '10px 12px', 
+                          background: 'var(--surface-subtle)', 
+                          borderRadius: 'var(--radius-sm)', 
+                          border: '1px solid var(--border-subtle)',
+                          width: '100%',
+                          boxSizing: 'border-box'
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', width: '100%' }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', flex: 1, minWidth: 0 }}>
+                            <span 
+                              className="font-mono text-tertiary" 
+                              style={{ fontSize: '10px', fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
+                            >
+                              #{String(idx + 1).padStart(2, '0')}
+                            </span>
+                            <span 
+                              className="font-mono text-primary font-semibold"
+                              style={{ 
+                                fontSize: '12px', 
+                                lineHeight: '1.45', 
+                                wordBreak: 'break-word', 
+                                overflowWrap: 'anywhere',
+                                flex: 1,
+                                minWidth: 0 
+                              }}
+                            >
+                              {item.name}
+                            </span>
                           </div>
-                          <span className="font-mono text-warning font-semibold text-xs" style={{ background: 'var(--warning-bg)', border: '1px solid var(--warning-border)', padding: '1px 6px', borderRadius: '3px' }}>
+                          <span 
+                            className="font-mono text-warning font-semibold text-xs" 
+                            style={{ 
+                              background: 'var(--warning-bg)', 
+                              border: '1px solid var(--warning-border)', 
+                              padding: '2px 7px', 
+                              borderRadius: '3px',
+                              flexShrink: 0,
+                              whiteSpace: 'nowrap',
+                              marginTop: '1px'
+                            }}
+                          >
                             {item.count} {item.count === 1 ? 'hit' : 'hits'}
                           </span>
                         </div>
@@ -417,10 +461,10 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                   Loop Active
                 </div>
               </div>
-              <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="eval-pane-body" style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {/* Minimized Compact Summary Card */}
-                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', boxSizing: 'border-box' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
                     <span className="font-mono text-xs font-bold text-primary">
                       {activeCount} Active Constraints Injected
                     </span>
@@ -428,16 +472,17 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                       Cap: Top 5 Rules
                     </span>
                   </div>
-                  <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45 }}>
+                  <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45, wordBreak: 'break-word' }}>
                     Validated rules from post-market reviews are injected as prompt constraints into the 07:00 WIB brief to prevent recurring forecasting biases.
                   </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
-                    <span className="font-mono text-xs text-tertiary">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
+                    <span className="font-mono text-xs text-tertiary" style={{ wordBreak: 'break-all' }}>
                       SOURCE: vault/nexus/learning_store.md (:27124)
                     </span>
                     <button
                       className="brief-read-btn font-mono"
                       onClick={() => setShowPromptDrawer(true)}
+                      style={{ flexShrink: 0 }}
                     >
                       Deep Inspect Injected Prompt ↗
                     </button>
