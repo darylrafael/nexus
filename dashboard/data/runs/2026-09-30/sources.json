@@ -1,7 +1,19 @@
 {
+  "src_9fe8c9ffe1": {
+    "title": "NCFX26 | gC Newcastle Coal Nov 2026 Overview | MarketWatch",
+    "url": "https://www.marketwatch.com/investing/future/ncfx26?countrycode=uk",
+    "published_at": null,
+    "category": "Coal (Newcastle)"
+  },
   "src_a277ed8ce1": {
     "title": "Coal - Price - Chart - Historical Data - News",
     "url": "https://tradingeconomics.com/commodity/coal",
+    "published_at": null,
+    "category": "Coal (Newcastle)"
+  },
+  "src_7d463db8fb": {
+    "title": "Coal PRICE Today | Coal Spot Price Chart | Live Price of Coal per Ounce | Markets Insider",
+    "url": "https://markets.businessinsider.com/commodities/coal-price",
     "published_at": null,
     "category": "Coal (Newcastle)"
   },
@@ -29,21 +41,15 @@
     "published_at": null,
     "category": "Coal (Newcastle)"
   },
-  "src_8e4dd7127c": {
-    "title": "globalCOAL - ICE Coal Futures",
-    "url": "https://www.globalcoal.com/news-events/futuresnewsletter%20-%20no%20graph.cfm",
+  "src_06b551e5de": {
+    "title": "Palm Oil Magazine - Malaysia Palm Oil Futures Rise on Supply Concerns and Stronger Crude Oil Prices - Palm Oil Magazine",
+    "url": "https://www.palmoilmagazine.com/cpo-price/2026/05/27/malaysia-palm-oil-futures-rise-on-supply-concerns-and-stronger-crude-oil-prices",
     "published_at": null,
-    "category": "Coal (Newcastle)"
+    "category": "CPO (Palm Oil)"
   },
-  "src_eeb08eb150": {
-    "title": "Coal Markets",
-    "url": "https://www.eia.gov/coal/markets",
-    "published_at": null,
-    "category": "Coal (Newcastle)"
-  },
-  "src_0257c46918": {
-    "title": "CPO Futures Set to Range Between RM4,400–RM4,500 Next Week as Profit-Taking Caps Rally",
-    "url": "https://www.zyotwdhon.com/en/news/cpo-futures-range-profit-taking-stocks-5tw2",
+  "src_9ee9b3a860": {
+    "title": "BernamaBiz - Profit-taking Seen Weighing On CPO Futures Next Week, Prices At RM4,400-RM4,500 Per Tonne",
+    "url": "https://www.bernamabiz.com/news.php?id=2606233",
     "published_at": null,
     "category": "CPO (Palm Oil)"
   },
@@ -59,15 +65,9 @@
     "published_at": null,
     "category": "CPO (Palm Oil)"
   },
-  "src_b0950e64ef": {
-    "title": "CPO futures rise on stronger crude, gains in vegoil complex despite firmer ringgit: Palm Oil Asia Midday - Fastmarkets",
-    "url": "https://www.fastmarkets.com/insights/cpo-futures-rise-crude-gains-vegoil-complex-palm-oil-asia-midday",
-    "published_at": null,
-    "category": "CPO (Palm Oil)"
-  },
-  "src_9d8ba9cb8a": {
-    "title": "Crude Palm Oil Futures (FCPO)",
-    "url": "https://www.bursamalaysia.com/trade/our_products_services/derivatives/commodity_derivatives/crude_palm_oil_futures",
+  "src_b3f825f6b8": {
+    "title": "CPO prices to stay above MYR4,600 in September amid tightening supply…",
+    "url": "https://www.ofimagazine.com/news/cpo-prices-to-stay-above-myr4-600-in-september-amid-tightening-supply-and-geopolitical-disruptions-mpoc-says",
     "published_at": null,
     "category": "CPO (Palm Oil)"
   },
@@ -82,6 +82,12 @@
     "url": "https://www.barchart.com/futures/quotes/KOU26/futures-prices",
     "published_at": null,
     "category": "CPO (Palm Oil)"
+  },
+  "src_a4f1b4fef6": {
+    "title": "Nickel Price Today: LME Nickel Falls to 2026 Low of US$16,055/t -",
+    "url": "https://www.openpr.com/news/4646454/nickel-price-today-lme-nickel-falls-to-2026-low-of-us-16-055-t",
+    "published_at": null,
+    "category": "Nickel (LME)"
   },
   "src_e7b01f3b12": {
     "title": "Nickel Price Today: Price, Trends & Forecast 2026 | Tacto",
@@ -107,12 +113,6 @@
     "published_at": null,
     "category": "Nickel (LME)"
   },
-  "src_3a6be14baf": {
-    "title": "Nickel - 99.80% Purity - LME (London Metal Exchange) - Price in dollars per metric ton | Insee",
-    "url": "https://www.insee.fr/langue/en?url=%2Fen%2Fstatistiques%2Fserie%2F010002060",
-    "published_at": null,
-    "category": "Nickel (LME)"
-  },
   "src_d82bd6dcd4": {
     "title": "LME Official Prices | London Metal Exchange",
     "url": "https://www.lme.com/market-data/reports-and-data/lme-official-prices",
@@ -125,9 +125,15 @@
     "published_at": null,
     "category": "Nickel (LME)"
   },
-  "src_d2084b2eb5": {
-    "title": "Indonesia Stocks Rise at Open as Oil Prices Fall, Nasdaq Hits Record",
-    "url": "https://jakartaglobe.id/business/indonesia-stocks-rise-at-open-as-oil-prices-fall-nasdaq-hits-record",
+  "src_37099a935c": {
+    "title": "Indonesian Stocks Fall as Oil Tops $107 on US-Iran Tensions",
+    "url": "https://jakartaglobe.id/business/indonesian-stocks-fall-as-oil-tops-107-on-usiran-tensions",
+    "published_at": null,
+    "category": "en"
+  },
+  "src_2414f370f2": {
+    "title": "MORNING CHATTER",
+    "url": "https://www.kbvalbury.com/cfind/source/files/news260924a.pdf",
     "published_at": null,
     "category": "en"
   },
@@ -149,71 +155,59 @@
     "published_at": null,
     "category": "en"
   },
-  "src_e9ad0f17cd": {
-    "title": "Indonesia Stocks Plummet 4.4% in Sudden Rout as MSCI and FTSE Deletions Trigger Massive Capital Outflow",
-    "url": "https://investortrust.id/market/103575/indonesia-stocks-plummet-44-in-sudden-rout-as-msci-and-ftse-deletions-trigger-massive-capital-outflow",
-    "published_at": null,
-    "category": "en"
-  },
-  "src_073d8bf97b": {
-    "title": "Oil falls 1% as investors watch Middle East supply disruptions",
-    "url": "https://www.reuters.com/business/energy/oil-prices-extend-losses-fears-middle-east-supply-disruptions-ease-2026-09-17",
-    "published_at": null,
-    "category": "en"
-  },
   "src_c2af71b7a5": {
     "title": "220K views · 1.6K reactions | An MSCI warning of a possible downgrade in Indonesia triggered what was at one point the country’s worst two-day stock market rout in nearly three decades.\n\nIndonesian policymakers are now rushing to shore up confidence and avert losing emerging-market status bloom.bg/49MclC8 | Bloomberg",
     "url": "https://www.facebook.com/bloombergbusiness/videos/crisis-of-confidence-grips-indonesia-stocks-after-msci-warning/1607951313568147",
     "published_at": null,
     "category": "en"
   },
-  "src_06614be353": {
-    "title": "Crude Oil WTI Futures Historical Prices - Investing.com",
-    "url": "https://www.investing.com/commodities/crude-oil-historical-data",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_aca3b23fa5": {
-    "title": "Crude Oil Turun 5 Hari Beruntun: Apa Artinya? - Rikopedia Research",
-    "url": "https://www.rikopedia.com/2026/09/crude-oil-turun-5-hari-beruntun-apa.html",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_e82df172eb": {
-    "title": "Crude Oil Futures Price Today (WTI) - Investing.com",
-    "url": "https://www.investing.com/commodities/crude-oil",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_a387e3123c": {
-    "title": "Perkiraan Harga WTI Oil & Prediksi untuk 2026, 2027, 2028-2030, 2040 dan Seterusnya | LiteFinance",
-    "url": "http://178.248.238.94/blog/analysts-opinions/prediksi-harga-minyak-dunia",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_e9fbf7770c": {
-    "title": "Dow falls 160 points as Treasury Yields and oil prices rise",
-    "url": "https://invezz.com/news/2026/09/24/dow-falls-160-points-as-treasury-yields-and-oil-prices-rise",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_22619a3dfb": {
-    "title": "IDX COMPOSITE (^JKSE) Historical Data - Yahoo Finance",
-    "url": "https://finance.yahoo.com/quote/^JKSE/history",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_5b8b6c44ce": {
-    "title": "Harga Minyak Turun: Apa Artinya untuk Pasar? - Rikopedia Research",
-    "url": "https://www.rikopedia.com/2026/09/harga-minyak-turun-apa-artinya-untuk.html",
-    "published_at": null,
-    "category": "id"
-  },
-  "src_2414f370f2": {
-    "title": "MORNING CHATTER",
-    "url": "https://www.kbvalbury.com/cfind/source/files/news260924a.pdf",
+  "src_2c11b023c3": {
+    "title": "Oil prices fall as markets look to Iran truce, but remain wary of attacks on oil facilities | Reuters",
+    "url": "https://www.reuters.com/business/energy/oil-prices-fall-markets-look-iran-truce-remain-wary-attacks-oil-facilities-2026-09-25",
     "published_at": null,
     "category": "en"
+  },
+  "src_e7c773934d": {
+    "title": "Resmi! Harga Minimum Saham Rp 50 Turun Jadi Rp 1 Mulai 28/9/2026, Cek Saham Terdampak",
+    "url": "https://investasi.kontan.co.id/news/resmi-harga-minimum-saham-rp-50-turun-jadi-rp-1-mulai-2892026-cek-saham-terdampak?source=home_terbaru",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_29a967ba42": {
+    "title": "Resmi! Harga Minimum Saham Rp 50 Turun Jadi Rp 1 Mulai 28/9/2026, Cek Saham Terdampak",
+    "url": "https://investasi.kontan.co.id/news/resmi-harga-minimum-saham-rp-50-turun-jadi-rp-1-mulai-2892026-cek-saham-terdampak",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_63f114642f": {
+    "title": "6 Saham yang Terdampak karena Harga Minyak Turun",
+    "url": "https://reku.id/analysis/saham-saham-yang-terdampak-karena-harga-minyak-turun",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_241a7dea78": {
+    "title": "6 Saham yang Terdampak karena Harga Minyak Turun",
+    "url": "https://reku.id/en/analysis/saham-saham-yang-terdampak-karena-harga-minyak-turun",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_13be3c3977": {
+    "title": "Harga Saham ANTM Turun Lagi, Periksa PER dan PBV terbaru!",
+    "url": "https://investasi.kontan.co.id/news/harga-saham-antm-turun-lagi-periksa-per-dan-pbv-terbaru",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_bc341b02d3": {
+    "title": "BEI Bakal Hapus Batas Harga Rp50, Berikut 14 Saham Gocap yang Terdampak dan Strategi untuk Investor Ritel - Ajaib",
+    "url": "https://ajaib.co.id/belajar/analisa-fundamental-saham/bei-hapus-harga-rp50-14-saham-gocap-strategi-investor-ritel",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_cc91c04828": {
+    "title": "Indeks IDX SMC Liquid Naik Saat LQ45 Turun Sepekan, Intip Saham-Saham Penggeraknya",
+    "url": "https://investasi.kontan.co.id/news/indeks-idx-smc-liquid-naik-saat-lq45-turun-sepekan-intip-saham-saham-penggeraknya",
+    "published_at": null,
+    "category": "id"
   },
   "src_7b23aecb5e": {
     "title": "Indonesian Stocks Fall 1.4% at Close as New IDX Rule, Oil Fears Weigh on Sentiment",
@@ -227,9 +221,15 @@
     "published_at": null,
     "category": "en"
   },
-  "src_d3d51d28ba": {
-    "title": "Indonesia stocks lower at close of trade; IDX Composite ...",
-    "url": "https://www.investing.com/news/stock-market-news/indonesia-stocks-lower-at-close-of-trade-idx-composite-index-down-145-4919548",
+  "src_5bd7d065d3": {
+    "title": "Indonesian coal shares fall as policy move jolts market | Latest Market News",
+    "url": "https://www.argusmedia.com/en/news-and-insights/latest-market-news/2829817-indonesian-coal-shares-fall-as-policy-move-jolts-market",
+    "published_at": null,
+    "category": "en"
+  },
+  "src_f731f49221": {
+    "title": "GoTo plunges 14% as IDX lowers minimum price cap - Markets - The Jakarta Post",
+    "url": "https://www.thejakartapost.com/business/2026/09/28/goto-plunges-14-as-idx-lowers-minimum-price-cap",
     "published_at": null,
     "category": "en"
   },
@@ -239,21 +239,15 @@
     "published_at": null,
     "category": "en"
   },
-  "src_799b6112a0": {
-    "title": "Subscribe to read",
-    "url": "https://www.ft.com/content/ae6fd19e-df76-4855-8a1c-2e1099a91851?syn-25a6b1a6=1",
-    "published_at": null,
-    "category": "en"
-  },
-  "src_24fcd203a6": {
-    "title": "Harga Gas AS Turun, LNG Batasi Tekanan",
-    "url": "https://www.xtb.com/id/market-analysis/news-and-research/harga-gas-as-turun-cuaca-dan-lng-tahan-koreksi-lebih-dalam",
-    "published_at": null,
-    "category": "id"
-  },
   "src_f793119f16": {
     "title": "Harga Gas Industri Dipaksa Turun, Gimana Dampaknya ke Saham PGAS dan RAJA?",
     "url": "https://www.mikirduit.com/harga-gas-industri-dipaksa-turun-gimana-dampaknya-ke-saham-pgas-dan-raja",
+    "published_at": null,
+    "category": "id"
+  },
+  "src_011adcee44": {
+    "title": "Harga Gas Industri Turun, Emiten Sektor Padat Energi Berpotensi Diuntungkan",
+    "url": "https://investasi.kontan.co.id/news/harga-gas-industri-turun-emiten-sektor-padat-energi-berpotensi-diuntungkan-1",
     "published_at": null,
     "category": "id"
   },
@@ -261,7 +255,7 @@
     "title": "BEI buka perdagangan saham Rp1 mulai 28 September 2026 | IDNFinancials",
     "url": "https://www.idnfinancials.com/id/news/69205/bei-buka-perdagangan-saham-rp1-mulai-28-september-2026",
     "published_at": null,
-    "category": "web"
+    "category": "id"
   },
   "src_06fa0120a9": {
     "title": "8 Sektor Saham Turun, Transportasi Jatuh Paling Dalam (Jumat, 4 September 2026)",
@@ -269,15 +263,15 @@
     "published_at": null,
     "category": "id"
   },
-  "src_2a7b5aea27": {
-    "title": "Mengapa saham United States Natural Gas Fund turun ...",
-    "url": "https://id.investing.com/news/stock-market-news/mengapa-saham-united-states-natural-gas-fund-turun-hari-ini-93CH-2989944",
+  "src_c04fd5c6a2": {
+    "title": "Harga Gas AS Turun, LNG Batasi Tekanan | XTB",
+    "url": "https://www.xtb.com/id/market-analysis/news-and-research/harga-gas-as-turun-cuaca-dan-lng-tahan-koreksi-lebih-dalam",
     "published_at": null,
     "category": "id"
   },
-  "src_9c98fcadc4": {
-    "title": "BEI Targetkan Harga Saham Minimum Rp1 Berlaku Akhir ...",
-    "url": "https://www.youtube.com/watch?v=OLshkEmQxIY",
+  "src_69ff3494c7": {
+    "title": "IDX",
+    "url": "https://www.idx.co.id",
     "published_at": null,
     "category": "id"
   },
@@ -299,33 +293,39 @@
     "published_at": null,
     "category": "web"
   },
-  "src_87f4c2a850": {
-    "title": "7 Sektor Saham Turun, Teknologi Paling Bawah (Selasa, 29 September 2026)",
-    "url": "https://databoks.katadata.co.id/datapublish/2026/09/29/7-sektor-saham-turun-teknologi-paling-bawah-selasa-29-september-2026",
+  "src_8a04d520ed": {
+    "title": "IHSG Sesi I Senin 14 September 2026 Anjlok 1,7%, Cek Saham Top Gainers dan Losers – Informasi Cepat",
+    "url": "https://ic2lc.umsu.ac.id/kini/ihsg-sesi-i-senin-14-september-2026-anjlok-17-cek-saham-top-gainers-dan-losers",
     "published_at": null,
     "category": "web"
   },
-  "src_d97e4ce48d": {
-    "title": "Daftar Saham Top Gainers dan Losers dalam Sepekan | News+ on RCTI+",
-    "url": "https://www.rctiplus.com/news/detail/okezone/5480937/daftar-saham-top-gainers-dan-losers-dalam-sepekan",
+  "src_87544f522c": {
+    "title": "Saham IHSG (Index Harga Saham Gabungan)",
+    "url": "https://stockbit.com/symbol/IHSG",
     "published_at": null,
     "category": "web"
   },
-  "src_1b2449b0d6": {
-    "title": "Prediksi IHSG dan Rekomendasi Saham Selasa, 29 September 2026",
-    "url": "https://investor.id/market/455822/prediksi-ihsg-dan-rekomendasi-saham-selasa-29-september-2026",
+  "src_bcd30975e6": {
+    "title": "IHSG Hari Ini Ditutup Turun 1,33%, Simak Top Gainer dan Top Loser LQ45 - Ajaib",
+    "url": "https://ajaib.co.id/belajar/saham/ihsg-hari-ini-ditutup-turun-133-top-gainer-top-loser-lq45",
     "published_at": null,
     "category": "web"
   },
-  "src_1e936f4ae9": {
-    "title": "10 Saham Top Gainer Perdagangan Selasa 29 September ...",
-    "url": "https://www.idxchannel.com/amp/market-news/10-saham-top-gainer-perdagangan-selasa-29-september-2026-sema-dan-ifsh-posisi-teratas",
+  "src_eb97a41039": {
+    "title": "Simak 20 saham top gainer sepanjang perdagangan Juli ...",
+    "url": "https://www.instagram.com/p/Db-JvPtjJEm",
     "published_at": null,
     "category": "web"
   },
-  "src_7aae9fc8dc": {
-    "title": "10 <b>Saham Top Gainer</b> Perdagangan Selasa <b>29 ...",
-    "url": "https://www.youtube.com/watch?v=GNKUulf-Poc&xstg=CAMSBhUD-7L2Hw%3D%3D",
+  "src_3987f13539": {
+    "title": "Top 20 Gainer and Loser Stocks - Februari 2025",
+    "url": "https://idx.co.id/id/data-pasar/laporan-statistik/digital-statistic/monthly/biggest-market-capitalization-most-active-stocks/top-gainer-and-loser-stocks?filter=eyJ5ZWFyIjoiMjAyNSIsIm1vbnRoIjoiMiIsInF1YXJ0ZXIiOjAsInR5cGUiOiJtb250aGx5In0%3D",
+    "published_at": null,
+    "category": "web"
+  },
+  "src_c97b8fff8d": {
+    "title": "Bursa Efek Jakarta & Indonesia | Pasar Keuangan Indonesia",
+    "url": "https://www.idnfinancials.com",
     "published_at": null,
     "category": "web"
   },
@@ -335,9 +335,27 @@
     "published_at": null,
     "category": "web"
   },
+  "src_78342b4c64": {
+    "title": "Daftar Saham Terbaik 2026 Berdasarkan Performa YTD - Ajaib",
+    "url": "https://ajaib.co.id/belajar/saham/saham-terbaik-2026-berdasarkan-performa-ytd",
+    "published_at": null,
+    "category": "web"
+  },
+  "src_14c0b565da": {
+    "title": "Daftar Saham Paling Laris Diborong dan Dilepas Pekan ini - KabarBursa.com",
+    "url": "https://www.kabarbursa.com/market-hari-ini/daftar-saham-paling-laris-diborong-dan-dilepas-pekan-ini",
+    "published_at": null,
+    "category": "web"
+  },
   "src_b135acadb2": {
     "title": "Saham Indonesia Paling Aktif, Paling Banyak Diperdagangkan — TradingView",
     "url": "https://id.tradingview.com/markets/stocks-indonesia/market-movers-active",
+    "published_at": null,
+    "category": "web"
+  },
+  "src_09137f6aa7": {
+    "title": "Sekitar 80% Emiten Raup Laba, Tapi IHSG Jatuh 29% dan Net Sell Tembus Rp 80 T",
+    "url": "https://investortrust.id/market/111027/sekitar-80-emiten-raup-laba-tapi-ihsg-jatuh-29-dan-net-sell-tembus-rp-80-t",
     "published_at": null,
     "category": "web"
   },
@@ -347,21 +365,9 @@
     "published_at": null,
     "category": "web"
   },
-  "src_edbbda8f5e": {
-    "title": "Instagram",
-    "url": "https://www.instagram.com/p/DdwGEgogcmh",
-    "published_at": null,
-    "category": "web"
-  },
-  "src_d94aeab3fd": {
-    "title": "Daftar Saham Gocap dan di Bawah Rp50 Jelang Aturan Harga Minimum Rp1 BEI - Ajaib",
-    "url": "https://ajaib.co.id/belajar/saham/daftar-saham-gocap-dan-di-bawah-rp50",
-    "published_at": null,
-    "category": "web"
-  },
-  "src_a4469b6672": {
-    "title": "Riset & Rekomendasi Saham Hari Ini",
-    "url": "https://www.most.co.id/riset",
+  "src_51e8e513a2": {
+    "title": "Top 5 Net Foreign Buy (Lembar)",
+    "url": "https://www.infovesta.com/index/data_info/saham/topbuy",
     "published_at": null,
     "category": "web"
   },
@@ -371,9 +377,9 @@
     "published_at": null,
     "category": "web"
   },
-  "src_ad1adbcae5": {
-    "title": "Asing awali perdagangan September dengan net sell 301 juta saham | IDNFinancials",
-    "url": "https://www.idnfinancials.com/id/news/56998/asing-awali-perdagangan-september-dengan-net-sell-301-juta-saham",
+  "src_f65327398e": {
+    "title": "IHSG Sesi 1 Keok, Asing Jualan Saham Rp 1,14 Triliun",
+    "url": "https://www.cnbcindonesia.com/market/20260918134422-17-769038/ihsg-sesi-1-keok-asing-jualan-saham-rp-114-triliun",
     "published_at": null,
     "category": "web"
   },
@@ -383,15 +389,9 @@
     "published_at": null,
     "category": "web"
   },
-  "src_648ea25c5b": {
-    "title": "IHSG Naik 1,27%, Asing Net Buy Tipis di Sesi 1",
-    "url": "https://www.cnbcindonesia.com/market/20260818130059-17-760277/ihsg-naik-127-asing-net-buy-tipis-di-sesi-1",
-    "published_at": null,
-    "category": "web"
-  },
-  "src_51e8e513a2": {
-    "title": "Top 5 Net Foreign Buy (Lembar)",
-    "url": "https://www.infovesta.com/index/data_info/saham/topbuy",
+  "src_f623d78391": {
+    "title": "Bursa Efek Indonesia (BEI) mencatatkan raihan beli asing ...",
+    "url": "https://www.instagram.com/p/DVA3EqKEsSI",
     "published_at": null,
     "category": "web"
   },
@@ -407,130 +407,124 @@
     "published_at": null,
     "category": "web"
   },
-  "src_d5349d3985": {
-    "title": "Apindo Waspadai Dampak Perang Dagang AS-China. ...",
-    "url": "https://www.instagram.com/reel/DIqF5m_BWXW?hl=en",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_1debb3e833": {
-    "title": "Tarif Impor AS Picu Fluktuasi IHSG: Krisis atau Peluang?",
-    "url": "https://feb.ugm.ac.id/id/berita/13183-tarif-impor-as-picu-fluktuasi-ihsg-krisis-atau-peluang",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_8f0924a300": {
-    "title": "Perang Dagang Amerika dan China di ASEAN - Universitas Airlangga Official Website",
-    "url": "https://unair.ac.id/perang-dagang-amerika-dan-china-di-asean",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_d6e6102c8e": {
-    "title": "Perang dagang antara Amerika Serikat dan China selama ...",
-    "url": "https://www.facebook.com/KOMPAScom/videos/as-china-damai-perang-dagang-saling-turunkan-ego-tarif-impor/1335777987512880",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_d0d7b5a583": {
-    "title": "Dinamika Global dan Regional serta Implikasinya bagi ...",
-    "url": "https://workingpapers.bappenas.go.id/index.php/bwp/article/download/536/186",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_eec0676fb4": {
-    "title": "OJK Waspadai Risiko Perang Dagang dan Geopolitik Meski ...",
-    "url": "https://www.youtube.com/watch?v=nTJZCpYSWdY",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_942485d168": {
-    "title": "Meredanya ketegangan dagang AS-China dinilai ...",
-    "url": "https://www.instagram.com/p/DQeQtWPFFBZ",
-    "published_at": null,
-    "category": "Geopolitics"
-  },
-  "src_06c7ba0c46": {
-    "title": "The Fed Tahan Suku Bunga 3,5-3,75%, Inflasi AS 2026 Diproyeksi Naik ke 3,6%",
-    "url": "https://www.bareksa.com/berita/saham/2026-06-18/the-fed-tahan-suku-bunga-35-375-inflasi-as-2026-diproyeksi-naik-ke-36",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_c87adcc6d7": {
-    "title": "suku bunga The Fed - Suku Bunga Naik, Pejabat The Fed: Inflasi Masih Terlalu Tinggi di Semua Aspek Ekonomi",
-    "url": "https://www.kontan.co.id/tag/suku-bunga-the-fed",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_02c92c2fc4": {
-    "title": "The Fed Pertahanan Suku Bunga 3,5%-3,75%, Pertimbangkan Pertumbuhan Ekonomi dan Inflasi",
-    "url": "https://ekonomi.bisnis.com/read/20260730/620/1992199/the-fed-pertahanan-suku-bunga-35-375-pertimbangkan-pertumbuhan-ekonomi-dan-inflasi",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_754cfbeb7b": {
-    "title": "The Fed Tahan Suku Bunga 3,5-3,75%, Inflasi AS 2026 Diproyeksi Naik ke 3,6%",
-    "url": "https://www.bareksa.com/berita/saham/2026-06-18/the-fed-tahan-suku-bunga-35-375-inflasi-as-2026-diproyeksi-naik-ke-36/amp",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_aea928d594": {
-    "title": "Inflasi AS masih tinggi, The Fed berpeluang naikkan suku bunga | IDNFinancials",
-    "url": "https://www.idnfinancials.com/id/news/66977/inflasi-as-masih-tinggi-the-fed-berpeluang-naikkan-suku-bunga",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_d9828c92c2": {
-    "title": "The Fed Pertahankan Suku Bunga Acuan, Sebut Ekonomi AS Solid",
-    "url": "https://investortrust.id/international/92831/the-fed-pertahankan-suku-bunga-acuan-sebut-ekonomi-as-solid",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_86907cbe70": {
-    "title": "Ekonomi dan Inflasi AS Memburuk, BI Perkirakan The Fed Pangkas Suku Bunga Jadi 4%",
-    "url": "https://nasional.kontan.co.id/news/ekonomi-dan-inflasi-as-memburuk-bi-perkirakan-the-fed-pangkas-suku-bunga-jadi-4",
-    "published_at": null,
-    "category": "Global Macro"
-  },
   "src_7857e20ee0": {
     "title": "BI Rate Diumumkan Hari Ini, IHSG dan Rupiah Jadi Sorotan Pasar Rabu 23 September 2026",
     "url": "https://aktualita.co/ekonomi/bi-rate-hari-ini-ihsg-rupiah-23-september-2026",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_b1c27ed418": {
-    "title": "BI-Rate Naik Jadi 5,25%, Langkah Jaga Inflasi & Stabilisasi Kurs Rupiah",
-    "url": "https://m.jpnn.com/amp/news/bi-rate-naik-jadi-525-langkah-jaga-inflasi-dan-stabilisasi-nilai-tukar",
+  "src_fe6d94eb43": {
+    "title": "Rupiah Dekati Rp 18.000 Per Dolar AS, Tertekan Harga Minyak dan Obligasi Global",
+    "url": "https://www.kompas.id/artikel/rupiah-dekati-rp-18000-per-dolar-as-tertekan-harga-minyak-dan-obligasi-global?open_from=Terbaru_Page",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_d5b3dde753": {
-    "title": "Kalender Ekonomi Indonesia September 2026 - Rikopedia Research",
-    "url": "https://www.rikopedia.com/2026/08/kalender-ekonomi-indonesia-september.html",
+  "src_1a566022f1": {
+    "title": "Nilai tukar rupiah kembali menembus Rp18.000 per dolar AS ...",
+    "url": "https://www.instagram.com/reel/Dd3iscGP3em",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_fdff6e79fd": {
-    "title": "PENGARUH INFLASI, SUKU BUNGA BI DAN KURS RUPIAH TERHADAP PERGERAKAN IHSG DI BURSA EFEK INDONESIA PERIODE 2019 -2024\n\t\t\t\t\t\t\t| Jurnal Muara Ilmu Ekonomi dan Bisnis",
-    "url": "https://journal.untar.ac.id/index.php/jmieb/article/view/33949",
+  "src_4df586c2dc": {
+    "title": "Mengapa IHSG dan Rupiah Melemah?",
+    "url": "https://investortrust.id/market/117081/mengapa-ihsg-dan-rupiah-melemah",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_96ca482da3": {
-    "title": "berita ekonomi Indonesia hari ini rupiah BI IHSG at DuckDuckGo",
-    "url": "https://html.duckduckgo.com/html?q=berita+ekonomi+Indonesia+hari+ini+rupiah+BI+IHSG",
+  "src_26448eafc8": {
+    "title": "#SobatRupiah, BI-Rate tetap di 5,75% pada RDG ...",
+    "url": "https://www.facebook.com/bikaltim/videos/sobatrupiah-bi-rate-tetap-di-575-pada-rdg-september-2026-di-tengah-ketidakpastia/2942386766121416",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_9e9415e9f4": {
-    "title": "PENGARUH INFLASI, BI RATE, KURS RUPIAH DAN ...",
-    "url": "https://repository.ub.ac.id/177095/1/Qonita%20Rona%20Firdaus.pdf",
+  "src_1fb316ab33": {
+    "title": "Rapat Dewan Gubernur Bank Indonesia memutuskan ...",
+    "url": "https://www.instagram.com/p/DdqyW0FE6CY",
     "published_at": null,
     "category": "Indonesian Economy"
   },
-  "src_611ce89af5": {
-    "title": "Analisis Pengaruh Nilai Tukar Rupiah, BI-Rate, dan Suku Bunga The Fed terhadap Indeks Harga Saham Gabungan (IHSG) di Bursa Efek Indonesia Periode 2020–2024 | Paradoks : Jurnal Ilmu Ekonomi",
-    "url": "https://jurnal.feb-umi.id/index.php/PARADOKS/article/view/1371",
+  "src_f87ab6051b": {
+    "title": "Kurs Transaksi BI",
+    "url": "https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/default.aspx",
     "published_at": null,
     "category": "Indonesian Economy"
+  },
+  "src_f362c315e6": {
+    "title": "Suku Bunga Fed Funds Amerika Serikat",
+    "url": "https://id.tradingeconomics.com/united-states/interest-rate",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_6bbe56c35b": {
+    "title": "Pekan ini pasar akan mencermati keputusan suku bunga ...",
+    "url": "https://www.instagram.com/p/DdQBbx7mPE_",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_6d4f50f656": {
+    "title": "Keputusan FOMC September 2026: Jadwal & Dampaknya",
+    "url": "https://pluang.com/akademi/berita-analisis/keputusan-fomc-september-2026",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_168be9d27a": {
+    "title": "BI Proyeksikan The Fed Naikkan Suku Bunga Lagi, Apa ...",
+    "url": "https://kabarbisnis.com/read/28137179/bi-proyeksikan-the-fed-naikkan-suku-bunga-lagi-apa-dampaknya-ke-ri-",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_4ef7b0e1b7": {
+    "title": "Dengan inflasi yang masih terlalu tinggi, The Fed mungkin ...",
+    "url": "https://www.vietnam.vn/id/lam-phat-van-qua-cao-fed-co-the-se-tang-lai-suat-them-mot-lan-trong-nam-2026",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_675a60d962": {
+    "title": "Kalender Ekonomi: Arah Suku Bunga The Fed & BOJ Jadi Sorotan - Market",
+    "url": "https://www.bloombergtechnoz.com/detail-news/121413/kalender-ekonomi-arah-suku-bunga-the-fed-boj-jadi-sorotan",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_5a9afd7887": {
+    "title": "Geopolitik dan Perang Dagang: Dampak Bagi Ekonomi Dunia",
+    "url": "https://kompasasia.id/geopolitik-dan-perang-dagang-dampaknya-terhadap-ekonomi-dunia",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_b3ae9b8506": {
+    "title": "Ini Pengaruh Perang Dagang China-AS pada Uang Asing di Pasar Modal RI - Page all",
+    "url": "https://newssetup.kontan.co.id/news/ini-pengaruh-perang-dagang-china-as-pada-uang-asing-di-pasar-modal-ri?page=all",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_46efc5d7f2": {
+    "title": "Ini Pengaruh Perang Dagang China-AS pada Uang Asing di Pasar Modal RI",
+    "url": "https://newssetup.kontan.co.id/news/ini-pengaruh-perang-dagang-china-as-pada-uang-asing-di-pasar-modal-ri",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_8379e695ac": {
+    "title": "Perang Dagang China-AS Belum Usai, Ini Pengaruhnya pada Arus Modal Asing ke Pasar RI",
+    "url": "https://nasional.kontan.co.id/news/perang-dagang-china-as-belum-usai-ini-pengaruhnya-pada-arus-modal-asing-ke-pasar-ri",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_49ff15f542": {
+    "title": "Redanya Tensi Perang Dagang AS-Tiongkok Jadi Angin Segar bagi Pasar Aset Kripto",
+    "url": "https://mediaasuransinews.co.id/market/redanya-tensi-perang-dagang-as-tiongkok-jadi-angin-segar-bagi-pasar-aset-kripto",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_67dd9ec170": {
+    "title": "Di Antara Perang Dagang Dua Raksasa: Asia Pasifik Jangan Lagi Jadi Penonton",
+    "url": "https://rm.id/baca-berita/internasional/261607/di-antara-perang-dagang-dua-raksasa-asia-pasifik-jangan-lagi-jadi-penonton",
+    "published_at": null,
+    "category": "Geopolitics"
+  },
+  "src_b06cf41a68": {
+    "title": "IMF Soroti Memanasnya Geopolitik Dunia, Waspadai Efek Perang Dagang Trump?",
+    "url": "https://wartaekonomi.co.id/read563700/imf-soroti-memanasnya-geopolitik-dunia-waspadai-efek-perang-dagang-trump",
+    "published_at": null,
+    "category": "Geopolitics"
   }
 }

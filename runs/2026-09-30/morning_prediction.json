@@ -1,16 +1,58 @@
 {
   "date": "2026-09-30",
-  "ihsg_signal": "Neutral",
-  "ihsg_confidence": 62,
-  "foreign_flow_signal": "Unknown",
-  "foreign_flow_net": "",
-  "sector_bullish": [],
-  "sector_bearish": [],
-  "sector_neutral": [],
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 82,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "No aggregate net foreign flow value in Rupiah was provided for September 29, 2026. However, foreign investors recorded significant net buy volumes in several stocks while also selling others.",
+  "sector_bullish": [
+    "Barang Konsumen Siklikal/Non-Primer",
+    "Perindustrian",
+    "Infrastruktur"
+  ],
+  "sector_bearish": [
+    "Teknologi",
+    "Properti",
+    "Energi"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Toll Road"
+  ],
   "recommended_tickers": [
-    "DATE"
+    "MNCN",
+    "BBKP",
+    "ADRO",
+    "BUMI",
+    "DEWA",
+    "EXCL",
+    "BBCA",
+    "RUIS",
+    "PADI",
+    "MEDC",
+    "BLTA",
+    "DOWN",
+    "UNTR",
+    "ISAT",
+    "BNBR",
+    "GOTO",
+    "ENRG",
+    "BKSL"
   ],
   "key_risk": "",
-  "commodities_predicted": {},
-  "evidence_ids": []
+  "commodities_predicted": {
+    "Oil": "Bearish",
+    "Coal": "neutral"
+  },
+  "evidence_ids": [
+    "src_1a566022f1",
+    "src_46efc5d7f2",
+    "src_51e8e513a2",
+    "src_5a9afd7887",
+    "src_8379e695ac",
+    "src_8bea803676",
+    "src_9fe8c9ffe1",
+    "src_b3ae9b8506",
+    "src_c97b9fff8d",
+    "src_fe6d94eb43"
+  ]
 }

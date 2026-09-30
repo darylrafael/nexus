@@ -178,11 +178,24 @@ Categorize sectors dynamically based on yesterday's data:
     print("  [market_agent] Generating market brief using LLM...")
     response = llm_chat(
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=3000,
+        max_tokens=8192,
         temperature=0.2,
     )
 
     final_output = response.choices[0].message.content
+    finish_reason = getattr(response.choices[0], "finish_reason", None)
+
+    # Self-healing safeguard: if reasoning consumed budget and truncated output, retry with higher token headroom
+    if finish_reason == "length" or "### 7." not in final_output:
+        print("  [market_agent] [WARN] Brief incomplete/truncated. Retrying with max_tokens=16384...")
+        retry_resp = llm_chat(
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=16384,
+            temperature=0.2,
+        )
+        if retry_resp and retry_resp.choices:
+            final_output = retry_resp.choices[0].message.content
+
     print("  [market_agent] Validating output rules...")
     final_output = validate(final_output)
 

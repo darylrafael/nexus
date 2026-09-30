@@ -43,7 +43,7 @@ def _call(client: OpenAI, model: str, kwargs: dict) -> object:
 def llm_chat(
     messages: list,
     model: str = None,
-    max_tokens: int = 2000,
+    max_tokens: int = 8192,
     temperature: float = 0.2,
     tools: list = None,
     tool_choice=None,
@@ -55,7 +55,7 @@ def llm_chat(
     Args:
         messages:        OpenAI-format message list.
         model:           Override primary OpenRouter model (optional).
-        max_tokens:      Max tokens to generate.
+        max_tokens:      Max tokens to generate (default 8192 for reasoning/thinking model headroom).
         temperature:     Sampling temperature.
         tools:           Optional tool definitions (function calling).
         tool_choice:     Optional tool_choice value.
@@ -74,12 +74,19 @@ def llm_chat(
     if response_format is not None:
         kwargs["response_format"] = response_format
 
+    def _post_check(resp):
+        if resp and hasattr(resp, "choices") and resp.choices:
+            fr = getattr(resp.choices[0], "finish_reason", None)
+            if fr == "length":
+                print(f"  [llm_client] [WARN] Output truncated by max_tokens limit ({max_tokens})!")
+        return resp
+
     # ── Tier 1: Gemini direct (fastest & highest quota if key is present) ──
     if GEMINI_API_KEY:
         try:
             gemini = OpenAI(api_key=GEMINI_API_KEY, base_url=GEMINI_BASE_URL)
             response = _call(gemini, GEMINI_MODEL, kwargs)
-            return response
+            return _post_check(response)
         except Exception as e:
             if not _is_retriable_error(e):
                 raise
@@ -89,7 +96,7 @@ def llm_chat(
     openrouter = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
     try:
         response = _call(openrouter, model or OPENROUTER_MODEL, kwargs)
-        return response
+        return _post_check(response)
     except Exception as e:
         if not _is_retriable_error(e):
             raise
@@ -100,7 +107,7 @@ def llm_chat(
         print(f"  [llm_client] [INFO] OpenRouter Fallback -> {OPENROUTER_FALLBACK_MODEL}")
         response = _call(openrouter, OPENROUTER_FALLBACK_MODEL, kwargs)
         print(f"  [llm_client] [OK] OpenRouter Fallback responded.")
-        return response
+        return _post_check(response)
     except Exception as e:
         raise RuntimeError(
             f"All LLM tiers failed. Last error: {e}\n"
