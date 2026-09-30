@@ -88,6 +88,7 @@
   padding: 0;
 }
 
+html,
 body {
   background-color: var(--canvas);
   color: var(--text-primary);
@@ -96,6 +97,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 /* Utilities */
@@ -116,6 +120,10 @@ body {
 .layout-root {
   display: flex;
   min-height: 100vh;
+  min-width: 0;
+  max-width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Sidebar */
@@ -419,16 +427,23 @@ body {
 /* Main Viewport - Professional Fluid Quant Density */
 .main-viewport {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 24px 32px;
   background-color: var(--canvas);
   transition: background-color 0.2s ease;
+  box-sizing: border-box;
 }
 
 .content-container {
   max-width: 1600px;
   width: 100%;
+  min-width: 0;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -470,6 +485,9 @@ body {
   margin-bottom: 24px;
   box-shadow: var(--shadow-card);
   gap: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .context-item {
@@ -478,6 +496,7 @@ body {
   gap: 2px;
   padding: 0 14px;
   flex: 1;
+  min-width: 0;
 }
 
 .context-item:first-child {
@@ -494,6 +513,9 @@ body {
   letter-spacing: 0.06em;
   color: var(--text-tertiary);
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .context-value {
@@ -504,6 +526,8 @@ body {
   font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .context-sub {
@@ -591,6 +615,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .market-status-chip {
@@ -608,6 +633,8 @@ body {
   border-radius: 9999px;
   box-shadow: var(--shadow-card);
   transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .market-status-chip.is-open {
@@ -641,6 +668,8 @@ body {
   border-radius: 9999px;
   box-shadow: var(--shadow-card);
   transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .live-dot {
@@ -1868,7 +1897,11 @@ body {
 }
 
 .table-wrapper {
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: block;
 }
 
 .data-table {
@@ -2068,16 +2101,35 @@ nextjs-portal,
     grid-template-columns: 1fr;
   }
   .kpi-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .main-viewport {
     padding: 20px;
+  }
+  .system-context-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 14px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .context-divider {
+    display: none;
+  }
+  .context-item {
+    padding: 0;
+    min-width: 0;
   }
 }
 
 @media (max-width: 768px) {
   .layout-root {
     flex-direction: column;
+    min-width: 0;
+    max-width: 100vw;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   /* Compact Mobile Sidebar / Header Navigation */
@@ -2184,64 +2236,24 @@ nextjs-portal,
     display: none;
   }
 
-  /* Outcome Bar Mobile */
-  .eval-outcome-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px;
-  }
-
-  .outcome-vector {
-    display: none;
-  }
-
-  .outcome-status-col {
-    align-items: flex-start;
-  }
-
-  .expanded-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Structured System Context Bar on Mobile: 2-Column Grid */
-  .system-context-strip {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px 10px;
-    padding: 12px 14px;
-    margin-bottom: 20px;
-  }
-
-  .context-divider {
-    display: none;
-  }
-
-  .context-item {
-    padding: 0;
-    min-width: 0;
-  }
-
-  .context-item:nth-child(9) {
-    grid-column: span 2;
-  }
-
-  .context-label {
-    font-size: 9.5px;
-  }
-
-  .context-value {
-    font-size: 12.5px;
-  }
-}
-
-/* Smartphone Specific Breakpoint (iPhone & Android Viewports) */
-@media (max-width: 640px) {
+  /* Main Viewport & Content Container on Mobile */
   .main-viewport {
     padding: 14px 12px 36px 12px;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
-  /* Page Header & Actions */
+  .content-container {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Page Header & Actions on Mobile */
   .page-header {
     flex-direction: column;
     align-items: flex-start;
@@ -2273,24 +2285,68 @@ nextjs-portal,
     padding: 0 9px;
     font-size: 10.5px;
     gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .theme-toggle-btn {
     width: 28px;
     height: 28px;
     margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* Structured System Context Bar on Mobile: Strict 2-Column Grid */
+  .system-context-strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px 10px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .context-divider {
+    display: none !important;
+  }
+
+  .context-item {
+    padding: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .context-item:nth-child(9) {
+    grid-column: span 2 !important;
+  }
+
+  .context-label {
+    font-size: 9.5px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .context-value {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   /* KPI Cards: 2-Column Compact Grid */
   .kpi-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 20px !important;
   }
 
   .kpi-card {
     padding: 12px 10px;
     gap: 4px;
+    min-width: 0;
   }
 
   .kpi-top {
@@ -2345,14 +2401,28 @@ nextjs-portal,
 
   /* Evaluation Outcome Bar */
   .eval-outcome-bar {
-    padding: 12px 14px;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
+    padding: 12px 14px;
     margin-bottom: 16px;
+  }
+
+  .outcome-vector {
+    display: none;
+  }
+
+  .outcome-status-col {
+    align-items: flex-start;
   }
 
   .eval-badge-lg {
     font-size: 13px;
     padding: 4px 10px;
+  }
+
+  .expanded-grid {
+    grid-template-columns: 1fr;
   }
 
   /* Sector Engine Matrix */
@@ -2418,7 +2488,15 @@ nextjs-portal,
     gap: 10px;
   }
 
-  /* History Table */
+  /* Section Eyebrow */
+  .section-eyebrow {
+    font-size: 10.5px;
+    margin-top: 22px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* History Table & Ledger */
   .history-header {
     flex-direction: column;
     align-items: flex-start;
@@ -2429,6 +2507,7 @@ nextjs-portal,
   .filter-tabs {
     width: 100%;
     display: flex;
+    overflow-x: auto;
   }
 
   .filter-tab-btn {
@@ -2436,6 +2515,16 @@ nextjs-portal,
     text-align: center;
     padding: 6px 4px;
     font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Table Horizontal Scrolling Containment */
+  .table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    display: block !important;
   }
 
   /* SideSheet Mobile Optimization */
@@ -2475,17 +2564,24 @@ nextjs-portal,
     overflow-x: auto;
     scrollbar-width: none;
   }
+
+  .evidence-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 @media (max-width: 360px) {
   .kpi-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .system-context-strip {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .context-item:nth-child(9) {
-    grid-column: span 1;
+    grid-column: span 1 !important;
+  }
+  .macro-tape-row.commodities-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
