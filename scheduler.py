@@ -14,8 +14,36 @@ from delivery.telegram import send_report
 from memory.obsidian import write_note
 from data_sources.market_data import jakarta_now
 import traceback
+import subprocess
+import shutil
 
 scheduler = BlockingScheduler(timezone="Asia/Jakarta")
+
+
+def push_artifacts_to_git(commit_message: str):
+    """Auto sync runs to dashboard and push to GitHub so Vercel updates immediately."""
+    try:
+        root_dir = Path(__file__).parent
+        dashboard_runs = root_dir / "dashboard" / "data" / "runs"
+        dashboard_runs.mkdir(parents=True, exist_ok=True)
+        for item in (root_dir / "runs").iterdir():
+            dest = dashboard_runs / item.name
+            if item.is_dir():
+                shutil.copytree(item, dest, dirs_exist_ok=True)
+            else:
+                shutil.copy2(item, dest)
+
+        subprocess.run(["git", "add", "runs/", "dashboard/data/runs/"], cwd=str(root_dir), check=True)
+        staged = subprocess.run(["git", "diff", "--staged", "--quiet"], cwd=str(root_dir))
+        if staged.returncode != 0:
+            subprocess.run(["git", "commit", "-m", commit_message], cwd=str(root_dir), check=True)
+            subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=str(root_dir), check=True)
+            subprocess.run(["git", "push", "origin", "main"], cwd=str(root_dir), check=True)
+            print(f"[scheduler] Successfully pushed artifacts to GitHub: {commit_message}")
+        else:
+            print("[scheduler] No new artifacts to push to GitHub.")
+    except Exception as e:
+        print(f"[scheduler] Warning: Auto-push artifacts to GitHub skipped or failed: {e}")
 
 
 def daily_brief(force: bool = False):
@@ -40,6 +68,8 @@ def daily_brief(force: bool = False):
 
         send_report(f"\U0001f4ca *Nexus -- IHSG Daily Brief*\n_{current_date}_\n\n{result}")
         print("[scheduler] Morning brief done.")
+
+        push_artifacts_to_git(f"chore(data): auto-archive morning brief artifacts [{date_key}]")
 
     except Exception as e:
         err = traceback.format_exc()
@@ -142,6 +172,8 @@ def evening_review(force: bool = False, target_date: str = None):
 
         send_report(msg)
         print("[scheduler] Evening review done.")
+
+        push_artifacts_to_git(f"chore(data): auto-archive evening review artifacts [{date_key}]")
 
     except Exception as e:
         err = traceback.format_exc()

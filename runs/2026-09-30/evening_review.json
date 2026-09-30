@@ -1,0 +1,89 @@
+{
+  "date": "2026-09-30",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.83,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Barang Konsumen Siklikal/Non-Primer": null,
+    "Perindustrian": true,
+    "Infrastruktur": null,
+    "Teknologi": null,
+    "Properti": false,
+    "Energi": null,
+    "Banking": false,
+    "Toll Road": null
+  },
+  "error_rate_pct": 60,
+  "accuracy_score": 40,
+  "rca_unanticipated": [
+    "Bursa Saham Asia Melemah Imbas Ketegangan Geopolitik",
+    "Titik Unjuk Rasa dan Rute Demo Buruh Mogok Nasional Hari ini",
+    "Significant drops in Brent Crude (-6.20%), Natural Gas (-4.85%), CPO, and Nickel prices"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Foreign Flow (predicted Stagnant/Sideways, actual Accumulation)"
+  ],
+  "rca_info_delay": [
+    "IHSG Rebound Perdagangan Terakhir September Rabu (30/9), UNTR dan HRTA Jadi Penopang",
+    "Bursa Saham Asia Melemah Imbas Ketegangan Geopolitik",
+    "Titik Unjuk Rasa dan Rute Demo Buruh Mogok Nasional Hari ini"
+  ],
+  "rca_inverse_correlation": [
+    "Brief predicted foreign flow would be stagnant/sideways, but actual foreign accumulation occurred, yet IHSG still closed bearish (-0.83%), contrary to the usual bullish impact of accumulation."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish, tetapi ketegangan geopolitik menyebabkan bursa saham Asia melemah, maka IHSG ditutup Bearish (-0.83%).",
+    "Ketika foreign flow diprediksi Stagnant/Sideways, tetapi terjadi akumulasi asing, maka IHSG tetap ditutup Bearish (-0.83%).",
+    "Ketika sektor Properti diprediksi Bearish, tetapi sektor properti justru naik +1.25%, maka IHSG tetap ditutup Bearish (-0.83%).",
+    "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%)."
+  ],
+  "summary": "The morning brief correctly predicted a bearish IHSG close of -0.83%, despite an unexpected foreign accumulation and mixed sector performance, influenced by geopolitical tensions.",
+  "actual_usdidr": 17860.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 90.82,
+      "previous_close": 92.41,
+      "change_pct": -1.72,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T19:00:48+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.85,
+      "previous_close": 104.32,
+      "change_pct": -6.2,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T19:00:48+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.04,
+      "previous_close": 3.2,
+      "change_pct": -4.85,
+      "signal": "Down",
+      "retrieved_at": "2026-09-30T19:00:49+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Hari Ini 2 Juni 2026 Naik Menjadi 140,30 USD per To\nSource IDs: src_e2b25db8f0, src_536ec9964b, src_fe34efb3e7, src_c1b4dc4081, src_f707451fe3, src_22aeb27474, src_16b0cea23a"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n### Palm Oil fell\nSource IDs: src_9c7bf9e109, src_fbbd4653a1, src_6399c9b951, src_51c6bf82e2, src_3662c6a357, src_a89fca5177, src_af36947d8b"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Harga Nikel Remuk, Stok LME Justru Makin Menumpuk - KabarBursa.com\nSource IDs: src_c05395f611, src_19acdebf76, src_462725ca48, src_ad18d7c38f, src_2aaaabfd4a, src_662baddb6b, src_01c1839375"
+    }
+  }
+}

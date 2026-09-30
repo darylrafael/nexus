@@ -2,11 +2,12 @@ name: Nexus Evening Review
 
 on:
   schedule:
-    # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri
-    - cron: '55 11 * * 1-5'
-    # Fallback retry schedules (19:25 & 19:55 WIB) in case GitHub Actions runner queue is delayed
-    - cron: '25 12 * * 1-5'
-    - cron: '55 12 * * 1-5'
+    # 11:52 UTC Mon-Fri = 18:52 WIB Mon-Fri (off-peak minute to avoid GitHub Actions runner queue delay)
+    - cron: '52 11 * * 1-5'
+    # Fallback retry schedules (19:07, 19:27 & 19:47 WIB) in case runner is delayed
+    - cron: '7 12 * * 1-5'
+    - cron: '27 12 * * 1-5'
+    - cron: '47 12 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
