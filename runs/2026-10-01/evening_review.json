@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-01",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 72,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.02,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Heavy Equipment/Mining Services": null,
+    "Mineral Non-Energi": null,
+    "Consumer Cyclicals/Staples": false,
+    "Oil & Gas Upstream": null,
+    "Nickel Mining": null,
+    "Coal Mining": false,
+    "Property": null,
+    "Banking": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "BI Policy Surprise (penguatan Rasio Pembiayaan Inklusif Makroprudensial dan Program Percepatan Intermediasi Indonesia atau PINISI)",
+    "Labor / Demo (ratusan elemen buruh menggelar aksi menuntut hak ketenagakerjaan)",
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, and a global recession)",
+    "Significant weakening of Rupiah (USD/IDR +2.195%)",
+    "Significant drop in Brent Crude (-5.03%)"
+  ],
+  "rca_overestimated": [
+    "LPS mempertahankan suku bunga penjaminan simpanan sebesar 3,75% yang diprediksi memiliki dampak Neutral"
+  ],
+  "rca_underestimated": [
+    "Pelemahan Rupiah yang signifikan (+2.195%)",
+    "Sentimen global terkait inflasi tinggi, harga komoditas, dan resesi",
+    "Dampak dari demo buruh pada 1 Oktober 2026"
+  ],
+  "rca_info_delay": [
+    "BI Policy Surprise (kebijakan penguatan Rasio Pembiayaan Inklusif Makroprudensial berlaku 1 Oktober 2026)",
+    "Labor / Demo (aksi buruh menjelang pukul 13.00 WIB pada 1 Oktober 2026)",
+    "Global Market Shock (The Fed 2026 Stress Test Scenarios)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi sektor Coal Mining Bearish, namun saham CUAN dan BUMI (keduanya di sektor Coal Mining) menjadi top gainers, menunjukkan pergerakan positif yang berlawanan dengan prediksi, kemungkinan karena faktor spesifik emiten atau short covering.",
+    "Brief memprediksi sektor Consumer Cyclicals/Staples Bullish, namun saham MAPI (Consumer Cyclicals) menjadi top loser, menunjukkan pergerakan negatif yang berlawanan dengan prediksi, kemungkinan karena sentimen pasar yang lebih luas atau isu spesifik perusahaan.",
+    "Brief memprediksi Foreign Flow Stagnant/Sideways, namun aktualnya terjadi Accumulation. Meskipun ada akumulasi asing, IHSG tetap ditutup Bearish, menunjukkan bahwa akumulasi tersebut tidak cukup kuat untuk melawan tekanan jual lainnya atau terfokus pada saham tertentu."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bullish, tetapi terjadi pelemahan Rupiah sebesar +2.195% dan sentimen global resesi, maka IHSG ditutup Bearish sebesar -1.02%.",
+    "Ketika sektor Coal Mining diprediksi Bearish, tetapi saham CUAN dan BUMI menjadi top gainers, maka sektor tersebut menunjukkan kenaikan yang signifikan.",
+    "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan."
+  ],
+  "summary": "The morning brief predicted a bullish IHSG and specific sector movements, but the actual market saw a bearish IHSG close of -1.02% driven by unexpected factors like a weakening Rupiah, global market shock, and labor protests, while some predicted bearish sectors actually gained and bullish sectors declined.",
+  "actual_usdidr": 17945.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 91.65,
+      "previous_close": 92.6,
+      "change_pct": -1.03,
+      "signal": "Down",
+      "retrieved_at": "2026-10-01T19:08:32+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 99.98,
+      "previous_close": 105.28,
+      "change_pct": -5.03,
+      "signal": "Down",
+      "retrieved_at": "2026-10-01T19:08:33+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.98,
+      "previous_close": 3.0,
+      "change_pct": -0.73,
+      "signal": "Down",
+      "retrieved_at": "2026-10-01T19:08:33+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Terpukul Pelemahan Impor China\nBerdasarkan data per\nSource IDs: src_70217d42f2, src_ee9f97789b, src_f0dfdd05d7, src_171c2fa6b0, src_a277ed8ce1, src_4d907b14ac, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] CPOCV26 | Crude Palm Oil Oct 2026 Overview | MarketWatch\n### Accoun\nSource IDs: src_cc70369964, src_b363e40885, src_9c7bf9e109, src_fbbd4653a1, src_56b4172631, src_6399c9b951, src_c0a99d32e5"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_1de5e9219f, src_bf08793d8b, src_d82bd6dcd4, src_bae08dce04"
+    }
+  }
+}

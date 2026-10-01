@@ -1,11 +1,11 @@
 {
-  "total_sessions": 5,
+  "total_sessions": 6,
   "total_accuracy_sum": 173,
-  "rolling_avg_accuracy": 34.6,
+  "rolling_avg_accuracy": 28.8,
   "ihsg_correct_count": 3,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 60.0,
-  "ff_accuracy_pct": 20.0,
+  "ihsg_accuracy_pct": 50.0,
+  "ff_accuracy_pct": 16.7,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -22,7 +22,15 @@
     "Bursa Saham Asia Melemah Imbas Ketegangan Geopolitik": 1,
     "Titik Unjuk Rasa dan Rute Demo Buruh Mogok Nasional Hari ini": 1,
     "Significant drops in Brent Crude (-6.20%), Natural Gas (-4.85%), CPO, and Nickel prices": 1,
-    "Foreign Flow (predicted Stagnant/Sideways, actual Accumulation)": 1
+    "Foreign Flow (predicted Stagnant/Sideways, actual Accumulation)": 1,
+    "BI Policy Surprise (penguatan Rasio Pembiayaan Inklusif Makroprudensial dan Program Percepatan Intermediasi Indonesia atau PINISI)": 1,
+    "Labor / Demo (ratusan elemen buruh menggelar aksi menuntut hak ketenagakerjaan)": 1,
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, and a global recession)": 1,
+    "Significant weakening of Rupiah (USD/IDR +2.195%)": 1,
+    "Significant drop in Brent Crude (-5.03%)": 1,
+    "Pelemahan Rupiah yang signifikan (+2.195%)": 1,
+    "Sentimen global terkait inflasi tinggi, harga komoditas, dan resesi": 1,
+    "Dampak dari demo buruh pada 1 Oktober 2026": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -35,14 +43,18 @@
     "Ketika IHSG diprediksi Bearish, tetapi ketegangan geopolitik menyebabkan bursa saham Asia melemah, maka IHSG ditutup Bearish (-0.83%).",
     "Ketika foreign flow diprediksi Stagnant/Sideways, tetapi terjadi akumulasi asing, maka IHSG tetap ditutup Bearish (-0.83%).",
     "Ketika sektor Properti diprediksi Bearish, tetapi sektor properti justru naik +1.25%, maka IHSG tetap ditutup Bearish (-0.83%).",
-    "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%)."
+    "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%).",
+    "Ketika IHSG diprediksi Bullish, tetapi terjadi pelemahan Rupiah sebesar +2.195% dan sentimen global resesi, maka IHSG ditutup Bearish sebesar -1.02%.",
+    "Ketika sektor Coal Mining diprediksi Bearish, tetapi saham CUAN dan BUMI menjadi top gainers, maka sektor tersebut menunjukkan kenaikan yang signifikan.",
+    "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan."
   ],
   "processed_dates": [
     "2026-09-24",
     "2026-09-25",
     "2026-09-28",
     "2026-09-29",
-    "2026-09-30"
+    "2026-09-30",
+    "2026-10-01"
   ],
-  "last_updated": "2026-09-30"
+  "last_updated": "2026-10-01"
 }
