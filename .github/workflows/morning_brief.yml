@@ -2,8 +2,12 @@ name: Nexus Morning Brief
 
 on:
   schedule:
-    # 00:30 UTC Mon-Fri = 07:30 WIB Mon-Fri
-    - cron: '30 0 * * 1-5'
+    # 00:15 UTC Mon-Fri = 07:15 WIB Mon-Fri (primary window, off-peak minute)
+    - cron: '15 0 * * 1-5'
+    # Fallback retry schedules (07:35, 07:55 & 08:15 WIB) in case runner queue was congested
+    - cron: '35 0 * * 1-5'
+    - cron: '55 0 * * 1-5'
+    - cron: '15 1 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
@@ -11,6 +15,10 @@ on:
         required: false
         default: false
         type: boolean
+
+concurrency:
+  group: morning-brief
+  cancel-in-progress: false
 
 jobs:
   morning-brief:
@@ -63,7 +71,23 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
-            git commit -m "chore(data): auto-archive morning brief artifacts" || true
-            git pull --no-edit -s recursive -X ours origin main || true
-            git push origin main || true
+            git commit -m "chore(data): auto-archive morning brief artifacts [skip ci]" || true
+            MAX_RETRIES=4
+            RETRY_COUNT=0
+            PUSH_SUCCESS=false
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "Attempting git push (try $((RETRY_COUNT + 1)) of $MAX_RETRIES)..."
+              if git pull --no-edit -X ours origin main && git push origin main; then
+                echo "Successfully pushed artifacts to GitHub!"
+                PUSH_SUCCESS=true
+                break
+              fi
+              echo "Push failed or remote updated, retrying in 3 seconds..."
+              sleep 3
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+            done
+            if [ "$PUSH_SUCCESS" = false ]; then
+              echo "ERROR: Failed to push artifacts to GitHub after $MAX_RETRIES attempts!"
+              exit 1
+            fi
           fi

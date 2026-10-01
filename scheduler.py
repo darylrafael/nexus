@@ -33,6 +33,12 @@ def push_artifacts_to_git(commit_message: str):
             else:
                 shutil.copy2(item, dest)
 
+        # In GitHub Actions cloud runner, file sync is done.
+        # Git commit & push are handled by the dedicated workflow runner step.
+        if os.getenv("GITHUB_ACTIONS"):
+            print("[scheduler] Running in GitHub Actions. Git commit/push delegated to workflow step.")
+            return
+
         subprocess.run(["git", "add", "runs/", "dashboard/data/runs/"], cwd=str(root_dir), check=True)
         staged = subprocess.run(["git", "diff", "--staged", "--quiet"], cwd=str(root_dir))
         if staged.returncode != 0:
@@ -79,6 +85,7 @@ def daily_brief(force: bool = False):
             f"_{now.strftime('%Y-%m-%d %H:%M')}_\n\n"
             f"`{str(e)[:400]}`"
         )
+        raise
 
 
 def resolve_evening_review_date(target_date: str = None) -> str:
@@ -183,6 +190,7 @@ def evening_review(force: bool = False, target_date: str = None):
             f"_{now.strftime('%Y-%m-%d %H:%M')}_\n\n"
             f"`{str(e)[:400]}`"
         )
+        raise
 
 
 # Morning brief:  Mon-Fri 07:30 WIB

@@ -16,13 +16,16 @@ JSON_HEADERS = {
 
 
 def write_note(title: str, content: str) -> bool:
+    if not OBSIDIAN_API_KEY:
+        return False
     try:
         filename = f"nexus/{title}.md"
         response = requests.put(
             f"{BASE_URL}/vault/{filename}",
             headers=HEADERS,
             data=content.encode("utf-8"),
-            verify=False
+            verify=False,
+            timeout=2
         )
         print(f"STATUS: {response.status_code}")
         response.raise_for_status()
@@ -38,12 +41,15 @@ def read_note(title: str) -> str:
     Path pattern: nexus/{title}.md
     Returns raw markdown content, or empty string if not found.
     """
+    if not OBSIDIAN_API_KEY:
+        return ""
     try:
         filename = f"nexus/{title}.md"
         response = requests.get(
             f"{BASE_URL}/vault/{filename}",
             headers={"Authorization": f"Bearer {OBSIDIAN_API_KEY}"},
-            verify=False
+            verify=False,
+            timeout=2
         )
         if response.status_code == 200:
             return response.text
@@ -57,15 +63,9 @@ def read_note(title: str) -> str:
 def read_recent_notes(days: int = 7) -> str:
     """
     Read recent Evening Review notes filtered by date.
-    
-    FIX: Previously ignored `days` param and used contextLength=300
-    which truncated JSON blocks → load_recent_learnings always returned [].
-    
-    Now:
-    - Filters by date using filename prefix (YYYY-MM-DD format)
-    - Fetches full note content via read_note(), not truncated snippets
-    - Searches for "Evening Review" specifically (not generic "nexus")
     """
+    if not OBSIDIAN_API_KEY:
+        return ""
     cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
 
     try:
@@ -74,7 +74,8 @@ def read_recent_notes(days: int = 7) -> str:
             f"{BASE_URL}/search/simple/",
             headers=JSON_HEADERS,
             json={"query": "Evening Review", "contextLength": 100},
-            verify=False
+            verify=False,
+            timeout=2
         )
         if response.status_code != 200:
             print(f"  [memory] search failed: status {response.status_code}")

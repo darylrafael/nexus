@@ -88,9 +88,13 @@ def format_source_records(records: list[SourceRecord]) -> str:
 
 
 def search_web(query: str, days: int = 1) -> str:
-    records = search_web_records(query, days=days)
-    output = format_source_records(records)
-    return output if output else "No fresh results found for today."
+    try:
+        records = search_web_records(query, days=days)
+        output = format_source_records(records)
+        return output if output else "No fresh results found for today."
+    except Exception as e:
+        print(f"  [web_agent] search_web error: {e}")
+        return f"Search data temporarily unavailable: {e}"
 
 
 import concurrent.futures

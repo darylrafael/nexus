@@ -2,12 +2,13 @@ name: Nexus Evening Review
 
 on:
   schedule:
-    # 11:52 UTC Mon-Fri = 18:52 WIB Mon-Fri (off-peak minute to avoid GitHub Actions runner queue delay)
+    # 11:35 UTC Mon-Fri = 18:35 WIB Mon-Fri (early window: IDX closes 16:15 WIB, off-peak minute)
+    - cron: '35 11 * * 1-5'
+    # 11:52 UTC Mon-Fri = 18:52 WIB Mon-Fri (main target window)
     - cron: '52 11 * * 1-5'
-    # Fallback retry schedules (19:07, 19:27 & 19:47 WIB) in case runner is delayed
-    - cron: '7 12 * * 1-5'
-    - cron: '27 12 * * 1-5'
-    - cron: '47 12 * * 1-5'
+    # Fallback retry schedules (19:12 & 19:32 WIB) in case runner queue was congested
+    - cron: '12 12 * * 1-5'
+    - cron: '32 12 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
@@ -20,6 +21,10 @@ on:
         required: false
         default: ''
         type: string
+
+concurrency:
+  group: evening-review
+  cancel-in-progress: false
 
 jobs:
   evening-review:
@@ -73,7 +78,23 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
-            git commit -m "chore(data): auto-archive evening review artifacts" || true
-            git pull --no-edit -s recursive -X ours origin main || true
-            git push origin main || true
+            git commit -m "chore(data): auto-archive evening review artifacts [skip ci]" || true
+            MAX_RETRIES=4
+            RETRY_COUNT=0
+            PUSH_SUCCESS=false
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "Attempting git push (try $((RETRY_COUNT + 1)) of $MAX_RETRIES)..."
+              if git pull --no-edit -X ours origin main && git push origin main; then
+                echo "Successfully pushed artifacts to GitHub!"
+                PUSH_SUCCESS=true
+                break
+              fi
+              echo "Push failed or remote updated, retrying in 3 seconds..."
+              sleep 3
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+            done
+            if [ "$PUSH_SUCCESS" = false ]; then
+              echo "ERROR: Failed to push artifacts to GitHub after $MAX_RETRIES attempts!"
+              exit 1
+            fi
           fi
