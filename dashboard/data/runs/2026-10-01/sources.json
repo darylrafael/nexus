@@ -395,48 +395,6 @@
     "published_at": null,
     "category": "web"
   },
-  "src_f362c315e6": {
-    "title": "Suku Bunga Fed Funds Amerika Serikat",
-    "url": "https://id.tradingeconomics.com/united-states/interest-rate",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_67703df163": {
-    "title": "Inflasi AS Melandai, Ekspektasi The Fed Tahan Suku Bunga Tekan Indeks Dolar",
-    "url": "https://investasi.kontan.co.id/news/inflasi-as-melandai-ekspektasi-the-fed-tahan-suku-bunga-tekan-indeks-dolar",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_192219a461": {
-    "title": "Bagaimana kenaikan suku bunga The Fed akan memengaruhi China?",
-    "url": "https://www.vietnam.vn/id/fed-tang-lai-suat-tac-dong-the-nao-den-trung-quoc",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_de28a79a3f": {
-    "title": "The Fed - September 16, 2026: FOMC Projections materials, accessible version",
-    "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_36a2396562": {
-    "title": "Trump Desak The Fed Pangkas Suku Bunga September",
-    "url": "https://www.youtube.com/watch?v=zIQkZ6N6fjQ",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_675a60d962": {
-    "title": "Kalender Ekonomi: Arah Suku Bunga The Fed & BOJ Jadi Sorotan - Market",
-    "url": "https://www.bloombergtechnoz.com/detail-news/121413/kalender-ekonomi-arah-suku-bunga-the-fed-boj-jadi-sorotan",
-    "published_at": null,
-    "category": "Global Macro"
-  },
-  "src_f32da2ac8c": {
-    "title": "The Fed kembali menahan suku bunga acuan untuk kelima ...",
-    "url": "https://www.instagram.com/reel/DbdKRdzDRp0?hl=en",
-    "published_at": null,
-    "category": "Global Macro"
-  },
   "src_1d426a08ed": {
     "title": "Market Update 30 Sep 2026",
     "url": "https://www.jtrustbank.co.id/market_update/market-update-30-sep-2026",
@@ -478,6 +436,48 @@
     "url": "https://www.bi.go.id/id/statistik/indikator/bi-rate.aspx",
     "published_at": null,
     "category": "Indonesian Economy"
+  },
+  "src_f362c315e6": {
+    "title": "Suku Bunga Fed Funds Amerika Serikat",
+    "url": "https://id.tradingeconomics.com/united-states/interest-rate",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_67703df163": {
+    "title": "Inflasi AS Melandai, Ekspektasi The Fed Tahan Suku Bunga Tekan Indeks Dolar",
+    "url": "https://investasi.kontan.co.id/news/inflasi-as-melandai-ekspektasi-the-fed-tahan-suku-bunga-tekan-indeks-dolar",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_192219a461": {
+    "title": "Bagaimana kenaikan suku bunga The Fed akan memengaruhi China?",
+    "url": "https://www.vietnam.vn/id/fed-tang-lai-suat-tac-dong-the-nao-den-trung-quoc",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_de28a79a3f": {
+    "title": "The Fed - September 16, 2026: FOMC Projections materials, accessible version",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_36a2396562": {
+    "title": "Trump Desak The Fed Pangkas Suku Bunga September",
+    "url": "https://www.youtube.com/watch?v=zIQkZ6N6fjQ",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_675a60d962": {
+    "title": "Kalender Ekonomi: Arah Suku Bunga The Fed & BOJ Jadi Sorotan - Market",
+    "url": "https://www.bloombergtechnoz.com/detail-news/121413/kalender-ekonomi-arah-suku-bunga-the-fed-boj-jadi-sorotan",
+    "published_at": null,
+    "category": "Global Macro"
+  },
+  "src_f32da2ac8c": {
+    "title": "The Fed kembali menahan suku bunga acuan untuk kelima ...",
+    "url": "https://www.instagram.com/reel/DbdKRdzDRp0?hl=en",
+    "published_at": null,
+    "category": "Global Macro"
   },
   "src_5a9afd7887": {
     "title": "Geopolitik dan Perang Dagang: Dampak Bagi Ekonomi Dunia",
