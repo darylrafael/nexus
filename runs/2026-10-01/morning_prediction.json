@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-01",
+  "ihsg_signal": "Bullish",
+  "ihsg_confidence": 83,
+  "foreign_flow_signal": "Accumulation",
+  "foreign_flow_net": "No explicit net foreign flow figure in Rupiah was provided for September 30, 2026.",
+  "sector_bullish": [
+    "Coal Mining",
+    "Aviation/Transport",
+    "Fertilizer/Utilities"
+  ],
+  "sector_bearish": [
+    "Oil & Gas Upstream",
+    "Gas Upstream",
+    "Nickel Mining"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Consumer Goods"
+  ],
+  "recommended_tickers": [
+    "TBLA",
+    "UNVR",
+    "SRSN",
+    "ANTM",
+    "PGAS",
+    "INDF",
+    "SIMP",
+    "PTBA",
+    "LSIP",
+    "MYOR",
+    "ICBP",
+    "BEST",
+    "RUIS",
+    "CPRO",
+    "RAJA",
+    "GOTO",
+    "BMTR",
+    "ENRG",
+    "NCKL",
+    "AALI",
+    "MBMA",
+    "ITMG",
+    "ADRO",
+    "MEDC",
+    "INCO",
+    "BUMI",
+    "BYAN",
+    "HRUM"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Coal": "bearish",
+    "CPO": "bearish",
+    "Nickel": "neutral",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_46efc5d7f2",
+    "src_49ff15f542",
+    "src_5a9afd7887",
+    "src_67703df163",
+    "src_67dd9ec170",
+    "src_8379e695ac",
+    "src_8f5433ebce",
+    "src_9c7bf9e109",
+    "src_a4f1b4fef6",
+    "src_c97b8fff8d",
+    "src_cd2a33fa3b",
+    "src_e286280453",
+    "src_ee9f97789b",
+    "src_f9f5a8c46d"
+  ]
+}
