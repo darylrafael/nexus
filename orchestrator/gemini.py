@@ -2,7 +2,7 @@ import json
 import time
 from agents.code_agent import generate_code as _generate_code
 from agents.web_agent import search_web as _search_web
-from llm_client import llm_chat
+from llm_client import get_content, llm_chat
 from memory.session import log_session
 
 TOOLS = [
@@ -48,9 +48,10 @@ IMPORTANT: You MUST always call a tool. Never answer from memory.
 
     response = llm_chat(messages=messages, tools=TOOLS, tool_choice="auto")
 
-    msg = response.choices[0].message
+    choices = getattr(response, "choices", None)
+    msg = choices[0].message if choices else None
 
-    if msg.tool_calls:
+    if msg and getattr(msg, "tool_calls", None):
         tool_call = msg.tool_calls[0]
         fn_name = tool_call.function.name
         fn_args = json.loads(tool_call.function.arguments)
@@ -69,7 +70,7 @@ IMPORTANT: You MUST always call a tool. Never answer from memory.
 
         response = llm_chat(messages=messages)
 
-    final_result = response.choices[0].message.content
+    final_result = get_content(response)
 
     log_session(
         query=query,

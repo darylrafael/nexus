@@ -1,4 +1,4 @@
-from llm_client import llm_chat
+from llm_client import get_content, llm_chat
 
 
 def generate_code(task: str) -> str:
@@ -16,4 +16,4 @@ def generate_code(task: str) -> str:
         max_tokens=2000,
         temperature=0.2,
     )
-    return response.choices[0].message.content
+    return get_content(response)

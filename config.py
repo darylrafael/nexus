@@ -14,7 +14,7 @@ OPENROUTER_MODEL = os.getenv(
     "OPENROUTER_MODEL", "qwen/qwen3.8-27b:free"
 )
 OPENROUTER_FALLBACK_MODEL = os.getenv(
-    "OPENROUTER_FALLBACK_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+    "OPENROUTER_FALLBACK_MODEL", "meta-llama/llama-3.3-70b-instruct:free"
 )
 OPENROUTER_BASE_URL       = "https://openrouter.ai/api/v1"
 

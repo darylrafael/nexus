@@ -13,7 +13,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-from llm_client import llm_chat
+from llm_client import get_content, llm_chat
 from agents.web_agent import search_multiple
 from agents.prediction_extractor import extract_predictions, MarketPrediction
 from data_sources.market_data import (
@@ -316,7 +316,7 @@ CRITICAL RULES:
             temperature=0.1,
             response_format={"type": "json_object"},
         )
-        raw = response.choices[0].message.content
+        raw = get_content(response)
         # Extract everything inside the outermost { } to ignore markdown/intro text
         match = re.search(r'\{[\s\S]*\}', raw)
         if match:

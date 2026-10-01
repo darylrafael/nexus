@@ -6,7 +6,7 @@ from agents.prediction_extractor import extract_predictions
 from agents.validator import build_commodity_context, validate
 from agents.web_agent import get_source_registry, search_multiple, search_web
 from data_sources.market_data import fetch_yfinance_commodity, jakarta_now
-from llm_client import llm_chat
+from llm_client import get_content, llm_chat
 from memory.artifacts import save_json_artifact, save_text_artifact
 from memory.learning_store import build_learning_context, load_recent_learnings
 from memory.session import log_session
@@ -182,8 +182,9 @@ Categorize sectors dynamically based on yesterday's data:
         temperature=0.2,
     )
 
-    final_output = response.choices[0].message.content
-    finish_reason = getattr(response.choices[0], "finish_reason", None)
+    final_output = get_content(response)
+    choices = getattr(response, "choices", None)
+    finish_reason = getattr(choices[0], "finish_reason", None) if choices else None
 
     # Self-healing safeguard: if reasoning consumed budget and truncated output, retry with higher token headroom
     if finish_reason == "length" or "### 7." not in final_output:
@@ -193,8 +194,12 @@ Categorize sectors dynamically based on yesterday's data:
             max_tokens=16384,
             temperature=0.2,
         )
-        if retry_resp and retry_resp.choices:
-            final_output = retry_resp.choices[0].message.content
+        retry_content = get_content(retry_resp)
+        if retry_content:
+            final_output = retry_content
+
+    if not final_output:
+        raise RuntimeError("LLM generated empty market brief content.")
 
     print("  [market_agent] Validating output rules...")
     final_output = validate(final_output)
