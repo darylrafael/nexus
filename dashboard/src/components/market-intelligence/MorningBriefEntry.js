@@ -50,7 +50,11 @@ export default function MorningBriefEntry({ activeReview }) {
   };
 
   const previewText = activeReview?.summary
-    ? activeReview.summary.replace(/\[src_[^\]]+\]/g, '').trim()
+    ? activeReview.summary
+        .replace(/[\(\[]?\s*(?:Source(?:\s*ID)?:?\s*)?src_[a-zA-Z0-9_-]+\s*[\)\]]?/gi, '')
+        .replace(/\s+([.,;:!?])/g, '$1')
+        .replace(/\s{2,}/g, ' ')
+        .trim()
     : 'Morning research briefing note compiled by institutional multi-agent pipeline.';
 
   return (

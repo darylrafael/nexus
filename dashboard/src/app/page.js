@@ -90,10 +90,42 @@ const getIdxMarketStatus = () => {
   }
 };
 
+const KNOWN_OUTLETS = {
+  "idxchannel.com": "IDX Channel",
+  "kontan.co.id": "Kontan",
+  "cnbcindonesia.com": "CNBC Indonesia",
+  "bisnis.com": "Bisnis.com",
+  "bloomberg.com": "Bloomberg",
+  "reuters.com": "Reuters",
+  "investing.com": "Investing.com",
+  "tradingeconomics.com": "TradingEconomics",
+  "antaranews.com": "Antara",
+  "detik.com": "Detik Finance",
+  "kompas.com": "Kompas",
+  "barchart.com": "Barchart",
+  "marketwatch.com": "MarketWatch",
+  "yahoo.com": "Yahoo Finance",
+};
+
+function formatSourceLabel(url) {
+  if (!url) return "Source";
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "").toLowerCase();
+    for (const [domain, name] of Object.entries(KNOWN_OUTLETS)) {
+      if (host.includes(domain)) return name;
+    }
+    const cleanHost = host.split(".")[0];
+    return cleanHost.charAt(0).toUpperCase() + cleanHost.slice(1);
+  } catch (e) {
+    return "Source";
+  }
+}
+
 function RenderWithSources({ text, sources = {} }) {
   if (!text || typeof text !== "string") return null;
 
-  const citationRegex = /\[(src_[a-zA-Z0-9_-]+)\]/g;
+  // Universally match (src_xxx), [src_xxx], (Source: src_xxx), [Source ID: src_xxx], or standalone src_xxx
+  const citationRegex = /([\(\[]?\s*(?:Source(?:\s*ID)?:?\s*)?(src_[a-zA-Z0-9_-]+)\s*[\)\]]?)/gi;
   const parts = [];
   let lastIndex = 0;
   let match;
@@ -101,7 +133,7 @@ function RenderWithSources({ text, sources = {} }) {
   while ((match = citationRegex.exec(text)) !== null) {
     const matchStart = match.index;
     const matchEnd = citationRegex.lastIndex;
-    const sourceId = match[1];
+    const sourceId = match[2];
 
     if (matchStart > lastIndex) {
       parts.push(text.slice(lastIndex, matchStart));
@@ -112,13 +144,7 @@ function RenderWithSources({ text, sources = {} }) {
     const title = sourceData?.title || "";
 
     if (url) {
-      let domain = "";
-      try {
-        domain = new URL(url).hostname.replace(/^www\./, "");
-      } catch (e) {
-        domain = sourceId;
-      }
-      const displayLabel = domain ? (domain.length > 20 ? domain.slice(0, 18) + "…" : domain) : sourceId;
+      const displayLabel = formatSourceLabel(url);
 
       parts.push(
         <a
@@ -134,19 +160,8 @@ function RenderWithSources({ text, sources = {} }) {
           <span className="source-citation-arrow">↗</span>
         </a>
       );
-    } else {
-      parts.push(
-        <span
-          key={`src-missing-${sourceId}-${matchStart}`}
-          className="source-citation-pill"
-          style={{ opacity: 0.6, cursor: "default" }}
-          title={`Source ${sourceId} not indexed in this session`}
-        >
-          <span className="source-citation-icon">🔗</span>
-          <span>{sourceId}</span>
-        </span>
-      );
     }
+    // If no URL available, gracefully omit the raw hash code to keep the presentation clean and executive-ready
 
     lastIndex = matchEnd;
   }

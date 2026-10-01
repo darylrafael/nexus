@@ -18,7 +18,11 @@ function formatPct(val) {
 
 function cleanNarrative(text) {
   if (!text) return '';
-  return text.replace(/\[src_[^\]]+\]/g, '').trim();
+  return text
+    .replace(/[\(\[]?\s*(?:Source(?:\s*ID)?:?\s*)?src_[a-zA-Z0-9_-]+\s*[\)\]]?/gi, '')
+    .replace(/\s+([.,;:!?])/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
 function HistoryRow({ review, isSelected, onSelectSession }) {
