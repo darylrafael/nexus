@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-02",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 67,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp1.68 Triliun (src_7ccb5795f3).",
+  "sector_bullish": [
+    "Energi"
+  ],
+  "sector_bearish": [
+    "Teknologi",
+    "Transportasi dan Logistik",
+    "Barang Baku",
+    "Industri",
+    "Properti",
+    "Kesehatan",
+    "Infrastruktur",
+    "Barang Konsumen Primer"
+  ],
+  "sector_neutral": [
+    "Keuangan",
+    "Barang Konsumen Non-Primer"
+  ],
+  "recommended_tickers": [
+    "ADRO",
+    "PGAS",
+    "SMDM",
+    "PPRO",
+    "HRUM",
+    "RUIS",
+    "BNBR",
+    "GOTO",
+    "BUMI",
+    "PADI",
+    "BYAN",
+    "CUAN",
+    "ENRG",
+    "KPIG",
+    "MEDC",
+    "PTBA",
+    "BBRI",
+    "BMRI",
+    "ALKA",
+    "ITMG",
+    "DSSA"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Coal": "bullish",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_1c26c995eb",
+    "src_1debb3e833",
+    "src_386c2e0a02",
+    "src_3f1fa16ccf",
+    "src_51e8e513a2",
+    "src_7ccb5795f3",
+    "src_b135acadb2",
+    "src_d0f7591dd0",
+    "src_d5fe880d71",
+    "src_d6e6102c8e",
+    "src_ee9f97789b",
+    "src_f362c315e6"
+  ]
+}
