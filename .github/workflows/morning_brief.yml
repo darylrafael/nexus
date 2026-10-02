@@ -2,12 +2,10 @@ name: Nexus Morning Brief
 
 on:
   schedule:
-    # 00:15 UTC Mon-Fri = 07:15 WIB Mon-Fri (primary window, off-peak minute)
+    # 00:15 UTC Mon-Fri = 07:15 WIB Mon-Fri (primary target window, off-peak minute)
     - cron: '15 0 * * 1-5'
-    # Fallback retry schedules (07:35, 07:55 & 08:15 WIB) in case runner queue was congested
-    - cron: '35 0 * * 1-5'
-    - cron: '55 0 * * 1-5'
-    - cron: '15 1 * * 1-5'
+    # Fallback retry schedule (07:45 WIB) in case runner queue was congested
+    - cron: '45 0 * * 1-5'
   workflow_dispatch:
     inputs:
       force:

@@ -43,7 +43,7 @@ def push_artifacts_to_git(commit_message: str):
         staged = subprocess.run(["git", "diff", "--staged", "--quiet"], cwd=str(root_dir))
         if staged.returncode != 0:
             subprocess.run(["git", "commit", "-m", commit_message], cwd=str(root_dir), check=True)
-            subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=str(root_dir), check=True)
+            subprocess.run(["git", "pull", "--no-edit", "-X", "ours", "origin", "main"], cwd=str(root_dir), check=True)
             subprocess.run(["git", "push", "origin", "main"], cwd=str(root_dir), check=True)
             print(f"[scheduler] Successfully pushed artifacts to GitHub: {commit_message}")
         else:
@@ -58,6 +58,12 @@ def daily_brief(force: bool = False):
     current_date = now.strftime("%B %d, %Y")
 
     is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
+
+    # Guard: IDX is closed on weekends (Saturday & Sunday)
+    if now.weekday() >= 5 and not is_forced:
+        print(f"\n[scheduler] Today is {now.strftime('%A')} (weekend). IDX market closed. Skipping morning brief.")
+        return
+
     brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
     if brief_artifact.exists() and not is_forced:
         print(f"\n[scheduler] Morning brief for {date_key} already exists. Skipping duplicate execution.")
@@ -109,6 +115,7 @@ def resolve_evening_review_date(target_date: str = None) -> str:
     runs_dir = Path(__file__).parent / "runs"
     if runs_dir.exists():
         import re
+        from datetime import datetime
         candidate_dirs = sorted(
             [d.name for d in runs_dir.iterdir() if d.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", d.name)],
             reverse=True
@@ -116,6 +123,13 @@ def resolve_evening_review_date(target_date: str = None) -> str:
         for date_str in candidate_dirs:
             # Skip future dates
             if date_str > today_key:
+                continue
+            # Skip dates older than 4 calendar days
+            try:
+                dt = datetime.strptime(date_str, "%Y-%m-%d").date()
+                if (now.date() - dt).days > 4:
+                    continue
+            except Exception:
                 continue
             # If candidate is today, only evaluate if market has closed (>= 16:00 WIB)
             if date_str == today_key and now.hour < 16:
@@ -129,10 +143,21 @@ def resolve_evening_review_date(target_date: str = None) -> str:
 
 
 def evening_review(force: bool = False, target_date: str = None):
-    now      = jakarta_now()
+    now       = jakarta_now()
+    is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
+
+    # Guard 1: Weekend guard (unless a specific historical target_date is given)
+    if now.weekday() >= 5 and not is_forced and not target_date and not os.getenv("TARGET_DATE"):
+        print(f"\n[scheduler] Today is {now.strftime('%A')} (weekend). IDX market closed. Skipping evening review.")
+        return
+
     date_key = resolve_evening_review_date(target_date)
 
-    is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
+    # Guard 2: If evaluating today, ensure market has closed (>= 16:00 WIB)
+    if date_key == now.strftime("%Y-%m-%d") and now.hour < 16 and not is_forced:
+        print(f"\n[scheduler] Market has not closed yet ({now.strftime('%H:%M WIB')} < 16:00 WIB). Skipping evening review.")
+        return
+
     review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
     if review_artifact.exists() and not is_forced:
         print(f"\n[scheduler] Evening review for {date_key} already exists. Skipping duplicate execution.")

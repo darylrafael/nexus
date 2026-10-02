@@ -2,13 +2,10 @@ name: Nexus Evening Review
 
 on:
   schedule:
-    # 11:35 UTC Mon-Fri = 18:35 WIB Mon-Fri (early window: IDX closes 16:15 WIB, off-peak minute)
-    - cron: '35 11 * * 1-5'
-    # 11:52 UTC Mon-Fri = 18:52 WIB Mon-Fri (main target window)
-    - cron: '52 11 * * 1-5'
-    # Fallback retry schedules (19:12 & 19:32 WIB) in case runner queue was congested
-    - cron: '12 12 * * 1-5'
-    - cron: '32 12 * * 1-5'
+    # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri (primary target window, off-peak minute)
+    - cron: '55 11 * * 1-5'
+    # Fallback retry schedule (19:25 WIB) in case runner queue was congested
+    - cron: '25 12 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
