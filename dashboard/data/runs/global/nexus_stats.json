@@ -1,11 +1,11 @@
 {
-  "total_sessions": 6,
-  "total_accuracy_sum": 173,
-  "rolling_avg_accuracy": 28.8,
+  "total_sessions": 7,
+  "total_accuracy_sum": 187,
+  "rolling_avg_accuracy": 26.7,
   "ihsg_correct_count": 3,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 50.0,
-  "ff_accuracy_pct": 16.7,
+  "ihsg_accuracy_pct": 42.9,
+  "ff_accuracy_pct": 14.3,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -30,7 +30,12 @@
     "Significant drop in Brent Crude (-5.03%)": 1,
     "Pelemahan Rupiah yang signifikan (+2.195%)": 1,
     "Sentimen global terkait inflasi tinggi, harga komoditas, dan resesi": 1,
-    "Dampak dari demo buruh pada 1 Oktober 2026": 1
+    "Dampak dari demo buruh pada 1 Oktober 2026": 1,
+    "Bank Indonesia's specific commitment to strengthen the Rupiah by increasing foreign portfolio inflows, which was not detailed in the morning brief's policy reiteration.": 1,
+    "Significant foreign accumulation (Net Buy Rp 829,70 Miliar) which contradicted the predicted distribution.": 1,
+    "The positive impact of foreign accumulation on IHSG.": 1,
+    "The strengthening of the Rupiah (-0.318%).": 1,
+    "The strong performance of specific sectors like Health Care (+17K) and Technology (GOTO as top gainer), which were predicted bearish.": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -46,7 +51,10 @@
     "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%).",
     "Ketika IHSG diprediksi Bullish, tetapi terjadi pelemahan Rupiah sebesar +2.195% dan sentimen global resesi, maka IHSG ditutup Bearish sebesar -1.02%.",
     "Ketika sektor Coal Mining diprediksi Bearish, tetapi saham CUAN dan BUMI menjadi top gainers, maka sektor tersebut menunjukkan kenaikan yang signifikan.",
-    "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan."
+    "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan.",
+    "Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign flow diprediksi Distribution, tetapi foreign flow aktual adalah Accumulation (Net Buy Rp 829,70 Miliar) dan IHSG ditutup Bullish (+0.46%), maka sentimen pasar dapat berbalik arah secara signifikan.",
+    "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
+    "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -54,7 +62,8 @@
     "2026-09-28",
     "2026-09-29",
     "2026-09-30",
-    "2026-10-01"
+    "2026-10-01",
+    "2026-10-02"
   ],
-  "last_updated": "2026-10-01"
+  "last_updated": "2026-10-02"
 }

@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-02",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 67,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.46,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Energi": true,
+    "Teknologi": false,
+    "Transportasi dan Logistik": null,
+    "Barang Baku": null,
+    "Industri": null,
+    "Properti": null,
+    "Kesehatan": false,
+    "Infrastruktur": false,
+    "Barang Konsumen Primer": null,
+    "Keuangan": false,
+    "Barang Konsumen Non-Primer": null
+  },
+  "error_rate_pct": 86,
+  "accuracy_score": 14,
+  "rca_unanticipated": [
+    "Bank Indonesia's specific commitment to strengthen the Rupiah by increasing foreign portfolio inflows, which was not detailed in the morning brief's policy reiteration.",
+    "Significant foreign accumulation (Net Buy Rp 829,70 Miliar) which contradicted the predicted distribution."
+  ],
+  "rca_overestimated": [
+    "The overall bearish sentiment for IHSG (predicted 67% confidence).",
+    "The prediction of foreign flow distribution."
+  ],
+  "rca_underestimated": [
+    "The positive impact of foreign accumulation on IHSG.",
+    "The strengthening of the Rupiah (-0.318%).",
+    "The strong performance of specific sectors like Health Care (+17K) and Technology (GOTO as top gainer), which were predicted bearish."
+  ],
+  "rca_info_delay": [
+    "Actual IHSG close and signal (Bullish, +0.46%).",
+    "Actual foreign flow data (Accumulation, Net Buy Rp 829,70 Miliar).",
+    "Actual USD/IDR movement (Rupiah strengthened -0.318%).",
+    "Detailed sector performance (Health Care +17K, Konstruksi +11K, Financial activities -7K).",
+    "Top Gainer stocks (BLTZ, BSWD, GOTO, PTBA, ADRO).",
+    "Specific details of BI's commitment to strengthen Rupiah via foreign portfolio inflows."
+  ],
+  "rca_inverse_correlation": [
+    "The morning brief predicted a 'Bearish' IHSG signal, but the market closed 'Bullish' (+0.46%), primarily driven by unexpected foreign accumulation (Net Buy Rp 829,70 Miliar) and strong performance in key sectors like Health Care and Technology.",
+    "The morning brief predicted 'Foreign Flow: Distribution', but the actual foreign flow was 'Accumulation' (Net Buy Rp 829,70 Miliar), which directly contributed to the bullish market close."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign flow diprediksi Distribution, tetapi foreign flow aktual adalah Accumulation (Net Buy Rp 829,70 Miliar) dan IHSG ditutup Bullish (+0.46%), maka sentimen pasar dapat berbalik arah secara signifikan.",
+    "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
+    "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar."
+  ],
+  "summary": "The morning brief's bearish IHSG and foreign flow distribution predictions were incorrect, as the market closed bullish (+0.46%) driven by unexpected foreign accumulation (Net Buy Rp 829,70 Miliar) and strong performance in sectors like Health Care and Technology.",
+  "actual_usdidr": 17893.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 91.32,
+      "previous_close": 92.6,
+      "change_pct": -1.38,
+      "signal": "Down",
+      "retrieved_at": "2026-10-02T23:48:30+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 102.13,
+      "previous_close": 105.28,
+      "change_pct": -2.99,
+      "signal": "Down",
+      "retrieved_at": "2026-10-02T23:48:30+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.01,
+      "previous_close": 3.0,
+      "change_pct": 0.33,
+      "signal": "Up",
+      "retrieved_at": "2026-10-02T23:48:30+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] ICE Newcastle Coal Prices and ICE Newcastle Coal Futures Prices - B\nSource IDs: src_ee9f97789b, src_f0dfdd05d7, src_171c2fa6b0, src_e2b6b06831, src_a277ed8ce1, src_4d907b14ac, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil fell\nSource IDs: src_9c7bf9e109, src_b363e40885, src_e0b4a7fa13, src_fbbd4653a1, src_56b4172631, src_6399c9b951, src_33d5af8fff"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_f1dad1f235, src_2f9423b564, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4"
+    }
+  }
+}
