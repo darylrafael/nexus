@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-05",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 82,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "No specific net foreign flow figure for October 04, 2026, was provided in the available data.",
+  "sector_bullish": [
+    "Oil & Gas Upstream",
+    "Heavy Equipment"
+  ],
+  "sector_bearish": [
+    "Coal Mining",
+    "Nickel Mining",
+    "Transport & Aviation",
+    "Petrochemicals",
+    "Fertilizer & Utilities"
+  ],
+  "sector_neutral": [
+    "Palm Oil"
+  ],
+  "recommended_tickers": [
+    "INDY",
+    "UNTR",
+    "LSIP",
+    "MEDC",
+    "AALI",
+    "BUMI",
+    "UNVR",
+    "NCKL",
+    "TBLA",
+    "INDF",
+    "MYOR",
+    "ANTM",
+    "CUAN",
+    "RUIS",
+    "XRPL",
+    "ENRG",
+    "SIMP",
+    "ICBP"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bearish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_a277ed8ce1",
+    "src_b3d8e62948",
+    "src_c97b8fff8d",
+    "src_e28c2946cb"
+  ]
+}
