@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-05",
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.46,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Oil & Gas Upstream": null,
+    "Heavy Equipment": null,
+    "Coal Mining": null,
+    "Nickel Mining": null,
+    "Transport & Aviation": null,
+    "Petrochemicals": null,
+    "Fertilizer & Utilities": null,
+    "Palm Oil": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)",
+    "BI Policy Surprise (BI strengthening policies to maintain Rupiah stability, Rupiah expected to strengthen)",
+    "Geopolitics Surprise (US-Iran War / Middle East, Brent above $100)",
+    "Labor / Demo (National Strike of Laborers)"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "IHSG's bullish momentum (predicted Neutral, actual Bullish +0.46%)",
+    "Foreign flow distribution (predicted Stagnant/Sideways, actual Distribution with Net Sell Rp2,75 T)",
+    "Impact of global macroeconomic developments (brief stated 'No major developments yesterday', but significant 'Global Market Shock' occurred)",
+    "Commodity Oil's bearish turn (predicted bullish, actual WTI -1.56%, Brent -3.42%)"
+  ],
+  "rca_info_delay": [
+    "Global Market Shock",
+    "BI Policy Surprise",
+    "Geopolitics Surprise",
+    "Labor / Demo"
+  ],
+  "rca_inverse_correlation": [
+    "Brief predicted Oil to be bullish, and geopolitical news suggested Brent above $100. However, actual Crude Oil (WTI) fell -1.56% and Brent Crude fell -3.42%, indicating a disconnect between geopolitical tensions and immediate oil price reaction, possibly due to broader market shock or profit-taking."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
+    "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan."
+  ],
+  "summary": "The morning brief predicted a neutral IHSG and stagnant foreign flow, but the market closed bullish with a 0.46% gain and experienced foreign distribution, while commodity predictions for oil were inverse to actual movements, largely influenced by several unanticipated global and domestic events.",
+  "actual_usdidr": 17912.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 89.01,
+      "previous_close": 90.42,
+      "change_pct": -1.56,
+      "signal": "Down",
+      "retrieved_at": "2026-10-06T02:51:28+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 99.99,
+      "previous_close": 103.53,
+      "change_pct": -3.42,
+      "signal": "Down",
+      "retrieved_at": "2026-10-06T02:51:28+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.06,
+      "previous_close": 3.03,
+      "change_pct": 1.26,
+      "signal": "Up",
+      "retrieved_at": "2026-10-06T02:51:28+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] ICE Newcastle Coal Prices and ICE Newcastle Coal Futures Prices - B\nSource IDs: src_ee9f97789b, src_99fb49bd8a, src_171c2fa6b0, src_e2b6b06831, src_a277ed8ce1, src_aa0785435c, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil rose\nSource IDs: src_9c7bf9e109, src_b363e40885, src_fbbd4653a1, src_56b4172631, src_33d5af8fff, src_c0a99d32e5, src_6399c9b951"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: LME Nickel Falls to 2026 Low of US$16,055/t -\nQ\nSource IDs: src_a4f1b4fef6, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_9e65e1e7dd, src_bf08793d8b, src_bae08dce04"
+    }
+  }
+}

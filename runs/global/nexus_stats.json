@@ -1,11 +1,11 @@
 {
-  "total_sessions": 7,
+  "total_sessions": 8,
   "total_accuracy_sum": 187,
-  "rolling_avg_accuracy": 26.7,
+  "rolling_avg_accuracy": 23.4,
   "ihsg_correct_count": 3,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 42.9,
-  "ff_accuracy_pct": 14.3,
+  "ihsg_accuracy_pct": 37.5,
+  "ff_accuracy_pct": 12.5,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -35,7 +35,15 @@
     "Significant foreign accumulation (Net Buy Rp 829,70 Miliar) which contradicted the predicted distribution.": 1,
     "The positive impact of foreign accumulation on IHSG.": 1,
     "The strengthening of the Rupiah (-0.318%).": 1,
-    "The strong performance of specific sectors like Health Care (+17K) and Technology (GOTO as top gainer), which were predicted bearish.": 1
+    "The strong performance of specific sectors like Health Care (+17K) and Technology (GOTO as top gainer), which were predicted bearish.": 1,
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)": 1,
+    "BI Policy Surprise (BI strengthening policies to maintain Rupiah stability, Rupiah expected to strengthen)": 1,
+    "Geopolitics Surprise (US-Iran War / Middle East, Brent above $100)": 1,
+    "Labor / Demo (National Strike of Laborers)": 1,
+    "IHSG's bullish momentum (predicted Neutral, actual Bullish +0.46%)": 1,
+    "Foreign flow distribution (predicted Stagnant/Sideways, actual Distribution with Net Sell Rp2,75 T)": 1,
+    "Impact of global macroeconomic developments (brief stated 'No major developments yesterday', but significant 'Global Market Shock' occurred)": 1,
+    "Commodity Oil's bearish turn (predicted bullish, actual WTI -1.56%, Brent -3.42%)": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -54,7 +62,9 @@
     "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan.",
     "Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign flow diprediksi Distribution, tetapi foreign flow aktual adalah Accumulation (Net Buy Rp 829,70 Miliar) dan IHSG ditutup Bullish (+0.46%), maka sentimen pasar dapat berbalik arah secara signifikan.",
     "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
-    "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar."
+    "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar.",
+    "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
+    "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -63,7 +73,8 @@
     "2026-09-29",
     "2026-09-30",
     "2026-10-01",
-    "2026-10-02"
+    "2026-10-02",
+    "2026-10-05"
   ],
-  "last_updated": "2026-10-02"
+  "last_updated": "2026-10-05"
 }
