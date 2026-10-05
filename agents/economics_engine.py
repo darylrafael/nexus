@@ -35,7 +35,12 @@ RUPIAH_LOGIC = {
 
 from agents.web_agent import search_web, search_multiple
 
-def get_affected_stocks(commodity: str, direction: str, current_date: str) -> str:
+def get_affected_stocks(
+    commodity: str,
+    direction: str,
+    current_date: str,
+    search_days: int = 2,
+) -> str:
     """Dynamically search for IDX stocks affected by this commodity move."""
     dir_word_id = "naik" if direction == "up" else "turun"
     dir_word_en = "rise" if direction == "up" else "fall"
@@ -46,7 +51,7 @@ def get_affected_stocks(commodity: str, direction: str, current_date: str) -> st
         "id": f"saham IDX BEI terdampak harga {commodity} {dir_word_id} {current_date}",
         "en": f"IDX Indonesia stocks affected {commodity} price {dir_word_en} {current_date}"
     }
-    results = search_multiple(queries, days=2)
+    results = search_multiple(queries, days=search_days)
     return f"{results['id']}\n{results['en']}"
 
 
@@ -54,7 +59,8 @@ def build_economics_context(
     commodity_changes: dict,
     rupiah_change: float = None,
     rate_direction: str = None,
-    current_date: str = ""
+    current_date: str = "",
+    search_days: int = 2,
 ) -> str:
     """
     Build pre-computed economic impact context with dynamic stock discovery.
@@ -82,7 +88,7 @@ def build_economics_context(
             lines.append(f"  → {logic['producers']}: BEARISH (revenue decreases)")
             lines.append(f"  → {logic['consumers']}: BULLISH (input costs fall, margins improve)")
 
-        affected = get_affected_stocks(commodity, direction, current_date)
+        affected = get_affected_stocks(commodity, direction, current_date, search_days=search_days)
         lines.append(f"  Search results for affected IDX stocks:\n{affected[:500]}\n")
 
     if rupiah_change is not None and abs(rupiah_change) > 0.05:

@@ -1,4 +1,6 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
+import re
 from typing import Any
 from zoneinfo import ZoneInfo
 import requests
@@ -6,6 +8,17 @@ import yfinance as yf
 
 
 JAKARTA_TZ = ZoneInfo("Asia/Jakarta")
+
+INDONESIAN_MONTHS = {
+    1: "Januari", 2: "Februari", 3: "Maret", 4: "April",
+    5: "Mei", 6: "Juni", 7: "Juli", 8: "Agustus",
+    9: "September", 10: "Oktober", 11: "November", 12: "Desember"
+}
+
+INDONESIAN_DAYS = {
+    0: "Senin", 1: "Selasa", 2: "Rabu", 3: "Kamis",
+    4: "Jumat", 5: "Sabtu", 6: "Minggu"
+}
 
 COMMODITY_TICKERS = {
     "Crude Oil (WTI)": "CL=F",
@@ -20,6 +33,116 @@ _BROWSER_HEADERS = {
 
 def jakarta_now() -> datetime:
     return datetime.now(JAKARTA_TZ)
+
+
+def _format_date_id(d: datetime | date) -> str:
+    return f"{d.day} {INDONESIAN_MONTHS[d.month]} {d.year}"
+
+
+def _format_label_id(d: datetime | date) -> str:
+    return f"{INDONESIAN_DAYS[d.weekday()]}, {d.day} {INDONESIAN_MONTHS[d.month]} {d.year}"
+
+
+def get_market_calendar_info(ref_dt: datetime | None = None) -> dict[str, Any]:
+    """
+    Determine the last active IDX trading session date and the dynamic date window
+    for pre-market morning brief. Handles weekends (e.g. Monday briefs) and public
+    holidays (tanggal merah/cuti bersama).
+
+    3-Tier resolution:
+    1. Yahoo Finance ^JKSE daily candles (reflects exact IDX trading days).
+    2. Local historical artifacts in runs/.
+    3. Calendar weekday calculation fallback (Senin -> Jumat).
+    """
+    if ref_dt is None:
+        ref_dt = jakarta_now()
+    today_date = ref_dt.date()
+    today_key = today_date.strftime("%Y-%m-%d")
+
+    last_trading_key: str | None = None
+
+    # Tier 1: Query Yahoo Finance JKSE chart candles strictly prior to today
+    try:
+        url = "https://query1.finance.yahoo.com/v8/finance/chart/^JKSE?interval=1d&range=15d"
+        res = requests.get(url, headers=_BROWSER_HEADERS, timeout=6)
+        if res.status_code == 200:
+            result = res.json().get("chart", {}).get("result", [])
+            if result:
+                timestamps = result[0].get("timestamp", [])
+                quotes = result[0].get("indicators", {}).get("quote", [{}])[0]
+                closes = quotes.get("close", [])
+                past_candles = []
+                for i, ts in enumerate(timestamps):
+                    c_date = datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
+                    if c_date < today_key and i < len(closes) and closes[i] is not None:
+                        past_candles.append(c_date)
+                if past_candles:
+                    last_trading_key = past_candles[-1]
+    except Exception as e:
+        print(f"  [get_market_calendar_info] Yahoo candle query warning: {e}")
+
+    # Tier 2: Check local runs directory for prior sessions
+    if not last_trading_key:
+        try:
+            runs_dir = Path(__file__).resolve().parent.parent / "runs"
+            if runs_dir.exists():
+                candidate_dirs = sorted(
+                    [d.name for d in runs_dir.iterdir() if d.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", d.name) and d.name < today_key],
+                    reverse=True
+                )
+                if candidate_dirs:
+                    last_trading_key = candidate_dirs[0]
+        except Exception:
+            pass
+
+    # Tier 3: Calendar weekday math fallback
+    if not last_trading_key:
+        w = ref_dt.weekday()
+        if w == 0:  # Monday -> Friday (3 days ago)
+            fallback_date = today_date - timedelta(days=3)
+        elif w == 6:  # Sunday -> Friday (2 days ago)
+            fallback_date = today_date - timedelta(days=2)
+        elif w == 5:  # Saturday -> Friday (1 day ago)
+            fallback_date = today_date - timedelta(days=1)
+        else:  # Tuesday-Friday -> 1 day ago
+            fallback_date = today_date - timedelta(days=1)
+        last_trading_key = fallback_date.strftime("%Y-%m-%d")
+
+    last_trading_dt = datetime.strptime(last_trading_key, "%Y-%m-%d").date()
+    days_gap = (today_date - last_trading_dt).days
+    if days_gap <= 0:
+        days_gap = 1
+    search_days = max(days_gap + 1, 2)
+    is_after_gap = days_gap > 1
+
+    last_en = last_trading_dt.strftime("%B %d, %Y")
+    today_en = today_date.strftime("%B %d, %Y")
+
+    return {
+        "today_key": today_key,
+        "today_date_id": _format_date_id(today_date),
+        "today_label": _format_label_id(today_date),
+        "today_en": today_en,
+        "today_day_name_id": INDONESIAN_DAYS[today_date.weekday()],
+        "last_trading_key": last_trading_key,
+        "last_trading_date_id": _format_date_id(last_trading_dt),
+        "last_trading_label": _format_label_id(last_trading_dt),
+        "last_trading_en": last_en,
+        "last_trading_day_name_id": INDONESIAN_DAYS[last_trading_dt.weekday()],
+        "days_gap": days_gap,
+        "search_days": search_days,
+        "is_after_gap": is_after_gap,
+        "period_description_id": (
+            f"{_format_label_id(last_trading_dt)} hingga {_format_label_id(today_date)}"
+            if is_after_gap
+            else _format_label_id(last_trading_dt)
+        ),
+        "period_description_en": (
+            f"{last_en} through {today_en}"
+            if is_after_gap
+            else last_en
+        ),
+    }
 
 
 def _pct_change(latest: float, previous: float | None) -> float:
