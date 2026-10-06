@@ -2,7 +2,7 @@
 
 ## What This Is
 A Python multi-agent AI pipeline for IHSG (Indonesian Stock Exchange) market intelligence.
-Runs automatically every weekday: morning brief at 07:00, evening review at 19:00.
+Runs automatically every weekday: morning brief at 07:00, evening review at 20:00.
 
 ## Project Structure
 ```
@@ -10,7 +10,7 @@ nexus/
 ├── .github/
 │   └── workflows/
 │       ├── morning_brief.yml      # 06:55 WIB cloud scheduled morning brief
-│       └── evening_review.yml     # 18:55 WIB cloud scheduled evening review
+│       └── evening_review.yml     # 20:00 WIB cloud scheduled evening review
 ├── main.py                        # CLI entry point
 ├── config.py                      # API keys via dotenv
 ├── scheduler.py                   # APScheduler / local cron
@@ -37,7 +37,7 @@ nexus/
 ## How to Run
 ```bash
 # Cloud automated:
-# GitHub Actions runs morning brief at 06:55 WIB and evening review at 18:55 WIB.
+# GitHub Actions runs morning brief at 06:55 WIB and evening review at 20:00 WIB.
 # Manual trigger available via GitHub Actions Web UI / Mobile App (workflow_dispatch).
 
 # One-off local query

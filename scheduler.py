@@ -242,14 +242,14 @@ def evening_review(force: bool = False, target_date: str = None):
 # Morning brief:  Mon-Fri 07:30 WIB
 scheduler.add_job(daily_brief,    'cron', day_of_week='mon-fri', hour=7,  minute=30)
 
-# Evening review: Mon-Fri 18:55 WIB
-scheduler.add_job(evening_review, 'cron', day_of_week='mon-fri', hour=18, minute=55)
+# Evening review: Mon-Fri 20:00 WIB
+scheduler.add_job(evening_review, 'cron', day_of_week='mon-fri', hour=20, minute=0)
 
 
 if __name__ == "__main__":
     print("Nexus scheduler started.")
     print("  Morning brief:  Mon-Fri 07:30 WIB")
-    print("  Evening review: Mon-Fri 18:55 WIB")
+    print("  Evening review: Mon-Fri 20:00 WIB")
     print("Press Ctrl+C to stop.")
 
     try:
@@ -257,7 +257,7 @@ if __name__ == "__main__":
             f"\U0001f7e2 *Nexus Scheduler Started*\n"
             f"_{jakarta_now().strftime('%Y-%m-%d %H:%M')}_\n\n"
             f"Morning brief: Mon-Fri 07:30 WIB\n"
-            f"Evening review: Mon-Fri 18:55 WIB"
+            f"Evening review: Mon-Fri 20:00 WIB"
         )
     except Exception:
         pass
