@@ -65,6 +65,19 @@ def daily_brief(force: bool = False):
         return
 
     brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
+    review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
+
+    # Intelligent post-market delegation:
+    # If daily_brief is called after market close (>= 16:00 WIB), e.g. via an automated external
+    # webhook / dispatch intended for evening review, check if today's evening review still needs to run.
+    if now.hour >= 16 and not is_forced:
+        if brief_artifact.exists() and not review_artifact.exists():
+            print(f"\n[scheduler] Notice: daily_brief invoked at {now.strftime('%H:%M WIB')} (after market close 16:00 WIB).")
+            print(f"[scheduler] Morning brief for {date_key} already exists, but evening review is pending.")
+            print(f"[scheduler] Auto-delegating execution to evening_review()...")
+            evening_review(force=False, target_date=date_key)
+            return
+
     if brief_artifact.exists() and not is_forced:
         print(f"\n[scheduler] Morning brief for {date_key} already exists. Skipping duplicate execution.")
         return
@@ -151,9 +164,17 @@ def evening_review(force: bool = False, target_date: str = None):
         print(f"\n[scheduler] Today is {now.strftime('%A')} (weekend). IDX market closed. Skipping evening review.")
         return
 
+    # Guard 2: Late-night stale execution guard (Anti-2AM Telegram spam).
+    # If GitHub Actions runner schedule was heavily delayed into the middle of the night
+    # (between 23:00 WIB and 05:00 WIB next morning), do not send stale reviews unless explicitly forced.
+    if (now.hour >= 23 or now.hour < 5) and not is_forced and not target_date and not os.getenv("TARGET_DATE"):
+        print(f"\n[scheduler] Current time is {now.strftime('%H:%M WIB')}, outside the acceptable evening review window (16:00 - 22:59 WIB).")
+        print(f"[scheduler] Skipping stale delayed execution to prevent waking user at 2 AM.")
+        return
+
     date_key = resolve_evening_review_date(target_date)
 
-    # Guard 2: If evaluating today, ensure market has closed (>= 16:00 WIB)
+    # Guard 3: If evaluating today, ensure market has closed (>= 16:00 WIB)
     if date_key == now.strftime("%Y-%m-%d") and now.hour < 16 and not is_forced:
         print(f"\n[scheduler] Market has not closed yet ({now.strftime('%H:%M WIB')} < 16:00 WIB). Skipping evening review.")
         return

@@ -13,6 +13,8 @@ on:
         required: false
         default: false
         type: boolean
+  repository_dispatch:
+    types: [morning-brief, trigger-brief]
 
 concurrency:
   group: morning-brief
@@ -69,7 +71,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
-            git commit -m "chore(data): auto-archive morning brief artifacts [skip ci]" || true
+            git commit -m "chore(data): auto-archive run artifacts [skip ci]" || true
             MAX_RETRIES=4
             RETRY_COUNT=0
             PUSH_SUCCESS=false

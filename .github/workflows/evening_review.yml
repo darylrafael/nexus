@@ -2,10 +2,16 @@ name: Nexus Evening Review
 
 on:
   schedule:
-    # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri (primary target window, off-peak minute)
+    # 11:45 UTC Mon-Fri = 18:45 WIB Mon-Fri (early window: market closed at 16:15 WIB)
+    - cron: '45 11 * * 1-5'
+    # 11:55 UTC Mon-Fri = 18:55 WIB Mon-Fri (primary target window)
     - cron: '55 11 * * 1-5'
-    # Fallback retry schedule (19:25 WIB) in case runner queue was congested
-    - cron: '25 12 * * 1-5'
+    # 12:15 UTC Mon-Fri = 19:15 WIB Mon-Fri (fallback retry 1)
+    - cron: '15 12 * * 1-5'
+    # 12:35 UTC Mon-Fri = 19:35 WIB Mon-Fri (fallback retry 2)
+    - cron: '35 12 * * 1-5'
+    # 13:05 UTC Mon-Fri = 20:05 WIB Mon-Fri (fallback retry 3)
+    - cron: '5 13 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
@@ -18,6 +24,8 @@ on:
         required: false
         default: ''
         type: string
+  repository_dispatch:
+    types: [evening-review, trigger-review]
 
 concurrency:
   group: evening-review
