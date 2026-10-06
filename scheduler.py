@@ -65,20 +65,25 @@ def daily_brief(force: bool = False):
         return
 
     brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
+    brief_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "morning_prediction.json"
     review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
+    review_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "evening_review.json"
+
+    brief_exists = brief_artifact.exists() or brief_artifact_dash.exists()
+    review_exists = review_artifact.exists() or review_artifact_dash.exists()
 
     # Intelligent post-market delegation:
     # If daily_brief is called after market close (>= 16:00 WIB), e.g. via an automated external
     # webhook / dispatch intended for evening review, check if today's evening review still needs to run.
     if now.hour >= 16 and not is_forced:
-        if brief_artifact.exists() and not review_artifact.exists():
+        if brief_exists and not review_exists:
             print(f"\n[scheduler] Notice: daily_brief invoked at {now.strftime('%H:%M WIB')} (after market close 16:00 WIB).")
             print(f"[scheduler] Morning brief for {date_key} already exists, but evening review is pending.")
             print(f"[scheduler] Auto-delegating execution to evening_review()...")
             evening_review(force=False, target_date=date_key)
             return
 
-    if brief_artifact.exists() and not is_forced:
+    if brief_exists and not is_forced:
         print(f"\n[scheduler] Morning brief for {date_key} already exists. Skipping duplicate execution.")
         return
 
@@ -180,7 +185,8 @@ def evening_review(force: bool = False, target_date: str = None):
         return
 
     review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
-    if review_artifact.exists() and not is_forced:
+    review_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "evening_review.json"
+    if (review_artifact.exists() or review_artifact_dash.exists()) and not is_forced:
         print(f"\n[scheduler] Evening review for {date_key} already exists. Skipping duplicate execution.")
         return
 

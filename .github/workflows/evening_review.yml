@@ -57,6 +57,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global pull.rebase false
 
+      - name: Sync Latest Repository State
+        run: |
+          git pull --no-edit origin main || true
+
       - name: Execute Evening Review
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -78,7 +82,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
-            git commit -m "chore(data): auto-archive evening review artifacts [skip ci]" || true
+            git commit -m "chore(data): sync evening review artifacts" || true
             MAX_RETRIES=4
             RETRY_COUNT=0
             PUSH_SUCCESS=false
