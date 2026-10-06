@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-06",
+  "ihsg_signal": "Bullish",
+  "ihsg_confidence": 81,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Buy Rp829.70 Miliar",
+  "sector_bullish": [
+    "Industri",
+    "Transportasi & Logistik",
+    "Perbankan",
+    "Energi (Coal)"
+  ],
+  "sector_bearish": [
+    "Kesehatan",
+    "Konsumsi Primer",
+    "Energi (Oil & Gas Upstream)"
+  ],
+  "sector_neutral": [
+    "Properti"
+  ],
+  "recommended_tickers": [
+    "LPKR",
+    "DEWA",
+    "AMMN",
+    "BUMI",
+    "JGLE",
+    "BKSL"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_1123f773d5",
+    "src_1e977874f1",
+    "src_30fde0b3be",
+    "src_4e8d5ebc7e",
+    "src_51e8e513a2",
+    "src_536e28ebeb",
+    "src_896082e1cb",
+    "src_9cb1725a1d",
+    "src_a38f80a4ec",
+    "src_e66c8988d6",
+    "src_e66c9ac2d2",
+    "src_f5f6bba2f9",
+    "src_fdcea398d0"
+  ]
+}
