@@ -1,11 +1,11 @@
 {
-  "total_sessions": 8,
-  "total_accuracy_sum": 187,
-  "rolling_avg_accuracy": 23.4,
-  "ihsg_correct_count": 3,
+  "total_sessions": 9,
+  "total_accuracy_sum": 237,
+  "rolling_avg_accuracy": 26.3,
+  "ihsg_correct_count": 4,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 37.5,
-  "ff_accuracy_pct": 12.5,
+  "ihsg_accuracy_pct": 44.4,
+  "ff_accuracy_pct": 11.1,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -36,14 +36,20 @@
     "The positive impact of foreign accumulation on IHSG.": 1,
     "The strengthening of the Rupiah (-0.318%).": 1,
     "The strong performance of specific sectors like Health Care (+17K) and Technology (GOTO as top gainer), which were predicted bearish.": 1,
-    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)": 1,
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)": 2,
     "BI Policy Surprise (BI strengthening policies to maintain Rupiah stability, Rupiah expected to strengthen)": 1,
     "Geopolitics Surprise (US-Iran War / Middle East, Brent above $100)": 1,
     "Labor / Demo (National Strike of Laborers)": 1,
     "IHSG's bullish momentum (predicted Neutral, actual Bullish +0.46%)": 1,
     "Foreign flow distribution (predicted Stagnant/Sideways, actual Distribution with Net Sell Rp2,75 T)": 1,
     "Impact of global macroeconomic developments (brief stated 'No major developments yesterday', but significant 'Global Market Shock' occurred)": 1,
-    "Commodity Oil's bearish turn (predicted bullish, actual WTI -1.56%, Brent -3.42%)": 1
+    "Commodity Oil's bearish turn (predicted bullish, actual WTI -1.56%, Brent -3.42%)": 1,
+    "Geopolitics Surprise (tensi geopolitik global)": 1,
+    "Labor / Demo (Buruh Akan Gelar Demo Besar 6 Oktober 2026)": 1,
+    "Strong performance of Technology sector (+2.59%) and specific stocks like GOTO (+6.90%)": 1,
+    "The impact of foreign selling (Net Sell Rp 252,65 Miliar) despite a bullish market close": 1,
+    "The broad-based rally across all sectors, including those predicted bearish or neutral": 1,
+    "The potential for significant domestic buying or specific stock rallies (e.g., GOTO) to offset foreign selling": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -64,7 +70,9 @@
     "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
     "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar.",
     "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
-    "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan."
+    "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan.",
+    "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
+    "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -74,7 +82,8 @@
     "2026-09-30",
     "2026-10-01",
     "2026-10-02",
-    "2026-10-05"
+    "2026-10-05",
+    "2026-10-06"
   ],
-  "last_updated": "2026-10-05"
+  "last_updated": "2026-10-06"
 }

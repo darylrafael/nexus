@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-06",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 1.21,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Industri": true,
+    "Transportasi & Logistik": true,
+    "Perbankan": true,
+    "Energi (Coal)": true,
+    "Kesehatan": false,
+    "Konsumsi Primer": false,
+    "Energi (Oil & Gas Upstream)": false,
+    "Properti": false
+  },
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": [
+    "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)",
+    "Geopolitics Surprise (tensi geopolitik global)",
+    "Labor / Demo (Buruh Akan Gelar Demo Besar 6 Oktober 2026)",
+    "Strong performance of Technology sector (+2.59%) and specific stocks like GOTO (+6.90%)"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "The impact of foreign selling (Net Sell Rp 252,65 Miliar) despite a bullish market close",
+    "The broad-based rally across all sectors, including those predicted bearish or neutral",
+    "The potential for significant domestic buying or specific stock rallies (e.g., GOTO) to offset foreign selling"
+  ],
+  "rca_info_delay": [
+    "The Fed - 2026 Stress Test Scenarios (Global Market Shock)",
+    "IHSG berpotensi melemah seiring pasar cermati tensi geopolitik global (Geopolitics Surprise)",
+    "Kawal Pengesahan RUU Ketenagakerjaan, Buruh Akan Gelar Demo Besar 6 Oktober 2026 (Labor / Demo)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed foreign net buy would support a bullish market, but a net sell of Rp 252,65 Miliar occurred, yet IHSG still closed bullish (+1.21%).",
+    "Brief's context mentioned Rupiah strengthening contributing to a bullish market, but today Rupiah weakened (+0.951%), yet IHSG still closed bullish (+1.21%)."
+  ],
+  "lessons": [
+    "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
+    "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%."
+  ],
+  "summary": "The morning brief correctly predicted a bullish IHSG, but underestimated foreign selling pressure and the broad-based sector rally, while also missing key global and domestic risks.",
+  "actual_usdidr": 17905.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 88.02,
+      "previous_close": 92.87,
+      "change_pct": -5.22,
+      "signal": "Down",
+      "retrieved_at": "2026-10-06T20:30:18+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 98.17,
+      "previous_close": 102.31,
+      "change_pct": -4.05,
+      "signal": "Down",
+      "retrieved_at": "2026-10-06T20:30:19+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.12,
+      "previous_close": 2.97,
+      "change_pct": 5.09,
+      "signal": "Up",
+      "retrieved_at": "2026-10-06T20:30:20+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Makin Panas, Pasokan Global Mulai Seret\nMarket    1\nSource IDs: src_051f7b820e, src_246e569ec8, src_4d907b14ac, src_4d4b55251b, src_171c2fa6b0, src_a277ed8ce1, src_e2b6b06831"
+    },
+    "CPO": {
+      "raw": "[no date] Harga Referensi (HR) komoditas minyak kelapa sawit ...\nOctober 2, 2\nSource IDs: src_9ea2b888d8, src_a89fca5177, src_6399c9b951, src_9c7bf9e109, src_c0a99d32e5, src_21ae48cf96, src_fbbd4653a1"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] LME Nickel | London Metal Exchange\nImage 14: Nickel\n\n Summary  Intr\nSource IDs: src_0b12862f48, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_9e65e1e7dd, src_1de5e9219f, src_bf08793d8b"
+    }
+  }
+}
