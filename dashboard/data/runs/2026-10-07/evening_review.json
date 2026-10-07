@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-07",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 90,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.75,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {},
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [],
+  "rca_overestimated": [],
+  "rca_underestimated": [],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": [],
+  "summary": "",
+  "actual_usdidr": 17878.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 89.9,
+      "previous_close": 91.11,
+      "change_pct": -1.33,
+      "signal": "Down",
+      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 101.43,
+      "previous_close": 102.25,
+      "change_pct": -0.8,
+      "signal": "Down",
+      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.19,
+      "previous_close": 3.04,
+      "change_pct": 5.21,
+      "signal": "Up",
+      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] ICE Newcastle Coal Oct '26 Futures Price - Barchart.com\n# ICE Newca\nSource IDs: src_f0dfdd05d7, src_ee9f97789b, src_a277ed8ce1, src_e2b6b06831, src_4d4b55251b, src_3fa7145b3a, src_95369772f5"
+    },
+    "CPO": {
+      "raw": "[no date] Palm oil prices could reach US$1,500/tonne as B50 and El Niño tight\nSource IDs: src_d676022a54, src_9c7bf9e109, src_84f30d0ee3, src_12b3b9cfd2, src_8714d7e80a, src_c0a99d32e5, src_2291dd7086"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_1dbcee7af4, src_0b12862f48, src_f1dad1f235, src_dc295145ae, src_878ce6b228, src_0f051271b5"
+    }
+  }
+}
