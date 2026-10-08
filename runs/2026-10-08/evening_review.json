@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-08",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.88,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Transportation and Logistics": null,
+    "Technology": null,
+    "Energy": null,
+    "Consumer Non-Cyclicals": null,
+    "Financials": null,
+    "Property & Real Estate": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Lonjakan harga komoditas energi global (Brent +4,56%, WTI +3,37%, dan batu bara Newcastle mencapai US$ 150/ton) bertentangan dengan proyeksi bearish komoditas",
+    "Tekanan jual masif pasca-libur bursa yang mendorong indeks menyentuh level terendah harian di 6.031,28"
+  ],
+  "rca_overestimated": [
+    "Stabilitas suku bunga BI di 5,75% dan penguatan tipis Rupiah ke 17.895/USD yang diasumsikan cukup kuat mendorong reli IHSG"
+  ],
+  "rca_underestimated": [
+    "Dampak lanjutan dari tren penurunan bulanan IHSG (-9,46%) dan tekanan distribusi investor asing"
+  ],
+  "rca_info_delay": [
+    "Realisasi net sell asing lanjutan sepanjang sesi perdagangan yang berlawanan dengan ekspektasi foreign flow sideways"
+  ],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan penguatan Rupiah (-0,155% ke 17.895/USD) akan berkorelasi positif dengan pergerakan IHSG, namun IHSG justru anjlok -1,88% karena dominasi aksi ambil untung dan distribusi asing"
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi bullish dengan keyakinan 82% didukung penguatan Rupiah ke 17.895/USD, tetapi tekanan distribusi investor asing terus berlanjut, maka IHSG anjlok -1,88% (-115,4 poin) ke level 6.031,28.",
+    "Ketika harga komoditas energi diproyeksikan bearish, tetapi pasar global mengalami lonjakan tajam (Brent +4,56% dan Natural Gas +5,94%), maka proyeksi arah sektor berbasis energi menjadi bias di tengah penurunan indeks sebesar -1,88%."
+  ],
+  "summary": "IHSG yang diprediksi menguat bullish justru terkoreksi tajam -1,88% ke level 6.031,28 akibat berlanjutnya distribusi investor asing pasca-libur perdagangan.",
+  "actual_usdidr": 17895.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 92.44,
+      "previous_close": 89.43,
+      "change_pct": 3.37,
+      "signal": "Up",
+      "retrieved_at": "2026-10-08T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 104.89,
+      "previous_close": 100.32,
+      "change_pct": 4.56,
+      "signal": "Up",
+      "retrieved_at": "2026-10-08T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.25,
+      "previous_close": 3.07,
+      "change_pct": 5.94,
+      "signal": "Up",
+      "retrieved_at": "2026-10-08T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Newcastle Melonjak Capai US$ 150 per Ton\nSeperti di\nSource IDs: src_fa446f0c90, src_e2b6b06831, src_ee9f97789b, src_171c2fa6b0, src_a277ed8ce1, src_4d4b55251b, src_4d907b14ac"
+    },
+    "CPO": {
+      "raw": "[no date] Harga CPO Mulai Bangkit, Tapi Banyak Kabar Buruk\nSepanjang pekan la\nSource IDs: src_b056c42a9b, src_9c7bf9e109, src_fbbd4653a1, src_c0a99d32e5, src_a89fca5177, src_21ae48cf96, src_cf454a6852"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: LME Nickel Falls to 2026 Low of US$16,055/t -\nQ\nSource IDs: src_a4f1b4fef6, src_e7b01f3b12, src_0b12862f48, src_f1dad1f235, src_a03a19ceeb, src_dc295145ae, src_bf08793d8b"
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "total_sessions": 10,
+  "total_sessions": 11,
   "total_accuracy_sum": 237,
-  "rolling_avg_accuracy": 23.7,
+  "rolling_avg_accuracy": 21.5,
   "ihsg_correct_count": 4,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 40.0,
-  "ff_accuracy_pct": 10.0,
+  "ihsg_accuracy_pct": 36.4,
+  "ff_accuracy_pct": 9.1,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -49,7 +49,10 @@
     "Strong performance of Technology sector (+2.59%) and specific stocks like GOTO (+6.90%)": 1,
     "The impact of foreign selling (Net Sell Rp 252,65 Miliar) despite a bullish market close": 1,
     "The broad-based rally across all sectors, including those predicted bearish or neutral": 1,
-    "The potential for significant domestic buying or specific stock rallies (e.g., GOTO) to offset foreign selling": 1
+    "The potential for significant domestic buying or specific stock rallies (e.g., GOTO) to offset foreign selling": 1,
+    "Lonjakan harga komoditas energi global (Brent +4,56%, WTI +3,37%, dan batu bara Newcastle mencapai US$ 150/ton) bertentangan dengan proyeksi bearish komoditas": 1,
+    "Tekanan jual masif pasca-libur bursa yang mendorong indeks menyentuh level terendah harian di 6.031,28": 1,
+    "Dampak lanjutan dari tren penurunan bulanan IHSG (-9,46%) dan tekanan distribusi investor asing": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -72,7 +75,9 @@
     "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
     "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan.",
     "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
-    "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%."
+    "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%.",
+    "Ketika IHSG diprediksi bullish dengan keyakinan 82% didukung penguatan Rupiah ke 17.895/USD, tetapi tekanan distribusi investor asing terus berlanjut, maka IHSG anjlok -1,88% (-115,4 poin) ke level 6.031,28.",
+    "Ketika harga komoditas energi diproyeksikan bearish, tetapi pasar global mengalami lonjakan tajam (Brent +4,56% dan Natural Gas +5,94%), maka proyeksi arah sektor berbasis energi menjadi bias di tengah penurunan indeks sebesar -1,88%."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -84,7 +89,8 @@
     "2026-10-02",
     "2026-10-05",
     "2026-10-06",
-    "2026-10-07"
+    "2026-10-07",
+    "2026-10-08"
   ],
-  "last_updated": "2026-10-07"
+  "last_updated": "2026-10-08"
 }
