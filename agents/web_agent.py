@@ -1,5 +1,6 @@
 import hashlib
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 from config import TAVILY_API_KEY
 from schemas import SourceRecord
@@ -13,6 +14,34 @@ _SEARCH_METRICS = {
     "total_queries": 0,
 }
 SEARCH_CACHE_TTL_SECONDS = 1800  # 30 minutes
+
+DEFAULT_DOMAIN_DENYLIST = [
+    "tiktok.com",
+    "instagram.com",
+    "twitter.com",
+    "x.com",
+    "facebook.com",
+    "threads.net",
+    "youtube.com",
+    "reddit.com",
+]
+
+
+def is_domain_allowed(url: str, denylist: list[str] = None) -> bool:
+    """Filter out social media and low-credibility platforms."""
+    if not url:
+        return True
+    try:
+        domain = urlparse(url).netloc.lower()
+        if not domain:
+            return True
+        deny = denylist if denylist is not None else DEFAULT_DOMAIN_DENYLIST
+        for blocked in deny:
+            if domain == blocked or domain.endswith("." + blocked):
+                return False
+        return True
+    except Exception:
+        return True
 
 
 def get_source_registry() -> dict:
@@ -93,31 +122,46 @@ def search_web_records(
 
     # 2. Cache miss -> perform live API call
     _SEARCH_METRICS["api_calls"] += 1
-    results = _get_client().search(query, max_results=max_results, days=days)
+    client = _get_client()
+    try:
+        results = client.search(query, max_results=max_results, days=days, topic="news")
+    except TypeError:
+        results = client.search(query, max_results=max_results, days=days)
+
     cutoff = datetime.now() - timedelta(days=days)
     retrieved_at = datetime.now().isoformat(timespec="seconds")
     records = []
 
     for result in results.get("results", []):
+        url = result.get("url", "")
+        if not is_domain_allowed(url):
+            continue
+
         pub = result.get("published_date", "")
         freshness_days = None
-        try:
-            pub_date = datetime.fromisoformat(pub.replace("Z", "+00:00").replace("+00:00", ""))
-            pub_date = pub_date.replace(tzinfo=None)
-            freshness_days = max((datetime.now() - pub_date).days, 0)
-            if pub_date < cutoff:
-                continue
-        except Exception:
-            pass
+        freshness_status = "fresh"
+
+        if not pub:
+            freshness_status = "unknown"
+        else:
+            try:
+                pub_date = datetime.fromisoformat(pub.replace("Z", "+00:00").replace("+00:00", ""))
+                pub_date = pub_date.replace(tzinfo=None)
+                freshness_days = max((datetime.now() - pub_date).days, 0)
+                if pub_date < cutoff:
+                    freshness_status = "stale"
+                    continue
+            except Exception:
+                freshness_status = "unknown"
 
         title = result.get("title", "")
-        url = result.get("url", "")
         sid = _source_id(url, title)
         _SOURCE_REGISTRY[sid] = {
             "title": title,
             "url": url,
             "published_at": pub or None,
             "category": category,
+            "freshness_status": freshness_status,
         }
         records.append(SourceRecord(
             id=sid,
@@ -128,6 +172,7 @@ def search_web_records(
             retrieved_at=retrieved_at,
             summary=result.get("content", ""),
             freshness_days=freshness_days,
+            freshness_status=freshness_status,
         ))
 
     # Store in cache
@@ -142,8 +187,10 @@ def search_web_records(
 def format_source_records(records: list[SourceRecord]) -> str:
     output = []
     for record in records:
+        freshness_label = f"freshness: {record.freshness_status}" if record.freshness_status != "fresh" else f"{record.freshness_days}d ago"
+        date_display = record.published_at if record.published_at else "date unknown"
         output.append(
-            f"[{record.published_at or 'no date'}] {record.title}\n"
+            f"[{date_display} | {freshness_label}] {record.title}\n"
             f"{record.summary}\n"
             f"Source: {record.url}\n"
             f"Source ID: {record.id}\n"

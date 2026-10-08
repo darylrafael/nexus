@@ -19,7 +19,7 @@
   "sessions": [
     {
       "id": 10,
-      "timestamp": "2026-10-08T21:08:16.064304",
+      "timestamp": "2026-10-08T21:15:10.737250",
       "query": "query-9",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
@@ -30,7 +30,7 @@
     },
     {
       "id": 9,
-      "timestamp": "2026-10-08T21:08:15.965619",
+      "timestamp": "2026-10-08T21:15:10.683738",
       "query": "query-8",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
@@ -41,18 +41,7 @@
     },
     {
       "id": 8,
-      "timestamp": "2026-10-08T21:08:15.941174",
-      "query": "query-7",
-      "agent": "market_agent",
-      "model": "gpt-oss-120b",
-      "result": "result-7",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 107
-    },
-    {
-      "id": 7,
-      "timestamp": "2026-10-08T21:08:15.763222",
+      "timestamp": "2026-10-08T21:15:10.683738",
       "query": "query-6",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
@@ -62,8 +51,19 @@
       "duration_ms": 106
     },
     {
+      "id": 7,
+      "timestamp": "2026-10-08T21:15:10.682720",
+      "query": "query-7",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-7",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 107
+    },
+    {
       "id": 6,
-      "timestamp": "2026-10-08T21:08:15.759694",
+      "timestamp": "2026-10-08T21:15:10.658728",
       "query": "query-5",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
@@ -74,40 +74,18 @@
     },
     {
       "id": 5,
-      "timestamp": "2026-10-08T21:08:15.238953",
-      "query": "query-2",
+      "timestamp": "2026-10-08T21:15:10.571100",
+      "query": "query-1",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
-      "result": "result-2",
+      "result": "result-1",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 102
+      "duration_ms": 101
     },
     {
       "id": 4,
-      "timestamp": "2026-10-08T21:08:15.233956",
-      "query": "query-4",
-      "agent": "market_agent",
-      "model": "gpt-oss-120b",
-      "result": "result-4",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 104
-    },
-    {
-      "id": 3,
-      "timestamp": "2026-10-08T21:08:15.231949",
-      "query": "query-0",
-      "agent": "market_agent",
-      "model": "gpt-oss-120b",
-      "result": "result-0",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 100
-    },
-    {
-      "id": 2,
-      "timestamp": "2026-10-08T21:08:15.227963",
+      "timestamp": "2026-10-08T21:15:10.572101",
       "query": "query-3",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
@@ -117,16 +95,38 @@
       "duration_ms": 103
     },
     {
-      "id": 1,
-      "timestamp": "2026-10-08T21:08:15.211339",
-      "query": "query-1",
+      "id": 3,
+      "timestamp": "2026-10-08T21:15:10.570100",
+      "query": "query-2",
       "agent": "market_agent",
       "model": "gpt-oss-120b",
-      "result": "result-1",
+      "result": "result-2",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 101
+      "duration_ms": 102
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-10-08T21:15:10.571100",
+      "query": "query-0",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-0",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 100
+    },
+    {
+      "id": 1,
+      "timestamp": "2026-10-08T21:15:10.562104",
+      "query": "query-4",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-4",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 104
     }
   ],
-  "exported_at": "2026-10-08T21:08:16.237551"
+  "exported_at": "2026-10-08T21:15:10.766721"
 }

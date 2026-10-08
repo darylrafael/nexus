@@ -26,6 +26,7 @@ class SourceRecord:
     published_at: Optional[str] = None
     summary: str = ""
     freshness_days: Optional[int] = None
+    freshness_status: str = "fresh"
 
 
 @dataclass

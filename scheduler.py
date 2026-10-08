@@ -13,6 +13,7 @@ from agents.evening_reviewer import run_evening_review
 from delivery.telegram import send_report
 from memory.obsidian import write_note
 from data_sources.market_data import jakarta_now
+from core.calendar import is_idx_trading_day, get_holiday_reason
 import traceback
 import subprocess
 import shutil
@@ -59,9 +60,10 @@ def daily_brief(force: bool = False):
 
     is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
 
-    # Guard: IDX is closed on weekends (Saturday & Sunday)
-    if now.weekday() >= 5 and not is_forced:
-        print(f"\n[scheduler] Today is {now.strftime('%A')} (weekend). IDX market closed. Skipping morning brief.")
+    # Guard: IDX is closed on weekends and official exchange holidays / cuti bersama
+    if not is_forced and not is_idx_trading_day(now):
+        reason = get_holiday_reason(now) or "Market closed"
+        print(f"\n[scheduler] Today ({date_key}) is non-trading day: {reason}. Skipping morning brief.")
         return
 
     brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
@@ -175,9 +177,10 @@ def evening_review(force: bool = False, target_date: str = None):
     now       = jakarta_now()
     is_forced = force or os.getenv("FORCE_RUN", "").lower() in ("true", "1", "yes")
 
-    # Guard 1: Weekend guard (unless a specific historical target_date is given)
-    if now.weekday() >= 5 and not is_forced and not target_date and not os.getenv("TARGET_DATE"):
-        print(f"\n[scheduler] Today is {now.strftime('%A')} (weekend). IDX market closed. Skipping evening review.")
+    # Guard 1: Weekend and IDX holiday guard (unless a specific historical target_date is given)
+    if not is_forced and not target_date and not os.getenv("TARGET_DATE") and not is_idx_trading_day(now):
+        reason = get_holiday_reason(now) or "Market closed"
+        print(f"\n[scheduler] Today ({now.strftime('%Y-%m-%d')}) is non-trading day: {reason}. Skipping evening review.")
         return
 
     # Guard 2: Late-night stale execution guard (Anti-2AM Telegram spam).
