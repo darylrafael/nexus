@@ -2,12 +2,16 @@ import sqlite3
 import json
 from datetime import datetime
 from pathlib import Path
+from memory.artifacts import atomic_write_file
 
 DB_PATH = Path(__file__).parent.parent / "nexus_sessions.db"
 
 
 def _get_conn() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.execute("PRAGMA journal_mode = WAL;")
+    conn.execute("PRAGMA busy_timeout = 30000;")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -171,7 +175,7 @@ def export_telemetry_json(output_path: Path = None) -> dict:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        atomic_write_file(output_path, json.dumps(payload, indent=2))
     except Exception as e:
         print(f"[session] WARN - Failed to export telemetry.json: {e}")
 

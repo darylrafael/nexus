@@ -1,33 +1,132 @@
 {
   "stats": {
-    "totalRuns": 1,
-    "successfulRuns": 1,
+    "totalRuns": 10,
+    "successfulRuns": 10,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 130545,
-    "runsToday": 1
+    "avgDurationMs": 104,
+    "runsToday": 10
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
-      "total_calls": 1,
-      "avg_duration_ms": 130545.0,
+      "total_calls": 10,
+      "avg_duration_ms": 104.5,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
   ],
   "sessions": [
     {
-      "id": 1,
-      "timestamp": "2026-10-08T00:33:04.035435",
-      "query": "daily_brief",
+      "id": 10,
+      "timestamp": "2026-10-08T21:08:16.064304",
+      "query": "query-9",
       "agent": "market_agent",
-      "model": "llm_client",
-      "result": "**BRIEF DATE: Kamis, 8 Oktober 2026**\n**PRE-MARKET BRIEF**\n\n---\n**IHSG Close (Selasa, 6 Oktober 2026):** 6,192.93 UP 1.21%\n\n**Market Gap Context:** The Indonesian Stock Exchange (IDX) was closed from October 06, 2026, through October 08, 2026. This brief synthesizes developments during this period to prepare for today's market opening.\n\n---\n### 1. Indonesian Economic News: BI Maintains Rate, Rupiah Strengthens Amid Stable Inflation\n- **Summary**: Bank Indonesia (BI) maintained the BI-Rate at 5.75% in September 2026, consistent with efforts to stabilize the Rupiah and keep inflation within the 2.5\u00b11% target for 2026-2027. Inflation for September 2026 was recorded at 3.28% YoY, while the Rupiah strengthened slightly to 17,895/USD on October 6, 2026, supported by BI's foreign exchange interventions (src_c48f564ee3, src_0ba9a5d054, src_363fc5b63c).\n- **Market Impact**: Neutral | **Confidence**: 85%\n- **Rationale**: The consistent BI-Rate and stable inflation provide a predictable domestic ",
+      "model": "gpt-oss-120b",
+      "result": "result-9",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 130545
+      "duration_ms": 109
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-10-08T21:08:15.965619",
+      "query": "query-8",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-8",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 108
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-10-08T21:08:15.941174",
+      "query": "query-7",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-7",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 107
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-10-08T21:08:15.763222",
+      "query": "query-6",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-6",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 106
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-10-08T21:08:15.759694",
+      "query": "query-5",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-5",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 105
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-10-08T21:08:15.238953",
+      "query": "query-2",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-2",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 102
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-10-08T21:08:15.233956",
+      "query": "query-4",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-4",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 104
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-10-08T21:08:15.231949",
+      "query": "query-0",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-0",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 100
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-10-08T21:08:15.227963",
+      "query": "query-3",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-3",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 103
+    },
+    {
+      "id": 1,
+      "timestamp": "2026-10-08T21:08:15.211339",
+      "query": "query-1",
+      "agent": "market_agent",
+      "model": "gpt-oss-120b",
+      "result": "result-1",
+      "success": 1,
+      "error_msg": null,
+      "duration_ms": 101
     }
   ],
-  "exported_at": "2026-10-08T00:33:04.037061"
+  "exported_at": "2026-10-08T21:08:16.237551"
 }

@@ -1,6 +1,10 @@
+import urllib3
 import requests
 from datetime import datetime, timedelta
 from config import OBSIDIAN_API_KEY, OBSIDIAN_BASE_URL
+
+# Suppress self-signed certificate warnings for local Obsidian REST API
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 BASE_URL = OBSIDIAN_BASE_URL
 
@@ -16,6 +20,7 @@ JSON_HEADERS = {
 
 
 def write_note(title: str, content: str) -> bool:
+    """Best-effort note sync to Obsidian. Never crashes pipeline if Obsidian is offline."""
     if not OBSIDIAN_API_KEY:
         return False
     try:
@@ -27,11 +32,10 @@ def write_note(title: str, content: str) -> bool:
             verify=False,
             timeout=2
         )
-        print(f"STATUS: {response.status_code}")
         response.raise_for_status()
         return True
     except Exception as e:
-        print(f"  [memory] write failed: {e}")
+        print(f"  [obsidian] Note sync skipped ({title}): {e}")
         return False
 
 
@@ -39,7 +43,7 @@ def read_note(title: str) -> str:
     """
     Read a specific note by its title (without .md extension).
     Path pattern: nexus/{title}.md
-    Returns raw markdown content, or empty string if not found.
+    Returns raw markdown content, or empty string if not found or unreachable.
     """
     if not OBSIDIAN_API_KEY:
         return ""
@@ -53,10 +57,9 @@ def read_note(title: str) -> str:
         )
         if response.status_code == 200:
             return response.text
-        print(f"  [memory] note not found: {filename} (status {response.status_code})")
         return ""
     except Exception as e:
-        print(f"  [memory] read_note failed: {e}")
+        print(f"  [obsidian] read_note skipped ({title}): {e}")
         return ""
 
 
