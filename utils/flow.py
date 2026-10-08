@@ -173,10 +173,22 @@ def classify_foreign_flow(
     else:
         signal = "Distribution"
 
+    # Detect market scope: Pasar Reguler vs All Market / Pasar Negosiasi
+    text_lower = text.lower()
+    is_negotiated = any(k in text_lower for k in ["pasar negosiasi", "seluruh pasar", "all market", "total pasar", "pasar tunai"])
+    is_regular_explicit = any(k in text_lower for k in ["pasar reguler", "regular market", "papan reguler"])
+
+    if is_negotiated and not is_regular_explicit:
+        market_scope = "all_market"
+    else:
+        market_scope = "regular"
+
     return {
         "signal": signal,
         "net_trillion": round(net_signed_trillion, 4),
         "raw_figure": f"{amount_str} {unit_str}",
         "direction": "Sell" if is_sell else "Buy",
+        "market_scope": market_scope,
+        "is_all_market": (market_scope == "all_market"),
         "reason": "classified_successfully",
     }

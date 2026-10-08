@@ -16,19 +16,24 @@ SECTOR_LOGIC = {
     "aviation":  "Airlines are directly fuel-sensitive — rising oil = rising avtur costs = margin compression = bearish.",
     "banking":   "Rate hike = short-term bullish for banks (wider NIM). Long-term risk if loan growth slows.",
     "property":  "Rate hike = bearish. Higher mortgage rates reduce demand.",
+    "consumer_goods": "Rupiah depreciation increases raw material import costs (wheat, sugar, milk) -> margin compression if unable to pass through prices.",
+    "pharmaceutical": "90%+ active pharmaceutical ingredients (API) imported in USD -> Rupiah weakness directly compresses gross margin.",
 }
 
 RUPIAH_LOGIC = {
     "weaken": [
-        "Exporters (earn USD, convert to more IDR): BULLISH",
+        "Exporters (earn USD, convert to more IDR): BULLISH (Coal, CPO, Metals)",
         "Importers (pay USD, cost increases in IDR): BEARISH",
         "Companies with USD-denominated debt: BEARISH (debt burden rises in IDR)",
+        "Pharmaceuticals (90%+ API imported in USD): BEARISH (gross margin compression)",
+        "Poultry & Animal Feed (imported corn/soybean meal): BEARISH (higher feed production costs)",
         "Domestic purchasing power for imported goods: DECREASES — NOT increases",
     ],
     "strengthen": [
         "Exporters (earn USD, convert to less IDR): BEARISH",
         "Importers: BULLISH (imported goods cheaper in IDR)",
         "Companies with USD debt: BULLISH (debt burden decreases)",
+        "Consumer & Pharmaceutical: BULLISH (lower imported raw material costs)",
     ]
 }
 
@@ -87,6 +92,8 @@ def build_economics_context(
         if pct_change > 0:
             lines.append(f"  → {logic['producers']}: BULLISH (revenue increases)")
             lines.append(f"  → {logic['consumers']}: BEARISH (input costs rise, margins compress)")
+            if commodity in ["Crude Oil", "Brent Crude"] and pct_change >= 2.0:
+                lines.append("  → Macro Net Importer Warning: Crude spike >=2% elevates fiscal deficit & inflation concerns -> Banking & Consumer sectors face indirect margin caution.")
         else:
             lines.append(f"  → {logic['producers']}: BEARISH (revenue decreases)")
             lines.append(f"  → {logic['consumers']}: BULLISH (input costs fall, margins improve)")
