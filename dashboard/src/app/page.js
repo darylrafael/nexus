@@ -53,42 +53,75 @@ const getIdxMarketStatus = () => {
     const min = wib.getMinutes();
     const totalMin = hour * 60 + min;
 
-    // Weekend
+    // Determine next pipeline automation event (06:55 WIB brief / 20:00 WIB review)
+    let nextEvent = "06:55 WIB Morning Brief";
+    if (totalMin >= 415 && totalMin < 1200) {
+      nextEvent = "20:00 WIB Evening Review";
+    } else if (totalMin >= 1200) {
+      nextEvent = "06:55 WIB Morning Brief (Next Session)";
+    }
+
+    // Weekend (Sabtu / Minggu)
     if (day === 0 || day === 6) {
-      return { isOpen: false, status: "closed", label: "IDX: CLOSED (WEEKEND)" };
+      return {
+        isOpen: false,
+        status: "closed",
+        label: "IDX: CLOSED (WEEKEND)",
+        phase: "WEEKEND_CLOSED",
+        nextEvent,
+        timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB`
+      };
     }
 
     // Monday - Thursday
     if (day >= 1 && day <= 4) {
-      if (totalMin >= 540 && totalMin < 720) {
-        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
+      if (totalMin >= 525 && totalMin < 540) { // 08:45 - 08:59
+        return { isOpen: false, status: "recess", label: "IDX: PRE-OPENING (LQ45)", phase: "PRE_OPENING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      if (totalMin >= 720 && totalMin < 810) {
-        return { isOpen: false, status: "recess", label: "IDX: BREAK" };
+      if (totalMin >= 540 && totalMin < 690) { // 09:00 - 11:30
+        return { isOpen: true, status: "open", label: "IDX: SESI 1 (09:00 - 11:30)", phase: "SESSION_1", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      if (totalMin >= 810 && totalMin < 960) {
-        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 2)" };
+      if (totalMin >= 690 && totalMin < 810) { // 11:30 - 13:30
+        return { isOpen: false, status: "recess", label: "IDX: ISTIRAHAT SESI", phase: "RECESS", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+      if (totalMin >= 810 && totalMin < 949) { // 13:30 - 15:49
+        return { isOpen: true, status: "open", label: "IDX: SESI 2 (13:30 - 15:49)", phase: "SESSION_2", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      if (totalMin >= 949 && totalMin < 961) { // 15:50 - 16:00
+        return { isOpen: false, status: "recess", label: "IDX: PRE-CLOSING", phase: "PRE_CLOSING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      if (totalMin >= 961 && totalMin < 975) { // 16:01 - 16:15
+        return { isOpen: false, status: "recess", label: "IDX: POST-TRADING", phase: "POST_TRADING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      return { isOpen: false, status: "closed", label: "IDX: CLOSED", phase: "CLOSED", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
     }
 
     // Friday
     if (day === 5) {
-      if (totalMin >= 540 && totalMin < 690) {
-        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
+      if (totalMin >= 525 && totalMin < 540) { // 08:45 - 08:59
+        return { isOpen: false, status: "recess", label: "IDX: PRE-OPENING (LQ45)", phase: "PRE_OPENING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      if (totalMin >= 690 && totalMin < 840) {
-        return { isOpen: false, status: "recess", label: "IDX: BREAK" };
+      if (totalMin >= 540 && totalMin < 690) { // 09:00 - 11:30
+        return { isOpen: true, status: "open", label: "IDX: SESI 1 (09:00 - 11:30)", phase: "SESSION_1", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      if (totalMin >= 840 && totalMin < 960) {
-        return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 2)" };
+      if (totalMin >= 690 && totalMin < 840) { // 11:30 - 14:00 (Jumat)
+        return { isOpen: false, status: "recess", label: "IDX: ISTIRAHAT JUMAT", phase: "RECESS", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
       }
-      return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+      if (totalMin >= 840 && totalMin < 949) { // 14:00 - 15:49
+        return { isOpen: true, status: "open", label: "IDX: SESI 2 (14:00 - 15:49)", phase: "SESSION_2", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      if (totalMin >= 949 && totalMin < 961) { // 15:49 - 16:00
+        return { isOpen: false, status: "recess", label: "IDX: PRE-CLOSING", phase: "PRE_CLOSING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      if (totalMin >= 961 && totalMin < 975) { // 16:01 - 16:15
+        return { isOpen: false, status: "recess", label: "IDX: POST-TRADING", phase: "POST_TRADING", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
+      }
+      return { isOpen: false, status: "closed", label: "IDX: CLOSED", phase: "CLOSED", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
     }
 
-    return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+    return { isOpen: false, status: "closed", label: "IDX: CLOSED", phase: "CLOSED", nextEvent, timeWib: `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")} WIB` };
   } catch (e) {
-    return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
+    return { isOpen: false, status: "closed", label: "IDX: CLOSED", phase: "CLOSED", nextEvent: "06:55 WIB Morning Brief", timeWib: "WIB" };
   }
 };
 
@@ -1204,9 +1237,9 @@ export default function Dashboard() {
             </div>
             <div className="context-divider" />
             <div className="context-item">
-              <span className="context-label font-mono">HEURISTIC SYNC</span>
-              <div className="context-value font-mono text-matched">
-                Obsidian:27124
+              <span className="context-label font-mono">NEXT RUN</span>
+              <div className="context-value font-mono text-secondary" style={{ fontSize: "12px" }}>
+                {marketStatus.nextEvent || "06:55 WIB Morning Brief"}
               </div>
             </div>
           </div>
