@@ -42,12 +42,14 @@ export async function GET(request, context) {
       } catch (e) {}
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       date,
       markdown,
       sources
     });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    return response;
 
   } catch (error) {
     console.error('Brief API Error:', error);

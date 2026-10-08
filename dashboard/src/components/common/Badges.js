@@ -85,3 +85,54 @@ export function HeuristicStatusBadge({ status }) {
     </span>
   );
 }
+
+export function DataQualityBadge({ isWebFallback, isUnscorable, confidence }) {
+  if (isUnscorable) {
+    return (
+      <span
+        className="font-mono text-xs"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "4px",
+          padding: "2px 6px",
+          borderRadius: "var(--radius-sm)",
+          background: "var(--surface-well)",
+          border: "1px solid var(--border-default)",
+          color: "var(--text-tertiary)",
+          fontWeight: 600,
+          fontSize: "10px",
+          letterSpacing: "0.04em",
+        }}
+        title="Session cannot be scored due to holiday, early close, or market disruption"
+      >
+        ⏸ UNSCORABLE
+      </span>
+    );
+  }
+  if (isWebFallback) {
+    return (
+      <span
+        className="font-mono text-xs"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "4px",
+          padding: "2px 6px",
+          borderRadius: "var(--radius-sm)",
+          background: "var(--warning-bg)",
+          border: "1px solid var(--warning-border)",
+          color: "var(--warning-text)",
+          fontWeight: 600,
+          fontSize: "10px",
+          letterSpacing: "0.04em",
+        }}
+        title="Data sourced via web search fallback, not primary provider"
+      >
+        ⚡ WEB FALLBACK
+      </span>
+    );
+  }
+  return null;
+}
+

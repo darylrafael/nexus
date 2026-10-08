@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import LessonsDatabaseView from "../components/views/LessonsDatabaseView";
 import ExecutionTelemetryView from "../components/views/ExecutionTelemetryView";
 import SideSheet from "../components/common/SideSheet";
+import { LegalDisclaimerBanner, LegalDisclaimerFooter } from "../components/common/Disclaimer";
+import { DataQualityBadge } from "../components/common/Badges";
 
 const formatPct = (value) => {
   const num = Number(value);
@@ -671,11 +673,12 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
           {formatHeaderDate(review.date)}
         </td>
         <td>
-          <div className="table-call-cell">
+          <div className="table-call-cell" style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
             <DirectionBadge direction={review.ihsg_predicted} />
             {review.ihsg_confidence && (
               <span className="font-mono text-xs text-muted font-semibold">{review.ihsg_confidence}%</span>
             )}
+            <DataQualityBadge isWebFallback={review.isWebFallback} isUnscorable={review.isUnscorable} />
           </div>
         </td>
         <td>
@@ -752,6 +755,24 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
                   </div>
                   <div className="detail-sub">Session closing exchange rate</div>
                 </div>
+                {review.isWebFallback && (
+                  <div className="detail-item">
+                    <div className="detail-label">Data Provider Status</div>
+                    <div className="detail-value font-mono" style={{ fontSize: "12px", color: "var(--warning-text)" }}>
+                      ⚡ Web Search Fallback Active
+                    </div>
+                    <div className="detail-sub">Sourced via search engines due to primary provider limitation</div>
+                  </div>
+                )}
+                {review.isUnscorable && (
+                  <div className="detail-item">
+                    <div className="detail-label">Scoring Status</div>
+                    <div className="detail-value font-mono text-muted" style={{ fontSize: "12px" }}>
+                      ⏸ Session Unscorable
+                    </div>
+                    <div className="detail-sub">Excluded from accuracy benchmarks (holiday/half-day)</div>
+                  </div>
+                )}
                 <div className="detail-item">
                   <div className="detail-label">Deterministic Sector Checks</div>
                   <div className="detail-sub">
@@ -959,9 +980,18 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("nexus-theme") || "dark";
+    let savedTheme = "dark";
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        savedTheme = localStorage.getItem("nexus-theme") || "dark";
+      }
+    } catch (e) {
+      // Ignore localStorage access failures in restricted or private browsing modes
+    }
     setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
 
     fetch("/api/stats")
       .then((res) => res.json())
@@ -989,8 +1019,16 @@ export default function Dashboard() {
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
-    localStorage.setItem("nexus-theme", nextTheme);
-    document.documentElement.setAttribute("data-theme", nextTheme);
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem("nexus-theme", nextTheme);
+      }
+    } catch (e) {
+      // Ignore storage write errors
+    }
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", nextTheme);
+    }
   };
 
   const dashboard = useMemo(() => {
@@ -1535,6 +1573,7 @@ export default function Dashboard() {
         {currentView === "telemetry" && (
           <ExecutionTelemetryView theme={theme} toggleTheme={toggleTheme} />
         )}
+        <LegalDisclaimerFooter />
       </main>
 
       <SideSheet
@@ -1551,6 +1590,7 @@ export default function Dashboard() {
           </div>
         ) : (
           <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
+            <LegalDisclaimerBanner />
             <RenderWithSources text={briefMarkdown} sources={briefSources} />
           </article>
         )}

@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { DirectionBadge, StatusBadge } from '../common/Badges';
+import { DirectionBadge, StatusBadge, DataQualityBadge } from '../common/Badges';
 
 function formatNumber(val) {
   if (val === null || val === undefined || val === '') return '—';
@@ -62,6 +62,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
             {review.ihsg_confidence && (
               <span className="font-mono text-xs text-muted">({review.ihsg_confidence}%)</span>
             )}
+            <DataQualityBadge isWebFallback={review.isWebFallback} isUnscorable={review.isUnscorable} />
           </div>
         </td>
         <td>

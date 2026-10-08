@@ -72,48 +72,18 @@ export async function GET(request) {
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count);
 
-    // 4. Trace Provenance & Calculate Heuristics Metrics Deterministically
-    // Definition:
-    // - Observed: Session where rule premise was encountered.
-    // - Validated: Market movement consequence matched rule claim.
-    // - Contradicted: Market movement diverged/disproved rule claim.
-    // - Active: (validated + contradicted) > 0 ? (validated / (validated + contradicted) >= 0.5) : false
+    // 4. Trace Provenance & Ground Heuristics in Verified Artifact Evidence
     const heuristics = allLessons.map((ruleText, idx) => {
       const evidence = [];
-      let observed = 0;
-      let validated = 0;
-      let contradicted = 0;
       let lastObserved = '';
 
-      // Check occurrences across historical daily reviews
       dailyReviews.forEach(rev => {
         const hasLesson = (rev.lessons || []).some(l => l.includes(ruleText) || ruleText.includes(l));
-        const ruleKeywords = ruleText.toLowerCase().split(/\s+/).filter(w => w.length > 4);
-        const textToMatch = `${rev.summary || ''} ${(rev.rca_unanticipated || []).join(' ')} ${(rev.lessons || []).join(' ')}`.toLowerCase();
-        const keywordMatches = ruleKeywords.filter(k => textToMatch.includes(k)).length;
-        const isContextMatch = hasLesson || (ruleKeywords.length > 0 && keywordMatches / ruleKeywords.length >= 0.6);
-
-        if (isContextMatch) {
-          observed += 1;
+        if (hasLesson) {
           if (!lastObserved) lastObserved = rev.date;
-
-          let outcome = 'OBSERVED';
-          if (rev.ihsg_correct === true) {
-            validated += 1;
-            outcome = 'VALIDATED';
-          } else if (rev.ihsg_correct === false) {
-            if (hasLesson) {
-              validated += 1;
-              outcome = 'VALIDATED';
-            } else {
-              contradicted += 1;
-              outcome = 'CONTRADICTED';
-            }
-          }
-
           evidence.push({
             date: rev.date,
-            outcome,
+            outcome: rev.ihsg_correct ? 'CORRECT_PREDICTION' : 'INCORRECT_PREDICTION',
             ihsg_actual: rev.ihsg_actual || 'Flat',
             ihsg_actual_pct: rev.ihsg_actual_pct || 0.0,
             summary: rev.summary || 'Post-market evaluation completed.'
@@ -121,13 +91,8 @@ export async function GET(request) {
         }
       });
 
-      const testedCount = validated + contradicted;
-      const validationRate = testedCount > 0 ? Number(((validated / testedCount) * 100).toFixed(1)) : null;
-
-      let status = 'UNTESTED';
-      if (observed > 0) {
-        status = testedCount > 0 ? ((validated / testedCount >= 0.5) ? 'ACTIVE' : 'SUPERSEDED') : 'OBSERVED_ONLY';
-      }
+      const observed = evidence.length;
+      const status = observed > 0 ? 'ACTIVE' : 'UNTESTED';
 
       // Categorize rule deterministically
       let category = 'Market Sentiment';
@@ -147,9 +112,6 @@ export async function GET(request) {
         rule: ruleText,
         category,
         observed,
-        validated,
-        contradicted,
-        validationRate,
         status,
         lastObserved: lastObserved || lastUpdated,
         evidence
@@ -157,20 +119,22 @@ export async function GET(request) {
     });
 
     const activeRulesCount = heuristics.filter(h => h.status === 'ACTIVE').length;
-    const supersededRulesCount = heuristics.filter(h => h.status === 'SUPERSEDED').length;
+    const unprovenRulesCount = heuristics.filter(h => h.status === 'UNTESTED').length;
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       stats: {
         totalLessons: allLessons.length,
         activeHeuristics: activeRulesCount,
-        supersededHeuristics: supersededRulesCount,
+        unprovenHeuristics: unprovenRulesCount,
         blindSpotsCount: blindSpots.length,
         lastCycle: lastUpdated
       },
       blindSpots,
       heuristics
     });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    return response;
   } catch (error) {
     console.error('Memory API Error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

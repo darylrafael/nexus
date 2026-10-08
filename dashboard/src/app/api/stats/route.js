@@ -36,7 +36,19 @@ export async function GET(request) {
           const content = fs.readFileSync(reviewPath, 'utf8');
           try {
             const data = JSON.parse(content);
-            reviews.push({ date, ...data, sources: sourcesMap, isPendingReview: false });
+            const isWebFallback = data.ihsg_source === 'web_fallback' || data.source === 'web_fallback';
+            const isUnscorable = data.ihsg_correct === null || data.accuracy_score === null;
+            reviews.push({
+              date,
+              ...data,
+              qualityBadges: {
+                isWebFallback,
+                confidence: isWebFallback ? 'low' : 'verified',
+                isUnscorable,
+              },
+              sources: sourcesMap,
+              isPendingReview: false
+            });
           } catch (e) {
             console.error(`Failed to parse ${reviewPath}`, e);
           }
@@ -200,12 +212,12 @@ export async function GET(request) {
       } catch (e) {}
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       isDemo,
       stats: {
         totalDays: evaluatedDays,
-        avgAccuracy,
+        avgAccuracy: nexusStats?.rolling_avg_accuracy ?? avgAccuracy,
         directionAccuracy: nexusStats?.direction_accuracy_pct ?? null,
         flowAccuracy: nexusStats?.flow_accuracy_pct ?? null,
         sectorAccuracy: nexusStats?.sector_accuracy_pct ?? null,
@@ -215,6 +227,8 @@ export async function GET(request) {
       recentLessons: recentLessons.slice(0, 10), // Top 10 most recent
       reviews
     });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    return response;
     
   } catch (error) {
     console.error("API Error:", error);
