@@ -1,0 +1,24 @@
+# Pinned dependency lock file for Nexus (Python 3.11.9)
+APScheduler==3.11.3
+certifi==2026.1.4
+charset-normalizer==3.4.4
+curl_cffi==0.15.0
+idna==3.11
+multitasking==0.0.13
+numpy==2.4.6
+openai==2.44.0
+pandas==2.3.3
+pydantic==2.6.3
+pydantic_core==2.16.3
+pytest==8.0.2
+pytest-asyncio==0.25.0
+python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
+python-telegram-bot==22.8
+pytz==2026.2
+requests==2.32.5
+tavily-python==0.7.26
+tzdata==2025.3
+tzlocal==5.4.4
+urllib3==2.6.3
+yfinance==0.2.54

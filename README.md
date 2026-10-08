@@ -49,44 +49,39 @@ Built as a portfolio project demonstrating multi-agent orchestration, model rout
 ## How It Works
 
 ### Morning (07:00 WIB, weekdays)
-1. Fetches real commodity prices — Oil, Gas via yfinance; Coal, CPO, Nickel via Tavily
+1. Fetches commodity prices (Oil, Gas via yfinance personal/research feed; Coal, CPO, Nickel web search estimates or marked unavailable when unverified)
 2. Injects **deterministic economic logic** (commodity price → sector impact) to prevent LLM hallucination
 3. Searches macro news: Indonesian economy, global macro, geopolitics
 4. Loads **past prediction accuracy + lessons** from memory to calibrate the LLM
 5. Generates structured 7-section market brief via LLM
-6. Validates output (direction language, ticker consistency)
-7. Saves to Obsidian vault + sends via Telegram
+6. Validates output (direction language, ticker consistency flags)
+7. Saves to Obsidian vault / local artifacts + sends via Telegram
 
-### Evening (19:00 WIB, weekdays)
-1. Reads morning brief from Obsidian — if not found, stops
+### Evening (20:00 WIB, weekdays)
+1. Reads morning brief from local artifacts / memory — if not found, stops
 2. Fetches actual IHSG close, USD/IDR, commodity prices, top movers, foreign flow
 3. Searches for unexpected news that may have moved the market
 4. LLM performs quantitative evaluation: was IHSG direction correct? Sectors? Foreign flow?
 5. Root Cause Analysis: unanticipated factors, overestimated factors, info delays, inverse correlations
 6. Generates specific lessons: *"Ketika [morning condition], tetapi [unexpected factor], maka [actual impact]"*
-7. Saves learning entry + updates rolling performance stats in Obsidian
-
-### Next Morning
-The morning brief LLM receives a **calibration block** containing:
-- Rolling accuracy stats
-- Recent session results (predicted vs actual)
-- Recurring blind spots
-- Latest lessons learned
+7. Saves learning entry + updates rolling performance stats
 
 ---
 
-## Tech Stack
+## Tech Stack & Data Sources
+
+> **Notice on Data Feeds**: Market and commodity feeds utilize public/research-tier APIs (`yfinance`, Tavily search estimates). They are strictly for educational and personal research use. A production public offering requires licensed market data providers (e.g. IDX direct feed, Refinitiv/LSEG, Bloomberg).
 
 | Component | Tool | Role |
 |-----------|------|------|
 | Orchestration | OpenRouter + Gemini fallback | Market brief generation, RCA, reflection |
-| Web search | Tavily | News, commodity prices, market movers |
-| Market data | yfinance | IHSG, Oil, Gas, Brent, USD/IDR live prices |
-| Memory | Obsidian Local REST API | Persistent note storage across sessions |
-| Session tracking | SQLite | Run history, success rates, agent usage |
+| Web search | Tavily | News and market mover search (subject to search availability) |
+| Market data | yfinance (Personal/Research) | IHSG, Oil, Gas, Brent, USD/IDR snapshot prices |
+| Memory | Obsidian Local REST API | Optional local note storage |
+| Session tracking | SQLite / JSON artifacts | Run history, success rates, agent usage |
 | Delivery | Telegram Bot API | Push reports + evening review to mobile |
-| Cloud Automation | GitHub Actions | Scheduled cloud cron (06:55 & 18:55 WIB) + artifact sync |
-| Local Scheduling | APScheduler / Windows Tasks | Local cron at 07:00 and 19:00 WIB |
+| Cloud Automation | GitHub Actions (Experimental) | Headless cloud cron + artifact sync |
+| Local Scheduling | APScheduler / Windows Tasks | Local cron execution |
 
 ---
 
@@ -109,7 +104,7 @@ Day 2 Morning → LLM sees: "Yesterday predicted Bullish → actual Bearish ❌"
 
 ### 1. Clone and install
 ```bash
-git clone https://github.com/yourusername/nexus.git
+git clone <YOUR_NEXUS_REPOSITORY_URL>
 cd nexus
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
@@ -119,10 +114,10 @@ pip install -r requirements.txt
 ### 2. Configure environment
 ```bash
 cp .env.example .env
-# Fill in your API keys
+# Fill in your API keys (see SECURITY.md for instructions)
 ```
 
-### 3. Set up Obsidian
+### 3. Set up Obsidian (Optional)
 - Install [Obsidian](https://obsidian.md) (free)
 - Enable **Local REST API** plugin → port 27124
 - Copy the API key to `.env`
@@ -134,12 +129,12 @@ cp .env.example .env
 
 ### 5. Automated Execution Modes
 
-#### Option A: Cloud Scheduled Pipelines (GitHub Actions — Zero Local Hardware Dependency)
-Nexus includes production GitHub Actions workflows for 100% headless, cloud-hosted execution. Your computer does **not** need to be powered on:
+#### Option A: Cloud Scheduled Workflows (GitHub Actions)
+Nexus provides GitHub Actions workflow definitions for headless cloud runs (see Phase 6 deployment notes):
 - **Nexus Morning Brief** (`.github/workflows/morning_brief.yml`): Runs Monday–Friday at 06:55 WIB (`23:55 UTC Sun-Thu`).
-- **Nexus Evening Review** (`.github/workflows/evening_review.yml`): Runs Monday–Friday at 18:55 WIB (`11:55 UTC Mon-Fri`).
-- **Artifact Auto-Archiving**: Every cloud run commits generated reports and predictions in `runs/` back to GitHub (`[skip ci]`). Run `git pull` locally to view them in your local dashboard.
-- **Manual Trigger**: Run either pipeline on-demand from the GitHub web UI or the GitHub mobile app via `workflow_dispatch`.
+- **Nexus Evening Review** (`.github/workflows/evening_review.yml`): Runs Monday–Friday at 20:00 WIB (`13:00 UTC Mon-Fri`).
+- **Artifact Auto-Archiving**: Note that saving artifacts directly back to the repo requires appropriate branch permissions or remote storage.
+- **Manual Trigger**: Can be dispatched on-demand from GitHub Actions web UI via `workflow_dispatch`.
 
 **Cloud Setup:**
 1. In your GitHub repo, go to **Settings** > **Secrets and variables** > **Actions**.

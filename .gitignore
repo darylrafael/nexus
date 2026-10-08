@@ -1,20 +1,40 @@
 # Environment
 .env
+.env.*
+!.env.example
 
 # Virtual environment
 venv/
 env/
+.venv/
 
 # Python cache
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
 
 # Database
 *.db
+*.sqlite
+*.sqlite3
+nexus_sessions.db
 
 # Logs
 *.log
+dashboard/*.log
+dashboard/dev-*.log
+dashboard/start-*.log
+runs_scheduled.log
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dashboard/node_modules/
+dashboard/.next/
+dashboard/out/
 
 # OS
 .DS_Store
@@ -22,3 +42,5 @@ Thumbs.db
 
 # Agent / IDE internal
 .superpowers/
+.idea/
+.vscode/
