@@ -1,12 +1,10 @@
 from data_sources.market_data import (
-    COMMODITY_TICKERS,
+    fetch_all_commodities,
     fetch_ihsg_snapshot,
-    fetch_yfinance_commodity,
-    format_commodity_snapshot,
+    format_all_commodities_markdown,
     format_ihsg_snapshot,
     jakarta_now,
 )
-from data_sources.news import search_text_with_sources
 
 
 def get_ihsg_data(target_date: str | None = None) -> str:
@@ -23,30 +21,9 @@ def get_commodity_prices(
 ) -> str:
     now_str = jakarta_now().strftime("%B %d, %Y")
     label = target_label or now_str
-    lines = [f"## Real-Time Commodity Prices ({label})\n"]
 
-    lines.append(f"### IHSG Actual Price Data:\n{get_ihsg_data(target_date=target_date)}\n")
+    ihsg_section = f"### IHSG Actual Price Data:\n{get_ihsg_data(target_date=target_date)}\n"
+    comm_data = fetch_all_commodities(target_label=label, search_days=search_days)
+    comm_markdown = format_all_commodities_markdown(comm_data, target_label=label)
 
-    for name, ticker in COMMODITY_TICKERS.items():
-        try:
-            snapshot = fetch_yfinance_commodity(name, ticker)
-            lines.append(format_commodity_snapshot(snapshot))
-        except Exception as e:
-            print(f"  [commodity_agent] failed to fetch {name}: {e}")
-            lines.append(f"- **{name}**: Price unavailable")
-
-    for name, query in {
-        "Coal (Newcastle)": f"Newcastle coal spot price {label}",
-        "CPO (Palm Oil)": f"CPO crude palm oil price Bursa Malaysia {label}",
-        "Nickel (LME)": f"LME nickel spot price {label}",
-    }.items():
-        try:
-            result, _source_ids = search_text_with_sources(
-                query, days=search_days, category=name, limit_chars=800
-            )
-            lines.append(f"\n### {name}:\n{result}")
-        except Exception as e:
-            print(f"  [commodity_agent] failed to search {name}: {e}")
-            lines.append(f"- **{name}**: Price unavailable")
-
-    return "\n".join(lines)
+    return f"{ihsg_section}\n{comm_markdown}"

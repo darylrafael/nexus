@@ -557,3 +557,93 @@ def format_commodity_snapshot(data: dict[str, Any]) -> str:
 
     direction = "UP" if change > 0 else "DOWN"
     return f"- **{name}**: {price_str} {direction} {abs(change):.2f}%"
+
+
+def fetch_all_commodities(
+    target_label: str | None = None,
+    search_days: int = 1,
+) -> dict[str, Any]:
+    """
+    Centralized commodity fetching across both yfinance (tickers) and web search (Coal/CPO/Nickel).
+    Used by both morning brief (market_agent / commodity_agent) and evening review.
+    Eliminates redundant dual queries and ensures uniform economic indicators.
+    """
+    from data_sources.news import search_text_with_sources
+
+    now_str = jakarta_now().strftime("%B %d, %Y")
+    label = target_label or now_str
+
+    yfinance_data: dict[str, dict[str, Any]] = {}
+    web_data: dict[str, dict[str, Any]] = {}
+    all_data: dict[str, dict[str, Any]] = {}
+    evidence_ids: list[str] = []
+
+    # 1. Fetch yfinance tickers
+    for name, ticker in COMMODITY_TICKERS.items():
+        try:
+            snap = fetch_yfinance_commodity(name, ticker)
+            yfinance_data[name] = snap
+            all_data[name] = snap
+        except Exception as e:
+            err_snap = {
+                "name": name,
+                "ticker": ticker,
+                "price": None,
+                "change_pct": None,
+                "signal": "Unavailable",
+                "error": str(e),
+            }
+            yfinance_data[name] = err_snap
+            all_data[name] = err_snap
+
+    # 2. Fetch web commodities (Coal, CPO, Nickel)
+    web_queries = {
+        "Coal (Newcastle)": f"harga batu bara Newcastle spot price {label}",
+        "CPO": f"harga CPO crude palm oil price {label}",
+        "Nickel (LME)": f"harga nikel LME nickel spot price {label}",
+    }
+
+    for name, query in web_queries.items():
+        try:
+            result, source_ids = search_text_with_sources(
+                query, days=search_days, category=name, limit_chars=600
+            )
+            item = {"raw": result, "source_ids": source_ids}
+            web_data[name] = item
+            all_data[name] = {"raw": result}
+            evidence_ids.extend(source_ids)
+        except Exception as e:
+            item = {"raw": f"Data unavailable: {e}", "source_ids": [], "error": str(e)}
+            web_data[name] = item
+            all_data[name] = item
+
+    # 3. Map clean changes for economics engine
+    changes = {
+        "Crude Oil": yfinance_data.get("Crude Oil (WTI)", {}).get("change_pct"),
+        "Brent Crude": yfinance_data.get("Brent Crude", {}).get("change_pct"),
+        "Natural Gas": yfinance_data.get("Natural Gas", {}).get("change_pct"),
+    }
+
+    return {
+        "yfinance": yfinance_data,
+        "web": web_data,
+        "all": all_data,
+        "changes": changes,
+        "evidence_ids": evidence_ids,
+        "label": label,
+    }
+
+
+def format_all_commodities_markdown(comm_data: dict[str, Any], target_label: str | None = None) -> str:
+    """Format commodities into clean markdown for LLM brief/review prompts."""
+    label = target_label or comm_data.get("label", "Current")
+    lines = [f"## Real-Time Commodity Prices ({label})\n"]
+
+    for name, snap in comm_data.get("yfinance", {}).items():
+        lines.append(format_commodity_snapshot(snap))
+
+    for name, item in comm_data.get("web", {}).items():
+        raw_text = item.get("raw", "unavailable")
+        lines.append(f"\n### {name}:\n{raw_text}")
+
+    return "\n".join(lines)

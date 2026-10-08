@@ -104,6 +104,17 @@ def daily_brief(force: bool = False):
     except Exception as e:
         err = traceback.format_exc()
         print(f"[scheduler] ERROR - Morning brief crashed:\n{err}")
+        try:
+            from memory.artifacts import save_json_artifact
+            save_json_artifact(date_key, "pipeline_status.json", {
+                "stage": "morning_brief",
+                "status": "failed",
+                "date": date_key,
+                "error": str(e),
+                "failed_at": now.isoformat(timespec="seconds"),
+            })
+        except Exception:
+            pass
         send_report(
             f"\u274c *Nexus -- Morning Brief FAILED*\n"
             f"_{now.strftime('%Y-%m-%d %H:%M')}_\n\n"
@@ -196,10 +207,22 @@ def evening_review(force: bool = False, target_date: str = None):
         learning = run_evening_review(date_key)
 
         if learning is None:
-            print("[scheduler] Evening review skipped -- no morning brief found.")
+            # Check if morning brief previously recorded a failure
+            status_file = Path(__file__).parent / "runs" / date_key / "pipeline_status.json"
+            reason_msg = "no morning brief found"
+            if status_file.exists():
+                try:
+                    import json
+                    s_data = json.loads(status_file.read_text(encoding="utf-8"))
+                    if s_data.get("status") == "failed":
+                        reason_msg = f"morning brief failed ({s_data.get('error', 'unknown error')[:120]})"
+                except Exception:
+                    pass
+
+            print(f"[scheduler] Evening review skipped -- {reason_msg}.")
             send_report(
                 f"\u2139\ufe0f *Nexus Evening Review* -- {date_key}\n"
-                f"_No morning brief found. Skipped._"
+                f"_Execution skipped: {reason_msg}._"
             )
             return
 

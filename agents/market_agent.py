@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
 import time
-from agents.commodity_agent import get_commodity_prices
+from agents.commodity_agent import get_ihsg_data
 from agents.economics_engine import build_economics_context
 from agents.prediction_extractor import extract_predictions
 from agents.validator import build_commodity_context, validate
 from agents.web_agent import get_source_registry, search_multiple, search_web
 from data_sources.market_data import (
-    fetch_yfinance_commodity,
+    fetch_all_commodities,
+    format_all_commodities_markdown,
     get_market_calendar_info,
     jakarta_now,
 )
@@ -38,47 +39,49 @@ def run_market_brief() -> str:
 
     print(f"  [market_agent] Brief date: {today_label} | Last trading session: {last_trading_label} | Search lookback: {search_days} days")
 
-    if is_after_gap:
-        queries = {
-            "Indonesian Economy": f"IHSG rupiah kurs BI rate inflasi ekonomi Indonesia {last_trading_date_id} hingga {today_date_id}",
-            "Global Macro": f"Wall Street bursa AS suku bunga The Fed ekonomi China GDP inflasi {last_trading_date_id} hingga {today_date_id}",
-            "Geopolitics": f"geopolitik perang konflik Timur Tengah Asia pasar modal {last_trading_date_id} {today_date_id}",
+    # Record pipeline starting status
+    try:
+        save_json_artifact(date_key, "pipeline_status.json", {
+            "stage": "morning_brief",
+            "status": "running",
+            "date": date_key,
+            "started_at": jakarta_now().isoformat(timespec="seconds"),
+        })
+    except Exception:
+        pass
+
+    try:
+        if is_after_gap:
+            queries = {
+                "Indonesian Economy": f"IHSG rupiah kurs BI rate inflasi ekonomi Indonesia {last_trading_date_id} hingga {today_date_id}",
+                "Global Macro": f"Wall Street bursa AS suku bunga The Fed ekonomi China GDP inflasi {last_trading_date_id} hingga {today_date_id}",
+                "Geopolitics": f"geopolitik perang konflik Timur Tengah Asia pasar modal {last_trading_date_id} {today_date_id}",
+            }
+        else:
+            queries = {
+                "Indonesian Economy": f"IHSG rupiah kurs BI rate inflasi ekonomi Indonesia {last_trading_date_id}",
+                "Global Macro": f"The Fed suku bunga AS ekonomi China GDP inflasi {last_trading_date_id}",
+                "Geopolitics": f"geopolitik perang dagang Asia tenggara pasar modal {last_trading_date_id}",
+            }
+
+        print(f"  [market_agent] Fetching consolidated commodity data ({period_description_id})...")
+        comm_res = fetch_all_commodities(target_label=period_description_id, search_days=search_days)
+        ihsg_text = get_ihsg_data(target_date=last_trading_key)
+        comm_markdown = format_all_commodities_markdown(comm_res, target_label=period_description_id)
+        commodity_text_data = f"### IHSG Actual Price Data:\n{ihsg_text}\n\n{comm_markdown}"
+        commodity_text_context = build_commodity_context(commodity_text_data)
+
+        # Single authoritative commodity changes from consolidated fetch
+        commodity_changes = {
+            "Crude Oil": comm_res["changes"].get("Crude Oil"),
+            "Natural Gas": comm_res["changes"].get("Natural Gas"),
         }
-    else:
-        queries = {
-            "Indonesian Economy": f"IHSG rupiah kurs BI rate inflasi ekonomi Indonesia {last_trading_date_id}",
-            "Global Macro": f"The Fed suku bunga AS ekonomi China GDP inflasi {last_trading_date_id}",
-            "Geopolitics": f"geopolitik perang dagang Asia tenggara pasar modal {last_trading_date_id}",
-        }
 
-    print(f"  [market_agent] Fetching text commodity data (lookback {search_days} days for {period_description_id})...")
-    commodity_text_data = get_commodity_prices(
-        search_days=search_days,
-        target_date=last_trading_key,
-        target_label=period_description_id,
-    )
-    commodity_text_context = build_commodity_context(commodity_text_data)
-
-    print("  [market_agent] Calculating exact global commodity price changes via yfinance...")
-
-    def _pct(name: str, ticker: str) -> float | None:
-        try:
-            snapshot = fetch_yfinance_commodity(name, ticker)
-            return snapshot.get("change_pct")
-        except Exception as e:
-            print(f"  [yfinance warning] failed to fetch {name} ({ticker}): {e}")
-            return None
-
-    commodity_changes = {
-        "Crude Oil": _pct("Crude Oil", "CL=F"),
-        "Natural Gas": _pct("Natural Gas", "NG=F"),
-    }
-
-    economics_context = build_economics_context(
-        commodity_changes=commodity_changes,
-        current_date=period_description_id,
-        search_days=search_days,
-    )
+        economics_context = build_economics_context(
+            commodity_changes=commodity_changes,
+            current_date=period_description_id,
+            search_days=search_days,
+        )
 
     print(f"  [market_agent] Fetching IDX market movers for last session ({last_trading_label})...")
     try:
@@ -255,24 +258,43 @@ Categorize sectors dynamically based on available data:
     if not final_output:
         raise RuntimeError("LLM generated empty market brief content.")
 
-    print("  [market_agent] Validating output rules...")
-    final_output = validate(final_output)
+        print("  [market_agent] Validating output rules...")
+        final_output = validate(final_output)
 
-    try:
-        prediction = extract_predictions(final_output, date_key)
-        save_text_artifact(date_key, "morning_brief.md", final_output)
-        save_json_artifact(date_key, "morning_prediction.json", prediction)
-        save_json_artifact(date_key, "sources.json", get_source_registry())
-        print(f"  [market_agent] saved structured artifacts for {date_key}")
+        try:
+            prediction = extract_predictions(final_output, date_key)
+            save_text_artifact(date_key, "morning_brief.md", final_output)
+            save_json_artifact(date_key, "morning_prediction.json", prediction)
+            save_json_artifact(date_key, "sources.json", get_source_registry())
+            save_json_artifact(date_key, "pipeline_status.json", {
+                "stage": "morning_brief",
+                "status": "completed",
+                "date": date_key,
+                "completed_at": jakarta_now().isoformat(timespec="seconds"),
+            })
+            print(f"  [market_agent] saved structured artifacts for {date_key}")
+        except Exception as e:
+            print(f"  [market_agent] artifact save failed: {e}")
+
+        log_session(
+            query="daily_brief",
+            agent="market_agent",
+            model="llm_client",
+            result=final_output,
+            duration_ms=int((time.time() - start) * 1000),
+        )
+
+        return final_output
+
     except Exception as e:
-        print(f"  [market_agent] artifact save failed: {e}")
-
-    log_session(
-        query="daily_brief",
-        agent="market_agent",
-        model="llm_client",
-        result=final_output,
-        duration_ms=int((time.time() - start) * 1000),
-    )
-
-    return final_output
+        try:
+            save_json_artifact(date_key, "pipeline_status.json", {
+                "stage": "morning_brief",
+                "status": "failed",
+                "date": date_key,
+                "error": str(e),
+                "failed_at": jakarta_now().isoformat(timespec="seconds"),
+            })
+        except Exception:
+            pass
+        raise

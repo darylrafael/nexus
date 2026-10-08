@@ -18,6 +18,7 @@ from agents.web_agent import search_multiple
 from agents.prediction_extractor import extract_predictions, MarketPrediction
 from data_sources.market_data import (
     COMMODITY_TICKERS,
+    fetch_all_commodities,
     fetch_ihsg_snapshot,
     fetch_usdidr_snapshot,
     fetch_yfinance_commodity,
@@ -177,37 +178,11 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
     data["usdidr_source"] = usdidr_snap.get("source")
     data["usdidr_retrieved_at"] = usdidr_snap.get("retrieved_at")
 
-    # Commodities via yfinance
-    print("  [step2] fetching commodity prices...")
-    data["commodities"] = {}
-    for name, ticker in COMMODITY_TICKERS.items():
-        try:
-            data["commodities"][name] = fetch_yfinance_commodity(name, ticker)
-        except Exception as e:
-            print(f"  [step2] commodity error for {name}: {e}")
-            data["commodities"][name] = {
-                "name": name,
-                "ticker": ticker,
-                "price": None,
-                "change_pct": None,
-                "signal": "Unavailable",
-                "error": str(e),
-            }
-
-    # Coal, CPO, Nickel — web search (no free yfinance ticker)
-    print("  [step2] fetching Coal/CPO/Nickel via web...")
-    for name, query in {
-        "Coal (Newcastle)": f"harga batu bara Newcastle hari ini {date_id}",
-        "CPO":               f"harga CPO crude palm oil hari ini {date_id}",
-        "Nickel (LME)":      f"harga nikel LME hari ini {date_id}",
-    }.items():
-        try:
-            result, source_ids = search_text_with_sources(query, days=1, category=name, limit_chars=200)
-            data["commodities"][name] = {"raw": result}
-            data["evidence_ids"].extend(source_ids)
-        except Exception as e:
-            print(f"  [step2] web commodity error for {name}: {e}")
-            data["commodities"][name] = {"raw": "N/A", "error": str(e)}
+    # Commodities via centralized fetch_all_commodities
+    print("  [step2] fetching commodity prices via centralized fetch...")
+    comm_res = fetch_all_commodities(target_label=date_id, search_days=1)
+    data["commodities"] = comm_res["all"]
+    data["evidence_ids"].extend(comm_res["evidence_ids"])
 
     # Top gainers / losers
     print("  [step2] fetching top movers...")
@@ -701,6 +676,9 @@ def run_evening_review(date_key: str = None) -> dict | None:
     # ── Step 1: Load morning brief ──────────────────────────────
     pred, morning_brief = load_morning_brief(date_key)
     if pred is None:
+        status_info = load_json_artifact(date_key, "pipeline_status.json")
+        if status_info and status_info.get("status") == "failed":
+            print(f"  [evening_reviewer] Notice: Morning brief for {date_key} had failed: {status_info.get('error')}")
         return None
 
     # ── Step 2: Collect actuals ─────────────────────────────────

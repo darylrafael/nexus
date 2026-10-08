@@ -6,6 +6,13 @@ from schemas import SourceRecord
 
 client = None
 _SOURCE_REGISTRY = {}
+_SEARCH_CACHE: dict[str, dict] = {}
+_SEARCH_METRICS = {
+    "api_calls": 0,
+    "cache_hits": 0,
+    "total_queries": 0,
+}
+SEARCH_CACHE_TTL_SECONDS = 1800  # 30 minutes
 
 
 def get_source_registry() -> dict:
@@ -14,6 +21,19 @@ def get_source_registry() -> dict:
 
 def clear_source_registry() -> None:
     _SOURCE_REGISTRY.clear()
+
+
+def get_search_metrics() -> dict:
+    """Return metrics on Tavily API calls and cache hits."""
+    return _SEARCH_METRICS.copy()
+
+
+def clear_search_cache() -> None:
+    """Clear cached search results and reset registry and metrics."""
+    _SEARCH_CACHE.clear()
+    _SEARCH_METRICS["api_calls"] = 0
+    _SEARCH_METRICS["cache_hits"] = 0
+    _SEARCH_METRICS["total_queries"] = 0
 
 
 def _get_client():
@@ -29,18 +49,56 @@ def _source_id(url: str, title: str) -> str:
     return f"src_{hashlib.sha1(raw).hexdigest()[:10]}"
 
 
+def _compute_cache_key(query: str, days: int, max_results: int) -> str:
+    normalized = query.strip().lower()
+    raw = f"{normalized}|{days}|{max_results}".encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
 def search_web_records(
     query: str,
     days: int = 1,
     category: str = "web",
     max_results: int = 7,
 ) -> list[SourceRecord]:
+    _SEARCH_METRICS["total_queries"] += 1
+    cache_key = _compute_cache_key(query, days, max_results)
+    now = datetime.now()
+
+    # 1. Check TTL cache for identical queries within the session
+    if cache_key in _SEARCH_CACHE:
+        entry = _SEARCH_CACHE[cache_key]
+        if (now - entry["timestamp"]).total_seconds() < SEARCH_CACHE_TTL_SECONDS:
+            _SEARCH_METRICS["cache_hits"] += 1
+            # Return fresh copies with requested category
+            cached_records = []
+            for r in entry["records"]:
+                _SOURCE_REGISTRY[r.id] = {
+                    "title": r.title,
+                    "url": r.url,
+                    "published_at": r.published_at,
+                    "category": category,
+                }
+                cached_records.append(SourceRecord(
+                    id=r.id,
+                    category=category,
+                    title=r.title,
+                    url=r.url,
+                    published_at=r.published_at,
+                    retrieved_at=r.retrieved_at,
+                    summary=r.summary,
+                    freshness_days=r.freshness_days,
+                ))
+            return cached_records
+
+    # 2. Cache miss -> perform live API call
+    _SEARCH_METRICS["api_calls"] += 1
     results = _get_client().search(query, max_results=max_results, days=days)
     cutoff = datetime.now() - timedelta(days=days)
     retrieved_at = datetime.now().isoformat(timespec="seconds")
     records = []
 
-    for result in results["results"]:
+    for result in results.get("results", []):
         pub = result.get("published_date", "")
         freshness_days = None
         try:
@@ -71,6 +129,12 @@ def search_web_records(
             summary=result.get("content", ""),
             freshness_days=freshness_days,
         ))
+
+    # Store in cache
+    _SEARCH_CACHE[cache_key] = {
+        "timestamp": now,
+        "records": records,
+    }
 
     return records
 
