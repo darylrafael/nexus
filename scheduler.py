@@ -204,30 +204,43 @@ def evening_review(force: bool = False, target_date: str = None):
             return
 
         # Format Telegram message
-        ihsg_icon = "\u2705" if learning["ihsg_correct"] else "\u274c"
-        ff_icon   = "\u2705" if learning["foreign_flow_correct"] else "\u274c"
+        ihsg_icon = "✅" if learning.get("ihsg_correct") else "❌"
+        ff_icon   = "✅" if learning.get("foreign_flow_correct") else "❌"
         pct       = learning.get("ihsg_actual_pct", 0)
         pct_str   = f"{pct:+.2f}%"
 
         msg = (
-            f"\U0001f501 *Nexus -- Evening Review* | _{date_key}_\n\n"
-            f"*IHSG* {ihsg_icon}: {learning['ihsg_predicted']} -> {learning['ihsg_actual']} ({pct_str})\n"
-            f"*Foreign Flow* {ff_icon}: {learning['foreign_flow_predicted']} -> {learning['foreign_flow_actual']}\n"
+            f"🔄 *Nexus -- Evening Review* | _{date_key}_\n\n"
+            f"*IHSG* {ihsg_icon}: {learning.get('ihsg_predicted', 'N/A')} -> {learning.get('ihsg_actual', 'N/A')} ({pct_str})\n"
+            f"*Foreign Flow* {ff_icon}: {learning.get('foreign_flow_predicted', 'N/A')} -> {learning.get('foreign_flow_actual', 'N/A')}\n"
             f"*USD/IDR*: {learning.get('actual_usdidr', 'N/A')}\n"
-            f"*Accuracy*: {learning['accuracy_score']}% | Error: {learning['error_rate_pct']}%\n"
+            f"*Accuracy*: {learning.get('accuracy_score', 0)}% | Error: {learning.get('error_rate_pct', 0)}%\n"
         )
 
-        if learning.get("rca_unanticipated"):
-            msg += f"\n*Missed factors*:\n"
-            for f in learning["rca_unanticipated"][:3]:
-                msg += f"  - {f}\n"
+        # Root Cause Analysis: check all categories so none are dropped
+        rca_items = []
+        for f in learning.get("rca_unanticipated", []):
+            rca_items.append(f"• [Tak Terduga] {f}")
+        for f in learning.get("rca_overestimated", []):
+            rca_items.append(f"• [Overestimated] {f}")
+        for f in learning.get("rca_underestimated", []):
+            rca_items.append(f"• [Underestimated] {f}")
+        for f in learning.get("rca_inverse_correlation", []):
+            rca_items.append(f"• [Korelasi Terbalik] {f}")
+
+        if rca_items:
+            msg += f"\n*Root Cause Analysis*:\n"
+            for item in rca_items[:4]:
+                msg += f"  {item}\n"
 
         if learning.get("lessons"):
-            msg += f"\n*Lessons learned*:\n"
+            msg += f"\n*Lessons Learned*:\n"
             for lesson in learning["lessons"][:2]:
-                msg += f"  [!] {lesson}\n"
+                msg += f"  💡 {lesson}\n"
 
-        msg += f"\n_{learning.get('summary', '')}_"
+        summary = learning.get("summary", "").strip()
+        if summary:
+            msg += f"\n📝 *Summary*:\n_{summary}_\n"
 
         send_report(msg)
         print("[scheduler] Evening review done.")

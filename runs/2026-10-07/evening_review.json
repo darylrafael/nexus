@@ -8,56 +8,83 @@
   "foreign_flow_predicted": "Stagnant/Sideways",
   "foreign_flow_actual": "Accumulation",
   "foreign_flow_correct": false,
-  "sector_accuracy": {},
-  "error_rate_pct": 100,
-  "accuracy_score": 0,
-  "rca_unanticipated": [],
-  "rca_overestimated": [],
-  "rca_underestimated": [],
-  "rca_info_delay": [],
-  "rca_inverse_correlation": [],
-  "lessons": [],
-  "summary": "",
-  "actual_usdidr": 17878.0,
+  "sector_accuracy": {
+    "Properti": false,
+    "Barang Baku": false,
+    "Infrastruktur": false,
+    "Energi": false,
+    "Transportasi dan Logistik": false,
+    "Kesehatan": false,
+    "Keuangan": true,
+    "Teknologi": true
+  },
+  "error_rate_pct": 80,
+  "accuracy_score": 20,
+  "rca_unanticipated": [
+    "IHSG valuation concerns (P/E ratio) impacting market sentiment",
+    "Potential labor demonstrations in October",
+    "Global market shock/economic shock scenarios"
+  ],
+  "rca_overestimated": [
+    "Positive impact of BI-Rate stability, Rupiah strengthening, and foreign portfolio inflow on IHSG"
+  ],
+  "rca_underestimated": [
+    "Overall negative market sentiment leading to a bearish IHSG close",
+    "Impact of IHSG valuation (P/E ratio) on market performance"
+  ],
+  "rca_info_delay": [
+    "News regarding IHSG valuation and P/E ratio as a sentiment factor",
+    "Reports on potential labor demonstrations in October",
+    "Scenarios of global market shock/economic shock"
+  ],
+  "rca_inverse_correlation": [
+    "The brief assumed that BI's focus on Rupiah stability and encouraging foreign portfolio inflow would lead to a bullish IHSG. However, despite the Rupiah strengthening by -0.211% and actual foreign accumulation of Rp 829,70 Miliar, the IHSG closed bearish by -0.75%."
+  ],
+  "lessons": [
+    "Ketika BI mempertahankan BI-Rate dan fokus pada stabilitas Rupiah serta aliran portofolio asing (diprediksi bullish), tetapi sentimen valuasi IHSG (rasio P/E) membayangi pasar, maka IHSG dapat ditutup bearish sebesar -0.75%.",
+    "Ketika aliran dana asing diprediksi stagnan/sideways, tetapi terjadi akumulasi asing yang signifikan (net buy Rp 829,70 Miliar) disertai penguatan Rupiah, maka IHSG dapat ditutup bearish sebesar -0.75%."
+  ],
+  "summary": "The morning brief predicted a bullish IHSG and stagnant foreign flow, but the market closed bearish by 0.75% with significant foreign accumulation, while most predicted bullish sectors actually declined.",
+  "actual_usdidr": 17885.0,
   "actual_commodities": {
     "Crude Oil (WTI)": {
       "name": "Crude Oil (WTI)",
       "ticker": "CL=F",
-      "price": 89.9,
-      "previous_close": 91.11,
-      "change_pct": -1.33,
-      "signal": "Down",
-      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "price": 89.89,
+      "previous_close": 89.43,
+      "change_pct": 0.51,
+      "signal": "Up",
+      "retrieved_at": "2026-10-08T11:48:22+07:00",
       "source": "yahoo_direct:CL=F"
     },
     "Brent Crude": {
       "name": "Brent Crude",
       "ticker": "BZ=F",
-      "price": 101.43,
-      "previous_close": 102.25,
-      "change_pct": -0.8,
-      "signal": "Down",
-      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "price": 102.35,
+      "previous_close": 100.32,
+      "change_pct": 2.02,
+      "signal": "Up",
+      "retrieved_at": "2026-10-08T11:48:24+07:00",
       "source": "yahoo_direct:BZ=F"
     },
     "Natural Gas": {
       "name": "Natural Gas",
       "ticker": "NG=F",
-      "price": 3.19,
-      "previous_close": 3.04,
-      "change_pct": 5.21,
+      "price": 3.26,
+      "previous_close": 3.07,
+      "change_pct": 6.33,
       "signal": "Up",
-      "retrieved_at": "2026-10-07T20:00:58+07:00",
+      "retrieved_at": "2026-10-08T11:48:25+07:00",
       "source": "yahoo_direct:NG=F"
     },
     "Coal (Newcastle)": {
-      "raw": "[no date] ICE Newcastle Coal Oct '26 Futures Price - Barchart.com\n# ICE Newca\nSource IDs: src_f0dfdd05d7, src_ee9f97789b, src_a277ed8ce1, src_e2b6b06831, src_4d4b55251b, src_3fa7145b3a, src_95369772f5"
+      "raw": "[no date] ICE Newcastle Coal Dec '26 Futures Price - Barchart.com\n# ICE Newca\nSource IDs: src_07721c2cd3, src_ee9f97789b, src_a517d8fb0b, src_26c1922a72, src_a277ed8ce1, src_00eb0cff08, src_4d907b14ac"
     },
     "CPO": {
-      "raw": "[no date] Palm oil prices could reach US$1,500/tonne as B50 and El Niño tight\nSource IDs: src_d676022a54, src_9c7bf9e109, src_84f30d0ee3, src_12b3b9cfd2, src_8714d7e80a, src_c0a99d32e5, src_2291dd7086"
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil fell\nSource IDs: src_9c7bf9e109, src_ca7e42770c, src_b056c42a9b, src_56b4172631, src_fbbd4653a1, src_c0a99d32e5, src_21ae48cf96"
     },
     "Nickel (LME)": {
-      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_1dbcee7af4, src_0b12862f48, src_f1dad1f235, src_dc295145ae, src_878ce6b228, src_0f051271b5"
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_0b12862f48, src_f1dad1f235, src_796f6c7b3d, src_a03a19ceeb, src_bf08793d8b, src_d82bd6dcd4"
     }
   }
 }
