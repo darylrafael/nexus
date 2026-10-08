@@ -46,20 +46,20 @@ function CompactHeuristicRow({ item, onInspect }) {
         {item.observed} {item.observed === 1 ? 'run' : 'runs'}
       </td>
       <td className="font-mono text-xs text-matched font-bold" style={{ width: '70px' }}>
-        {item.validated}
+        {item.validated !== undefined && item.validated !== null ? item.validated : '—'}
       </td>
       <td className="font-mono text-xs text-missed font-bold" style={{ width: '70px' }}>
-        {item.contradicted}
+        {item.contradicted !== undefined && item.contradicted !== null ? item.contradicted : '—'}
       </td>
       <td style={{ width: '100px' }}>
         <div className="delta-cell font-mono">
-          <span className={isUp ? 'text-matched font-bold' : 'text-missed font-bold'}>
-            {item.validationRate !== null ? `${item.validationRate}%` : 'Unresolved'}
+          <span className={item.validationRate !== null ? (isUp ? 'text-matched font-bold' : 'text-missed font-bold') : 'text-muted'}>
+            {item.validationRate !== null ? `${item.validationRate}%` : (item.status === 'HYPOTHESIS' ? 'Hypothesis' : 'Untested')}
           </span>
         </div>
       </td>
       <td style={{ width: '90px' }}>
-        <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
+        <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : (item.status === 'SUPERSEDED' ? 'status-missed' : 'status-pending')} status-sm font-mono`}>
           <span className="status-indicator-dot" />
           <span>{item.status}</span>
         </span>

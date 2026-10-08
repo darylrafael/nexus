@@ -83,7 +83,7 @@ export async function GET(request) {
           if (!lastObserved) lastObserved = rev.date;
           evidence.push({
             date: rev.date,
-            outcome: rev.ihsg_correct ? 'CORRECT_PREDICTION' : 'INCORRECT_PREDICTION',
+            outcome: rev.ihsg_correct ? 'VALIDATED' : 'CONTRADICTED',
             ihsg_actual: rev.ihsg_actual || 'Flat',
             ihsg_actual_pct: rev.ihsg_actual_pct || 0.0,
             summary: rev.summary || 'Post-market evaluation completed.'
@@ -92,7 +92,21 @@ export async function GET(request) {
       });
 
       const observed = evidence.length;
-      const status = observed > 0 ? 'ACTIVE' : 'UNTESTED';
+      const validated = evidence.filter(e => e.outcome === 'VALIDATED').length;
+      const contradicted = evidence.filter(e => e.outcome === 'CONTRADICTED').length;
+      const totalTested = validated + contradicted;
+      const validationRate = totalTested > 0 ? Math.round((validated / totalTested) * 100) : null;
+
+      let status = 'HYPOTHESIS';
+      if (observed >= 2 && validationRate !== null && validationRate >= 50) {
+        status = 'ACTIVE';
+      } else if (observed >= 2 && validationRate !== null && validationRate < 50) {
+        status = 'SUPERSEDED';
+      } else if (observed === 1) {
+        status = 'ACTIVE';
+      } else if (observed === 0) {
+        status = 'UNTESTED';
+      }
 
       // Categorize rule deterministically
       let category = 'Market Sentiment';
@@ -112,6 +126,9 @@ export async function GET(request) {
         rule: ruleText,
         category,
         observed,
+        validated,
+        contradicted,
+        validationRate,
         status,
         lastObserved: lastObserved || lastUpdated,
         evidence
@@ -119,7 +136,7 @@ export async function GET(request) {
     });
 
     const activeRulesCount = heuristics.filter(h => h.status === 'ACTIVE').length;
-    const unprovenRulesCount = heuristics.filter(h => h.status === 'UNTESTED').length;
+    const unprovenRulesCount = heuristics.filter(h => h.status === 'UNTESTED' || h.status === 'HYPOTHESIS').length;
 
     const response = NextResponse.json({
       success: true,
