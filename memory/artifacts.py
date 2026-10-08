@@ -45,17 +45,29 @@ def atomic_write_file(target_path: Path, content: str) -> Path:
 
 
 def save_json_artifact(date_key: str, filename: str, payload: Any) -> Path:
+    from schemas import validate_artifact_data
     path = _run_dir(date_key) / filename
-    content = json.dumps(_json_ready(payload), ensure_ascii=False, indent=2)
+    ready_payload = _json_ready(payload)
+    if isinstance(ready_payload, dict) and "schema_version" not in ready_payload:
+        ready_payload["schema_version"] = 1
+    valid, reason = validate_artifact_data(filename, ready_payload)
+    if not valid:
+        print(f"  [artifacts] Warning: saving artifact {filename} with schema mismatch: {reason}")
+    content = json.dumps(ready_payload, ensure_ascii=False, indent=2)
     return atomic_write_file(path, content)
 
 
 def load_json_artifact(date_key: str, filename: str) -> Any | None:
+    from schemas import validate_artifact_data
     path = ARTIFACT_ROOT / date_key / filename
     if not path.exists():
         return None
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(path.read_text(encoding="utf-8"))
+        valid, reason = validate_artifact_data(filename, data)
+        if not valid:
+            print(f"  [artifacts] Warning: loaded artifact {path.name} failed schema validation: {reason}")
+        return data
     except (OSError, json.JSONDecodeError) as exc:
         # Artifacts are a resilience layer; a partial write must not abort a run.
         print(f"  [artifacts] skipped unreadable JSON artifact {path.name}: {exc}")

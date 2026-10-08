@@ -28,6 +28,8 @@ from data_sources.news import search_text_with_sources
 from memory.artifacts import load_json_artifact, save_json_artifact
 from memory.obsidian import read_note
 from memory.learning_store import save_learning, update_performance_stats
+from memory.session import log_session
+import time
 from utils.direction import classify_direction
 from utils.json_parser import extract_structured_json
 from utils.stats import compute_session_accuracy
@@ -652,11 +654,29 @@ def run_evening_review(date_key: str = None) -> dict | None:
     Full 7-step evening review pipeline.
     Returns learning dict, or None if morning brief not found.
     """
+    start_time = time.time()
     now = jakarta_now()
     if not date_key:
         from utils.dates import resolve_evening_review_date
         date_key = resolve_evening_review_date()
 
+    try:
+        return _run_evening_review_internal(date_key, start_time, now)
+    except Exception as e:
+        duration_ms = int((time.time() - start_time) * 1000)
+        log_session(
+            query=f"evening_review_{date_key}",
+            agent="evening_reviewer",
+            model="llm_client",
+            result=None,
+            success=False,
+            error_msg=str(e),
+            duration_ms=duration_ms,
+        )
+        raise
+
+
+def _run_evening_review_internal(date_key: str, start_time: float, now: datetime) -> dict | None:
     try:
         target_dt = datetime.strptime(date_key, "%Y-%m-%d")
         date_str  = target_dt.strftime("%B %d, %Y")
@@ -768,5 +788,18 @@ def run_evening_review(date_key: str = None) -> dict | None:
     if learning["lessons"]:
         print(f"  Lessons learned: {len(learning['lessons'])}")
     print(f"{'─'*50}")
+
+    duration_ms = int((time.time() - start_time) * 1000)
+    try:
+        log_session(
+            query=f"evening_review_{date_key}",
+            agent="evening_reviewer",
+            model="llm_client",
+            result=f"Accuracy: {accuracy}%, IHSG: {learning.get('ihsg_actual')}",
+            success=True,
+            duration_ms=duration_ms,
+        )
+    except Exception as e:
+        print(f"  [evening_reviewer] telemetry log failed: {e}")
 
     return learning

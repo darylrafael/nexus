@@ -3,8 +3,10 @@ import json
 from datetime import datetime
 from pathlib import Path
 from memory.artifacts import atomic_write_file
+from core.time import jakarta_now
 
 DB_PATH = Path(__file__).parent.parent / "nexus_sessions.db"
+_DB_INITIALIZED = False
 
 
 def _get_conn() -> sqlite3.Connection:
@@ -16,8 +18,11 @@ def _get_conn() -> sqlite3.Connection:
     return conn
 
 
-def init_db():
-    """Create tables if they don't exist."""
+def init_db(force: bool = False):
+    """Create tables if they don't exist. Initialized once per process unless forced."""
+    global _DB_INITIALIZED
+    if _DB_INITIALIZED and not force:
+        return
     with _get_conn() as conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS sessions (
@@ -41,6 +46,7 @@ def init_db():
                 agents_used     TEXT    DEFAULT '{}'
             )
         """)
+    _DB_INITIALIZED = True
 
 
 def log_session(
@@ -54,8 +60,9 @@ def log_session(
 ) -> int:
     """Log a pipeline session. Returns the new session id."""
     init_db()
-    timestamp = datetime.now().isoformat()
-    date = datetime.now().strftime("%Y-%m-%d")
+    now = jakarta_now()
+    timestamp = now.isoformat()
+    date = now.strftime("%Y-%m-%d")
 
     with _get_conn() as conn:
         cur = conn.execute(
@@ -107,7 +114,8 @@ def export_telemetry_json(output_path: Path = None) -> dict:
     JSON artifact (runs/global/telemetry.json) for cloud dashboard deployment.
     """
     init_db()
-    today_prefix = datetime.now().strftime("%Y-%m-%d")
+    now = jakarta_now()
+    today_prefix = now.strftime("%Y-%m-%d")
 
     with _get_conn() as conn:
         total_row = conn.execute("""
@@ -150,7 +158,13 @@ def export_telemetry_json(output_path: Path = None) -> dict:
             ORDER BY id DESC
             LIMIT 50
         """).fetchall()
-        sessions_list = [dict(r) for r in session_rows]
+        # Scrub raw query and result from public telemetry payload
+        sessions_list = []
+        for r in session_rows:
+            d = dict(r)
+            d.pop("query", None)
+            d.pop("result", None)
+            sessions_list.append(d)
 
     payload = {
         "stats": {
@@ -163,7 +177,7 @@ def export_telemetry_json(output_path: Path = None) -> dict:
         },
         "agentBreakdown": agent_breakdown,
         "sessions": sessions_list,
-        "exported_at": datetime.now().isoformat()
+        "exported_at": now.isoformat()
     }
 
     if output_path is None:

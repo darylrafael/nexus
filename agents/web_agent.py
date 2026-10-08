@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 
 from config import TAVILY_API_KEY
 from schemas import SourceRecord
+from core.time import jakarta_now
 
 client = None
 _SOURCE_REGISTRY = {}
@@ -92,7 +93,7 @@ def search_web_records(
 ) -> list[SourceRecord]:
     _SEARCH_METRICS["total_queries"] += 1
     cache_key = _compute_cache_key(query, days, max_results)
-    now = datetime.now()
+    now = jakarta_now()
 
     # 1. Check TTL cache for identical queries within the session
     if cache_key in _SEARCH_CACHE:
@@ -128,8 +129,8 @@ def search_web_records(
     except TypeError:
         results = client.search(query, max_results=max_results, days=days)
 
-    cutoff = datetime.now() - timedelta(days=days)
-    retrieved_at = datetime.now().isoformat(timespec="seconds")
+    cutoff = now - timedelta(days=days)
+    retrieved_at = now.isoformat(timespec="seconds")
     records = []
 
     for result in results.get("results", []):
@@ -147,8 +148,8 @@ def search_web_records(
             try:
                 pub_date = datetime.fromisoformat(pub.replace("Z", "+00:00").replace("+00:00", ""))
                 pub_date = pub_date.replace(tzinfo=None)
-                freshness_days = max((datetime.now() - pub_date).days, 0)
-                if pub_date < cutoff:
+                freshness_days = max((now.replace(tzinfo=None) - pub_date).days, 0)
+                if pub_date < cutoff.replace(tzinfo=None):
                     freshness_status = "stale"
                     continue
             except Exception:

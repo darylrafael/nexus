@@ -1,8 +1,9 @@
-﻿import sys
+import sys
 from orchestrator.gemini import run
 from memory.obsidian import write_note, read_recent_notes
 from delivery.telegram import send_report
 from datetime import datetime
+from core.time import jakarta_now
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
     print(result)
     print("-" * 50)
 
-    title = f"{datetime.now().strftime('%Y-%m-%d-%H%M')} - {query[:50]}"
+    title = f"{jakarta_now().strftime('%Y-%m-%d-%H%M')} - {query[:50]}"
     saved = write_note(title, f"# {query}\n\n{result}")
     if saved:
         print(f"  [memory] saved to Obsidian: {title}")

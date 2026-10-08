@@ -6,9 +6,7 @@ from zoneinfo import ZoneInfo
 import requests
 import yfinance as yf
 from utils.direction import classify_direction
-
-
-JAKARTA_TZ = ZoneInfo("Asia/Jakarta")
+from core.time import JAKARTA_TZ, jakarta_now
 
 INDONESIAN_MONTHS = {
     1: "Januari", 2: "Februari", 3: "Maret", 4: "April",

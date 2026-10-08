@@ -10,6 +10,7 @@ import json
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
+from core.time import jakarta_now
 from memory.obsidian import write_note, read_note, read_recent_notes
 from memory.artifacts import load_json_artifact, save_json_artifact, ARTIFACT_ROOT
 from utils.stats import compute_canonical_stats
@@ -68,7 +69,7 @@ def load_recent_learnings(days: int = 14) -> list:
     Load recent learning entries directly from local JSON artifacts.
     This eliminates the Obsidian dependency for the self-learning loop.
     """
-    cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    cutoff = (jakarta_now() - timedelta(days=days)).strftime("%Y-%m-%d")
     learnings = []
     
     if not ARTIFACT_ROOT.exists():

@@ -88,3 +88,43 @@ class ReviewResult:
     rca_unanticipated: list[str] = field(default_factory=list)
     rca_overestimated: list[str] = field(default_factory=list)
     rca_underestimated: list[str] = field(default_factory=list)
+
+
+def validate_artifact_data(filename: str, data: Any) -> tuple[bool, str]:
+    """
+    Validate an artifact payload against its structural contract.
+    Returns (True, '') if valid, or (False, reason) if malformed.
+    """
+    if not isinstance(data, dict):
+        return False, f"Artifact payload must be a dict, got {type(data).__name__}"
+
+    if filename == "morning_prediction.json":
+        for req in ["date", "ihsg_signal", "foreign_flow_signal"]:
+            if req not in data:
+                return False, f"Missing required field '{req}' in morning_prediction.json"
+        return True, ""
+
+    elif filename == "evening_actuals.json":
+        if "date" not in data:
+            return False, "Missing required field 'date' in evening_actuals.json"
+        return True, ""
+
+    elif filename == "evening_review.json":
+        for req in ["date", "accuracy_score"]:
+            if req not in data:
+                return False, f"Missing required field '{req}' in evening_review.json"
+        return True, ""
+
+    elif filename == "nexus_stats.json":
+        if "total_sessions" not in data:
+            return False, "Missing 'total_sessions' in nexus_stats.json"
+        return True, ""
+
+    elif filename == "telemetry.json":
+        if "stats" not in data or "sessions" not in data:
+            return False, "Missing 'stats' or 'sessions' in telemetry.json"
+        return True, ""
+
+    # Unknown artifact types pass by default
+    return True, ""
+

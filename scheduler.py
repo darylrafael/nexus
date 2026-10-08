@@ -82,6 +82,17 @@ def daily_brief(force: bool = False):
         except Exception as e:
             err = traceback.format_exc()
             print(f"[scheduler] ERROR - Morning brief crashed:\n{err}")
+            try:
+                from memory.session import log_session
+                log_session(
+                    query=f"daily_brief_{date_key}",
+                    agent="scheduler",
+                    success=False,
+                    error_msg=str(e)[:500],
+                )
+            except Exception:
+                pass
+
             # Record failed status artifact
             try:
                 import json
@@ -212,6 +223,17 @@ def evening_review(force: bool = False, target_date: str = None):
         except Exception as e:
             err = traceback.format_exc()
             print(f"[scheduler] ERROR - Evening review crashed:\n{err}")
+            try:
+                from memory.session import log_session
+                log_session(
+                    query=f"evening_review_{date_key}",
+                    agent="scheduler",
+                    success=False,
+                    error_msg=str(e)[:500],
+                )
+            except Exception:
+                pass
+
             send_report(
                 f"\u274c *Nexus -- Evening Review FAILED*\n"
                 f"_{now.strftime('%Y-%m-%d %H:%M')}_\n\n"

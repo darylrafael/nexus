@@ -20,7 +20,26 @@ from memory.session import log_session
 
 def run_market_brief() -> str:
     start = time.time()
+    try:
+        return _run_market_brief_internal(start)
+    except Exception as e:
+        duration_ms = int((time.time() - start) * 1000)
+        try:
+            log_session(
+                query="daily_brief",
+                agent="market_agent",
+                model="llm_client",
+                result=None,
+                success=False,
+                error_msg=str(e),
+                duration_ms=duration_ms,
+            )
+        except Exception:
+            pass
+        raise
 
+
+def _run_market_brief_internal(start: float) -> str:
     cal_info = get_market_calendar_info()
     date_key = cal_info["today_key"]
     current_date = cal_info["today_en"]

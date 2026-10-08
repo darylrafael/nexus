@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
+from core.time import jakarta_now
 
 RUNS_DIR = Path(__file__).parent.parent / "runs"
 LOCK_STALE_TIMEOUT_MINUTES = 30
@@ -23,6 +24,7 @@ def acquire_run_lock(date_key: str, run_type: str) -> bool:
     Returns True if lock was acquired, False if already held by another active process.
     """
     lock_path = _get_lock_path(date_key, run_type)
+    now = jakarta_now()
 
     if lock_path.exists():
         try:
@@ -30,7 +32,11 @@ def acquire_run_lock(date_key: str, run_type: str) -> bool:
             locked_at_str = data.get("locked_at")
             if locked_at_str:
                 locked_at = datetime.fromisoformat(locked_at_str)
-                age = datetime.now() - locked_at
+                if locked_at.tzinfo is None:
+                    age = now.replace(tzinfo=None) - locked_at
+                else:
+                    age = now - locked_at
+
                 if age < timedelta(minutes=LOCK_STALE_TIMEOUT_MINUTES):
                     # Active lock held
                     return False
@@ -45,7 +51,7 @@ def acquire_run_lock(date_key: str, run_type: str) -> bool:
         "run_type": run_type,
         "pid": os.getpid(),
         "runner": "github_actions" if os.getenv("GITHUB_ACTIONS") else "local_environment",
-        "locked_at": datetime.now().isoformat(),
+        "locked_at": now.isoformat(),
     }
 
     try:

@@ -2,6 +2,7 @@ import urllib3
 import requests
 from datetime import datetime, timedelta
 from config import OBSIDIAN_API_KEY, OBSIDIAN_BASE_URL
+from core.time import jakarta_now
 
 # Suppress self-signed certificate warnings for local Obsidian REST API
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -18,10 +19,21 @@ JSON_HEADERS = {
     "Content-Type": "application/json"
 }
 
+# Run-level circuit breaker: if Obsidian fails once, short-circuit remaining calls
+# during the same process to eliminate latency and log noise.
+_OBSIDIAN_UNREACHABLE = False
+
+
+def reset_obsidian_status():
+    """Reset the circuit breaker (e.g. for testing)."""
+    global _OBSIDIAN_UNREACHABLE
+    _OBSIDIAN_UNREACHABLE = False
+
 
 def write_note(title: str, content: str) -> bool:
-    """Best-effort note sync to Obsidian. Never crashes pipeline if Obsidian is offline."""
-    if not OBSIDIAN_API_KEY:
+    """Best-effort note sync to Obsidian. Short-circuits if Obsidian is offline."""
+    global _OBSIDIAN_UNREACHABLE
+    if not OBSIDIAN_API_KEY or _OBSIDIAN_UNREACHABLE:
         return False
     try:
         filename = f"nexus/{title}.md"
@@ -35,17 +47,18 @@ def write_note(title: str, content: str) -> bool:
         response.raise_for_status()
         return True
     except Exception as e:
-        print(f"  [obsidian] Note sync skipped ({title}): {e}")
+        _OBSIDIAN_UNREACHABLE = True
+        print(f"  [obsidian] Offline/unreachable; skipping note sync for this run: {e}")
         return False
 
 
 def read_note(title: str) -> str:
     """
     Read a specific note by its title (without .md extension).
-    Path pattern: nexus/{title}.md
     Returns raw markdown content, or empty string if not found or unreachable.
     """
-    if not OBSIDIAN_API_KEY:
+    global _OBSIDIAN_UNREACHABLE
+    if not OBSIDIAN_API_KEY or _OBSIDIAN_UNREACHABLE:
         return ""
     try:
         filename = f"nexus/{title}.md"
@@ -59,7 +72,8 @@ def read_note(title: str) -> str:
             return response.text
         return ""
     except Exception as e:
-        print(f"  [obsidian] read_note skipped ({title}): {e}")
+        _OBSIDIAN_UNREACHABLE = True
+        print(f"  [obsidian] Offline/unreachable; skipping read_note: {e}")
         return ""
 
 
@@ -67,12 +81,12 @@ def read_recent_notes(days: int = 7) -> str:
     """
     Read recent Evening Review notes filtered by date.
     """
-    if not OBSIDIAN_API_KEY:
+    global _OBSIDIAN_UNREACHABLE
+    if not OBSIDIAN_API_KEY or _OBSIDIAN_UNREACHABLE:
         return ""
-    cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    cutoff = (jakarta_now() - timedelta(days=days)).strftime("%Y-%m-%d")
 
     try:
-        # Search for evening review notes
         response = requests.post(
             f"{BASE_URL}/search/simple/",
             headers=JSON_HEADERS,
@@ -81,38 +95,32 @@ def read_recent_notes(days: int = 7) -> str:
             timeout=2
         )
         if response.status_code != 200:
-            print(f"  [memory] search failed: status {response.status_code}")
             return ""
 
         results = response.json()
-        # Collect and sort by date prefix so ordering is deterministic regardless
-        # of what order Obsidian's search API returns results.
         filtered = []
         for r in results:
             filename = r.get("filename", "")
             basename = filename.replace("nexus/", "").replace(".md", "")
-            date_part = basename[:10]  # "YYYY-MM-DD" — lexicographically sortable
+            date_part = basename[:10]
             if date_part >= cutoff:
                 filtered.append((date_part, basename))
 
-        # Sort ascending so reverse() below gives most-recent-first
         filtered.sort(key=lambda x: x[0])
 
         notes = []
         for date_part, basename in filtered:
             full_content = read_note(basename)
             if full_content:
-                print(f"  [memory] loaded: {basename}")
                 notes.append(full_content)
 
         if not notes:
-            print(f"  [memory] no Evening Review notes found in last {days} days")
             return ""
 
-        # Most recent first
         notes.reverse()
         return "\n\n---\n\n".join(notes)
 
     except Exception as e:
-        print(f"  [memory] read_recent_notes failed: {e}")
+        _OBSIDIAN_UNREACHABLE = True
+        print(f"  [obsidian] search failed: {e}")
         return ""

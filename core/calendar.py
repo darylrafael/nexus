@@ -2,6 +2,7 @@ import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional, Union
+from core.time import jakarta_now
 
 HOLIDAYS_PATH = Path(__file__).parent.parent / "data" / "idx_holidays.json"
 
@@ -77,7 +78,7 @@ def get_last_trading_day(reference_date: Union[str, date, datetime] = None) -> s
     Walk backwards strictly before reference_date to find the most recent IDX trading day.
     """
     if reference_date is None:
-        ref_d = datetime.now().date()
+        ref_d = jakarta_now().date()
     else:
         ref_d = _normalize_date(reference_date)
 
@@ -92,7 +93,7 @@ def get_trading_day_or_previous(reference_date: Union[str, date, datetime] = Non
     If reference_date is a trading day, return it. Otherwise walk backwards to nearest trading day.
     """
     if reference_date is None:
-        ref_d = datetime.now().date()
+        ref_d = jakarta_now().date()
     else:
         ref_d = _normalize_date(reference_date)
 
