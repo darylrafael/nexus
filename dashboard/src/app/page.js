@@ -645,7 +645,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
 
   const rowUsdIdr = Number.isFinite(Number(review.actual_usdidr))
     ? `Rp ${formatNumber(review.actual_usdidr)}`
-    : (review.actual_usdidr === "Illustrative" ? "Rp 15,385" : (review.actual_usdidr || "Rp 15,385"));
+    : (review.actual_usdidr && review.actual_usdidr !== "Illustrative" ? String(review.actual_usdidr) : "Unavailable");
 
   return (
     <>

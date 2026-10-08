@@ -105,7 +105,7 @@ export default function SectorAssetTape({ review }) {
   const entries = Object.entries(review.sector_accuracy || {});
   const isPending = review?.isPendingReview;
   const commodities = Object.values(review?.actual_commodities || {}).filter(
-    (item) => item && item.name && Number.isFinite(Number(item.change_pct))
+    (item) => item && (item.name || item.raw)
   );
 
   const usdidr = review?.actual_usdidr;
@@ -167,22 +167,26 @@ export default function SectorAssetTape({ review }) {
                 <div className="macro-strip-cell">
                   <div className="macro-cell-head">USD / IDR Reference</div>
                   <div className="macro-cell-val font-mono">
-                    {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr || 'Rp 15,385')}
+                    {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr && usdidr !== 'Illustrative' ? usdidr : 'Unavailable')}
                   </div>
                   <div className="macro-cell-sub">Bank Indonesia / FX</div>
                 </div>
 
                 {commodities.map((item) => {
+                  const name = item.name || 'Commodity';
+                  const hasPrice = Number.isFinite(Number(item.price));
+                  const hasChange = Number.isFinite(Number(item.change_pct));
                   const change = Number(item.change_pct);
                   const isUp = change >= 0;
+
                   return (
-                    <div className="macro-strip-cell" key={item.ticker || item.name}>
-                      <div className="macro-cell-head">{item.name}</div>
+                    <div className="macro-strip-cell" key={item.ticker || name} title={item.raw ? String(item.raw).slice(0, 160) : undefined}>
+                      <div className="macro-cell-head">{name}</div>
                       <div className="macro-cell-val font-mono">
-                        ${Number(item.price).toFixed(2)}
+                        {hasPrice ? `$${Number(item.price).toFixed(2)}` : (item.raw ? 'Web Summary' : '—')}
                       </div>
-                      <div className={`macro-cell-sub font-mono ${isUp ? 'text-matched' : 'text-missed'}`}>
-                        {isUp ? '▲' : '▼'} {isUp ? '+' : ''}{change.toFixed(2)}%
+                      <div className={`macro-cell-sub font-mono ${hasChange ? (isUp ? 'text-matched' : 'text-missed') : 'text-muted'}`}>
+                        {hasChange ? `${isUp ? '▲ +' : '▼ '}${change.toFixed(2)}%` : (item.signal || (item.raw ? 'Indexed' : '—'))}
                       </div>
                     </div>
                   );

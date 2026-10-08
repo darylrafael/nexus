@@ -557,6 +557,50 @@ def format_commodity_snapshot(data: dict[str, Any]) -> str:
     return f"- **{name}**: {price_str} {direction} {abs(change):.2f}%"
 
 
+def _parse_commodity_web_summary(name: str, raw_text: str, source_ids: list[str]) -> dict[str, Any]:
+    """Parse numeric price and change percentage from web search snippets if available."""
+    price = None
+    change_pct = None
+    signal = "Unavailable"
+
+    if raw_text and not raw_text.startswith("Data unavailable:"):
+        # Match percentage: e.g. +2.5%, -1.2%, 0.8%
+        pct_match = re.search(r"([+-]?[0-9]+(?:\.[0-9]+)?)\s*%", raw_text)
+        if pct_match:
+            try:
+                change_pct = float(pct_match.group(1))
+                signal = "Up" if change_pct > 0 else ("Down" if change_pct < 0 else "Flat")
+            except ValueError:
+                pass
+
+        # Match dollar or local currency price: e.g. $142.50 or 4,250 MYR
+        price_match = re.search(r"\$\s*([0-9]+(?:\.[0-9]+)?)", raw_text)
+        if price_match:
+            try:
+                price = float(price_match.group(1))
+            except ValueError:
+                pass
+        else:
+            alt_price = re.search(r"([0-9]{2,5}(?:\.[0-9]+)?)\s*(?:USD|MYR|USD/t)", raw_text, re.IGNORECASE)
+            if alt_price:
+                try:
+                    price = float(alt_price.group(1).replace(",", ""))
+                except ValueError:
+                    pass
+
+    return {
+        "name": name,
+        "ticker": "WEB_SEARCH",
+        "price": price,
+        "change_pct": change_pct,
+        "signal": signal,
+        "source": "tavily_web",
+        "raw": raw_text,
+        "source_ids": source_ids,
+        "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+    }
+
+
 def fetch_all_commodities(
     target_label: str | None = None,
     search_days: int = 1,
@@ -606,20 +650,34 @@ def fetch_all_commodities(
             result, source_ids = search_text_with_sources(
                 query, days=search_days, category=name, limit_chars=600
             )
-            item = {"raw": result, "source_ids": source_ids}
-            web_data[name] = item
-            all_data[name] = {"raw": result}
-            evidence_ids.extend(source_ids)
-        except Exception as e:
-            item = {"raw": f"Data unavailable: {e}", "source_ids": [], "error": str(e)}
+            item = _parse_commodity_web_summary(name, result, source_ids)
             web_data[name] = item
             all_data[name] = item
+            evidence_ids.extend(source_ids)
+        except Exception as e:
+            err_item = {
+                "name": name,
+                "ticker": "WEB_SEARCH",
+                "price": None,
+                "change_pct": None,
+                "signal": "Unavailable",
+                "raw": f"Data unavailable: {e}",
+                "source_ids": [],
+                "error": str(e),
+                "source": "error",
+                "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+            }
+            web_data[name] = err_item
+            all_data[name] = err_item
 
     # 3. Map clean changes for economics engine
     changes = {
         "Crude Oil": yfinance_data.get("Crude Oil (WTI)", {}).get("change_pct"),
         "Brent Crude": yfinance_data.get("Brent Crude", {}).get("change_pct"),
         "Natural Gas": yfinance_data.get("Natural Gas", {}).get("change_pct"),
+        "Coal": web_data.get("Coal (Newcastle)", {}).get("change_pct"),
+        "CPO": web_data.get("CPO", {}).get("change_pct"),
+        "Nickel": web_data.get("Nickel (LME)", {}).get("change_pct"),
     }
 
     return {
@@ -630,6 +688,7 @@ def fetch_all_commodities(
         "evidence_ids": evidence_ids,
         "label": label,
     }
+
 
 
 def format_all_commodities_markdown(comm_data: dict[str, Any], target_label: str | None = None) -> str:
