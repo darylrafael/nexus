@@ -7,6 +7,7 @@ FIXES vs original:
 - load_recent_learnings: adds JSON parse guard + validates required fields
 """
 import json
+import math
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -19,6 +20,100 @@ STATS_NOTE = "nexus-performance-stats"
 MAX_LESSONS_STORED = 50      # cap total lessons in stats note
 MAX_LESSONS_INJECTED = 5     # cap lessons injected into morning prompt
 MAX_BLIND_SPOTS_INJECTED = 3
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REGIME DETECTION & HEURISTIC LIFECYCLE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def detect_market_regime(review_or_learning: dict) -> str:
+    """Classify market regime into BULLISH_TREND, BEARISH_TREND, or SIDEWAYS_VOLATILE."""
+    if not isinstance(review_or_learning, dict):
+        return "SIDEWAYS_VOLATILE"
+    
+    ihsg_actual = str(review_or_learning.get("ihsg_actual", ""))
+    pct = review_or_learning.get("ihsg_actual_pct")
+    try:
+        pct_val = float(pct) if pct is not None else 0.0
+    except (ValueError, TypeError):
+        pct_val = 0.0
+        
+    if pct_val >= 0.5 or (ihsg_actual.lower() == "bullish" and pct_val >= 0.2):
+        return "BULLISH_TREND"
+    elif pct_val <= -0.5 or (ihsg_actual.lower() == "bearish" and pct_val <= -0.2):
+        return "BEARISH_TREND"
+    else:
+        return "SIDEWAYS_VOLATILE"
+
+
+def evaluate_heuristic_lifecycle(all_reviews: list) -> list:
+    """
+    Evaluate empirical lifecycle states for all accumulated lessons across reviews.
+    States: HYPOTHESIS, ACTIVE, SUPERSEDED, UNTESTED.
+    """
+    # Collect all unique lessons preserving chronological order
+    all_lessons = []
+    for r in all_reviews:
+        for lesson in r.get("lessons", []):
+            if lesson and lesson not in all_lessons:
+                all_lessons.append(lesson)
+
+    heuristics = []
+    for idx, rule_text in enumerate(all_lessons):
+        evidence = []
+        observed_regimes = set()
+        last_observed = ""
+
+        # Walk reviews (newest to oldest if available)
+        for rev in sorted(all_reviews, key=lambda x: x.get("date", ""), reverse=True):
+            rev_lessons = rev.get("lessons", [])
+            has_lesson = any(rule_text in l or l in rule_text for l in rev_lessons)
+            if has_lesson:
+                rev_date = rev.get("date", "")
+                if not last_observed:
+                    last_observed = rev_date
+                regime = rev.get("market_regime") or detect_market_regime(rev)
+                observed_regimes.add(regime)
+                outcome = "VALIDATED" if rev.get("ihsg_correct") is True else "CONTRADICTED"
+                evidence.append({
+                    "date": rev_date,
+                    "outcome": outcome,
+                    "regime": regime,
+                    "ihsg_actual": rev.get("ihsg_actual", "Unknown"),
+                    "ihsg_actual_pct": rev.get("ihsg_actual_pct", 0.0),
+                    "summary": rev.get("summary", "")
+                })
+
+        observed = len(evidence)
+        validated = sum(1 for e in evidence if e["outcome"] == "VALIDATED")
+        contradicted = sum(1 for e in evidence if e["outcome"] == "CONTRADICTED")
+        total_tested = validated + contradicted
+        validation_rate = round((validated / total_tested) * 100, 1) if total_tested > 0 else None
+
+        if observed >= 2 and validation_rate is not None and validation_rate >= 50.0:
+            status = "ACTIVE"
+        elif observed >= 2 and validation_rate is not None and validation_rate < 50.0:
+            status = "SUPERSEDED"
+        elif observed == 1:
+            status = "ACTIVE" if validated == 1 else "HYPOTHESIS"
+        else:
+            status = "UNTESTED"
+
+        heuristics.append({
+            "id": f"rule-{idx + 1}",
+            "rule": rule_text,
+            "status": status,
+            "observed": observed,
+            "validated": validated,
+            "contradicted": contradicted,
+            "validation_rate": validation_rate,
+            "regimes": sorted(list(observed_regimes)),
+            "last_observed": last_observed,
+            "evidence": evidence
+        })
+
+    return heuristics
+
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -146,6 +241,26 @@ def update_performance_stats(learning: dict) -> bool:
     all_reviews = [reviews_by_date[d] for d in sorted(reviews_by_date.keys())]
     stats = compute_canonical_stats(all_reviews)
 
+    # Heuristic lifecycle calculation
+    heuristics = evaluate_heuristic_lifecycle(all_reviews)
+    stats["heuristics"] = [
+        {
+            "id": h["id"],
+            "rule": h["rule"],
+            "status": h["status"],
+            "observed": h["observed"],
+            "validated": h["validated"],
+            "contradicted": h["contradicted"],
+            "validation_rate": h["validation_rate"],
+            "regimes": h["regimes"],
+            "last_observed": h["last_observed"]
+        }
+        for h in heuristics
+    ]
+    stats["active_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "ACTIVE")
+    stats["superseded_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "SUPERSEDED")
+    stats["hypothesis_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "HYPOTHESIS")
+
     # Backwards compatibility aliases
     stats["ihsg_accuracy_pct"] = stats["direction_accuracy_pct"] or 0.0
     stats["ihsg_correct_count"] = stats["direction_correct_count"]
@@ -172,6 +287,11 @@ Last updated: {stats['last_updated']}
 - Foreign flow accuracy: {flow_str}
 - Sector accuracy: {sec_str}
 
+## Heuristic Rules Lifecycle
+- Active Heuristics: **{stats['active_heuristics_count']}**
+- Hypotheses (Testing): **{stats['hypothesis_heuristics_count']}**
+- Superseded Heuristics: **{stats['superseded_heuristics_count']}**
+
 ## Top Recurring Blind Spots
 {_format_blind_spots(stats['missed_factor_counts'])}
 
@@ -195,11 +315,13 @@ Last updated: {stats['last_updated']}
 # CALIBRATION CONTEXT (injected into morning brief)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def build_learning_context(learnings: list) -> str:
+def build_learning_context(learnings: list, current_regime: str = None) -> str:
     """Build calibration prompt block from recent learnings for morning brief.
     
-    FIX: Caps injected lessons to MAX_LESSONS_INJECTED to avoid bloating
-    the context window. Previously all accumulated lessons were injected.
+    Incorporates:
+    - Recent performance stats (rolling accuracy, session history)
+    - Recurring blind spots
+    - Empirical heuristic lifecycle prioritization with exponential time-decay weighting and regime awareness.
     """
     if not learnings:
         return ""
@@ -236,22 +358,67 @@ def build_learning_context(learnings: list) -> str:
         for bs in recurring:
             lines.append(f"  - {bs} (missed {blind_spots[bs]}x)")
 
-    # Latest lessons — capped at MAX_LESSONS_INJECTED
-    recent_lessons = []
-    for l in learnings[-3:]:
-        recent_lessons.extend(l.get("lessons", []))
-    # Deduplicate while preserving order
-    seen = set()
-    deduped = []
-    for lesson in recent_lessons:
-        if lesson not in seen:
-            seen.add(lesson)
-            deduped.append(lesson)
+    # Heuristic lifecycle evaluation across all available learnings
+    heuristics_meta = {h["rule"]: h for h in evaluate_heuristic_lifecycle(learnings)}
 
-    if deduped:
-        lines.append("\n### 📌 Recent Lessons to Apply:")
-        for lesson in deduped[-MAX_LESSONS_INJECTED:]:
-            lines.append(f"  - {lesson}")
+    # Determine regime (inferred from latest learning if not specified)
+    inferred_regime = current_regime
+    if not inferred_regime and learnings:
+        inferred_regime = learnings[-1].get("market_regime") or detect_market_regime(learnings[-1])
+
+    # Score and rank candidate lessons using exponential time decay + lifecycle status + regime match
+    now_dt = jakarta_now()
+    scored_lessons = []
+    seen = set()
+
+    for l in reversed(learnings):
+        rev_date_str = l.get("date", "")
+        try:
+            rev_dt = datetime.strptime(rev_date_str, "%Y-%m-%d")
+            delta_days = max(0, (now_dt.date() - rev_dt.date()).days)
+        except Exception:
+            delta_days = 7
+
+        recency_weight = math.exp(-0.08 * delta_days)
+        rev_regime = l.get("market_regime") or detect_market_regime(l)
+
+        for lesson in l.get("lessons", []):
+            if not lesson or lesson in seen:
+                continue
+            seen.add(lesson)
+
+            meta = heuristics_meta.get(lesson, {})
+            status = meta.get("status", "HYPOTHESIS")
+            val_rate = meta.get("validation_rate") or 50.0
+
+            if status == "ACTIVE":
+                status_mult = 1.3
+            elif status == "SUPERSEDED":
+                status_mult = 0.15
+            else:
+                status_mult = 1.0
+
+            regime_mult = 1.35 if (inferred_regime and (inferred_regime in meta.get("regimes", []) or inferred_regime == rev_regime)) else 1.0
+
+            final_score = recency_weight * status_mult * regime_mult * (1.0 + (val_rate / 100.0))
+            scored_lessons.append({
+                "lesson": lesson,
+                "score": final_score,
+                "status": status,
+                "regime": rev_regime
+            })
+
+    # Sort descending by composite score
+    scored_lessons.sort(key=lambda x: x["score"], reverse=True)
+    selected_lessons = scored_lessons[:MAX_LESSONS_INJECTED]
+
+    if selected_lessons:
+        regime_banner = f" (Calibrated for {inferred_regime})" if inferred_regime else ""
+        lines.append(f"\n### 📌 Calibrated Empirical Rules & Lessons{regime_banner}:")
+        for item in selected_lessons:
+            status_tag = f"[{item['status']}]"
+            regime_tag = f"[{item['regime']}]" if item.get("regime") else ""
+            lines.append(f"  - {status_tag}{regime_tag} {item['lesson']}")
 
     return "\n".join(lines)
 
@@ -280,6 +447,10 @@ def _empty_stats() -> dict:
         "ff_accuracy_pct": 0.0,
         "missed_factor_counts": {},
         "all_lessons": [],
+        "heuristics": [],
+        "active_heuristics_count": 0,
+        "superseded_heuristics_count": 0,
+        "hypothesis_heuristics_count": 0,
         "last_updated": ""
     }
 

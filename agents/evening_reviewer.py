@@ -27,7 +27,7 @@ from data_sources.market_data import (
 from data_sources.news import search_text_with_sources
 from memory.artifacts import load_json_artifact, save_json_artifact
 from memory.obsidian import read_note
-from memory.learning_store import save_learning, update_performance_stats
+from memory.learning_store import save_learning, update_performance_stats, detect_market_regime
 from memory.session import log_session
 import time
 from utils.direction import classify_direction
@@ -762,6 +762,7 @@ def _run_evening_review_internal(date_key: str, start_time: float, now: datetime
         "ihsg_confidence":         actual.get("ihsg_confidence") or (actual.get("ihsg", {}).get("confidence") if isinstance(actual.get("ihsg"), dict) else actual.get("confidence", "normal")),
         "actual_usdidr":           rate_val,
         "actual_commodities":      {k: v for k, v in actual.get("commodities", {}).items()},
+        "market_regime":           detect_market_regime(learning),
     }
 
     # Save structured learning note
