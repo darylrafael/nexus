@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 53256,
+    "avgDurationMs": 130545,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 53256.0,
+      "avg_duration_ms": 130545.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,15 +19,15 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-10-07T00:31:51.141635",
+      "timestamp": "2026-10-08T00:33:04.035435",
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: BI-Rate Stabil di 5,75%, Fokus pada Stabilitas Rupiah dan Aliran Portofolio Asing\n- **Summary**: Bank Indonesia (BI) mempertahankan BI-Rate di level 5,75% pada Rapat Dewan Gubernur (RDG) 22-23 September 2026, konsisten dengan strategi stabilisasi nilai tukar Rupiah di tengah tekanan eksternal dan target inflasi 2,5\u00b11% untuk 2026-2027 (src_994c5cacb3). BI juga memperkuat kebijakan untuk mendorong aliran masuk investasi portofolio asing guna menjaga stabilitas Rupiah (src_cb19166032). Rupiah sempat melemah ke Rp17.903/USD pada 5 Oktober 2026 akibat sentimen geopolitik, namun menguat tipis ke Rp17.911/USD pada 6 Oktober 2026 (src_4680302ba9, src_bddb11960d).\n- **Market Impact**: Bullish | **Confidence**: 90%\n- **Rationale**: Keputusan BI untuk mempertahankan suku bunga acuan memberikan kepastian kebijakan moneter. Komitmen spesifik BI untuk meningkatkan aliran masuk investasi portofolio asing secara aktif merupakan sentimen positif yang dapat mendukung",
+      "result": "**BRIEF DATE: Kamis, 8 Oktober 2026**\n**PRE-MARKET BRIEF**\n\n---\n**IHSG Close (Selasa, 6 Oktober 2026):** 6,192.93 UP 1.21%\n\n**Market Gap Context:** The Indonesian Stock Exchange (IDX) was closed from October 06, 2026, through October 08, 2026. This brief synthesizes developments during this period to prepare for today's market opening.\n\n---\n### 1. Indonesian Economic News: BI Maintains Rate, Rupiah Strengthens Amid Stable Inflation\n- **Summary**: Bank Indonesia (BI) maintained the BI-Rate at 5.75% in September 2026, consistent with efforts to stabilize the Rupiah and keep inflation within the 2.5\u00b11% target for 2026-2027. Inflation for September 2026 was recorded at 3.28% YoY, while the Rupiah strengthened slightly to 17,895/USD on October 6, 2026, supported by BI's foreign exchange interventions (src_c48f564ee3, src_0ba9a5d054, src_363fc5b63c).\n- **Market Impact**: Neutral | **Confidence**: 85%\n- **Rationale**: The consistent BI-Rate and stable inflation provide a predictable domestic ",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 53256
+      "duration_ms": 130545
     }
   ],
-  "exported_at": "2026-10-07T00:31:51.143261"
+  "exported_at": "2026-10-08T00:33:04.037061"
 }

@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-08",
+  "ihsg_signal": "Bullish",
+  "ihsg_confidence": 82,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Sell Rp629,87 miliar (src_e2953db2aa).",
+  "sector_bullish": [
+    "Transportation and Logistics",
+    "Technology",
+    "Energy (Gas Upstream)",
+    "Consumer Non-Cyclicals (CPO Consumers)"
+  ],
+  "sector_bearish": [
+    "Energy (Oil & Gas Upstream, Coal Producers, CPO Producers)"
+  ],
+  "sector_neutral": [
+    "Financials (Banking)",
+    "Property & Real Estate"
+  ],
+  "recommended_tickers": [
+    "MYOR",
+    "TBLA",
+    "DATE",
+    "UNVR",
+    "PGEO",
+    "BYAN",
+    "SIMP",
+    "ADRO",
+    "ICBP",
+    "BUMI",
+    "LSIP",
+    "AALI",
+    "INDF",
+    "PTBA",
+    "MEDC",
+    "ENRG",
+    "ITMG",
+    "HRUM",
+    "RUIS"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Coal": "bearish",
+    "CPO": "bearish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_0ba9a5d054",
+    "src_112d6ebc1c",
+    "src_211b14932f",
+    "src_363fc5b63c",
+    "src_3b71309fdf",
+    "src_42eecfe663",
+    "src_791f333a34",
+    "src_83d1ceff62",
+    "src_896082e1cb",
+    "src_9c7bf9e109",
+    "src_c48f564ee3",
+    "src_e2953db2aa",
+    "src_e2b6b06831",
+    "src_f362c315e6"
+  ]
+}
