@@ -675,6 +675,8 @@ def run_evening_review(date_key: str = None) -> dict | None:
         "rca_inverse_correlation": _string_list(rca.get("inverse_correlation_cases")),
         "lessons":                 _string_list(analysis.get("step6_lessons")),
         "summary":                 analysis.get("summary_sentence", "") if isinstance(analysis.get("summary_sentence", ""), str) else "",
+        "ihsg_source":             actual.get("source", "unknown"),
+        "ihsg_confidence":         actual.get("confidence", "normal"),
         "actual_usdidr":           actual.get("usdidr", "N/A"),
         "actual_commodities":      {k: v for k, v in actual.get("commodities", {}).items()},
     }
@@ -690,8 +692,9 @@ def run_evening_review(date_key: str = None) -> dict | None:
     update_performance_stats(learning)
 
     # Print summary
+    ihsg_flag = " [web_fallback - confidence: low]" if (actual.get("source") == "web_fallback" or actual.get("confidence") == "low") else ""
     print(f"\n{'─'*50}")
-    print(f"  IHSG: {pred.ihsg_signal} → {learning['ihsg_actual']} ({learning['ihsg_actual_pct']:+.2f}%) {'✅' if learning['ihsg_correct'] else '❌'}")
+    print(f"  IHSG: {pred.ihsg_signal} → {learning['ihsg_actual']} ({learning['ihsg_actual_pct']:+.2f}%){ihsg_flag} {'✅' if learning['ihsg_correct'] else '❌'}")
     print(f"  Foreign Flow: {pred.foreign_flow_signal} → {learning['foreign_flow_actual']} {'✅' if learning['foreign_flow_correct'] else '❌'}")
     print(f"  Accuracy: {accuracy}% | Error Rate: {learning['error_rate_pct']}%")
     if learning["lessons"]:

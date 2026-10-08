@@ -61,13 +61,13 @@ def run_market_brief() -> str:
 
     print("  [market_agent] Calculating exact global commodity price changes via yfinance...")
 
-    def _pct(name: str, ticker: str) -> float:
+    def _pct(name: str, ticker: str) -> float | None:
         try:
             snapshot = fetch_yfinance_commodity(name, ticker)
-            return snapshot["change_pct"]
+            return snapshot.get("change_pct")
         except Exception as e:
             print(f"  [yfinance warning] failed to fetch {name} ({ticker}): {e}")
-            return 0.0
+            return None
 
     commodity_changes = {
         "Crude Oil": _pct("Crude Oil", "CL=F"),

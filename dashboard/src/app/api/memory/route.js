@@ -30,7 +30,8 @@ export async function GET(request) {
     // 2. Scan daily runs to extract lessons, outcomes, and build evidence provenance
     const dailyReviews = [];
     if (fs.existsSync(runsDir)) {
-      const dates = fs.readdirSync(runsDir).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
+      const minDate = process.env.NEXUS_MIN_DATE || null;
+      const dates = fs.readdirSync(runsDir).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && (!minDate || d >= minDate));
       dates.sort((a, b) => b.localeCompare(a)); // Newest first
 
       for (const date of dates) {
@@ -120,26 +121,12 @@ export async function GET(request) {
         }
       });
 
-      // If never directly matched in daily scan, default observed to 1 from creation record
-      if (observed === 0) {
-        observed = 1;
-        validated = 1;
-        lastObserved = lastUpdated || '2026-09-23';
-        evidence.push({
-          date: lastObserved,
-          outcome: 'VALIDATED',
-          ihsg_actual: 'Evaluation Recorded',
-          ihsg_actual_pct: 0.0,
-          summary: 'Formulated during closed-loop RCA reflection cycle.'
-        });
-      }
-
       const testedCount = validated + contradicted;
       const validationRate = testedCount > 0 ? Number(((validated / testedCount) * 100).toFixed(1)) : null;
 
-      let status = 'OBSERVED_ONLY';
-      if (testedCount > 0) {
-        status = (validated / testedCount >= 0.5) ? 'ACTIVE' : 'SUPERSEDED';
+      let status = 'UNTESTED';
+      if (observed > 0) {
+        status = testedCount > 0 ? ((validated / testedCount >= 0.5) ? 'ACTIVE' : 'SUPERSEDED') : 'OBSERVED_ONLY';
       }
 
       // Categorize rule deterministically

@@ -13,10 +13,13 @@ export async function GET(request) {
     const runsDir = getRunsDirectory(isDemo);
     let reviews = [];
     
+    const minDate = process.env.NEXUS_MIN_DATE || null;
+
     if (fs.existsSync(runsDir)) {
       const dates = fs.readdirSync(runsDir);
       for (const date of dates) {
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < '2026-09-01') continue;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+        if (minDate && date < minDate) continue;
         const reviewPath = path.join(runsDir, date, 'evening_review.json');
         const predPath = path.join(runsDir, date, 'morning_prediction.json');
         const briefPath = path.join(runsDir, date, 'morning_brief.md');
@@ -38,14 +41,15 @@ export async function GET(request) {
             console.error(`Failed to parse ${reviewPath}`, e);
           }
         } else if (fs.existsSync(predPath)) {
-          // Live active morning session awaiting 18:55 market close review
+          // Live active morning session awaiting market close review
           try {
             const predContent = fs.readFileSync(predPath, 'utf8');
             const pred = JSON.parse(predContent);
             let summaryText = "";
+            let briefText = "";
             if (fs.existsSync(briefPath)) {
-              const brief = fs.readFileSync(briefPath, 'utf8');
-              const match = brief.match(/### 1\.[^\n]+\n-\s+\*\*Summary\*\*:\s*([^\n]+)/);
+              briefText = fs.readFileSync(briefPath, 'utf8');
+              const match = briefText.match(/### 1\.[^\n]+\n-\s+\*\*Summary\*\*:\s*([^\n]+)/);
               summaryText = match ? match[1] : (pred.key_risk || "Morning brief active. Trading session in progress.");
             }
 
@@ -55,19 +59,13 @@ export async function GET(request) {
             (pred.sector_bearish || []).forEach(s => { sectorAccuracy[s.replace(/\s*\([^)]*\)/, '')] = 'BEARISH'; });
             (pred.sector_neutral || []).forEach(s => { sectorAccuracy[s.replace(/\s*\([^)]*\)/, '')] = 'NEUTRAL'; });
 
-            // Extract previous evaluated session metrics (close, USD/IDR, commodities)
+            // Extract previous evaluated session metrics (close, USD/IDR, commodities) without hardcoded fallbacks
             let previousClose = null;
-            let yesterdayUsdIdr = 17893.0;
-            let yesterdayCommodities = {
-              "Coal (Newcastle)": { name: "Coal (Newcastle)", ticker: "NCFX26", price: 145.5, change_pct: 0.5 },
-              "Crude Oil (WTI)": { name: "Crude Oil (WTI)", ticker: "CL=F", price: 93.98, change_pct: -0.67 },
-              "Brent Crude": { name: "Brent Crude", ticker: "BZ=F", price: 108.11, change_pct: 0.8 },
-              "CPO": { name: "CPO", ticker: "FCPO", price: 4772, change_pct: 0.08 },
-              "Nickel (LME)": { name: "Nickel (LME)", ticker: "NICKEL", price: 16417, change_pct: -0.32 }
-            };
+            let yesterdayUsdIdr = null;
+            let yesterdayCommodities = null;
 
             const sortedPastDates = dates
-              .filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && d < date && d >= '2026-09-01')
+              .filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && d < date && (!minDate || d >= minDate))
               .sort()
               .reverse();
 
@@ -76,54 +74,48 @@ export async function GET(request) {
               if (fs.existsSync(prevActualsPath)) {
                 try {
                   const pastAct = JSON.parse(fs.readFileSync(prevActualsPath, 'utf8'));
-                  if (pastAct.ihsg_close) previousClose = pastAct.ihsg_close;
-                  if (pastAct.usdidr) yesterdayUsdIdr = pastAct.usdidr;
+                  if (pastAct.ihsg_close != null) previousClose = pastAct.ihsg_close;
+                  if (pastAct.usdidr != null) yesterdayUsdIdr = pastAct.usdidr;
                   if (pastAct.commodities && Object.keys(pastAct.commodities).length > 0) {
-                    yesterdayCommodities = { ...yesterdayCommodities, ...pastAct.commodities };
+                    yesterdayCommodities = pastAct.commodities;
                   }
                 } catch (e) {}
               }
             }
 
-            const actionableWatchlist = [
-              {
-                ticker: "ICBP",
-                sector: "Consumer Non-Cyclical",
-                bias: "BULLISH",
-                note: "Terjaga daya beli domestik & inflasi stabil, defensif terhadap volatilitas suku bunga global."
-              },
-              {
-                ticker: "BUMI",
-                sector: "Energy & Mining",
-                bias: "BULLISH",
-                note: "Batu bara Newcastle solid ($145.50/t); minat beli bersih asing mencapai 59jt lembar."
-              },
-              {
-                ticker: "BBRI",
-                sector: "Banking",
-                bias: "DEFENSIVE",
-                note: "BI Rate bertahan di 5.75% menopang margin bunga bersih; pantau support S1 (6,255) untuk rebound."
-              },
-              {
-                ticker: "TLKM",
-                sector: "Technology & Infrastructure",
-                bias: "WATCH",
-                note: "Yield US Treasury 10Y (5.135%) membebani valuasi; pantau stabilisasi arus dana institusi asing."
-              }
-            ];
+            // Watchlist derived strictly from morning_prediction.json / morning_brief.md
+            let actionableWatchlist = [];
+            if (Array.isArray(pred.recommended_tickers) && pred.recommended_tickers.length > 0) {
+              actionableWatchlist = pred.recommended_tickers.map(ticker => {
+                let note = "from morning brief — not advice";
+                if (briefText) {
+                  const lines = briefText.split('\n');
+                  const matchLine = lines.find(l => l.includes(ticker));
+                  if (matchLine) {
+                    note = `${matchLine.replace(/^[#*\s-]+/, '').trim().slice(0, 140)} (from morning brief — not advice)`;
+                  }
+                }
+                return {
+                  ticker,
+                  sector: "Sector Outlook",
+                  bias: pred.ihsg_signal === "Bullish" ? "BULLISH" : "OBSERVE",
+                  note
+                };
+              });
+            }
 
             reviews.push({
               date,
               ihsg_predicted: pred.ihsg_signal || "Neutral",
-              ihsg_confidence: pred.ihsg_confidence || 75,
+              ihsg_confidence: pred.ihsg_confidence || null,
               ihsg_actual: "Pending Close",
-              ihsg_actual_pct: 0.0,
+              ihsg_actual_pct: null,
               ihsg_correct: null, // Pending evaluation
               foreign_flow_predicted: pred.foreign_flow_signal || "Neutral",
               foreign_flow_actual: "Market Open",
               foreign_flow_correct: null,
-              previous_close: previousClose || 6298.61,
-              actual_usdidr: yesterdayUsdIdr || 17893.0,
+              previous_close: previousClose,
+              actual_usdidr: yesterdayUsdIdr,
               actual_commodities: yesterdayCommodities,
               actionable_watchlist: actionableWatchlist,
               sector_accuracy: sectorAccuracy,

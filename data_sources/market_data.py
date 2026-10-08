@@ -276,7 +276,7 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
             return {
                 "ihsg_close": round(close, 2),
                 "ihsg_prev": None,
-                "ihsg_change_pct": round(pct, 2),
+                "ihsg_change_pct": round(pct, 2) if pct_match else None,
                 "ihsg_change_pts": 0.0,
                 "ihsg_signal": signal,
                 "ihsg_open": round(close, 2),
@@ -284,32 +284,57 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
                 "ihsg_low": round(close, 2),
                 "ihsg_volume": 0,
                 "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
-                "source": "web_fallback:tavily",
+                "source": "web_fallback",
+                "confidence": "low",
             }
     except Exception as e:
         print(f"  [fetch_ihsg_snapshot] web fallback error: {e}")
 
-    return {"ihsg_signal": "Unknown", "error": "IHSG data unavailable across all sources."}
+    return {
+        "ihsg_close": None,
+        "ihsg_prev": None,
+        "ihsg_change_pct": None,
+        "ihsg_change_pts": None,
+        "ihsg_signal": "Unknown",
+        "error": "IHSG data unavailable across all sources.",
+        "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+        "source": "unavailable",
+    }
 
 
 def format_ihsg_snapshot(data: dict[str, Any]) -> str:
-    if data.get("error"):
-        return data["error"]
+    if not data or data.get("error") or data.get("ihsg_close") is None:
+        return data.get("error") or "IHSG data unavailable"
 
-    change = data.get("ihsg_change_pct", 0)
-    direction = "UP" if change > 0 else "DOWN"
+    close_val = data["ihsg_close"]
+    close_str = f"{close_val:,.2f}" if isinstance(close_val, (int, float)) else str(close_val)
+
+    change = data.get("ihsg_change_pct")
+    if change is None:
+        change_str = "change unavailable"
+    else:
+        direction = "UP" if change > 0 else "DOWN"
+        change_str = f"{direction} {abs(change):.2f}%"
+
+    open_val = f"{data['ihsg_open']:,.2f}" if isinstance(data.get("ihsg_open"), (int, float)) else "unavailable"
+    high_val = f"{data['ihsg_high']:,.2f}" if isinstance(data.get("ihsg_high"), (int, float)) else "unavailable"
+    low_val = f"{data['ihsg_low']:,.2f}" if isinstance(data.get("ihsg_low"), (int, float)) else "unavailable"
+
+    source_badge = " [web_fallback - low confidence]" if (data.get("source") == "web_fallback" or data.get("confidence") == "low") else ""
+
     return (
-        f"IHSG Close: {data['ihsg_close']:,.2f} {direction} {abs(change):.2f}%\n"
-        f"Open: {data['ihsg_open']:,.2f} | "
-        f"High: {data['ihsg_high']:,.2f} | "
-        f"Low: {data['ihsg_low']:,.2f}"
+        f"IHSG Close: {close_str} {change_str}{source_badge}\n"
+        f"Open: {open_val} | "
+        f"High: {high_val} | "
+        f"Low: {low_val}"
     )
 
 
 def fetch_usdidr_snapshot() -> dict[str, Any]:
-    """
-    Fetch USD/IDR exchange rate.
-    Tries direct Yahoo endpoint first, falls back to yfinance, then web search.
+    """Fetch USD/IDR exchange rate.
+
+    Tries direct Yahoo endpoint first, falls back to yfinance, then web
+    search.
     """
     # 1. Direct Yahoo endpoint
     try:
@@ -359,32 +384,36 @@ def fetch_usdidr_snapshot() -> dict[str, Any]:
         today_id = jakarta_now().strftime("%d %B %Y")
         text = search_web(f"kurs rupiah dolar AS hari ini {today_id}", days=2)
         match = re.search(r"Rp\s*([0-9.,]+)", text)
-        rate = 17950.0
         if match:
             try:
                 rate = float(match.group(1).replace(".", "").replace(",", "."))
+                return {
+                    "usdidr": round(rate, 0),
+                    "usdidr_change_pct": None,
+                    "rupiah_signal": "Unknown",
+                    "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+                    "source": "web_fallback",
+                    "confidence": "low",
+                }
             except Exception:
                 pass
-        return {
-            "usdidr": round(rate, 0),
-            "usdidr_change_pct": 0.0,
-            "rupiah_signal": "Weakened" if rate > 17500 else "Strengthened",
-            "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
-            "source": "web_fallback:USDIDR",
-        }
-    except Exception:
-        return {
-            "usdidr": 17950.0,
-            "usdidr_change_pct": 0.0,
-            "rupiah_signal": "Neutral",
-            "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
-            "source": "fallback:default",
-        }
+    except Exception as e:
+        print(f"  [fetch_usdidr_snapshot] web fallback error: {e}")
+
+    return {
+        "usdidr": None,
+        "usdidr_change_pct": None,
+        "rupiah_signal": "Unavailable",
+        "error": "USD/IDR data unavailable across all sources.",
+        "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+        "source": "unavailable",
+    }
 
 
 def fetch_yfinance_commodity(name: str, ticker: str) -> dict[str, Any]:
-    """
-    Fetch commodity price via direct Yahoo chart API first, falling back to yfinance.
+    """Fetch commodity price via direct Yahoo chart API first, falling back to
+
+    yfinance.
     """
     # 1. Direct Yahoo endpoint
     try:
@@ -430,16 +459,17 @@ def fetch_yfinance_commodity(name: str, ticker: str) -> dict[str, Any]:
             "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
             "source": f"yfinance:{ticker}",
         }
-    except Exception:
+    except Exception as e:
         return {
             "name": name,
             "ticker": ticker,
-            "price": 0.0,
-            "previous_close": 0.0,
-            "change_pct": 0.0,
-            "signal": "Neutral",
+            "price": None,
+            "previous_close": None,
+            "change_pct": None,
+            "signal": "Unavailable",
+            "error": f"Price unavailable for {ticker}: {e}",
             "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
-            "source": f"fallback:{ticker}",
+            "source": f"error:{ticker}",
         }
 
 
@@ -454,9 +484,15 @@ def fetch_yfinance_commodities(
 
 
 def format_commodity_snapshot(data: dict[str, Any]) -> str:
-    change = data.get("change_pct", 0)
+    name = data.get("name", "Commodity")
+    price = data.get("price")
+    if price is None:
+        return f"- **{name}**: unavailable"
+
+    price_str = f"{price:,.2f}" if isinstance(price, (int, float)) else str(price)
+    change = data.get("change_pct")
+    if change is None:
+        return f"- **{name}**: {price_str} (change unavailable)"
+
     direction = "UP" if change > 0 else "DOWN"
-    price = data.get("price", "N/A")
-    if isinstance(price, float):
-        price = f"{price:,.2f}"
-    return f"- **{data.get('name', 'Commodity')}**: {price} {direction} {abs(change):.2f}%"
+    return f"- **{name}**: {price_str} {direction} {abs(change):.2f}%"

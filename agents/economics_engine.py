@@ -72,6 +72,9 @@ def build_economics_context(
     lines.append("Do NOT override the economic direction stated here.\n")
 
     for commodity, pct_change in commodity_changes.items():
+        if pct_change is None:
+            lines.append(f"### {commodity}: commodity {commodity} data unavailable\n")
+            continue
         if commodity not in COMMODITY_LOGIC or abs(pct_change) < 0.1:
             continue
 

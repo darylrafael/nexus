@@ -401,77 +401,70 @@ function MacroPulse({ review }) {
 }
 
 function ActionableMarketSetup({ review }) {
-  const closeNum = Number(review?.ihsg_close) || Number(review?.previous_close) || 6298.61;
-  const pivot = Math.round(closeNum);
-  const s1 = Math.round(closeNum * 0.993);
-  const r1 = Math.round(closeNum * 1.007);
+  const closeNum = (review?.ihsg_close && Number.isFinite(Number(review.ihsg_close)))
+    ? Number(review.ihsg_close)
+    : (review?.previous_close && Number.isFinite(Number(review.previous_close))
+      ? Number(review.previous_close)
+      : null);
+
+  const pivot = closeNum ? Math.round(closeNum) : null;
+  const s1 = closeNum ? Math.round(closeNum * 0.993) : null;
+  const r1 = closeNum ? Math.round(closeNum * 1.007) : null;
 
   const focusWatchlist = (review?.actionable_watchlist && review.actionable_watchlist.length > 0)
     ? review.actionable_watchlist
-    : [
-        {
-          ticker: "ICBP",
-          sector: "Consumer Non-Cyclical",
-          bias: "BULLISH",
-          note: "Terjaga daya beli domestik & inflasi stabil, defensif terhadap volatilitas suku bunga global."
-        },
-        {
-          ticker: "BUMI",
-          sector: "Energy & Mining",
-          bias: "BULLISH",
-          note: "Batu bara Newcastle solid ($145.50/t); minat beli bersih asing mencapai 59jt lembar."
-        },
-        {
-          ticker: "BBRI",
-          sector: "Banking",
-          bias: "DEFENSIVE",
-          note: "BI Rate bertahan di 5.75% menopang margin bunga bersih; pantau support S1 (6,255) untuk rebound."
-        },
-        {
-          ticker: "TLKM",
-          sector: "Technology & Infrastructure",
-          bias: "WATCH",
-          note: "Yield US Treasury 10Y (5.135%) membebani valuasi; pantau stabilisasi arus dana institusi asing."
-        }
-      ];
+    : (review?.recommended_tickers && review.recommended_tickers.length > 0
+        ? review.recommended_tickers.map(ticker => ({
+            ticker,
+            sector: "Morning Brief Selection",
+            bias: "OBSERVE",
+            note: "from morning brief — not advice"
+          }))
+        : []);
 
   return (
     <div className="eval-pane-section" style={{ borderBottom: "none" }}>
       <div className="eval-pane-section-header">
         <span className="eval-section-heading">Pre-Market Actionable Setup</span>
-        <span className="eval-section-tag font-mono">Levels &amp; Focus Watchlist</span>
+        <span className="eval-section-tag font-mono">Levels &amp; Focus Watchlist (from morning brief — not advice)</span>
       </div>
 
       {/* Support / Pivot / Resistance Tape */}
       <div className="actionable-levels-strip">
         <div className="level-box">
           <span className="level-label font-mono">S1 SUPPORT</span>
-          <span className="level-val font-mono text-missed">{formatNumber(s1)}</span>
+          <span className="level-val font-mono text-missed">{s1 ? formatNumber(s1) : "—"}</span>
         </div>
         <div className="level-box pivot-box">
           <span className="level-label font-mono">PIVOT AXIS</span>
-          <span className="level-val font-mono text-primary">{formatNumber(pivot)}</span>
+          <span className="level-val font-mono text-primary">{pivot ? formatNumber(pivot) : "—"}</span>
         </div>
         <div className="level-box">
           <span className="level-label font-mono">R1 RESISTANCE</span>
-          <span className="level-val font-mono text-matched">{formatNumber(r1)}</span>
+          <span className="level-val font-mono text-matched">{r1 ? formatNumber(r1) : "—"}</span>
         </div>
       </div>
 
       {/* Focus Catalyst Tickers */}
-      <div className="focus-ticker-grid">
-        {focusWatchlist.map((item) => (
-          <div className="focus-ticker-cell" key={item.ticker}>
-            <div className="ticker-cell-top">
-              <span className="ticker-symbol font-mono">{item.ticker}</span>
-              <span className={`ticker-bias font-mono ${item.bias === "BULLISH" ? "text-matched" : (item.bias === "DEFENSIVE" ? "text-warning" : "text-muted")}`}>
-                {item.bias === "BULLISH" ? "▲ BUY ON WEAK" : (item.bias === "DEFENSIVE" ? "▼ DEFENSIVE" : "● OBSERVE")}
-              </span>
+      {focusWatchlist.length === 0 ? (
+        <div className="text-muted font-mono text-xs py-3 text-center" style={{ opacity: 0.7 }}>
+          No morning brief watchlist available — not advice
+        </div>
+      ) : (
+        <div className="focus-ticker-grid">
+          {focusWatchlist.map((item) => (
+            <div className="focus-ticker-cell" key={item.ticker}>
+              <div className="ticker-cell-top">
+                <span className="ticker-symbol font-mono">{item.ticker}</span>
+                <span className={`ticker-bias font-mono ${item.bias === "BULLISH" ? "text-matched" : (item.bias === "DEFENSIVE" ? "text-warning" : "text-muted")}`}>
+                  {item.bias === "BULLISH" ? "▲ BUY ON WEAK" : (item.bias === "DEFENSIVE" ? "▼ DEFENSIVE" : "● OBSERVE")}
+                </span>
+              </div>
+              <div className="ticker-cell-note">{item.note}</div>
             </div>
-            <div className="ticker-cell-note">{item.note}</div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -1050,14 +1043,14 @@ export default function Dashboard() {
 
   const benchmarkValue = useMemo(() => {
     const lat = dashboard?.latest;
-    if (!lat) return "6,298.61";
+    if (!lat) return "—";
     if (lat.ihsg_close && Number.isFinite(Number(lat.ihsg_close))) return formatNumber(lat.ihsg_close);
     if (lat.previous_close && Number.isFinite(Number(lat.previous_close))) return formatNumber(lat.previous_close);
     const lastEvaluated = dashboard?.reviews?.find((r) => !r.isPendingReview && r.ihsg_close);
     if (lastEvaluated?.ihsg_close) return formatNumber(lastEvaluated.ihsg_close);
     const summaryMatch = (lat.summary || "").match(/(?:JCI|IHSG)\s+(?:closed at\s+)?([0-9,.]+)/i);
     if (summaryMatch && summaryMatch[1]) return summaryMatch[1];
-    return "6,298.61";
+    return "—";
   }, [dashboard]);
 
   const filteredReviews = useMemo(() => {
