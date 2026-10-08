@@ -40,6 +40,9 @@ dashboard/out/
 .DS_Store
 Thumbs.db
 
+# Backups
+*.bak
+
 # Agent / IDE internal
 .superpowers/
 .idea/

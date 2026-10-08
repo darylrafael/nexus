@@ -5,49 +5,90 @@ from dataclasses import asdict
 from schemas import MarketPrediction
 
 
-def _extract_signal_confidence(text: str, section_num: int) -> tuple:
-    # Relaxed regex: doesn't strictly require asterisks around the signal
-    pattern = rf"###\s*{section_num}\..*?Market Impact.*?(Bullish|Bearish|Neutral|Mixed).*?Confidence.*?(\d+)"
-    match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
-    if match:
-        signal = match.group(1).capitalize()
-        return signal if signal in ["Bullish", "Bearish", "Neutral"] else "Neutral", int(match.group(2))
-    return "Neutral", 50
+from utils.flow import classify_foreign_flow
 
 
-def _extract_overall_ihsg(text: str) -> tuple:
-    signals, confs = [], []
+def _extract_section_text(text: str, section_num: int) -> str:
+    """Extract strictly the text of section_num without bleeding into subsequent sections."""
+    pattern = rf"###\s*{section_num}\.(.*?)(?=###\s*\d+\.|\Z)"
+    match = re.search(pattern, text, re.DOTALL)
+    return match.group(1) if match else ""
+
+
+def _extract_signal_confidence(text: str, section_num: int) -> tuple[str | None, int | None, str | None]:
+    section = _extract_section_text(text, section_num)
+    if not section:
+        return None, None, None
+
+    impact_m = re.search(r"(?:Market Impact|Arah|Signal|Sentimen|Proyeksi)\s*[:*]*\s*(Bullish|Bearish|Neutral|Mixed)", section, re.IGNORECASE)
+    conf_m = re.search(r"Confidence\s*[:*]*\s*(\d+)", section, re.IGNORECASE)
+
+    raw_signal = impact_m.group(1).capitalize() if impact_m else "Neutral"
+    normalized_signal = "Neutral" if raw_signal in ["Mixed", "Neutral"] else raw_signal
+    if normalized_signal not in ["Bullish", "Bearish", "Neutral"]:
+        normalized_signal = "Neutral"
+
+    raw_conf = int(conf_m.group(1)) if conf_m else 50
+    conf = max(0, min(100, raw_conf))
+
+    return normalized_signal, conf, raw_signal
+
+
+def _extract_overall_ihsg(text: str) -> tuple[str, int, str]:
+    signals, confs, raw_signals = [], [], []
     for i in range(1, 5):
-        s, c = _extract_signal_confidence(text, i)
-        signals.append(s)
-        confs.append(c)
+        s, c, raw_s = _extract_signal_confidence(text, i)
+        if s is not None and c is not None:
+            signals.append(s)
+            confs.append(c)
+            raw_signals.append(raw_s)
+
+    if not signals:
+        return "Neutral", 50, "Neutral"
+
     bullish = signals.count("Bullish")
     bearish = signals.count("Bearish")
-    avg_conf = int(sum(confs) / len(confs)) if confs else 50
+    avg_conf = int(round(sum(confs) / len(confs))) if confs else 50
+    avg_conf = max(0, min(100, avg_conf))
+
     if bullish > bearish:
-        return "Bullish", avg_conf
+        overall = "Bullish"
+        raw_overall = "Bullish"
     elif bearish > bullish:
-        return "Bearish", avg_conf
-    return "Neutral", avg_conf
-
-
-def _extract_foreign_flow(text: str) -> tuple:
-    match = re.search(r"###\s*5\.(.*?)(?:---|###\s*6\.)", text, re.DOTALL)
-    if not match:
-        return "Unknown", ""
-    section = match.group(1)
-
-    signal_match = re.search(r"Signal.*?:(.*?)(?:\n|$)", section, re.IGNORECASE)
-    signal_text = signal_match.group(1).lower() if signal_match else ""
-    if "accumulation" in signal_text or "net buy" in signal_text:
-        signal = "Accumulation"
-    elif "distribution" in signal_text or "net sell" in signal_text:
-        signal = "Distribution"
+        overall = "Bearish"
+        raw_overall = "Bearish"
     else:
-        signal = "Stagnant/Sideways"
+        overall = "Neutral"
+        raw_overall = "Mixed" if ("Mixed" in raw_signals or (bullish == bearish and bullish > 0)) else "Neutral"
+
+    return overall, avg_conf, raw_overall
+
+
+def _extract_foreign_flow(text: str, target_date_str: str | None = None) -> tuple[str, str]:
+    section = _extract_section_text(text, 5)
+    if not section:
+        return "Unknown", ""
 
     net_match = re.search(r"Net Buy/Sell.*?:(.*?)(?:\n|$)", section, re.IGNORECASE)
     net_raw = net_match.group(1).strip() if net_match else ""
+
+    signal_match = re.search(r"Signal.*?:(.*?)(?:\n|$)", section, re.IGNORECASE)
+    signal_stated = signal_match.group(1).strip() if signal_match else ""
+
+    flow_result = classify_foreign_flow(section, target_date_str=target_date_str)
+    if flow_result["signal"] != "Unknown":
+        signal = flow_result["signal"]
+    elif signal_stated:
+        st_lower = signal_stated.lower()
+        if "accumulation" in st_lower or "net buy" in st_lower:
+            signal = "Accumulation"
+        elif "distribution" in st_lower or "net sell" in st_lower:
+            signal = "Distribution"
+        else:
+            signal = "Stagnant"
+    else:
+        signal = "Unknown"
+
     return signal, net_raw
 
 
@@ -127,9 +168,9 @@ def _extract_source_ids(text: str) -> list:
 
 
 def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
-    ihsg_signal, ihsg_conf = _extract_overall_ihsg(brief_text)
-    ff_signal, ff_net      = _extract_foreign_flow(brief_text)
-    bull, bear, neutral    = _extract_sector_block(brief_text)
+    ihsg_signal, ihsg_conf, raw_ihsg = _extract_overall_ihsg(brief_text)
+    ff_signal, ff_net                 = _extract_foreign_flow(brief_text, target_date_str=date)
+    bull, bear, neutral               = _extract_sector_block(brief_text)
 
     return MarketPrediction(
         date=date,
@@ -144,6 +185,7 @@ def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
         key_risk=_extract_key_risk(brief_text),
         commodities_predicted=_extract_commodity_signals(brief_text),
         evidence_ids=_extract_source_ids(brief_text),
+        raw_ihsg_signal=raw_ihsg,
     )
 
 

@@ -52,6 +52,7 @@ class MarketPrediction:
     key_risk: str = ""
     commodities_predicted: dict[str, str] = field(default_factory=dict)
     evidence_ids: list[str] = field(default_factory=list)
+    raw_ihsg_signal: Optional[str] = None
 
 
 @dataclass

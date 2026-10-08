@@ -27,6 +27,8 @@ from data_sources.news import search_text_with_sources
 from memory.artifacts import load_json_artifact, save_json_artifact
 from memory.obsidian import read_note
 from memory.learning_store import save_learning, update_performance_stats
+from utils.direction import classify_direction
+from utils.stats import compute_session_accuracy
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STEP 1 — Read morning brief (Obsidian → local artifact fallback)
@@ -77,30 +79,103 @@ def load_morning_brief(date_key: str) -> tuple:
     return pred, raw
 
 
+from utils.direction import classify_direction
+from utils.flow import classify_foreign_flow
+from utils.stats import compute_session_accuracy
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # STEP 2 — Collect actual market data
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def collect_actual_data(date_id: str, target_date: str = None) -> dict:
-    """Fetch IHSG, commodities, rupiah, top movers from yfinance/Yahoo + web search."""
-    data = {}
-    data["evidence_ids"] = []
+    """Fetch IHSG, commodities, rupiah, top movers from yfinance/Yahoo + web search.
+    Namespaces ihsg and usdidr to avoid provenance collision.
+    """
+    data = {
+        "schema_version": 2,
+        "evidence_ids": [],
+        "target_date": target_date,
+    }
 
     # IHSG
     print("  [step2] fetching IHSG actual...")
     try:
-        data.update(fetch_ihsg_snapshot(target_date=target_date))
+        ihsg_snap = fetch_ihsg_snapshot(target_date=target_date)
     except Exception as e:
         print(f"  [step2] IHSG error: {e}")
-        data["ihsg_signal"] = "Unknown"
+        ihsg_snap = {
+            "ihsg_close": None,
+            "ihsg_prev": None,
+            "ihsg_change_pct": None,
+            "ihsg_change_pts": None,
+            "ihsg_signal": "Unknown",
+            "candle_date": target_date,
+            "error": str(e),
+            "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+            "source": "error",
+        }
 
     # Rupiah (USD/IDR)
     print("  [step2] fetching USD/IDR...")
     try:
-        data.update(fetch_usdidr_snapshot())
+        usdidr_snap = fetch_usdidr_snapshot()
     except Exception as e:
         print(f"  [step2] USD/IDR error: {e}")
-        data["usdidr"] = "N/A"
+        usdidr_snap = {
+            "usdidr": None,
+            "usdidr_change_pct": None,
+            "rupiah_signal": "Unavailable",
+            "candle_date": target_date or jakarta_now().strftime("%Y-%m-%d"),
+            "error": str(e),
+            "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+            "source": "error",
+        }
+
+    # Namespaced provenance (Phase 2 fix: avoids overwriting source/retrieved_at)
+    data["schema_version"] = 2
+    data["ihsg"] = {
+        "close": ihsg_snap.get("ihsg_close"),
+        "prev": ihsg_snap.get("ihsg_prev"),
+        "change_pct": ihsg_snap.get("ihsg_change_pct"),
+        "change_pts": ihsg_snap.get("ihsg_change_pts"),
+        "signal": ihsg_snap.get("ihsg_signal"),
+        "open": ihsg_snap.get("ihsg_open"),
+        "high": ihsg_snap.get("ihsg_high"),
+        "low": ihsg_snap.get("ihsg_low"),
+        "volume": ihsg_snap.get("ihsg_volume"),
+        "candle_date": ihsg_snap.get("candle_date") or target_date,
+        "source": ihsg_snap.get("source"),
+        "retrieved_at": ihsg_snap.get("retrieved_at"),
+        "confidence": ihsg_snap.get("confidence", "normal"),
+        "error": ihsg_snap.get("error"),
+    }
+
+    data["usdidr"] = {
+        "rate": usdidr_snap.get("usdidr"),
+        "change_pct": usdidr_snap.get("usdidr_change_pct"),
+        "signal": usdidr_snap.get("rupiah_signal"),
+        "candle_date": usdidr_snap.get("candle_date") or target_date or jakarta_now().strftime("%Y-%m-%d"),
+        "source": usdidr_snap.get("source"),
+        "retrieved_at": usdidr_snap.get("retrieved_at"),
+        "confidence": usdidr_snap.get("confidence", "normal"),
+        "error": usdidr_snap.get("error"),
+    }
+
+    # Top-level backwards compatibility flat fields
+    data["ihsg_close"] = ihsg_snap.get("ihsg_close")
+    data["ihsg_prev"] = ihsg_snap.get("ihsg_prev")
+    data["ihsg_change_pct"] = ihsg_snap.get("ihsg_change_pct")
+    data["ihsg_change_pts"] = ihsg_snap.get("ihsg_change_pts")
+    data["ihsg_signal"] = ihsg_snap.get("ihsg_signal")
+    data["ihsg_source"] = ihsg_snap.get("source")
+    data["ihsg_confidence"] = ihsg_snap.get("confidence", "normal")
+    data["ihsg_retrieved_at"] = ihsg_snap.get("retrieved_at")
+
+    data["usdidr_rate"] = usdidr_snap.get("usdidr")
+    data["usdidr_change_pct"] = usdidr_snap.get("usdidr_change_pct")
+    data["rupiah_signal"] = usdidr_snap.get("rupiah_signal")
+    data["usdidr_source"] = usdidr_snap.get("source")
+    data["usdidr_retrieved_at"] = usdidr_snap.get("retrieved_at")
 
     # Commodities via yfinance
     print("  [step2] fetching commodity prices...")
@@ -110,7 +185,14 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
             data["commodities"][name] = fetch_yfinance_commodity(name, ticker)
         except Exception as e:
             print(f"  [step2] commodity error for {name}: {e}")
-            data["commodities"][name] = {"price": "N/A", "change_pct": 0, "signal": "Unknown"}
+            data["commodities"][name] = {
+                "name": name,
+                "ticker": ticker,
+                "price": None,
+                "change_pct": None,
+                "signal": "Unavailable",
+                "error": str(e),
+            }
 
     # Coal, CPO, Nickel — web search (no free yfinance ticker)
     print("  [step2] fetching Coal/CPO/Nickel via web...")
@@ -125,7 +207,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
             data["evidence_ids"].extend(source_ids)
         except Exception as e:
             print(f"  [step2] web commodity error for {name}: {e}")
-            data["commodities"][name] = {"raw": "N/A"}
+            data["commodities"][name] = {"raw": "N/A", "error": str(e)}
 
     # Top gainers / losers
     print("  [step2] fetching top movers...")
@@ -157,7 +239,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         print(f"  [step2] sector performance error: {e}")
         data["sector_performance"] = "N/A"
 
-    # Foreign flow
+    # Foreign flow using shared utils/flow.py
     print("  [step2] fetching foreign flow...")
     try:
         ff_raw, source_ids = search_text_with_sources(
@@ -168,15 +250,12 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         )
         data["foreign_flow_raw"] = ff_raw[:500]
         data["evidence_ids"].extend(source_ids)
-        t = ff_raw.lower()
-        if "net buy" in t or "beli asing" in t:
-            data["foreign_flow_signal"] = "Accumulation"
-        elif "net sell" in t or "jual asing" in t:
-            data["foreign_flow_signal"] = "Distribution"
-        else:
-            data["foreign_flow_signal"] = "Stagnant/Sideways"
+        flow_eval = classify_foreign_flow(ff_raw, target_date_str=target_date or date_id)
+        data["foreign_flow"] = flow_eval
+        data["foreign_flow_signal"] = flow_eval["signal"]
     except Exception as e:
         print(f"  [step2] foreign flow error: {e}")
+        data["foreign_flow"] = {"signal": "Unknown", "net_trillion": None, "error": str(e)}
         data["foreign_flow_signal"] = "Unknown"
         data["foreign_flow_raw"]    = "N/A"
 
@@ -227,27 +306,14 @@ def _string_list(value) -> list[str]:
     return [item for item in value if isinstance(item, str) and item.strip()]
 
 
-def _accuracy_from_analysis(analysis: dict) -> int:
+def _accuracy_from_analysis(analysis: dict):
     ev = analysis.get("step4_evaluation", {})
     ev = ev if isinstance(ev, dict) else {}
-    correct = 0
-    total   = 0
-
-    for key in ["ihsg_correct", "foreign_flow_correct"]:
-        val = ev.get(key)
-        if isinstance(val, bool):
-            correct += int(val)
-            total   += 1
-
-    # Only count sectors where LLM had actual data (true/false), skip null
-    sector_accuracy = ev.get("sector_accuracy", {})
-    sector_accuracy = sector_accuracy if isinstance(sector_accuracy, dict) else {}
-    for val in sector_accuracy.values():
-        if isinstance(val, bool):
-            correct += int(val)
-            total   += 1
-
-    return int(correct / total * 100) if total > 0 else 0
+    return compute_session_accuracy(
+        ihsg_correct=ev.get("ihsg_correct"),
+        foreign_flow_correct=ev.get("foreign_flow_correct"),
+        sector_accuracy=ev.get("sector_accuracy"),
+    )
 
 
 def _normalize_and_enrich_analysis(
@@ -276,33 +342,42 @@ def _normalize_and_enrich_analysis(
     if not isinstance(ev, dict):
         ev = {}
 
-    ihsg_actual = str(ev.get("ihsg_actual") or actual.get("ihsg_signal") or "Unknown")
-    ihsg_actual_pct = _number(ev.get("ihsg_actual_pct", actual.get("ihsg_change_pct", 0.0)))
+    # Determine IHSG actual % and direction canonically
+    raw_pct = actual.get("ihsg_change_pct")
+    if raw_pct is None and isinstance(actual.get("ihsg"), dict):
+        raw_pct = actual["ihsg"].get("change_pct")
+    if raw_pct is None and ev.get("ihsg_actual_pct") is not None:
+        raw_pct = ev.get("ihsg_actual_pct")
 
-    # Determine ihsg_correct
-    raw_ihsg_correct = ev.get("ihsg_correct")
-    if isinstance(raw_ihsg_correct, bool):
-        ihsg_correct = raw_ihsg_correct
+    try:
+        ihsg_actual_pct = float(raw_pct) if raw_pct is not None else None
+    except (ValueError, TypeError):
+        ihsg_actual_pct = None
+
+    if ihsg_actual_pct is not None:
+        ihsg_actual = classify_direction(ihsg_actual_pct)
+    else:
+        ihsg_actual = str(ev.get("ihsg_actual") or actual.get("ihsg_signal") or "Unknown")
+
+    # Determine ihsg_correct (must be None if unscorable / unknown)
+    if ihsg_actual in ["Unknown", "Unscorable", "Unavailable", ""] or ihsg_actual_pct is None:
+        ihsg_correct = None
     else:
         pred_sig = (pred.ihsg_signal or "").strip().lower()
+        if pred_sig == "mixed":
+            pred_sig = "neutral"
         act_sig = ihsg_actual.strip().lower()
-        if pred_sig in ["bullish", "green"] and (act_sig in ["bullish", "green"] or ihsg_actual_pct > 0):
-            ihsg_correct = True
-        elif pred_sig in ["bearish", "red"] and (act_sig in ["bearish", "red"] or ihsg_actual_pct < 0):
-            ihsg_correct = True
-        elif pred_sig in ["sideways", "stagnant"] and (act_sig in ["sideways", "stagnant"] or abs(ihsg_actual_pct) < 0.2):
-            ihsg_correct = True
-        else:
-            ihsg_correct = False
+        ihsg_correct = (pred_sig == act_sig)
 
+    # Determine Foreign Flow actual & correctness
     ff_actual = str(ev.get("foreign_flow_actual") or actual.get("foreign_flow_signal") or "Unknown")
-    raw_ff_correct = ev.get("foreign_flow_correct")
-    if isinstance(raw_ff_correct, bool):
-        ff_correct = raw_ff_correct
+    pred_ff = (pred.foreign_flow_signal or "").strip().lower()
+    act_ff = ff_actual.strip().lower()
+
+    if pred_ff in ["unknown", "n/a", ""] or act_ff in ["unknown", "n/a", ""]:
+        ff_correct = None
     else:
-        pred_ff = (pred.foreign_flow_signal or "").strip().lower()
-        act_ff = ff_actual.strip().lower()
-        ff_correct = (pred_ff == act_ff) and (pred_ff not in ["unknown", "n/a", ""])
+        ff_correct = (pred_ff == act_ff)
 
     sector_accuracy = ev.get("sector_accuracy") or analysis.get("sector_accuracy") or {}
     if not isinstance(sector_accuracy, dict):
@@ -655,18 +730,32 @@ def run_evening_review(date_key: str = None) -> dict | None:
     sector_accuracy = ev.get("sector_accuracy", {})
     sector_accuracy = sector_accuracy if isinstance(sector_accuracy, dict) else {}
 
+    ihsg_corr = ev.get("ihsg_correct")
+    if not isinstance(ihsg_corr, bool):
+        ihsg_corr = None
+
+    ff_corr = ev.get("foreign_flow_correct")
+    if not isinstance(ff_corr, bool):
+        ff_corr = None
+
+    rate_val = actual.get("usdidr_rate")
+    if rate_val is None and isinstance(actual.get("usdidr"), dict):
+        rate_val = actual["usdidr"].get("rate")
+    if rate_val is None:
+        rate_val = actual.get("usdidr", "N/A")
+
     learning = {
         "date":                    date_key,
         "ihsg_predicted":          pred.ihsg_signal,
         "ihsg_confidence":         pred.ihsg_confidence,
         "ihsg_actual":             ev.get("ihsg_actual", actual.get("ihsg_signal", "?")),
-        "ihsg_actual_pct":         _number(ev.get("ihsg_actual_pct", actual.get("ihsg_change_pct", 0))),
-        "ihsg_correct":            _boolean(ev.get("ihsg_correct")),
+        "ihsg_actual_pct":         ev.get("ihsg_actual_pct") if ev.get("ihsg_actual_pct") is not None else actual.get("ihsg_change_pct"),
+        "ihsg_correct":            ihsg_corr,
         "foreign_flow_predicted":  pred.foreign_flow_signal,
         "foreign_flow_actual":     ev.get("foreign_flow_actual", actual.get("foreign_flow_signal", "?")),
-        "foreign_flow_correct":    _boolean(ev.get("foreign_flow_correct")),
+        "foreign_flow_correct":    ff_corr,
         "sector_accuracy":         sector_accuracy,
-        "error_rate_pct":          100 - accuracy,
+        "error_rate_pct":          (100 - accuracy) if accuracy is not None else None,
         "accuracy_score":          accuracy,
         "rca_unanticipated":       _string_list(rca.get("unanticipated_factors")),
         "rca_overestimated":       _string_list(rca.get("overestimated_factors")),
@@ -675,9 +764,9 @@ def run_evening_review(date_key: str = None) -> dict | None:
         "rca_inverse_correlation": _string_list(rca.get("inverse_correlation_cases")),
         "lessons":                 _string_list(analysis.get("step6_lessons")),
         "summary":                 analysis.get("summary_sentence", "") if isinstance(analysis.get("summary_sentence", ""), str) else "",
-        "ihsg_source":             actual.get("source", "unknown"),
-        "ihsg_confidence":         actual.get("confidence", "normal"),
-        "actual_usdidr":           actual.get("usdidr", "N/A"),
+        "ihsg_source":             actual.get("ihsg_source") or (actual.get("ihsg", {}).get("source") if isinstance(actual.get("ihsg"), dict) else actual.get("source", "unknown")),
+        "ihsg_confidence":         actual.get("ihsg_confidence") or (actual.get("ihsg", {}).get("confidence") if isinstance(actual.get("ihsg"), dict) else actual.get("confidence", "normal")),
+        "actual_usdidr":           rate_val,
         "actual_commodities":      {k: v for k, v in actual.get("commodities", {}).items()},
     }
 
@@ -693,10 +782,15 @@ def run_evening_review(date_key: str = None) -> dict | None:
 
     # Print summary
     ihsg_flag = " [web_fallback - confidence: low]" if (actual.get("source") == "web_fallback" or actual.get("confidence") == "low") else ""
+    corr_icon = "✅" if learning['ihsg_correct'] is True else ("❌" if learning['ihsg_correct'] is False else "❓ (unscorable)")
+    ff_corr_icon = "✅" if learning['foreign_flow_correct'] is True else ("❌" if learning['foreign_flow_correct'] is False else "❓ (unscorable)")
     print(f"\n{'─'*50}")
-    print(f"  IHSG: {pred.ihsg_signal} → {learning['ihsg_actual']} ({learning['ihsg_actual_pct']:+.2f}%){ihsg_flag} {'✅' if learning['ihsg_correct'] else '❌'}")
-    print(f"  Foreign Flow: {pred.foreign_flow_signal} → {learning['foreign_flow_actual']} {'✅' if learning['foreign_flow_correct'] else '❌'}")
-    print(f"  Accuracy: {accuracy}% | Error Rate: {learning['error_rate_pct']}%")
+    pct_display = f"{learning['ihsg_actual_pct']:+.2f}%" if learning['ihsg_actual_pct'] is not None else "N/A"
+    print(f"  IHSG: {pred.ihsg_signal} → {learning['ihsg_actual']} ({pct_display}){ihsg_flag} {corr_icon}")
+    print(f"  Foreign Flow: {pred.foreign_flow_signal} → {learning['foreign_flow_actual']} {ff_corr_icon}")
+    acc_display = f"{accuracy}%" if accuracy is not None else "N/A"
+    err_display = f"{learning['error_rate_pct']}%" if learning['error_rate_pct'] is not None else "N/A"
+    print(f"  Accuracy: {acc_display} | Error Rate: {err_display}")
     if learning["lessons"]:
         print(f"  Lessons learned: {len(learning['lessons'])}")
     print(f"{'─'*50}")

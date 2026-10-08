@@ -43,10 +43,10 @@
     "src_51e8e513a2",
     "src_9464e2abc3"
   ],
-  "ihsg_close": 6036.89,
-  "ihsg_prev": 6009.5,
-  "ihsg_change_pct": 0.46,
-  "ihsg_change_pts": 27.39,
+  "ihsg_close": 6118.86,
+  "ihsg_prev": 6036.89,
+  "ihsg_change_pct": 1.36,
+  "ihsg_change_pts": 81.97,
   "ihsg_signal": "Bullish",
   "ihsg_open": 6018.08,
   "ihsg_high": 6053.24,
@@ -101,5 +101,6 @@
   "top_movers": "[no date] IHSG Menguat, Kembali ke Kisaran 6.100 (Senin, 5 Oktober 2026)\nIndeks Harga Saham Gabungan (IHSG) naik 1,36% ke level 6.118,86 pada penutupan perdagangan Senin (5/10/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, 10 dari 11 sektor saham menguat hari ini.\n\nSektor properti memimpin dengan kenaikan sebesar 2,31%, diikuti sektor barang baku dan sektor infrastruktur yang masing-masing naik 2,07% dan 1,99%.\n\nSementara sektor yang melemah hanya sektor teknologi dengan penu\nSource IDs: src_2495de1a54, src_bcd30975e6, src_deaf58e533, src_0282e83e8c, src_d0f7591dd0, src_e66c9ac2d2, src_3987f13539",
   "sector_performance": "[no date] IHSG Menguat, Kembali ke Kisaran 6.100 (Senin, 5 Oktober 2026)\nIndeks Harga Saham Gabungan (IHSG) naik 1,36% ke level 6.118,86 pada penutupan perdagangan Senin (5/10/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, 10 dari 11 sektor saham menguat hari ini.\n\nSektor properti memimpin dengan kenaikan sebesar 2,31%, diikuti sektor barang baku dan sektor infrastruktur yang masing-masing naik 2,07% dan 1,99%.\n\nSementara sektor yang melemah hanya sektor teknologi dengan penu\nSource IDs: src_2b33f3c221, src_dee4e28f5b, src_87544f522c, src_a6809805b0, src_88afde084d, src_eb3f27ccf2, src_6701b71923",
   "foreign_flow_raw": "[no date] Asing Net Sell Rp2,75 T Meski IHSG Hijau, Kompak Lego 10 Saham Ini\nJakarta, CNBC Indonesia - Indeks Harga Saham Gabungan (IHSG) berada di zona hijau pada penutupan perdagangan sesi pertama Rabu, (10/6/2026). Di tengah pergerakan pasar, sejumlah saham justru terpantau dijual dan diburu investor asing.\n\nIHSG berhasil ditutup menguat kembali pada akhir perdagangan ses\nSource IDs: src_7e574d2c2a, src_21f5a38d17, src_de88088a95, src_f862e99500, src_bb7e7c0c93, src_51e8e513a2, src_9464e2abc3",
-  "foreign_flow_signal": "Distribution"
+  "foreign_flow_signal": "Distribution",
+  "schema_version": 1
 }

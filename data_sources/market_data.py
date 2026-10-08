@@ -5,6 +5,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 import requests
 import yfinance as yf
+from utils.direction import classify_direction
 
 
 JAKARTA_TZ = ZoneInfo("Asia/Jakarta")
@@ -159,7 +160,7 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
     """
     # 1. Direct Yahoo Finance Chart API
     try:
-        url = "https://query1.finance.yahoo.com/v8/finance/chart/^JKSE?interval=1d&range=10d"
+        url = "https://query1.finance.yahoo.com/v8/finance/chart/^JKSE?interval=1d&range=15d"
         res = requests.get(url, headers=_BROWSER_HEADERS, timeout=8)
         if res.status_code == 200:
             result = res.json().get("chart", {}).get("result", [])
@@ -168,32 +169,56 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
                 timestamps = d.get("timestamp", [])
                 quotes = d.get("indicators", {}).get("quote", [{}])[0]
                 closes = quotes.get("close", [])
-                
+
                 if timestamps and closes:
                     candle_dates = [datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d") for ts in timestamps]
-                    
+
                     target_idx = None
-                    if target_date and target_date in candle_dates:
-                        target_idx = candle_dates.index(target_date)
+                    if target_date:
+                        if target_date in candle_dates:
+                            target_idx = candle_dates.index(target_date)
+                            assert candle_dates[target_idx] == target_date, f"Index date mismatch: {candle_dates[target_idx]} != {target_date}"
+                        else:
+                            # CRITICAL: DO NOT fall back to latest candle when target_date is not present
+                            raise ValueError(f"no candle for {target_date}")
                     else:
                         # Pick latest candle with non-null close
+                        # Exclude today's incomplete candle if current time is before market close (16:00 WIB)
+                        now_jkt = jakarta_now()
+                        today_key = now_jkt.strftime("%Y-%m-%d")
+                        market_closed = now_jkt.hour >= 16
+
                         for i in range(len(timestamps) - 1, -1, -1):
+                            c_date = candle_dates[i]
+                            if not market_closed and c_date >= today_key:
+                                continue
                             if i < len(closes) and closes[i] is not None:
                                 target_idx = i
                                 break
 
                     if target_idx is not None and closes[target_idx] is not None:
                         close = float(closes[target_idx])
-                        prev_idx = target_idx - 1 if target_idx > 0 else None
-                        prev_close = float(closes[prev_idx]) if prev_idx is not None and closes[prev_idx] is not None else None
-                        pct = _pct_change(close, prev_close)
-                        pts = (close - prev_close) if prev_close is not None else 0.0
-                        
+                        # Walk backwards to nearest prior non-null close
+                        prev_close = None
+                        for p in range(target_idx - 1, -1, -1):
+                            if p < len(closes) and closes[p] is not None:
+                                prev_close = float(closes[p])
+                                break
+
+                        if prev_close is not None:
+                            pct = _pct_change(close, prev_close)
+                            pts = close - prev_close
+                            signal = classify_direction(pct)
+                        else:
+                            pct = None
+                            pts = None
+                            signal = "Unscorable"
+
                         open_vals = quotes.get("open", [])
                         high_vals = quotes.get("high", [])
                         low_vals = quotes.get("low", [])
                         vol_vals = quotes.get("volume", [])
-                        
+
                         open_val = float(open_vals[target_idx] if target_idx < len(open_vals) and open_vals[target_idx] is not None else close)
                         high_val = float(high_vals[target_idx] if target_idx < len(high_vals) and high_vals[target_idx] is not None else close)
                         low_val = float(low_vals[target_idx] if target_idx < len(low_vals) and low_vals[target_idx] is not None else close)
@@ -202,13 +227,14 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
                         return {
                             "ihsg_close": round(close, 2),
                             "ihsg_prev": round(prev_close, 2) if prev_close is not None else None,
-                            "ihsg_change_pct": round(pct, 2),
-                            "ihsg_change_pts": round(pts, 2),
-                            "ihsg_signal": "Bullish" if pct > 0.2 else ("Bearish" if pct < -0.2 else "Neutral"),
+                            "ihsg_change_pct": round(pct, 2) if pct is not None else None,
+                            "ihsg_change_pts": round(pts, 2) if pts is not None else None,
+                            "ihsg_signal": signal,
                             "ihsg_open": round(open_val, 2),
                             "ihsg_high": round(high_val, 2),
                             "ihsg_low": round(low_val, 2),
                             "ihsg_volume": vol_val,
+                            "candle_date": candle_dates[target_idx],
                             "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
                             "source": "yahoo_direct:^JKSE",
                         }
@@ -220,28 +246,65 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
         ihsg = yf.Ticker("^JKSE")
         hist = ihsg.history(period=period)
         if len(hist) >= 1:
-            latest = hist.iloc[-1]
-            prev = hist.iloc[-2] if len(hist) > 1 else None
-            close = float(latest["Close"])
-            prev_close = float(prev["Close"]) if prev is not None else None
-            pct = _pct_change(close, prev_close)
-            pts = close - prev_close if prev_close is not None else 0.0
+            hist_dates = [idx.strftime("%Y-%m-%d") for idx in hist.index]
+            target_idx = None
+            if target_date:
+                if target_date in hist_dates:
+                    target_idx = hist_dates.index(target_date)
+                    assert hist_dates[target_idx] == target_date, f"Index date mismatch: {hist_dates[target_idx]} != {target_date}"
+                else:
+                    raise ValueError(f"no candle for {target_date} in yfinance")
+            else:
+                now_jkt = jakarta_now()
+                today_key = now_jkt.strftime("%Y-%m-%d")
+                market_closed = now_jkt.hour >= 16
 
-            return {
-                "ihsg_close": round(close, 2),
-                "ihsg_prev": round(prev_close, 2) if prev_close is not None else None,
-                "ihsg_change_pct": round(pct, 2),
-                "ihsg_change_pts": round(pts, 2),
-                "ihsg_signal": "Bullish" if pct > 0.2 else ("Bearish" if pct < -0.2 else "Neutral"),
-                "ihsg_open": round(float(latest["Open"]), 2),
-                "ihsg_high": round(float(latest["High"]), 2),
-                "ihsg_low": round(float(latest["Low"]), 2),
-                "ihsg_volume": int(latest["Volume"]),
-                "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
-                "source": "yfinance:^JKSE",
-            }
+                for i in range(len(hist) - 1, -1, -1):
+                    if not market_closed and hist_dates[i] >= today_key:
+                        continue
+                    target_idx = i
+                    break
+
+            if target_idx is not None:
+                latest = hist.iloc[target_idx]
+                close = float(latest["Close"])
+                prev_close = None
+                for p in range(target_idx - 1, -1, -1):
+                    val = hist.iloc[p]["Close"]
+                    if val is not None and not (isinstance(val, float) and (val != val)):
+                        prev_close = float(val)
+                        break
+
+                if prev_close is not None:
+                    pct = _pct_change(close, prev_close)
+                    pts = close - prev_close
+                    signal = classify_direction(pct)
+                else:
+                    pct = None
+                    pts = None
+                    signal = "Unscorable"
+
+                return {
+                    "ihsg_close": round(close, 2),
+                    "ihsg_prev": round(prev_close, 2) if prev_close is not None else None,
+                    "ihsg_change_pct": round(pct, 2) if pct is not None else None,
+                    "ihsg_change_pts": round(pts, 2) if pts is not None else None,
+                    "ihsg_signal": signal,
+                    "ihsg_open": round(float(latest["Open"]), 2),
+                    "ihsg_high": round(float(latest["High"]), 2),
+                    "ihsg_low": round(float(latest["Low"]), 2),
+                    "ihsg_volume": int(latest["Volume"]),
+                    "candle_date": hist_dates[target_idx],
+                    "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+                    "source": "yfinance:^JKSE",
+                }
     except Exception as e:
         print(f"  [fetch_ihsg_snapshot] yfinance error: {e}")
+        if target_date and "no candle for" in str(e):
+            raise ValueError(f"market data does not contain requested target date candle {target_date}") from e
+
+    if target_date:
+        raise ValueError(f"market data does not contain requested target date candle {target_date}")
 
     # 3. Web Search Fallback
     try:
@@ -252,8 +315,8 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
         close_match = re.search(r"level\s+([0-9.,]+)", text)
         pct_match = re.search(r"(turun|melemah|menguat|naik)\s+([0-9.,]+)%", text, re.IGNORECASE)
         close = None
-        pct = 0.0
-        signal = "Neutral"
+        pct = None
+        signal = "Unknown"
         if close_match:
             try:
                 raw_close = close_match.group(1).replace(".", "").replace(",", ".")
@@ -264,25 +327,22 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
             try:
                 direction_word = pct_match.group(1).lower()
                 val = float(pct_match.group(2).replace(",", "."))
-                if direction_word in ("turun", "melemah"):
-                    pct = -val
-                    signal = "Bearish"
-                else:
-                    pct = val
-                    signal = "Bullish"
+                pct = -val if direction_word in ("turun", "melemah") else val
+                signal = classify_direction(pct)
             except Exception:
                 pass
         if close:
             return {
                 "ihsg_close": round(close, 2),
                 "ihsg_prev": None,
-                "ihsg_change_pct": round(pct, 2) if pct_match else None,
-                "ihsg_change_pts": 0.0,
+                "ihsg_change_pct": round(pct, 2) if pct is not None else None,
+                "ihsg_change_pts": None,
                 "ihsg_signal": signal,
                 "ihsg_open": round(close, 2),
                 "ihsg_high": round(close, 2),
                 "ihsg_low": round(close, 2),
                 "ihsg_volume": 0,
+                "candle_date": target_date or jakarta_now().strftime("%Y-%m-%d"),
                 "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
                 "source": "web_fallback",
                 "confidence": "low",
@@ -296,7 +356,8 @@ def fetch_ihsg_snapshot(period: str = "5d", target_date: str = None) -> dict[str
         "ihsg_change_pct": None,
         "ihsg_change_pts": None,
         "ihsg_signal": "Unknown",
-        "error": "IHSG data unavailable across all sources.",
+        "candle_date": target_date,
+        "error": f"no candle for {target_date}" if target_date else "IHSG data unavailable across all sources.",
         "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
         "source": "unavailable",
     }

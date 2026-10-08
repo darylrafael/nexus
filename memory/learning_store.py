@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from memory.obsidian import write_note, read_note, read_recent_notes
 from memory.artifacts import load_json_artifact, save_json_artifact, ARTIFACT_ROOT
+from utils.stats import compute_canonical_stats
 
 STATS_NOTE = "nexus-performance-stats"
 MAX_LESSONS_STORED = 50      # cap total lessons in stats note
@@ -90,8 +91,6 @@ def load_recent_learnings(days: int = 14) -> list:
                 print(f"  [learning_store] skipped malformed json in {run_dir.name}: {e}")
 
     # Return chronological order (oldest first in the loaded window, or reverse as needed by caller)
-    # The caller typically expects oldest first to append newest at the end, wait, 
-    # the original reversed them to be chronological. Let's return oldest first.
     learnings.reverse()
     print(f"  [learning_store] loaded {len(learnings)} learning entries from local artifacts (last {days}d)")
     return learnings
@@ -122,53 +121,44 @@ def load_performance_stats() -> dict:
 
 
 def update_performance_stats(learning: dict) -> bool:
-    """Append today's result to cumulative stats and save to local JSON + Obsidian."""
-    stats = load_performance_stats()
+    """Append today's result to cumulative stats and save to local JSON + Obsidian.
+    Uses canonical calculation to ensure separate metrics and accurate scorable denominators.
+    """
+    # Load all historical reviews to compute idempotent, canonical stats
+    reviews_by_date = {}
+    if ARTIFACT_ROOT.exists():
+        for run_dir in sorted(ARTIFACT_ROOT.iterdir()):
+            if run_dir.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", run_dir.name):
+                rev_file = run_dir / "evening_review.json"
+                if rev_file.exists():
+                    try:
+                        rev_data = json.loads(rev_file.read_text(encoding="utf-8"))
+                        if isinstance(rev_data, dict) and rev_data.get("date"):
+                            reviews_by_date[rev_data["date"]] = rev_data
+                    except Exception:
+                        pass
 
-    processed_dates = stats.setdefault("processed_dates", [])
-    already_processed = learning.get("date") in processed_dates
-    if already_processed:
-        print(f"  [learning_store] stats already include {learning.get('date')}; skipping duplicate count")
-        return True
+    # Incorporate current learning
+    if isinstance(learning, dict) and learning.get("date"):
+        reviews_by_date[learning["date"]] = learning
 
-    processed_dates.append(learning.get("date"))
-    stats["total_sessions"] += 1
-    stats["total_accuracy_sum"] += learning.get("accuracy_score", 0)
-    stats["rolling_avg_accuracy"] = round(
-        stats["total_accuracy_sum"] / stats["total_sessions"], 1
+    all_reviews = [reviews_by_date[d] for d in sorted(reviews_by_date.keys())]
+    stats = compute_canonical_stats(all_reviews)
+
+    # Backwards compatibility aliases
+    stats["ihsg_accuracy_pct"] = stats["direction_accuracy_pct"] or 0.0
+    stats["ihsg_correct_count"] = stats["direction_correct_count"]
+    stats["ff_accuracy_pct"] = stats["flow_accuracy_pct"] or 0.0
+    stats["ff_correct_count"] = stats["flow_correct_count"]
+    stats["total_accuracy_sum"] = sum(
+        float(r.get("accuracy_score", 0)) for r in all_reviews if r.get("accuracy_score") is not None
     )
 
-    if learning.get("ihsg_correct"):
-        stats["ihsg_correct_count"] += 1
-    if learning.get("foreign_flow_correct"):
-        stats["ff_correct_count"] += 1
-
-    stats["ihsg_accuracy_pct"] = round(
-        stats["ihsg_correct_count"] / stats["total_sessions"] * 100, 1
-    )
-    stats["ff_accuracy_pct"] = round(
-        stats["ff_correct_count"] / stats["total_sessions"] * 100, 1
-    )
-
-    # Track recurring missed factors
-    for factor in (learning.get("rca_unanticipated", []) +
-                   learning.get("rca_underestimated", [])):
-        if factor:
-            stats["missed_factor_counts"][factor] = \
-                stats["missed_factor_counts"].get(factor, 0) + 1
-
-    # FIX: Deduplicate lessons + cap at MAX_LESSONS_STORED
-    new_lessons = learning.get("lessons", [])
-    existing = set(stats["all_lessons"])
-    for lesson in new_lessons:
-        if lesson and lesson not in existing:
-            stats["all_lessons"].append(lesson)
-            existing.add(lesson)
-    # Keep only most recent lessons if over cap
-    if len(stats["all_lessons"]) > MAX_LESSONS_STORED:
-        stats["all_lessons"] = stats["all_lessons"][-MAX_LESSONS_STORED:]
-
-    stats["last_updated"] = learning.get("date", "")
+    # Format human markdown
+    dir_str = f"**{stats['direction_accuracy_pct']}%** ({stats['direction_correct_count']}/{stats['direction_scorable_sessions']})" if stats['direction_accuracy_pct'] is not None else "N/A"
+    flow_str = f"**{stats['flow_accuracy_pct']}%** ({stats['flow_correct_count']}/{stats['flow_scorable_sessions']})" if stats['flow_accuracy_pct'] is not None else "N/A"
+    sec_str = f"**{stats['sector_accuracy_pct']}%** ({stats['sector_correct_count']}/{stats['sector_verifiable_count']})" if stats['sector_accuracy_pct'] is not None else "N/A"
+    avg_str = f"**{stats['rolling_avg_accuracy']}%**" if stats['rolling_avg_accuracy'] is not None else "N/A"
 
     content = f"""# Nexus Performance Statistics
 
@@ -176,9 +166,10 @@ Last updated: {stats['last_updated']}
 
 ## Overall
 - Sessions tracked: {stats['total_sessions']}
-- Rolling avg accuracy: **{stats['rolling_avg_accuracy']}%**
-- IHSG direction accuracy: **{stats['ihsg_accuracy_pct']}%** ({stats['ihsg_correct_count']}/{stats['total_sessions']})
-- Foreign flow accuracy: **{stats['ff_accuracy_pct']}%** ({stats['ff_correct_count']}/{stats['total_sessions']})
+- Rolling avg session accuracy: {avg_str}
+- IHSG direction accuracy: {dir_str}
+- Foreign flow accuracy: {flow_str}
+- Sector accuracy: {sec_str}
 
 ## Top Recurring Blind Spots
 {_format_blind_spots(stats['missed_factor_counts'])}
@@ -271,15 +262,23 @@ def build_learning_context(learnings: list) -> str:
 def _empty_stats() -> dict:
     return {
         "total_sessions": 0,
-        "total_accuracy_sum": 0,
-        "rolling_avg_accuracy": 0.0,
+        "processed_dates": [],
+        "direction_accuracy_pct": None,
+        "direction_correct_count": 0,
+        "direction_scorable_sessions": 0,
+        "flow_accuracy_pct": None,
+        "flow_correct_count": 0,
+        "flow_scorable_sessions": 0,
+        "sector_accuracy_pct": None,
+        "sector_correct_count": 0,
+        "sector_verifiable_count": 0,
+        "rolling_avg_accuracy": None,
         "ihsg_correct_count": 0,
         "ff_correct_count": 0,
         "ihsg_accuracy_pct": 0.0,
         "ff_accuracy_pct": 0.0,
         "missed_factor_counts": {},
         "all_lessons": [],
-        "processed_dates": [],
         "last_updated": ""
     }
 

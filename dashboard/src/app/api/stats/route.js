@@ -75,7 +75,12 @@ export async function GET(request) {
                 try {
                   const pastAct = JSON.parse(fs.readFileSync(prevActualsPath, 'utf8'));
                   if (pastAct.ihsg_close != null) previousClose = pastAct.ihsg_close;
-                  if (pastAct.usdidr != null) yesterdayUsdIdr = pastAct.usdidr;
+                  else if (pastAct.ihsg?.close != null) previousClose = pastAct.ihsg.close;
+
+                  if (pastAct.usdidr_rate != null) yesterdayUsdIdr = pastAct.usdidr_rate;
+                  else if (pastAct.usdidr?.rate != null) yesterdayUsdIdr = pastAct.usdidr.rate;
+                  else if (typeof pastAct.usdidr === 'number') yesterdayUsdIdr = pastAct.usdidr;
+
                   if (pastAct.commodities && Object.keys(pastAct.commodities).length > 0) {
                     yesterdayCommodities = pastAct.commodities;
                   }
@@ -187,12 +192,23 @@ export async function GET(request) {
       }
     }
 
+    let nexusStats = null;
+    const nexusStatsPath = path.join(runsDir, 'global', 'nexus_stats.json');
+    if (fs.existsSync(nexusStatsPath)) {
+      try {
+        nexusStats = JSON.parse(fs.readFileSync(nexusStatsPath, 'utf8'));
+      } catch (e) {}
+    }
+
     return NextResponse.json({
       success: true,
       isDemo,
       stats: {
         totalDays: evaluatedDays,
         avgAccuracy,
+        directionAccuracy: nexusStats?.direction_accuracy_pct ?? null,
+        flowAccuracy: nexusStats?.flow_accuracy_pct ?? null,
+        sectorAccuracy: nexusStats?.sector_accuracy_pct ?? null,
         totalRuns: isDemo ? reviews.length * 2 : totalRuns,
         sectorBreadth
       },
