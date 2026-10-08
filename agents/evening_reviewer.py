@@ -29,6 +29,7 @@ from memory.artifacts import load_json_artifact, save_json_artifact
 from memory.obsidian import read_note
 from memory.learning_store import save_learning, update_performance_stats
 from utils.direction import classify_direction
+from utils.json_parser import extract_structured_json
 from utils.stats import compute_session_accuracy
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -616,28 +617,23 @@ CRITICAL RULES:
             response_format={"type": "json_object"},
         )
         raw = get_content(response)
-        match = re.search(r'\{[\s\S]*\}', raw)
-        if match:
-            raw = match.group(0)
-        analysis = json.loads(raw)
-        if not isinstance(analysis, dict):
-            raise ValueError("LLM evaluation must be a JSON object")
+        analysis = extract_structured_json(raw)
+        if not analysis:
+            raise ValueError("Failed to extract valid JSON from LLM response")
         return _normalize_and_enrich_analysis(analysis, pred, actual, date_id)
     except Exception as e:
         print(f"  [step4-6] [WARN] LLM evaluation attempt 1 failed: {e}. Retrying with fallback...")
         try:
-            retry_prompt = prompt + "\n\nCRITICAL: Provide non-empty step5_rca and step6_lessons in JSON format."
+            retry_prompt = prompt + "\n\nCRITICAL: Provide non-empty step5_rca and step6_lessons in valid JSON format."
             retry_resp = llm_chat(
                 messages=[{"role": "user", "content": retry_prompt}],
                 max_tokens=8192,
                 temperature=0.2,
+                response_format={"type": "json_object"},
             )
             raw2 = get_content(retry_resp)
-            match2 = re.search(r'\{[\s\S]*\}', raw2)
-            if match2:
-                raw2 = match2.group(0)
-            analysis2 = json.loads(raw2)
-            if isinstance(analysis2, dict):
+            analysis2 = extract_structured_json(raw2)
+            if analysis2:
                 return _normalize_and_enrich_analysis(analysis2, pred, actual, date_id)
         except Exception as retry_err:
             print(f"  [step4-6] [WARN] LLM retry also failed: {retry_err}. Using deterministic ground-truth synthesis.")

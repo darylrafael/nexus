@@ -20,6 +20,7 @@ from config import (
     OPENROUTER_API_KEY,    OPENROUTER_BASE_URL,
     OPENROUTER_MODEL,      OPENROUTER_FALLBACK_MODEL,
     GEMINI_API_KEY,        GEMINI_BASE_URL, GEMINI_MODEL,
+    DEEPINFRA_TOKEN,
 )
 
 # Signals that indicate rate-limit, network glitches, or server errors
@@ -151,7 +152,7 @@ def llm_chat(
             if alt not in gemini_models:
                 gemini_models.append(alt)
 
-        gemini = OpenAI(api_key=GEMINI_API_KEY, base_url=GEMINI_BASE_URL)
+        gemini = OpenAI(api_key=GEMINI_API_KEY, base_url=GEMINI_BASE_URL, timeout=45.0)
         for g_model in gemini_models:
             try:
                 response = _call(gemini, g_model, kwargs)
@@ -163,7 +164,7 @@ def llm_chat(
                 print(f"  [llm_client] [WARN] Gemini ({g_model}) failed: {e}. Trying next option...")
 
     # ── Tier 2: OpenRouter primary model ────────────────────────────────────
-    openrouter = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL)
+    openrouter = OpenAI(api_key=OPENROUTER_API_KEY, base_url=OPENROUTER_BASE_URL, timeout=45.0)
     primary_model = model or OPENROUTER_MODEL
     try:
         response = _call(openrouter, primary_model, kwargs)
@@ -174,7 +175,21 @@ def llm_chat(
             raise
         print(f"  [llm_client] [WARN] OpenRouter Tier 1 ({primary_model}) failed: {e}")
 
-    # ── Tier 3: OpenRouter fallback models pool ─────────────────────────────
+    # ── Tier 3: DeepInfra (if configured) ───────────────────────────────────
+    if DEEPINFRA_TOKEN:
+        deepinfra = OpenAI(api_key=DEEPINFRA_TOKEN, base_url="https://api.deepinfra.com/v1/openai", timeout=45.0)
+        for di_model in ["meta-llama/Meta-Llama-3.1-70B-Instruct", "Qwen/Qwen2.5-72B-Instruct"]:
+            try:
+                print(f"  [llm_client] [INFO] DeepInfra Fallback -> {di_model}")
+                response = _call(deepinfra, di_model, kwargs)
+                return _post_check(response)
+            except Exception as e:
+                errors_encountered.append(f"DeepInfra {di_model}: {e}")
+                print(f"  [llm_client] [WARN] DeepInfra ({di_model}) failed: {e}")
+                if not _is_retriable_error(e):
+                    break
+
+    # ── Tier 4: OpenRouter fallback models pool ─────────────────────────────
     # Deduplicate while preserving order, skipping primary_model
     candidate_fallbacks = []
     for cand in _OPENROUTER_FALLBACK_POOL:
