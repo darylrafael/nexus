@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus"
+version = "1.0.0"
+description = "Indonesian Stock Exchange (IHSG) Multi-Agent Market Intelligence Pipeline"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Nexus Engineering Team" }
+]
+dependencies = [
+    "requests>=2.31.0",
+    "yfinance>=0.2.36",
+    "apscheduler>=3.10.4",
+    "python-dotenv>=1.0.1",
+    "python-telegram-bot>=20.8",
+    "pyyaml>=6.0.1",
+    "tavily-python>=0.3.0",
+]
+
+[project.scripts]
+nexus = "nexus.__main__:main"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -12,7 +12,7 @@ Built as a portfolio project demonstrating multi-agent orchestration, model rout
                   ┌────────────────────────────────────────────────────────┐
                   │          SCHEDULING & EXECUTION LAYER                  │
                   │  GitHub Actions (Cloud Cron)  │  APScheduler (Local)   │
-                  │  06:55 WIB Morning Brief      │  18:55 WIB Review      │
+                  │  06:55 WIB Morning Brief      │  20:00 WIB Review      │
                   └────────────┬───────────────────────────┬───────────────┘
                                │                           │
               ┌────────────────▼───────┐          ┌────────▼──────────────┐
@@ -147,17 +147,17 @@ If you prefer running locally on your own machine:
   ```powershell
   .\register_tasks.ps1
   ```
-- **APScheduler Service**: Run the blocking foreground scheduler:
+- **APScheduler Service**: Run the background scheduler:
   ```bash
-  python scheduler.py
+  python -m nexus serve
   ```
-- **Manual One-Off Test**:
+- **Manual Pipeline Triggers**:
   ```bash
-  # Test morning brief manually
-  python -c "from scheduler import daily_brief; daily_brief()"
+  # Run morning brief (skips if weekend/completed unless --force)
+  python -m nexus brief [--force]
 
-  # Test evening review
-  python -c "from scheduler import evening_review; evening_review()"
+  # Run evening review (evaluates target date or auto-resolves)
+  python -m nexus review [--force] [--date YYYY-MM-DD]
   ```
 
 ### Dashboard demo

@@ -1,0 +1,64 @@
+name: Nexus CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-python:
+    name: Python Test Suite & Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pyyaml
+
+      - name: Run Pytest Suite
+        env:
+          SKIP_ENV_VALIDATION: "1"
+          PYTHONUTF8: "1"
+        run: |
+          pytest -v
+
+  build-dashboard:
+    name: Next.js Dashboard Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'dashboard/package-lock.json'
+
+      - name: Install Dashboard Dependencies
+        working-directory: dashboard
+        run: npm ci
+
+      - name: Build Next.js Dashboard
+        working-directory: dashboard
+        run: npm run build

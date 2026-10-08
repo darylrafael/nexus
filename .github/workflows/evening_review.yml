@@ -2,11 +2,8 @@ name: Nexus Evening Review
 
 on:
   schedule:
-    # Target window: 20:00 WIB (13:00 UTC)
-    - cron: '55 12 * * 1-5'  # 19:55 WIB (primary window)
-    - cron: '5 13 * * 1-5'   # 20:05 WIB (fallback 1)
-    - cron: '25 13 * * 1-5'  # 20:25 WIB (fallback 2)
-    - cron: '45 13 * * 1-5'  # 20:45 WIB (fallback 3)
+    # 13:00 UTC Mon-Fri = 20:00 WIB Mon-Fri (canonical schedule from schedule.yaml)
+    - cron: '0 13 * * 1-5'
   workflow_dispatch:
     inputs:
       force:
@@ -29,6 +26,7 @@ concurrency:
 jobs:
   evening-review:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: write
 
@@ -72,7 +70,14 @@ jobs:
           TARGET_DATE: ${{ inputs.target_date || '' }}
           PYTHONUTF8: "1"
         run: |
-          python -c "from scheduler import evening_review; evening_review()"
+          CMD="python -m nexus review"
+          if [ "${{ inputs.force }}" = "true" ]; then
+            CMD="$CMD --force"
+          fi
+          if [ -n "${{ inputs.target_date }}" ]; then
+            CMD="$CMD --date ${{ inputs.target_date }}"
+          fi
+          eval $CMD
 
       - name: Commit and push run artifacts
         run: |

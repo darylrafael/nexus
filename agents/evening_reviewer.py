@@ -654,7 +654,7 @@ def run_evening_review(date_key: str = None) -> dict | None:
     """
     now = jakarta_now()
     if not date_key:
-        from scheduler import resolve_evening_review_date
+        from utils.dates import resolve_evening_review_date
         date_key = resolve_evening_review_date()
 
     try:

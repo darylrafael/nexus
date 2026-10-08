@@ -2,10 +2,8 @@ name: Nexus Morning Brief
 
 on:
   schedule:
-    # 00:15 UTC Mon-Fri = 07:15 WIB Mon-Fri (primary target window, off-peak minute)
-    - cron: '15 0 * * 1-5'
-    # Fallback retry schedule (07:45 WIB) in case runner queue was congested
-    - cron: '45 0 * * 1-5'
+    # 23:55 UTC Sun-Thu = 06:55 WIB Mon-Fri (canonical schedule from schedule.yaml)
+    - cron: '55 23 * * 0-4'
   workflow_dispatch:
     inputs:
       force:
@@ -23,6 +21,7 @@ concurrency:
 jobs:
   morning-brief:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: write
 
@@ -65,7 +64,11 @@ jobs:
           FORCE_RUN: ${{ inputs.force || 'false' }}
           PYTHONUTF8: "1"
         run: |
-          python -c "from scheduler import daily_brief; daily_brief()"
+          if [ "${{ inputs.force }}" = "true" ]; then
+            python -m nexus brief --force
+          else
+            python -m nexus brief
+          fi
 
       - name: Commit and push run artifacts
         run: |

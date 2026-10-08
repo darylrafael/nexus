@@ -1,0 +1,21 @@
+# Single source of truth for all Nexus pipeline scheduling
+timezone: "Asia/Jakarta"
+
+jobs:
+  morning_brief:
+    name: "Nexus Morning Brief"
+    time_wib: "06:55"
+    hour_wib: 6
+    minute_wib: 55
+    days_of_week: "mon,tue,wed,thu,fri"
+    cron_utc: "55 23 * * 0-4"  # 23:55 UTC Sun-Thu corresponds to 06:55 WIB Mon-Fri
+    description: "IHSG Pre-Market Briefing & Sector Prediction"
+
+  evening_review:
+    name: "Nexus Evening Review"
+    time_wib: "20:00"
+    hour_wib: 20
+    minute_wib: 0
+    days_of_week: "mon,tue,wed,thu,fri"
+    cron_utc: "0 13 * * 1-5"   # 13:00 UTC Mon-Fri corresponds to 20:00 WIB Mon-Fri
+    description: "Post-Market Evaluation, Prediction Scoring & Lessons"
