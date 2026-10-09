@@ -1,11 +1,11 @@
 {
-  "total_sessions": 11,
+  "total_sessions": 12,
   "total_accuracy_sum": 237,
-  "rolling_avg_accuracy": 21.5,
+  "rolling_avg_accuracy": 19.8,
   "ihsg_correct_count": 4,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 36.4,
-  "ff_accuracy_pct": 9.1,
+  "ihsg_accuracy_pct": 33.3,
+  "ff_accuracy_pct": 8.3,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -52,7 +52,13 @@
     "The potential for significant domestic buying or specific stock rallies (e.g., GOTO) to offset foreign selling": 1,
     "Lonjakan harga komoditas energi global (Brent +4,56%, WTI +3,37%, dan batu bara Newcastle mencapai US$ 150/ton) bertentangan dengan proyeksi bearish komoditas": 1,
     "Tekanan jual masif pasca-libur bursa yang mendorong indeks menyentuh level terendah harian di 6.031,28": 1,
-    "Dampak lanjutan dari tren penurunan bulanan IHSG (-9,46%) dan tekanan distribusi investor asing": 1
+    "Dampak lanjutan dari tren penurunan bulanan IHSG (-9,46%) dan tekanan distribusi investor asing": 1,
+    "The strong foreign accumulation, contrary to the predicted net sell.": 1,
+    "The positive performance of Coal (Newcastle) which strengthened by 1.3%, contrary to the bearish prediction.": 1,
+    "The overall strong bullish sentiment that drove IHSG up by 1.04%, which was not identified by the brief.": 1,
+    "The positive impact of strengthening Rupiah (USD/IDR -0.190%), which the brief assigned a 'Neutral' market impact but likely contributed to foreign accumulation and market confidence.": 1,
+    "The overall bullish momentum in the market, which led to IHSG gaining 1.04%.": 1,
+    "The positive impact of strong commodity prices (Oil, Natural Gas, and unexpectedly Coal) on relevant sectors and the overall market.": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -77,7 +83,10 @@
     "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
     "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%.",
     "Ketika IHSG diprediksi bullish dengan keyakinan 82% didukung penguatan Rupiah ke 17.895/USD, tetapi tekanan distribusi investor asing terus berlanjut, maka IHSG anjlok -1,88% (-115,4 poin) ke level 6.031,28.",
-    "Ketika harga komoditas energi diproyeksikan bearish, tetapi pasar global mengalami lonjakan tajam (Brent +4,56% dan Natural Gas +5,94%), maka proyeksi arah sektor berbasis energi menjadi bias di tengah penurunan indeks sebesar -1,88%."
+    "Ketika harga komoditas energi diproyeksikan bearish, tetapi pasar global mengalami lonjakan tajam (Brent +4,56% dan Natural Gas +5,94%), maka proyeksi arah sektor berbasis energi menjadi bias di tengah penurunan indeks sebesar -1,88%.",
+    "Ketika IHSG diprediksi 'Bearish' dengan kepercayaan 81%, tetapi Foreign Flow menunjukkan 'Accumulation', maka IHSG dapat menguat +1.04%.",
+    "Ketika Foreign Flow diprediksi 'Stagnant/Sideways (Net Sell Rp871,36 miliar)', tetapi Rupiah menguat 0.190% dan harga komoditas utama naik, maka Foreign Flow dapat menjadi 'Accumulation' dan IHSG menguat +1.04%.",
+    "Ketika komoditas Coal diprediksi 'bearish', tetapi harga Batu Bara IEC Newcastle Menguat 1.3%, maka prediksi komoditas tersebut tidak akurat."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -90,7 +99,8 @@
     "2026-10-05",
     "2026-10-06",
     "2026-10-07",
-    "2026-10-08"
+    "2026-10-08",
+    "2026-10-09"
   ],
-  "last_updated": "2026-10-08"
+  "last_updated": "2026-10-09"
 }
