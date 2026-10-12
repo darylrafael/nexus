@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-12",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 80,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -2.59,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Accumulation",
+  "foreign_flow_actual": "Stagnant/Sideways",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Energi": true,
+    "Basic Materials": true,
+    "Industrials": true,
+    "Infrastruktur": false,
+    "Transportasi dan Logistik": null,
+    "Barang Konsumen Primer": null,
+    "Barang Konsumen Non-Primer": false,
+    "Keuangan": null,
+    "Kesehatan": null,
+    "Teknologi": null,
+    "Basic Materials (Coal)": null,
+    "Consumer Goods (CPO Consumers)": null,
+    "Properti": null
+  },
+  "error_rate_pct": 43,
+  "accuracy_score": 57,
+  "rca_unanticipated": [
+    "Global Market Shock (Dow Jones -740 pts, S&P 500 -1.5%, Nasdaq -1.8%)",
+    "Eskalasi Geopolitik Timur Tengah Picu Kejatuhan Pasar Asia",
+    "Indonesia perketat aturan IPO saham usai IHSG ambles 30%",
+    "Trump: Saatnya Ukraina ganti Presiden dan hentikan serangan ke Rusia"
+  ],
+  "rca_overestimated": [
+    "Rupiah stability based on BI intervention (Rupiah weakened +0.068% instead of remaining stable)",
+    "Foreign flow accumulation (actual was Stagnant/Sideways, despite early buying)"
+  ],
+  "rca_underestimated": [
+    "Severity of global market downturn and its direct impact on Asian markets",
+    "Impact of escalating geopolitical tensions in the Middle East"
+  ],
+  "rca_info_delay": [
+    "Asing borong saham Rp413 miliar meski IHSG loyo di sesi I (12 Oct 2026 12:20)",
+    "Indonesia perketat aturan IPO saham usai IHSG ambles 30% (12 Oct 2026 12:00)",
+    "Trump: Saatnya Ukraina ganti Presiden dan hentikan serangan ke Rusia (12 Oct 2026 11:40)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief predicted foreign accumulation (Net Buy Rp29,63 miliar) which typically implies some market support, but the IHSG closed significantly bearish (-2.59%), suggesting that even if there was early foreign buying (Rp413 miliar in session I), it was insufficient to counter broader selling pressure driven by global and geopolitical shocks."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan Foreign Flow Accumulation, tetapi Global Market Shock dan Eskalasi Geopolitik Timur Tengah terjadi, maka IHSG ambles -2.59% dan Foreign Flow menjadi Stagnant/Sideways.",
+    "Ketika Rupiah diprediksi stabil di tengah tekanan eksternal, tetapi Global Market Shock dan Eskalasi Geopolitik Timur Tengah terjadi, maka Rupiah melemah +0.068% terhadap USD/IDR.",
+    "Ketika sektor Industrials dan Energi diprediksi Bullish, tetapi IHSG mengalami penurunan signifikan -2.59% akibat faktor eksternal, maka sektor Industrials naik 0.72% dan sektor Energi naik 0.54%.",
+    "Ketika sektor Infrastruktur dan Barang Konsumen Non-Primer diprediksi Bullish, tetapi IHSG mengalami penurunan signifikan -2.59% akibat faktor eksternal, maka sektor Infrastruktur turun dan sektor Barang Konsumen Siklikal turun 0.56%."
+  ],
+  "summary": "The morning brief correctly predicted a bearish IHSG, which closed down 2.59%, but foreign flow was stagnant/sideways instead of accumulated, largely due to unanticipated global market shocks and escalating geopolitical tensions that overshadowed some correctly predicted sector performances.",
+  "actual_usdidr": 17900.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 93.74,
+      "previous_close": 88.28,
+      "change_pct": 6.18,
+      "signal": "Up",
+      "retrieved_at": "2026-10-12T20:00:54+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 106.75,
+      "previous_close": 100.2,
+      "change_pct": 6.54,
+      "signal": "Up",
+      "retrieved_at": "2026-10-12T20:00:54+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.1,
+      "previous_close": 3.2,
+      "change_pct": -3.15,
+      "signal": "Down",
+      "retrieved_at": "2026-10-12T20:00:54+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Chart Harga Kontrak Berjangka NCF1! — ICEEUR:NCF1! — TradingView\nol\nSource IDs: src_4d4b55251b, src_171c2fa6b0, src_4d907b14ac, src_a277ed8ce1, src_ee9f97789b, src_e2b6b06831, src_f0dfdd05d7"
+    },
+    "CPO": {
+      "raw": "[no date] Crude Oil - Price - Chart - Historical Data\nCrude Oil - Stats\n\n## C\nSource IDs: src_e7e1675d4f, src_6972392028, src_606a74a01c, src_c9f1092776, src_3449a9c2b5, src_596b815728, src_332b2c3c00"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Yieh Corp. - 2026/10/2 LME nickel settlement prices at...\n## Yieh C\nSource IDs: src_ae32580e4f, src_e7b01f3b12, src_f1dad1f235, src_0b12862f48, src_1de5e9219f, src_dc295145ae, src_bf08793d8b"
+    }
+  }
+}
