@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-14",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.29,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {},
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Realisasi foreign flow tercatat Accumulation berbanding proyeksi pagi Stagnant/Sideways.",
+    "Pergerakan komoditas Crude Oil (WTI) (+4.09%) mempengaruhi sentimen sektoral terkait."
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +0.29%) berbanding proyeksi Bearish."
+  ],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": [
+    "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Bullish +0.29% (foreign flow Accumulation), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time."
+  ],
+  "summary": "IHSG ditutup Bullish +0.29% (prediksi Bearish); foreign flow tercatat Accumulation (prediksi Stagnant/Sideways).",
+  "actual_usdidr": 17893.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 95.61,
+      "previous_close": 91.85,
+      "change_pct": 4.09,
+      "signal": "Up",
+      "retrieved_at": "2026-10-14T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 105.82,
+      "previous_close": 104.72,
+      "change_pct": 1.05,
+      "signal": "Up",
+      "retrieved_at": "2026-10-14T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.24,
+      "previous_close": 3.22,
+      "change_pct": 0.59,
+      "signal": "Up",
+      "retrieved_at": "2026-10-14T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Batu Bara Newcastle Menguat, Musim Dingin Jadi Katalis Pasar - Kaba\nSource IDs: src_9a982b982c, src_ee9f97789b, src_4d907b14ac, src_0c19556614, src_4d4b55251b, src_a277ed8ce1, src_e066ffdec2"
+    },
+    "CPO": {
+      "raw": "[no date] Instagram\nHarga minyak sawit mentah (CPO) berbalik melemah pada per\nSource IDs: src_d6986b739a, src_56b4172631, src_2291dd7086, src_9c7bf9e109, src_cc70369964, src_c0a99d32e5, src_21ae48cf96"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Home | London Metal Exchange\nJoin us on 19 October 2026 for the LME\nSource IDs: src_bae08dce04, src_f1dad1f235, src_bf08793d8b, src_e7b01f3b12, src_dc295145ae, src_0b12862f48, src_460bba57ad"
+    }
+  }
+}

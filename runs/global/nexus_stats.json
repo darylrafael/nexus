@@ -1,11 +1,11 @@
 {
-  "total_sessions": 14,
+  "total_sessions": 15,
   "total_accuracy_sum": 344,
-  "rolling_avg_accuracy": 24.6,
+  "rolling_avg_accuracy": 22.9,
   "ihsg_correct_count": 6,
   "ff_correct_count": 1,
-  "ihsg_accuracy_pct": 42.9,
-  "ff_accuracy_pct": 7.1,
+  "ihsg_accuracy_pct": 40.0,
+  "ff_accuracy_pct": 6.7,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -66,7 +66,10 @@
     "Severity of global market downturn and its direct impact on Asian markets": 1,
     "Impact of escalating geopolitical tensions in the Middle East": 1,
     "Realisasi foreign flow tercatat Distribution berbanding proyeksi pagi Stagnant/Sideways.": 1,
-    "Pergerakan komoditas Crude Oil (WTI) (+1.13%) mempengaruhi sentimen sektoral terkait.": 1
+    "Pergerakan komoditas Crude Oil (WTI) (+1.13%) mempengaruhi sentimen sektoral terkait.": 1,
+    "Realisasi foreign flow tercatat Accumulation berbanding proyeksi pagi Stagnant/Sideways.": 1,
+    "Pergerakan komoditas Crude Oil (WTI) (+4.09%) mempengaruhi sentimen sektoral terkait.": 1,
+    "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +0.29%) berbanding proyeksi Bearish.": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -99,7 +102,8 @@
     "Ketika Rupiah diprediksi stabil di tengah tekanan eksternal, tetapi Global Market Shock dan Eskalasi Geopolitik Timur Tengah terjadi, maka Rupiah melemah +0.068% terhadap USD/IDR.",
     "Ketika sektor Industrials dan Energi diprediksi Bullish, tetapi IHSG mengalami penurunan signifikan -2.59% akibat faktor eksternal, maka sektor Industrials naik 0.72% dan sektor Energi naik 0.54%.",
     "Ketika sektor Infrastruktur dan Barang Konsumen Non-Primer diprediksi Bullish, tetapi IHSG mengalami penurunan signifikan -2.59% akibat faktor eksternal, maka sektor Infrastruktur turun dan sektor Barang Konsumen Siklikal turun 0.56%.",
-    "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Neutral -0.17% (foreign flow Distribution), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time."
+    "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Neutral -0.17% (foreign flow Distribution), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time.",
+    "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Bullish +0.29% (foreign flow Accumulation), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -115,7 +119,8 @@
     "2026-10-08",
     "2026-10-09",
     "2026-10-12",
-    "2026-10-13"
+    "2026-10-13",
+    "2026-10-14"
   ],
-  "last_updated": "2026-10-13"
+  "last_updated": "2026-10-14"
 }
