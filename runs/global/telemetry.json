@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 54583,
+    "avgDurationMs": 105044,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 54583.0,
+      "avg_duration_ms": 105044.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,15 +19,15 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-10-14T00:31:41.149067",
+      "timestamp": "2026-10-15T00:32:31.280451",
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: BI Intensifies Rupiah Stabilization Efforts Amid Global Pressures\n- **Summary**: Bank Indonesia (BI) has reiterated its commitment to aggressive foreign exchange intervention to maintain Rupiah stability, particularly in response to escalating Middle East tensions, rising global oil prices, and a strengthening USD (src_7f21f74f43, src_0ba9a5d054). Domestically, economic conditions are deemed relatively controlled, supported by a robust trade surplus of US$3.55 billion in August 2026 (src_75375bd4d1). While September's annual inflation (IHK) slightly increased to 3.28% from 3.19% in August, core inflation eased to 2.84% from 2.92%, suggesting contained underlying price pressures (src_75375bd4d1). The BI-Rate remains stable at 5.75% as of September 23, 2026 (src_7f21f74f43).\n- **Market Impact**: Neutral | **Confidence**: 70%\n- **Rationale**: BI's proactive stance on Rupiah stability provides a crucial domestic anchor against external volatility, poten",
+      "result": "---\n### 1. Indonesian Economic News: Rupiah Under Pressure Amid External Factors, BI-Rate Maintained\n- **Summary**: The Rupiah experienced mixed movements, strengthening to 17,872.9000 (-0.45%) against the USD on October 13, 2026 (src_0fbbd4bb69), but then weakening slightly to Rp17,903 (-0.02%) on October 14, 2026 (src_e844bcb180), and is projected to be under pressure at Rp17,930 (+0.17%) on October 15, 2026 (src_3922f4a359). Bank Indonesia maintained its BI-Rate at 5.75% in September 2026 to stabilize the Rupiah and keep inflation within the 2.5%\u00b11% target (src_3922f4a359, src_0ba9a5d054). September 2026 IHK inflation rose to 3.28% YoY, driven by food prices and global commodities, though core inflation eased to 2.84% YoY (src_85f904375e).\n- **Market Impact**: Neutral | **Confidence**: 70%\n- **Rationale**: The stability of the BI-Rate provides a domestic anchor, but the recent weakening trend of the Rupiah and persistent inflation, coupled with rising administered prices (BBM, avtur",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 54583
+      "duration_ms": 105044
     }
   ],
-  "exported_at": "2026-10-14T00:31:41.150364"
+  "exported_at": "2026-10-15T00:32:31.282257"
 }

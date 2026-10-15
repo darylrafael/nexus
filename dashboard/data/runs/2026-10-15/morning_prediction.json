@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-15",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 81,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Sell Rp62.53 Miliar (Sesi I) (src_ecefa5b7af, src_67bfc56d03).",
+  "sector_bullish": [
+    "Energi",
+    "Properti",
+    "Kesehatan",
+    "Barang Baku",
+    "Barang Konsumen Primer"
+  ],
+  "sector_bearish": [
+    "Teknologi",
+    "Keuangan",
+    "Barang Konsumen Non-Primer"
+  ],
+  "sector_neutral": [
+    "Infrastruktur",
+    "Transportasi dan Logistik"
+  ],
+  "recommended_tickers": [
+    "BBRI",
+    "MEDC",
+    "BMRI",
+    "TAPG",
+    "BRMS",
+    "BNBR",
+    "FAPA",
+    "MTEL",
+    "ITMG",
+    "MDIA",
+    "BBCA",
+    "MYOR",
+    "NCKL",
+    "PWON",
+    "BUMI",
+    "NISP",
+    "INDF",
+    "KLBF"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bullish",
+    "CPO": "bullish",
+    "Nickel": "neutral"
+  },
+  "evidence_ids": [
+    "src_0ba9a5d054",
+    "src_0fbbd4bb69",
+    "src_3922f4a359",
+    "src_51e8e513a2",
+    "src_522beceb9f",
+    "src_5dc1bf1108",
+    "src_67bfc56d03",
+    "src_68fc91ced5",
+    "src_85f904375e",
+    "src_8c9f65c019",
+    "src_9bf27a5784",
+    "src_9c7bf9e109",
+    "src_db64b9fb20",
+    "src_e2b6b06831",
+    "src_e844bcb180",
+    "src_ecefa5b7af",
+    "src_f362c315e6"
+  ]
+}
