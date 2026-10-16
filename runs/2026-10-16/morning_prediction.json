@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-16",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 86,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Total net foreign flow in Rupiah for October 14, 2026 is not explicitly provided in the data.",
+  "sector_bullish": [
+    "Teknologi",
+    "Properti",
+    "Barang Konsumen Primer",
+    "Energi (Hulu Migas)"
+  ],
+  "sector_bearish": [
+    "Barang Konsumen Non-Primer",
+    "Infrastruktur",
+    "Energi (Nikel)",
+    "Transportasi dan Logistik"
+  ],
+  "sector_neutral": [
+    "Industri",
+    "Kesehatan",
+    "Keuangan",
+    "Barang Baku"
+  ],
+  "recommended_tickers": [
+    "INDF",
+    "BLTZ",
+    "ANTM",
+    "PPRO",
+    "MBMA",
+    "NAYZ",
+    "MEDC",
+    "NCKL",
+    "PWON",
+    "WAPO",
+    "BBCA",
+    "RUIS",
+    "SBMA",
+    "BRPT",
+    "ENRG",
+    "DMAS",
+    "ICBP",
+    "MYOR",
+    "UNVR",
+    "INCO",
+    "SOSS",
+    "SONA",
+    "PCAR",
+    "FOLK",
+    "TRON",
+    "BIKE"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_06aad57e6b",
+    "src_51e8e513a2",
+    "src_522beceb9f",
+    "src_799951bb18",
+    "src_83fb9a2e5a",
+    "src_85f904375e",
+    "src_87d3b74f2e",
+    "src_994c5cacb3",
+    "src_bf08793d8b",
+    "src_bff016cc21",
+    "src_e844bcb180",
+    "src_f362c315e6"
+  ]
+}
