@@ -1,11 +1,11 @@
 {
-  "total_sessions": 16,
-  "total_accuracy_sum": 385,
-  "rolling_avg_accuracy": 24.1,
-  "ihsg_correct_count": 7,
+  "total_sessions": 17,
+  "total_accuracy_sum": 413,
+  "rolling_avg_accuracy": 24.3,
+  "ihsg_correct_count": 8,
   "ff_correct_count": 2,
-  "ihsg_accuracy_pct": 43.8,
-  "ff_accuracy_pct": 12.5,
+  "ihsg_accuracy_pct": 47.1,
+  "ff_accuracy_pct": 11.8,
   "missed_factor_counts": {
     "Lonjakan imbal hasil US Treasury tenor 10 tahun sebesar 15 basis poin ke 5,11% (level tertinggi sejak 2007)": 1,
     "Aksi unjuk rasa berskala besar oleh 50 ribu buruh di Jakarta": 1,
@@ -72,7 +72,12 @@
     "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +0.29%) berbanding proyeksi Bearish.": 1,
     "Tekanan eksternal dari lonjakan inflasi AS yang memicu aksi jual masif di bursa regional Asia (Nikkei turun 5,09% dan KOSPI turun 7,91%)": 1,
     "Sentimen domestik terkait aksi unjuk rasa buruh KSPI/Partai Buruh per 15 Oktober 2026 yang menuntut kenaikan upah 7,5-9,5%": 1,
-    "Kepanikan pasar akibat depresiasi Rupiah yang menembus Rp17.932 per USD (+0,699%) di tengah sentimen risk-off global": 1
+    "Kepanikan pasar akibat depresiasi Rupiah yang menembus Rp17.932 per USD (+0,699%) di tengah sentimen risk-off global": 1,
+    "MSCI mempertimbangkan untuk menurunkan status pasar saham Indonesia dari Emerging Market menjadi Standalone Market": 1,
+    "Geopolitics Surprise menyebabkan bursa Asia anjlok 2% dan KOSPI merosot 6%": 1,
+    "Rencana demo buruh pada bulan Oktober": 1,
+    "Potensi dampak negatif dari sentimen eksternal dan geopolitik terhadap pasar saham domestik secara keseluruhan": 1,
+    "Risiko penurunan status pasar saham Indonesia oleh MSCI": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -108,7 +113,10 @@
     "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Neutral -0.17% (foreign flow Distribution), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time.",
     "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Bullish +0.29% (foreign flow Accumulation), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time.",
     "Ketika sinyal IHSG diproyeksikan bearish dengan sektor energi bullish defensif, tetapi sentimen inflasi AS memicu kejatuhan bursa regional Asia, maka seluruh sektor melemah dan IHSG merosot -1,33% ke 5.863,78 dengan sektor energi turun -3,71%.",
-    "Ketika rupiah diproyeksikan tertekan moderat, tetapi pelemahan berlanjut hingga Rp17.932 per USD bersamaan dengan aksi unjuk rasa buruh, maka sentimen pasar memburuk menyeret 621 saham ke zona merah."
+    "Ketika rupiah diproyeksikan tertekan moderat, tetapi pelemahan berlanjut hingga Rp17.932 per USD bersamaan dengan aksi unjuk rasa buruh, maka sentimen pasar memburuk menyeret 621 saham ke zona merah.",
+    "Ketika [tidak ada risiko besar yang teridentifikasi di pagi hari], tetapi [MSCI mempertimbangkan untuk menurunkan status pasar saham Indonesia dari Emerging Market menjadi Standalone Market] terjadi, maka [IHSG anjlok 11,57%].",
+    "Ketika [IHSG diprediksi bearish dan anjlok 11,57%], tetapi [arus modal asing menunjukkan akumulasi] terjadi, maka [pasar menunjukkan dinamika yang tidak biasa di mana investor asing membeli di tengah penurunan tajam].",
+    "Ketika [brief hanya menyebut konflik Timur Tengah sebagai faktor pelemahan Rupiah], tetapi [geopolitik global menyebabkan bursa Asia anjlok 2% dan KOSPI merosot 6%] terjadi, maka [dampak geopolitik dapat jauh lebih luas dan langsung menekan pasar saham regional secara signifikan]."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -126,7 +134,8 @@
     "2026-10-12",
     "2026-10-13",
     "2026-10-14",
-    "2026-10-15"
+    "2026-10-15",
+    "2026-10-16"
   ],
-  "last_updated": "2026-10-15"
+  "last_updated": "2026-10-16"
 }

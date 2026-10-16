@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-16",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 86,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -11.57,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant/Sideways",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Teknologi": false,
+    "Properti": false,
+    "Barang Konsumen Primer": false,
+    "Energi (Hulu Migas)": null,
+    "Barang Konsumen Non-Primer": null,
+    "Infrastruktur": null,
+    "Energi (Nikel)": null,
+    "Transportasi dan Logistik": true,
+    "Industri": null,
+    "Kesehatan": null,
+    "Keuangan": false,
+    "Barang Baku": null
+  },
+  "error_rate_pct": 72,
+  "accuracy_score": 28,
+  "rca_unanticipated": [
+    "MSCI mempertimbangkan untuk menurunkan status pasar saham Indonesia dari Emerging Market menjadi Standalone Market",
+    "Geopolitics Surprise menyebabkan bursa Asia anjlok 2% dan KOSPI merosot 6%",
+    "Rencana demo buruh pada bulan Oktober"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Potensi dampak negatif dari sentimen eksternal dan geopolitik terhadap pasar saham domestik secara keseluruhan",
+    "Risiko penurunan status pasar saham Indonesia oleh MSCI"
+  ],
+  "rca_info_delay": [
+    "Berita mengenai pertimbangan MSCI untuk menurunkan status pasar saham Indonesia kemungkinan besar muncul selama atau sesaat sebelum pembukaan pasar pada 16 Oktober 2026, sehingga tidak dapat dimasukkan dalam morning brief."
+  ],
+  "rca_inverse_correlation": [
+    "Brief secara implisit mengasumsikan bahwa pasar yang sangat bearish (IHSG anjlok 11,57%) akan disertai dengan arus modal asing keluar atau stagnan, namun data aktual menunjukkan akumulasi asing."
+  ],
+  "lessons": [
+    "Ketika [tidak ada risiko besar yang teridentifikasi di pagi hari], tetapi [MSCI mempertimbangkan untuk menurunkan status pasar saham Indonesia dari Emerging Market menjadi Standalone Market] terjadi, maka [IHSG anjlok 11,57%].",
+    "Ketika [IHSG diprediksi bearish dan anjlok 11,57%], tetapi [arus modal asing menunjukkan akumulasi] terjadi, maka [pasar menunjukkan dinamika yang tidak biasa di mana investor asing membeli di tengah penurunan tajam].",
+    "Ketika [brief hanya menyebut konflik Timur Tengah sebagai faktor pelemahan Rupiah], tetapi [geopolitik global menyebabkan bursa Asia anjlok 2% dan KOSPI merosot 6%] terjadi, maka [dampak geopolitik dapat jauh lebih luas dan langsung menekan pasar saham regional secara signifikan]."
+  ],
+  "summary": "Prediksi IHSG bearish terbukti benar, namun brief secara signifikan meremehkan besarnya penurunan IHSG sebesar 11,57%, terutama karena ancaman penurunan status pasar oleh MSCI yang tidak terduga dan akumulasi asing yang kontraintuitif di tengah gejolak pasar.",
+  "actual_usdidr": 18000.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 95.77,
+      "previous_close": 93.74,
+      "change_pct": 2.17,
+      "signal": "Up",
+      "retrieved_at": "2026-10-16T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 105.92,
+      "previous_close": 106.65,
+      "change_pct": -0.68,
+      "signal": "Down",
+      "retrieved_at": "2026-10-16T20:00:58+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.1,
+      "previous_close": 3.17,
+      "change_pct": -2.08,
+      "signal": "Down",
+      "retrieved_at": "2026-10-16T20:00:58+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Newcastle Coal Futures Historical Prices - Investing.com\n| Date | P\nSource IDs: src_e2b6b06831, src_ee9f97789b, src_a277ed8ce1, src_4d4b55251b, src_7d463db8fb, src_00eb0cff08, src_4d907b14ac"
+    },
+    "CPO": {
+      "raw": "[no date] Indonesia International Indicators: International Commodity Price:\nSource IDs: src_b363e40885, src_9c7bf9e109, src_fbbd4653a1, src_64f4c6586c, src_c0a99d32e5, src_6399c9b951, src_a89fca5177"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] westmetall . market data . prices/lme stocks . copper, tin, lead, z\nSource IDs: src_bf08793d8b, src_a4f1b4fef6, src_e7b01f3b12, src_0b12862f48, src_f1dad1f235, src_607ffbe1bf, src_dc295145ae"
+    }
+  }
+}
