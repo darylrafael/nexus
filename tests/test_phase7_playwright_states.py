@@ -1,172 +1,45 @@
-"""Playwright fixture tests for Phase 7.6: Stale, Fresh-Today, and Missing-Field UI States."""
+"""Playwright fixture tests for Phase 7.6 & Phase B6: Stale, Fresh-Today, and Missing-Field UI States."""
 
 from __future__ import annotations
 
 import datetime
 import json
+import sys
+from pathlib import Path
 from typing import Any, Dict
 
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from core.paths import REPO_ROOT, get_runs_dir
 from playwright.sync_api import sync_playwright
 
-
-def _base_stats_fixture(
-    *,
-    is_stale: bool,
-    latest_date: str,
-    trading_days_since: int,
-    latest_review_overrides: Dict[str, Any] | None = None,
-) -> Dict[str, Any]:
-    review: Dict[str, Any] = {
-        "date": latest_date,
-        "ihsg_predicted": "Bearish",
-        "ihsg_confidence": 80,
-        "calibrated_confidence": 49.7,
-        "ihsg_actual": "Bearish",
-        "ihsg_actual_pct": -0.45,
-        "ihsg_close": 6150.0,
-        "ihsg_high": 6190.0,
-        "ihsg_low": 6120.0,
-        "ihsg_atr14": 70.0,
-        "is_true_atr14": True,
-        "ihsg_correct": True,
-        "isPendingReview": False,
-        "isUnscorable": False,
-        "isWebFallback": False,
-        "foreign_flow_predicted": "Net Sell",
-        "foreign_flow_actual": "Net Sell Rp 420B",
-        "foreign_flow_correct": True,
-        "actual_usdidr": 15650,
-        "accuracy_score": 78.5,
-        "payoff_bps": 45,
-        "summary": "Bearish macro pressure from global yields weighed on IDX financials.",
-        "key_risk": "Unexpected BI rate intervention could trigger short covering.",
-        "lock_status": "retroactive",
-        "locked_at": None,
-        "hash_computed_at": "2026-10-15",
-        "lock_hash": "9f8e7d6c5b4a3210",
-        "sector_accuracy": {"Keuangan": True, "Energi": False},
-        "actual_commodities": {
-            "Coal": {"name": "Coal", "price": 145.2, "change_pct": -1.2, "signal": "Down"}
-        },
-        "lessons": [],
-        "rca_unanticipated": [],
-        "rca_underestimated": [],
-        "rca_overestimated": [],
-    }
-    if latest_review_overrides:
-        review.update(latest_review_overrides)
-
-    return {
-        "success": True,
-        "isDemo": False,
-        "holidays": {"2026-12-25": "Christmas Day"},
-        "pipelineHealth": {
-            "isStale": is_stale,
-            "latestDate": latest_date,
-            "tradingDaysSinceLatest": trading_days_since,
-            "staleMessage": (
-                f"Automated pipeline paused since {latest_date} ({trading_days_since} trading days ago)."
-                if is_stale
-                else "Pipeline is current."
-            ),
-            "mockDataDetected": False,
-            "excludedMockRuns": [],
-        },
-        "stats": {
-            "totalSessions": 12,
-            "scorableSessions": 12,
-            "avgAccuracy": 46.8,
-            "winRate": 41.7,
-            "historyRescoredAt": "2026-10-15",
-        },
-        "nexusStats": {
-            "sample_size_n": 12,
-            "direction_scorable_sessions": 12,
-            "direction_correct_count": 5,
-            "direction_accuracy_pct": 41.7,
-            "direction_ci_95": {"lower_pct": 19.3, "upper_pct": 68.0},
-            "baselines": {
-                "always_bearish_pct": 66.7,
-                "always_bearish_count": 8,
-                "always_bearish_total": 12,
-                "persistence_pct": 63.6,
-                "persistence_correct_count": 7,
-                "persistence_scorable_sessions": 11,
-                "always_bullish_pct": 33.3,
-                "always_bullish_count": 4,
-                "always_bullish_total": 12,
-            },
-            "payoff": {
-                "long_only_total_bps": -176.0,
-                "short_only_total_bps": 244.0,
-                "long_short_total_bps": 68.0,
-            },
-            "calibration": {
-                "sample_size_n": 12,
-                "average_stated_confidence_pct": 79.6,
-                "realized_hit_rate_pct": 41.7,
-                "calibrated_confidence_pct": 49.7,
-                "brier_score": 0.3996,
-                "prior_pct": 55.0,
-                "prior_strength_n0": 30,
-                "status_label": "illustrative shrinkage estimate",
-            },
-        },
-        "reviews": [review],
-        "recentLessons": [],
-        "telemetry": {"recentSessions": []},
-    }
+FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
+STALE_FIXTURE_PATH = FIXTURES_DIR / "stale_fixture.json"
+FRESH_TODAY_FIXTURE_PATH = FIXTURES_DIR / "fresh_today_fixture.json"
+MISSING_FIELD_FIXTURE_PATH = FIXTURES_DIR / "missing_field_fixture.json"
 
 
-def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002") -> Dict[str, Any]:
-    """Run Playwright verification against stale, fresh-today, and missing-field fixtures."""
-    wib_today = datetime.datetime.now(
+def load_playwright_fixture(fixture_path: Path, today_str: str | None = None) -> Dict[str, Any]:
+    """Load a Playwright UI state fixture from tests/fixtures/ (outside runs/)."""
+    wib_today = today_str or datetime.datetime.now(
         datetime.timezone(datetime.timedelta(hours=7))
     ).strftime("%Y-%m-%d")
 
-    stale_payload = _base_stats_fixture(
-        is_stale=True,
-        latest_date="2026-10-08",
-        trading_days_since=6,
-    )
-    fresh_payload = _base_stats_fixture(
-        is_stale=False,
-        latest_date=wib_today,
-        trading_days_since=0,
-        latest_review_overrides={
-            "ihsg_predicted": "Bullish",
-            "ihsg_confidence": 75,
-            "calibrated_confidence": 51.2,
-            "isPendingReview": True,
-            "ihsg_actual": None,
-            "ihsg_actual_pct": None,
-            "ihsg_correct": None,
-            "lock_status": "locked_pre_open",
-            "created_at": f"{wib_today}T06:55:10+07:00",
-            "locked_at": "06:55 WIB",
-            "lock_hash": "a1b2c3d4e5f60789",
-        },
-    )
-    missing_field_payload = _base_stats_fixture(
-        is_stale=False,
-        latest_date=wib_today,
-        trading_days_since=0,
-        latest_review_overrides={
-            "actual_usdidr": None,
-            "foreign_flow_actual": None,
-            "foreign_flow_predicted": None,
-            "ihsg_close": None,
-            "previous_close": None,
-            "ihsg_high": None,
-            "ihsg_low": None,
-            "ihsg_atr14": None,
-            "accuracy_score": None,
-            "isUnscorable": True,
-            "actual_commodities": {},
-            "recommended_tickers": [],
-            "actionable_watchlist": [],
-        },
-    )
+    raw = fixture_path.read_text(encoding="utf-8").replace("__TODAY__", wib_today)
+    payload: Dict[str, Any] = json.loads(raw)
+    meta = payload.get("_fixture_meta") or {}
+    if not meta.get("is_test_fixture") or not meta.get("stored_outside_runs"):
+        raise ValueError(f"Fixture {fixture_path} is missing required _fixture_meta markers")
+    return payload
+
+
+def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002") -> Dict[str, Any]:
+    """Run Playwright verification against stale, fresh-today, and missing-field fixtures stored in tests/fixtures/."""
+    stale_payload = load_playwright_fixture(STALE_FIXTURE_PATH)
+    fresh_payload = load_playwright_fixture(FRESH_TODAY_FIXTURE_PATH)
+    missing_field_payload = load_playwright_fixture(MISSING_FIELD_FIXTURE_PATH)
 
     results: Dict[str, Any] = {}
 
@@ -192,6 +65,7 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         assert "No new call generated today" in stale_text
         assert "Hash added retroactively; not proof of pre-open lock" in stale_text
         results["stale_fixture"] = {
+            "fixture_file": str(STALE_FIXTURE_PATH.relative_to(REPO_ROOT)),
             "passed": True,
             "staleBannerVisible": stale_banner_visible,
             "hasNoNewCall": "No new call generated today" in stale_text,
@@ -219,6 +93,7 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         assert "No new call generated today" not in fresh_text
         assert "Locked at 06:55 WIB" in fresh_text
         results["fresh_today_fixture"] = {
+            "fixture_file": str(FRESH_TODAY_FIXTURE_PATH.relative_to(REPO_ROOT)),
             "passed": True,
             "staleBannerCount": fresh_stale_count,
             "hasTodaysCallHeader": "TODAY'S PRE-MARKET CALL" in fresh_text,
@@ -239,7 +114,6 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         )
         page_missing.goto(target_url, wait_until="networkidle")
         page_missing.wait_for_timeout(400)
-        # Open workbench to inspect missing USD/IDR, foreign flow, and ATR fields
         page_missing.get_by_text("Open Session Workbench").click()
         page_missing.wait_for_timeout(300)
         missing_text = page_missing.inner_text("body")
@@ -249,6 +123,7 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         assert "undefined" not in missing_text, "Found 'undefined' in missing-field state"
         assert "Rp 0" not in missing_text, "Found fabricated 'Rp 0' in missing-field state"
         results["missing_field_fixture"] = {
+            "fixture_file": str(MISSING_FIELD_FIXTURE_PATH.relative_to(REPO_ROOT)),
             "passed": True,
             "hasUnavailable": "Unavailable" in missing_text,
             "hasUnscorable": "Unscorable" in missing_text,
@@ -256,32 +131,79 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         }
         ctx_missing.close()
 
+        # 4. axe-core accessibility check in both dark and light themes at 390px
+        axe_candidates = [
+            Path(r"C:\Users\Lenovo\.gemini\antigravity\brain\78122c40-e208-430b-a691-9f3f14346e94\screenshots\axe.min.js"),
+            REPO_ROOT / "dashboard" / "node_modules" / "axe-core" / "axe.min.js",
+        ]
+        axe_path = next((p for p in axe_candidates if p.exists()), None)
+        if axe_path is not None:
+            axe_results: Dict[str, Any] = {}
+            for theme in ("dark", "light"):
+                ctx_axe = browser.new_context(
+                    viewport={"width": 390, "height": 844},
+                    color_scheme=theme,
+                )
+                page_axe = ctx_axe.new_page()
+                page_axe.goto(target_url, wait_until="networkidle")
+                page_axe.evaluate(
+                    f"""() => {{
+                        document.documentElement.setAttribute('data-theme', '{theme}');
+                        try {{ localStorage.setItem('nexus-theme', '{theme}'); }} catch (e) {{}}
+                    }}"""
+                )
+                page_axe.wait_for_timeout(400)
+                page_axe.add_script_tag(path=str(axe_path))
+                axe_out = page_axe.evaluate(
+                    """async () => {
+                        const res = await window.axe.run();
+                        return {
+                            violations_count: res.violations.length,
+                            passes_count: res.passes.length,
+                            violations: res.violations.map(v => ({
+                                id: v.id,
+                                impact: v.impact,
+                                nodes: v.nodes.length
+                            }))
+                        };
+                    }"""
+                )
+                assert axe_out["violations_count"] == 0, (
+                    f"axe-core violations found in {theme} mode: {axe_out['violations']}"
+                )
+                axe_results[theme] = axe_out
+                ctx_axe.close()
+            results["axe_core_390px"] = axe_results
+
         browser.close()
 
     return results
 
 
-def test_fixture_state_payloads_schema():
-    """Verify fixture payloads for stale, fresh-today, and missing-field UI states."""
-    stale = _base_stats_fixture(is_stale=True, latest_date="2026-10-08", trading_days_since=6)
+def test_fixture_state_payloads_schema_and_location():
+    """Verify fixture payloads for stale, fresh-today, and missing-field UI states live outside runs/."""
+    real_runs = REPO_ROOT.joinpath("runs").resolve()
+    active_runs = get_runs_dir().resolve()
+
+    for path in (STALE_FIXTURE_PATH, FRESH_TODAY_FIXTURE_PATH, MISSING_FIELD_FIXTURE_PATH):
+        assert path.exists(), f"Missing fixture file: {path}"
+        resolved = path.resolve()
+        assert not resolved.is_relative_to(real_runs), f"Fixture {path} must never live inside runs/"
+        assert not resolved.is_relative_to(active_runs), f"Fixture {path} must never live inside active runs/"
+
+    stale = load_playwright_fixture(STALE_FIXTURE_PATH, today_str="2026-10-18")
+    assert stale["_fixture_meta"]["fixture_name"] == "stale"
     assert stale["pipelineHealth"]["isStale"] is True
     assert stale["reviews"][0]["lock_status"] == "retroactive"
 
-    fresh = _base_stats_fixture(
-        is_stale=False,
-        latest_date="2026-10-18",
-        trading_days_since=0,
-        latest_review_overrides={"lock_status": "locked_pre_open", "locked_at": "06:55 WIB"},
-    )
+    fresh = load_playwright_fixture(FRESH_TODAY_FIXTURE_PATH, today_str="2026-10-18")
+    assert fresh["_fixture_meta"]["fixture_name"] == "fresh-today"
     assert fresh["pipelineHealth"]["isStale"] is False
+    assert fresh["reviews"][0]["date"] == "2026-10-18"
     assert fresh["reviews"][0]["lock_status"] == "locked_pre_open"
 
-    missing = _base_stats_fixture(
-        is_stale=False,
-        latest_date="2026-10-18",
-        trading_days_since=0,
-        latest_review_overrides={"actual_usdidr": None, "accuracy_score": None, "isUnscorable": True},
-    )
+    missing = load_playwright_fixture(MISSING_FIELD_FIXTURE_PATH, today_str="2026-10-18")
+    assert missing["_fixture_meta"]["fixture_name"] == "missing-field"
     assert missing["reviews"][0]["actual_usdidr"] is None
     assert missing["reviews"][0]["accuracy_score"] is None
     assert missing["reviews"][0]["isUnscorable"] is True
@@ -290,4 +212,3 @@ def test_fixture_state_payloads_schema():
 if __name__ == "__main__":
     res = run_playwright_fixture_state_checks()
     print(json.dumps(res, indent=2))
-

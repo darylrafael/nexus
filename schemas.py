@@ -112,9 +112,9 @@ def validate_artifact_data(filename: str, data: Any) -> tuple[bool, str]:
                 return False, f"Missing required field '{req}' in morning_prediction.json"
         return True, ""
 
-    elif filename == "evening_actuals.json":
+    elif filename in ("evening_actuals.json", "actual_market_data.json"):
         if "date" not in data:
-            return False, "Missing required field 'date' in evening_actuals.json"
+            return False, f"Missing required field 'date' in {filename}"
         return True, ""
 
     elif filename == "evening_review.json":

@@ -578,9 +578,13 @@ def fetch_usdidr_snapshot() -> dict[str, Any]:
                         pct = ((rate - prev_rate) / prev_rate) * 100
 
                 if rate is not None:
+                    r_close = round(rate, 0)
+                    r_prev = round(prev_rate, 0) if prev_rate is not None else None
+                    pct = (((r_close - r_prev) / r_prev) * 100) if r_prev else None
                     signal = "Weakened" if (pct is not None and pct > 0) else ("Strengthened" if (pct is not None and pct < 0) else "Unknown")
                     return {
-                        "usdidr": round(rate, 0),
+                        "usdidr": r_close,
+                        "usdidr_prev": r_prev,
                         "usdidr_change_pct": round(pct, 3) if pct is not None else None,
                         "rupiah_signal": signal,
                         "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
@@ -594,21 +598,23 @@ def fetch_usdidr_snapshot() -> dict[str, Any]:
         idr = yf.Ticker("USDIDR=X")
         hist = idr.history(period="5d")
         if len(hist) >= 2:
-            rate = float(hist["Close"].iloc[-1])
-            prev_rate = float(hist["Close"].iloc[-2])
-            pct = ((rate - prev_rate) / prev_rate) * 100
+            rate = round(float(hist["Close"].iloc[-1]), 0)
+            prev_rate = round(float(hist["Close"].iloc[-2]), 0)
+            pct = ((rate - prev_rate) / prev_rate) * 100 if prev_rate else 0.0
             signal = "Weakened" if pct > 0 else ("Strengthened" if pct < 0 else "Unknown")
             return {
-                "usdidr": round(rate, 0),
+                "usdidr": rate,
+                "usdidr_prev": prev_rate,
                 "usdidr_change_pct": round(pct, 3),
                 "rupiah_signal": signal,
                 "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
                 "source": "yfinance:USDIDR=X",
             }
         elif len(hist) == 1:
-            rate = float(hist["Close"].iloc[0])
+            rate = round(float(hist["Close"].iloc[0]), 0)
             return {
-                "usdidr": round(rate, 0),
+                "usdidr": rate,
+                "usdidr_prev": None,
                 "usdidr_change_pct": None,
                 "rupiah_signal": "Unknown",
                 "retrieved_at": jakarta_now().isoformat(timespec="seconds"),

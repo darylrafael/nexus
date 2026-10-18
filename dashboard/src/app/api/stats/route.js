@@ -88,6 +88,7 @@ function enrichCommodityMap(commodities) {
 
     enriched[key] = {
       ...item,
+      raw: raw ? raw.slice(0, 160) : undefined,
       name,
       price: price != null ? price : null,
       change_pct: changePct != null ? changePct : null,
@@ -96,6 +97,26 @@ function enrichCommodityMap(commodities) {
     };
   }
   return enriched;
+}
+
+function slimSourcesMap(sourcesMap, textBlobs = []) {
+  if (!sourcesMap || typeof sourcesMap !== 'object') return {};
+  const combined = textBlobs.filter(Boolean).join(' ');
+  const citedIds = new Set();
+  const re = /src_[a-zA-Z0-9_-]+/g;
+  let m;
+  while ((m = re.exec(combined)) !== null) {
+    citedIds.add(m[0]);
+    citedIds.add(m[0].replace(/^src_/, ''));
+  }
+  const slim = {};
+  for (const [k, v] of Object.entries(sourcesMap)) {
+    if (!v || typeof v !== 'object') continue;
+    if (citedIds.has(k) || citedIds.has(`src_${k}`)) {
+      slim[k] = { url: v.url || null, title: v.title || '' };
+    }
+  }
+  return slim;
 }
 
 export async function GET(request) {
@@ -297,7 +318,13 @@ export async function GET(request) {
                 confidence: isWebFallback ? 'low' : 'verified',
                 isUnscorable,
               },
-              sources: sourcesMap,
+              sources: slimSourcesMap(sourcesMap, [
+                data.summary,
+                data.key_risk,
+                ...(data.rca_unanticipated || []),
+                ...(data.rca_underestimated || []),
+                ...(data.rca_overestimated || []),
+              ]),
               isPendingReview: false
             });
           } catch (e) {
@@ -438,7 +465,7 @@ export async function GET(request) {
               summary: summaryText,
               key_risk: pred.key_risk || "",
               recommended_tickers: pred.recommended_tickers || [],
-              sources: sourcesMap,
+              sources: slimSourcesMap(sourcesMap, [summaryText, pred.key_risk]),
               isPendingReview: true,
               isOlderPending: isPastSession
             });

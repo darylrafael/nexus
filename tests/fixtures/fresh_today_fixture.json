@@ -1,0 +1,109 @@
+{
+  "_fixture_meta": {
+    "fixture_name": "fresh-today",
+    "is_test_fixture": true,
+    "stored_outside_runs": true,
+    "description": "Playwright UI state fixture representing a fresh pre-market session locked at 06:55 WIB today. Clearly marked as a test fixture and stored outside runs/."
+  },
+  "success": true,
+  "isDemo": false,
+  "holidays": {
+    "2026-12-25": "Christmas Day"
+  },
+  "pipelineHealth": {
+    "isStale": false,
+    "latestDate": "__TODAY__",
+    "tradingDaysSinceLatest": 0,
+    "staleMessage": "Pipeline is current.",
+    "mockDataDetected": false,
+    "excludedMockRuns": []
+  },
+  "stats": {
+    "totalSessions": 12,
+    "scorableSessions": 12,
+    "avgAccuracy": 34.3,
+    "winRate": 41.7,
+    "historyRescoredAt": "2026-10-15"
+  },
+  "nexusStats": {
+    "sample_size_n": 12,
+    "direction_scorable_sessions": 12,
+    "direction_correct_count": 5,
+    "direction_accuracy_pct": 41.7,
+    "direction_ci_95": {
+      "lower_pct": 19.3,
+      "upper_pct": 68.0
+    },
+    "baselines": {
+      "always_bearish_pct": 66.7,
+      "always_bearish_count": 8,
+      "always_bearish_total": 12,
+      "persistence_pct": 63.6,
+      "persistence_correct_count": 7,
+      "persistence_scorable_sessions": 11,
+      "always_bullish_pct": 33.3,
+      "always_bullish_count": 4,
+      "always_bullish_total": 12
+    },
+    "payoff": {
+      "long_only_total_bps": -176.0,
+      "short_only_total_bps": 244.0,
+      "long_short_total_bps": 68.0
+    },
+    "calibration": {
+      "sample_size_n": 12,
+      "average_stated_confidence_pct": 79.6,
+      "realized_hit_rate_pct": 41.7,
+      "calibrated_confidence_pct": 49.7,
+      "brier_score": 0.3996,
+      "prior_pct": 55.0,
+      "prior_strength_n0": 30,
+      "status_label": "illustrative shrinkage estimate"
+    }
+  },
+  "reviews": [
+    {
+      "date": "__TODAY__",
+      "ihsg_predicted": "Bullish",
+      "ihsg_confidence": 75,
+      "calibrated_confidence": 49.7,
+      "ihsg_actual": null,
+      "ihsg_actual_pct": null,
+      "ihsg_close": 6192.93,
+      "ihsg_high": 6215.0,
+      "ihsg_low": 6148.0,
+      "ihsg_atr14": 67.0,
+      "is_true_atr14": true,
+      "ihsg_correct": null,
+      "isPendingReview": true,
+      "isUnscorable": false,
+      "isWebFallback": false,
+      "foreign_flow_predicted": "Net Buy",
+      "foreign_flow_actual": null,
+      "foreign_flow_correct": null,
+      "actual_usdidr": 17895,
+      "accuracy_score": null,
+      "payoff_bps": null,
+      "summary": "[PLAYWRIGHT TEST FIXTURE — OUTSIDE runs/] BI rate hold and Rupiah stability support domestic banking and consumer names.",
+      "key_risk": "US 10Y yield volatility ahead of FOMC minutes.",
+      "lock_status": "locked_pre_open",
+      "created_at": "__TODAY__T06:55:10+07:00",
+      "locked_at": "06:55 WIB",
+      "hash_computed_at": "__TODAY__",
+      "lock_hash": "a1b2c3d4e5f60789",
+      "sector_accuracy": {
+        "Keuangan": "BULLISH",
+        "Barang Konsumen Primer": "BULLISH"
+      },
+      "actual_commodities": {},
+      "lessons": [],
+      "rca_unanticipated": [],
+      "rca_underestimated": [],
+      "rca_overestimated": []
+    }
+  ],
+  "recentLessons": [],
+  "telemetry": {
+    "recentSessions": []
+  }
+}

@@ -59,7 +59,25 @@ jobs:
         run: |
           git pull --no-edit origin main || true
 
-      - name: Execute Evening Review
+      - name: Holiday-Aware IDX Trading Day Check
+        id: trading_day
+        env:
+          FORCE_RUN: ${{ inputs.force || 'false' }}
+          TARGET_DATE: ${{ inputs.target_date || '' }}
+        run: |
+          python -c "
+          import os
+          from data_sources.market_data import jakarta_now
+          from core.calendar import is_idx_trading_day, get_holiday_reason
+          now = jakarta_now()
+          forced = os.getenv('FORCE_RUN', '').lower() in ('true', '1', 'yes')
+          target = os.getenv('TARGET_DATE', '')
+          trading = is_idx_trading_day(now)
+          reason = get_holiday_reason(now) or 'Trading day'
+          print(f'[calendar] Date={now.strftime(\"%Y-%m-%d\")} target={target!r} trading={trading} forced={forced} ({reason})')
+          "
+
+      - name: Execute Evening Review (run_evening_review via scheduler.evening_review)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
@@ -78,12 +96,21 @@ jobs:
             CMD="$CMD --date ${{ inputs.target_date }}"
           fi
           eval $CMD
+          python scripts/rescore_history.py
+
+      - name: Upload Evening Review Run Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evening-review-runs-${{ github.run_id }}
+          path: |
+            runs/
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Commit and push run artifacts
         run: |
-          mkdir -p dashboard/data/runs
-          cp -r runs/* dashboard/data/runs/ 2>/dev/null || true
-          git add -f runs/ dashboard/data/runs/
+          git add runs/
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else
@@ -107,3 +134,17 @@ jobs:
               exit 1
             fi
           fi
+
+      - name: Send Failure Alert on Job Failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          NEXUS_SKIP_ENV_VALIDATION: "1"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python -c "
+          import os
+          from delivery.telegram import send_report
+          send_report(f'❌ *Nexus Evening Review Workflow FAILED*\nRun: {os.getenv(\"RUN_URL\", \"unknown\")}')
+          " || true

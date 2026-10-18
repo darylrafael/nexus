@@ -34,8 +34,8 @@ jobs:
 
       - name: Static Analysis (pyflakes & ruff)
         run: |
-          python -m pyflakes agents data_sources utils memory core scheduler.py
-          ruff check --select F821,F841 agents data_sources utils memory core scheduler.py
+          python -m pyflakes agents data_sources utils memory core scripts scheduler.py
+          ruff check --no-cache .
 
       - name: Verify Hygiene, No Percent Paths, and Secret Scan
         run: |
@@ -68,13 +68,9 @@ jobs:
             exit 1
           fi
 
-      - name: Verify Allowlist Release Zip Packaging
-        run: |
-          python -m core.packaging --build-zip /tmp/nexus_ci_release.zip --verify-zip /tmp/nexus_ci_release.zip
-
 
   build-dashboard:
-    name: Next.js Dashboard Build
+    name: Next.js Dashboard Build & Node Tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -97,6 +93,36 @@ jobs:
         working-directory: dashboard
         run: npm run lint
 
+      - name: Run Dashboard Node Tests
+        run: node --test dashboard/tests/*.mjs
+
       - name: Build Next.js Dashboard
         working-directory: dashboard
         run: npm run build
+
+
+  package-smoke-test:
+    name: Release Package Build & Isolated Smoke Test
+    needs: [test-python, build-dashboard]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Build, Verify, and Smoke-Test Release Zip in Isolated Venv
+        run: |
+          python -m core.packaging \
+            --verify-hygiene \
+            --build-zip /tmp/nexus_ci_release.zip \
+            --verify-zip /tmp/nexus_ci_release.zip \
+            --smoke-test-zip /tmp/nexus_ci_release.zip \
+            --smoke-test-install-deps
+

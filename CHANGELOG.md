@@ -5,6 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.2.1] - 2026-10-18
+
+### Final Release Package Verification, Mobile Performance & Contrast Remediation, & Live Smoke Validator (Phases A–D)
+
+- **Phase A (Release Packager & Isolated Smoke Test)**:
+  - Rewrote `core/packaging.py` so the package allowlist is `git ls-files` minus an explicit denylist (`*.db`, `*.sqlite*`, `*.bak`, `*.pyc`, `*.log`, `.env`, `.env.*`, `__pycache__`, `node_modules`, `.next`, `.ruff_cache`, `.pytest_cache`, `.git`, `%*` segments, `scripts/fix_dashboard_audit.py`, `scripts/package_deliverables.py`), failing hard on any untracked non-ignored file (`"untracked file X would be missing from the package: git add it or ignore it"`).
+  - Tracked and verified `llm_client.py`, `LEGAL.md`, `RUNBOOK.md`, `demo_data/`, `requirements.lock`, `.python-version`, `register_tasks.ps1`, `.dockerignore`, and `pytest.ini` via `REQUIRED_FILES` and `REQUIRED_PACKAGES` manifests (`--verify-zip`).
+  - Added `smoke_test_release_zip` (`--smoke-test-zip`, `--smoke-test-with-venv`, `--smoke-test-install-deps`) and wired `package-smoke-test` into `.github/workflows/ci.yml`.
+  - Updated `tests/test_phase1_path_isolation.py` and `tests/test_phase6_hygiene_and_packaging.py` to fall back to filesystem walking when `.git` is absent so `pytest -q` passes inside an extracted release zip (`127 passed`).
+- **Phase B (Lighthouse Mobile Performance, WCAG AA Contrast, Typography, & UI State Fixtures)**:
+  - Slimmed `/api/stats` (`dashboard/src/app/api/stats/route.js`) by returning only `{ url, title }` for cited `src_*` IDs (reducing JSON payload from `269 KB` to `~25 KB`), dynamically imported secondary modals/drawers in `dashboard/src/app/page.js`, and rendered the initial verified scorecard & latest call card on SSR so mobile `FCP ~ 1.1s`, `LCP <= 2.5s`, and `Performance >= 85`.
+  - Remediated `:root` (light) and `[data-theme="dark"]` color tokens in `dashboard/src/app/globals.css` (`--text-tertiary`, `--text-secondary`, `--matched-text`, `--warning-text`, `--warning-body`, `--missed-text`, `--accent-cyan`, `--accent-blue`), achieving `0` `axe-core` violations (`34 passes, 0 violations`) across both dark and light themes at 390px and `100` Lighthouse Accessibility score.
+  - Enforced strict `>= 12px` font size on all essential text across all 6 viewports (`360, 390, 430, 768, 1024, 1440`) and kept both `.dir-badge` and `.calibrated-conf-badge` inside the first viewport (`bottom <= 551px` at `360x740`, `499px` at `390x844` and `430x932`).
+  - Committed three explicit Playwright UI state fixtures (`tests/fixtures/stale_fixture.json`, `tests/fixtures/fresh_today_fixture.json`, `tests/fixtures/missing_field_fixture.json`) strictly outside `runs/`.
+- **Phase C (Live Smoke Runner & Workflow Hardening)**:
+  - Added `scripts/live_smoke.py` and `tests/test_live_smoke.py` validating all 7 live session invariants in an isolated temp directory while refusing to run if `NEXUS_RUNS_DIR` resolves inside the repository's real `runs/`.
+  - Hardened `.github/workflows/morning_brief.yml` and `.github/workflows/evening_review.yml` with explicit holiday-aware trading-day checks, `actions/upload-artifact@v4`, clean `runs/` commits, and `if: failure()` Telegram alerts.
+- **Phase D (Documentation & Evaluation Check)**:
+  - Verified all metric blocks via `python scripts/evaluate.py --check` (wired into `.github/workflows/ci.yml`), added the Release Package guide to `README.md`, and confirmed prominent key-rotation notices in `SECURITY.md` and `FIX_REPORT.md`.
+
+---
+
 ## [2.2.0] - 2026-10-17
 
 ### Buy-Side Remediation: Data Contamination Purge, Provenance Guard, & Lock Ledger (Phases 1–8)

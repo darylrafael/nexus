@@ -184,4 +184,31 @@ Open [http://127.0.0.1:3002](http://127.0.0.1:3002).
 
 ---
 
+## Release Package
+
+The release archive is built deterministically from git-tracked files (`git ls-files`) minus an explicit denylist enforced in `core/packaging.py`. Any untracked, non-ignored file in the working tree causes a hard failure so required modules are never silently omitted.
+
+### Build the Release Zip
+```bash
+python -m core.packaging --verify-hygiene --build-zip nexus_remediated.zip
+```
+
+### Verify and Smoke-Test the Release Zip
+```bash
+# Verify allowlist/denylist rules, REQUIRED_FILES manifest, and secret scan:
+python -m core.packaging --verify-zip nexus_remediated.zip
+
+# Extract into an isolated temp directory (no .git, no .env) and run import + pytest smoke checks:
+python -m core.packaging --smoke-test-zip nexus_remediated.zip
+```
+
+### Excluded Patterns (Denylist)
+- **Secrets & Environment**: `.env`, `.env.*` (except `.env.example`)
+- **Databases & Backups**: `*.db`, `*.sqlite*`, `*.bak`, `*.log`, `*.pyc`
+- **Build & Cache Directories**: `__pycache__/`, `.ruff_cache/`, `.pytest_cache/`, `node_modules/`, `.next/`, `out/`, `.git/`, `venv/`, `.venv/`
+- **OS / Shell Artifacts**: Any path segment starting with `%` (e.g. `%SystemDrive%`)
+- **One-Off Local Maintenance Scripts**: `scripts/fix_dashboard_audit.py`, `scripts/package_deliverables.py`
+
+---
+
 *Educational and architectural demonstration project. Not investment advice. DYOR.*

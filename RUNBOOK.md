@@ -128,4 +128,5 @@ Sebelum melakukan rilis atau commit ke branch produksi, selalu jalankan test sui
 ```bash
 python -m pytest tests/
 ```
-Seluruh 54 unit test harus berstatus hijau (`PASSED`).
+Seluruh unit test harus berstatus hijau (`PASSED`).
+

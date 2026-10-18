@@ -38,8 +38,24 @@ export function buildRunsIndex(targetDir) {
     }
   }
 
+  let existing = null;
+  const indexPath = path.join(targetDir, 'index.json');
+  if (fs.existsSync(indexPath)) {
+    try {
+      existing = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+    } catch {
+      existing = null;
+    }
+  }
+
+  const unchanged = existing &&
+    JSON.stringify(existing.all_dates || []) === JSON.stringify(sessionDates) &&
+    JSON.stringify(existing.evaluated_dates || []) === JSON.stringify(evaluated) &&
+    JSON.stringify(existing.pending_dates || []) === JSON.stringify(pending) &&
+    JSON.stringify(existing.rejected_mock_dates || []) === JSON.stringify(rejectedMock);
+
   const diskPayload = {
-    generated_at: new Date().toISOString(),
+    generated_at: unchanged ? existing.generated_at : new Date().toISOString(),
     total_dates: sessionDates.length,
     latest_date: sessionDates[0] || null,
     evaluated_dates: evaluated,
@@ -50,9 +66,12 @@ export function buildRunsIndex(targetDir) {
     diskPayload.rejected_mock_dates = rejectedMock;
   }
 
-  const indexPath = path.join(targetDir, 'index.json');
-  fs.writeFileSync(indexPath, JSON.stringify(diskPayload, null, 2), 'utf8');
-  console.log(`[sync-runs] Generated index at ${indexPath} (${sessionDates.length} genuine sessions, ${rejectedMock.length} mock rejected)`);
+  if (!unchanged) {
+    fs.writeFileSync(indexPath, JSON.stringify(diskPayload, null, 2), 'utf8');
+    console.log(`[sync-runs] Generated index at ${indexPath} (${sessionDates.length} genuine sessions, ${rejectedMock.length} mock rejected)`);
+  } else {
+    console.log(`[sync-runs] Index at ${indexPath} is up to date (${sessionDates.length} sessions).`);
+  }
   return {
     ...diskPayload,
     rejected_mock_dates: rejectedMock,

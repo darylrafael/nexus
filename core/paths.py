@@ -17,6 +17,11 @@ _DEFAULT_RUNS_SUBDIR = "runs"
 _DEFAULT_DB_FILENAME = "nexus_sessions.db"
 
 
+def get_real_repo_runs_dir() -> Path:
+    """Return the canonical repository runs/ directory (ignoring NEXUS_RUNS_DIR)."""
+    return (REPO_ROOT / _DEFAULT_RUNS_SUBDIR).resolve()
+
+
 def get_runs_dir() -> Path:
     """Resolve the active runs directory (configurable via NEXUS_RUNS_DIR)."""
     env_val = os.getenv("NEXUS_RUNS_DIR")

@@ -4,13 +4,13 @@ import './globals.css';
 const nexusSans = localFont({
   src: './fonts/nexus-sans-latin.woff2',
   variable: '--font-next-sans',
-  display: 'swap',
+  display: 'optional',
 });
 
 const nexusMono = localFont({
   src: './fonts/nexus-mono-latin.woff2',
   variable: '--font-next-mono',
-  display: 'swap',
+  display: 'optional',
 });
 
 export const metadata = {
@@ -26,7 +26,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${nexusSans.variable} ${nexusMono.variable}`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${nexusSans.variable} ${nexusMono.variable}`}>
       <body>
         {children}
       </body>

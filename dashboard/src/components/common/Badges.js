@@ -101,7 +101,7 @@ export function DataQualityBadge({ isWebFallback, isUnscorable, confidence }) {
           border: "1px solid var(--border-default)",
           color: "var(--text-tertiary)",
           fontWeight: 600,
-          fontSize: "11px",
+          fontSize: "12px",
           letterSpacing: "0.04em",
         }}
         title="Session cannot be scored due to holiday, early close, or market disruption"
@@ -124,7 +124,7 @@ export function DataQualityBadge({ isWebFallback, isUnscorable, confidence }) {
           border: "1px solid var(--warning-border)",
           color: "var(--warning-text)",
           fontWeight: 600,
-          fontSize: "11px",
+          fontSize: "12px",
           letterSpacing: "0.04em",
         }}
         title="Data sourced via web search fallback, not primary provider"

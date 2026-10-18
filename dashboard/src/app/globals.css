@@ -8,14 +8,14 @@
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
-  --text-tertiary: #64748b;
+  --text-tertiary: #475569;
 
   --border-subtle: #e2e8f0;
   --border-default: #cbd5e1;
   --border-strong: #94a3b8;
   
-  /* Semantic Signals (Light Mode - Deep Accessible Inks) */
-  --matched-text: #047857;
+  /* Semantic Signals (Light Mode - Deep Accessible Inks >= 5.5:1) */
+  --matched-text: #065f46;
   --matched-bg: #ecfdf5;
   --matched-border: #a7f3d0;
   
@@ -23,14 +23,14 @@
   --missed-bg: #fef2f2;
   --missed-border: #fecaca;
   
-  --warning-text: #b45309;
+  --warning-text: #92400e;
   --warning-bg: #fffbeb;
   --warning-border: #fde68a;
-  --warning-body: #92400e;
+  --warning-body: #78350f;
 
-  /* Terminal Accents */
-  --accent-cyan: #0891b2;
-  --accent-blue: #2563eb;
+  /* Terminal Accents (WCAG AA >= 5.4:1 on all light surfaces) */
+  --accent-cyan: #155e75;
+  --accent-blue: #1d4ed8;
   
   --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
   --shadow-raised: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
@@ -52,19 +52,19 @@
   --sidebar-bg: #070a0f;
   
   --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
   
   --border-subtle: #182232;
   --border-default: #233047;
   --border-strong: #334665;
   
-  /* Semantic Phosphor Signals */
+  /* Semantic Phosphor Signals (WCAG AA >= 5.5:1 on all dark surfaces) */
   --matched-text: #00e676;
   --matched-bg: rgba(0, 230, 118, 0.12);
   --matched-border: rgba(0, 230, 118, 0.35);
   
-  --missed-text: #ff4d4f;
+  --missed-text: #ff6b6b;
   --missed-bg: rgba(255, 77, 79, 0.12);
   --missed-border: rgba(255, 77, 79, 0.35);
   
@@ -107,7 +107,7 @@ body {
 .text-missed { color: var(--missed-text); }
 .text-warning { color: var(--warning-text); }
 .text-muted { color: var(--text-secondary); }
-.text-xs { font-size: 11px; }
+.text-xs { font-size: 12px; }
 .text-sm { font-size: 13px; }
 .text-base { font-size: 14px; }
 .font-medium { font-weight: 500; }
@@ -4060,7 +4060,8 @@ nextjs-portal,
 
   .today-call-main {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .today-range-band {
@@ -4070,40 +4071,163 @@ nextjs-portal,
   }
 
   .mobile-nav-item {
-    font-size: 11px !important;
-    min-height: 48px !important;
+    font-size: 12px !important;
+    min-height: 46px !important;
     min-width: 48px !important;
   }
 
   button, .filter-tab-btn, .sidebar-session-item {
     min-height: 44px;
   }
+
+  /* Phase B4: Compact mobile header, stale banner, and call card header so
+     call direction badge + calibrated confidence are 100% visible in the
+     first viewport at 360x740, 390x844, and 430x932. */
+  .sidebar-header {
+    height: 38px !important;
+    padding: 0 10px !important;
+  }
+
+  .sidebar-sessions {
+    padding: 3px 10px 5px 10px !important;
+    gap: 6px !important;
+  }
+
+  .main-viewport {
+    padding: 8px 10px calc(70px + env(safe-area-inset-bottom, 12px)) 10px !important;
+  }
+
+  .page-header {
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1px !important;
+  }
+
+  .page-title {
+    font-size: 18px !important;
+    line-height: 1.15 !important;
+  }
+
+  .header-subtitle {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+  }
+
+  .header-actions {
+    gap: 4px !important;
+    width: 100%;
+  }
+
+  .methodology-trigger-btn {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  .stale-pipeline-banner {
+    padding: 6px 10px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .today-call-card {
+    padding: 10px 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .today-call-header {
+    gap: 6px !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .today-call-dir-hero {
+    gap: 4px !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   TYPOGRAPHY FLOOR & TAP TARGET ENFORCEMENT (PHASE 6 WCAG COMPLIANCE)
+   TYPOGRAPHY FLOOR & TAP TARGET ENFORCEMENT (PHASE B3 & B4 WCAG COMPLIANCE)
    ═══════════════════════════════════════════════════════════════════════════════ */
 
-.sidebar-sub-brand,
+/* All essential text (values, statuses, number labels, buttons, links, body copy) >= 12px */
 .sidebar-session-title,
+.sidebar-session-item,
+.nav-section-title,
 .cadence-head-title,
+.cadence-time,
 .cadence-desc,
 .session-node-desc,
 .session-node-step,
+.session-node-time,
+.session-node-label,
 .mobile-card-label,
+.mobile-card-arrow,
 .macro-cell-head,
+.macro-cell-val,
+.macro-cell-sub,
+.macro-sub-label,
+.macro-match-tag,
 .tag-trigger,
 .tag-impact,
 .tag-action,
+.sector-cell-name,
 .sector-cell-badge,
+.sector-tile,
+.sector-chip,
+.sector-indicator,
+.sector-chip-status,
 .source-citation-pill,
 .telemetry-box-title,
+.telemetry-box-row,
 .telemetry-box-label,
 .telemetry-box-val,
 .vault-status,
 .system-tag,
 .bps-text,
-.macro-sub-label {
+.market-status-chip,
+.live-badge,
+.status-pill,
+.status-sm,
+.status-text,
+.dir-badge,
+.confidence-pill,
+.loop-active-tag,
+.bridge-cell-header,
+.bridge-cell-sub,
+.eval-section-heading,
+.eval-section-tag,
+.section-eyebrow,
+.data-table th,
+.detail-item .detail-label,
+.detail-item .detail-sub,
+.rca-causal-flow,
+.rca-subheading,
+.rca-diagnostic-type,
+.rca-lesson-meta,
+.level-label,
+.ticker-bias,
+.ticker-cell-note,
+.kpi-label,
+.kpi-target-tag,
+.kpi-context,
+.outcome-pip,
+.heuristic-pill,
+.sidesheet-tag,
+.sidesheet-subtitle,
+.text-xs {
+  font-size: 12px !important;
+}
+
+/* Explicitly permitted 11px decorative/redundant micro-labels (documented in tests/audit_mobile_viewports.py) */
+.breadcrumb,
+.sidebar-sub-brand,
+.dir-glyph,
+.source-citation-icon,
+.source-citation-arrow {
   font-size: 11px !important;
 }
 
@@ -4120,7 +4244,7 @@ nextjs-portal,
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   MOBILE & ACCESSIBILITY TAP TARGET COMPLIANCE (>= 44x44px GLOBALLY)
+   MOBILE & ACCESSIBILITY TAP TARGET COMPLIANCE (>= 44x44px INTERACTIVE)
    ══════════════════════════════════════════════════════════════════════ */
 button,
 a,
@@ -4137,16 +4261,33 @@ select,
 .jump-latest-btn,
 .watchlist-toggle-btn,
 .section-toggle-btn,
-.market-status-chip,
-.live-badge,
 .source-citation,
 .citation-pill,
 .source-pill,
-.source-citation-pill,
-.outcome-pip,
-.status-pill {
+.source-citation-pill {
   min-height: 44px;
   min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Non-interactive status chips stay compact while remaining legible at 12px */
+.market-status-chip,
+.live-badge {
+  min-height: 28px;
+  padding: 2px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.status-pill,
+.outcome-pip {
+  min-height: 24px;
+  padding: 3px 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4163,13 +4304,6 @@ select,
   vertical-align: middle;
 }
 
-.dir-glyph,
-.source-citation-icon,
-.source-citation-arrow,
-.breadcrumb {
-  font-size: 11px !important;
-}
-
 /* Prevent any horizontal overflow on any viewport */
 html, body {
   overflow-x: hidden !important;
@@ -4183,11 +4317,7 @@ html, body {
 
 /* Base minimum typography enforcement */
 body, p, span, div, a, button, label, input, td, th {
-  font-size: max(11px, inherit);
-}
-
-.text-xs {
-  font-size: 11px !important;
+  font-size: max(12px, inherit);
 }
 
 .text-sm {
@@ -4197,3 +4327,4 @@ body, p, span, div, a, button, label, input, td, th {
 .text-base {
   font-size: 14px !important;
 }
+

@@ -1,0 +1,115 @@
+{
+  "_fixture_meta": {
+    "fixture_name": "stale",
+    "is_test_fixture": true,
+    "stored_outside_runs": true,
+    "description": "Playwright UI state fixture representing a stale pipeline (latest verified run 2026-10-08, 6 trading days ago). Must never be copied into runs/."
+  },
+  "success": true,
+  "isDemo": false,
+  "holidays": {
+    "2026-12-25": "Christmas Day"
+  },
+  "pipelineHealth": {
+    "isStale": true,
+    "latestDate": "2026-10-08",
+    "tradingDaysSinceLatest": 6,
+    "staleMessage": "Automated pipeline paused since 2026-10-08 (6 trading days ago).",
+    "mockDataDetected": false,
+    "excludedMockRuns": []
+  },
+  "stats": {
+    "totalSessions": 12,
+    "scorableSessions": 12,
+    "avgAccuracy": 34.3,
+    "winRate": 41.7,
+    "historyRescoredAt": "2026-10-15"
+  },
+  "nexusStats": {
+    "sample_size_n": 12,
+    "direction_scorable_sessions": 12,
+    "direction_correct_count": 5,
+    "direction_accuracy_pct": 41.7,
+    "direction_ci_95": {
+      "lower_pct": 19.3,
+      "upper_pct": 68.0
+    },
+    "baselines": {
+      "always_bearish_pct": 66.7,
+      "always_bearish_count": 8,
+      "always_bearish_total": 12,
+      "persistence_pct": 63.6,
+      "persistence_correct_count": 7,
+      "persistence_scorable_sessions": 11,
+      "always_bullish_pct": 33.3,
+      "always_bullish_count": 4,
+      "always_bullish_total": 12
+    },
+    "payoff": {
+      "long_only_total_bps": -176.0,
+      "short_only_total_bps": 244.0,
+      "long_short_total_bps": 68.0
+    },
+    "calibration": {
+      "sample_size_n": 12,
+      "average_stated_confidence_pct": 79.6,
+      "realized_hit_rate_pct": 41.7,
+      "calibrated_confidence_pct": 49.7,
+      "brier_score": 0.3996,
+      "prior_pct": 55.0,
+      "prior_strength_n0": 30,
+      "status_label": "illustrative shrinkage estimate"
+    }
+  },
+  "reviews": [
+    {
+      "date": "2026-10-08",
+      "ihsg_predicted": "Bearish",
+      "ihsg_confidence": 80,
+      "calibrated_confidence": 49.7,
+      "ihsg_actual": "Bearish",
+      "ihsg_actual_pct": -0.45,
+      "ihsg_close": 6150.0,
+      "ihsg_high": 6190.0,
+      "ihsg_low": 6120.0,
+      "ihsg_atr14": 70.0,
+      "is_true_atr14": true,
+      "ihsg_correct": true,
+      "isPendingReview": false,
+      "isUnscorable": false,
+      "isWebFallback": false,
+      "foreign_flow_predicted": "Net Sell",
+      "foreign_flow_actual": "Net Sell Rp 420B",
+      "foreign_flow_correct": true,
+      "actual_usdidr": 15650,
+      "accuracy_score": 78.5,
+      "payoff_bps": 45,
+      "summary": "Bearish macro pressure from global yields weighed on IDX financials.",
+      "key_risk": "Unexpected BI rate intervention could trigger short covering.",
+      "lock_status": "retroactive",
+      "locked_at": null,
+      "hash_computed_at": "2026-10-15",
+      "lock_hash": "9f8e7d6c5b4a3210",
+      "sector_accuracy": {
+        "Keuangan": true,
+        "Energi": false
+      },
+      "actual_commodities": {
+        "Coal": {
+          "name": "Coal",
+          "price": 145.2,
+          "change_pct": -1.2,
+          "signal": "Down"
+        }
+      },
+      "lessons": [],
+      "rca_unanticipated": [],
+      "rca_underestimated": [],
+      "rca_overestimated": []
+    }
+  ],
+  "recentLessons": [],
+  "telemetry": {
+    "recentSessions": []
+  }
+}

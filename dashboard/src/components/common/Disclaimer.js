@@ -11,7 +11,7 @@ export function LegalDisclaimerBanner() {
         background: "var(--warning-bg)",
         border: "1px solid var(--warning-border)",
         color: "var(--warning-body)",
-        fontSize: "11px",
+        fontSize: "12px",
         lineHeight: 1.5,
         display: "flex",
         alignItems: "flex-start",

@@ -1,0 +1,108 @@
+{
+  "_fixture_meta": {
+    "fixture_name": "missing-field",
+    "is_test_fixture": true,
+    "stored_outside_runs": true,
+    "description": "Playwright UI state fixture representing a session with missing USD/IDR, foreign flow, OHLC, and unscorable accuracy. Must never be copied into runs/."
+  },
+  "success": true,
+  "isDemo": false,
+  "holidays": {
+    "2026-12-25": "Christmas Day"
+  },
+  "pipelineHealth": {
+    "isStale": false,
+    "latestDate": "__TODAY__",
+    "tradingDaysSinceLatest": 0,
+    "staleMessage": "Pipeline is current.",
+    "mockDataDetected": false,
+    "excludedMockRuns": []
+  },
+  "stats": {
+    "totalSessions": 12,
+    "scorableSessions": 12,
+    "avgAccuracy": 34.3,
+    "winRate": 41.7,
+    "historyRescoredAt": "2026-10-15"
+  },
+  "nexusStats": {
+    "sample_size_n": 12,
+    "direction_scorable_sessions": 12,
+    "direction_correct_count": 5,
+    "direction_accuracy_pct": 41.7,
+    "direction_ci_95": {
+      "lower_pct": 19.3,
+      "upper_pct": 68.0
+    },
+    "baselines": {
+      "always_bearish_pct": 66.7,
+      "always_bearish_count": 8,
+      "always_bearish_total": 12,
+      "persistence_pct": 63.6,
+      "persistence_correct_count": 7,
+      "persistence_scorable_sessions": 11,
+      "always_bullish_pct": 33.3,
+      "always_bullish_count": 4,
+      "always_bullish_total": 12
+    },
+    "payoff": {
+      "long_only_total_bps": -176.0,
+      "short_only_total_bps": 244.0,
+      "long_short_total_bps": 68.0
+    },
+    "calibration": {
+      "sample_size_n": 12,
+      "average_stated_confidence_pct": 79.6,
+      "realized_hit_rate_pct": 41.7,
+      "calibrated_confidence_pct": 49.7,
+      "brier_score": 0.3996,
+      "prior_pct": 55.0,
+      "prior_strength_n0": 30,
+      "status_label": "illustrative shrinkage estimate"
+    }
+  },
+  "reviews": [
+    {
+      "date": "__TODAY__",
+      "ihsg_predicted": "Bearish",
+      "ihsg_confidence": 80,
+      "calibrated_confidence": 49.7,
+      "ihsg_actual": "Bearish",
+      "ihsg_actual_pct": -0.45,
+      "ihsg_close": null,
+      "previous_close": null,
+      "ihsg_high": null,
+      "ihsg_low": null,
+      "ihsg_atr14": null,
+      "is_true_atr14": false,
+      "ihsg_correct": null,
+      "isPendingReview": false,
+      "isUnscorable": true,
+      "isWebFallback": false,
+      "foreign_flow_predicted": null,
+      "foreign_flow_actual": null,
+      "foreign_flow_correct": null,
+      "actual_usdidr": null,
+      "accuracy_score": null,
+      "payoff_bps": null,
+      "summary": "[PLAYWRIGHT TEST FIXTURE — MISSING FIELDS] Session with vendor feed outage on FX, OHLC, and foreign flow.",
+      "key_risk": "Data vendor outage prevented full post-market verification.",
+      "lock_status": "retroactive",
+      "locked_at": null,
+      "hash_computed_at": "2026-10-15",
+      "lock_hash": "9f8e7d6c5b4a3210",
+      "sector_accuracy": {},
+      "actual_commodities": {},
+      "recommended_tickers": [],
+      "actionable_watchlist": [],
+      "lessons": [],
+      "rca_unanticipated": [],
+      "rca_underestimated": [],
+      "rca_overestimated": []
+    }
+  ],
+  "recentLessons": [],
+  "telemetry": {
+    "recentSessions": []
+  }
+}

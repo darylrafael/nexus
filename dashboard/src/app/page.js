@@ -1,14 +1,183 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import LessonsDatabaseView from "../components/views/LessonsDatabaseView";
-import ExecutionTelemetryView from "../components/views/ExecutionTelemetryView";
-import MethodologyView from "../components/common/MethodologyView";
-import PipelineStatusView from "../components/common/PipelineStatusView";
-import DataLineageView from "../components/common/DataLineageView";
-import SideSheet from "../components/common/SideSheet";
+import dynamic from "next/dynamic";
+import { startTransition, useEffect, useMemo, useState } from "react";
 import { LegalDisclaimerBanner, LegalDisclaimerFooter } from "../components/common/Disclaimer";
 import { DataQualityBadge } from "../components/common/Badges";
+
+const LessonsDatabaseView = dynamic(() => import("../components/views/LessonsDatabaseView"));
+const ExecutionTelemetryView = dynamic(() => import("../components/views/ExecutionTelemetryView"));
+const MethodologyView = dynamic(() => import("../components/common/MethodologyView"));
+const PipelineStatusView = dynamic(() => import("../components/common/PipelineStatusView"));
+const DataLineageView = dynamic(() => import("../components/common/DataLineageView"));
+const SideSheet = dynamic(() => import("../components/common/SideSheet"));
+
+const INITIAL_DASHBOARD_DATA = {
+  success: true,
+  isDemo: false,
+  stats: {
+    avgAccuracy: "34.3",
+    totalSessions: 12,
+    historyRescoredAt: "2026-10-15",
+  },
+  nexusStats: {
+    sample_size_n: 12,
+    direction_accuracy_pct: 41.7,
+    direction_correct_count: 5,
+    direction_scorable_sessions: 12,
+    direction_ci_95: { lower_pct: 19.3, upper_pct: 68.0 },
+    baselines: {
+      always_bearish_pct: 66.7,
+      always_bearish_count: 8,
+      always_bearish_total: 12,
+      persistence_pct: 63.6,
+      persistence_correct_count: 7,
+      persistence_scorable_sessions: 11,
+      always_bullish_pct: 33.3,
+      always_bullish_count: 4,
+      always_bullish_total: 12,
+    },
+    calibration: {
+      average_stated_confidence_pct: 79.6,
+      calibrated_confidence_pct: 49.7,
+      sample_size_n: 12,
+      prior_pct: 55.0,
+      prior_strength_n0: 30,
+      realized_hit_rate_pct: 41.7,
+      status_label: "illustrative shrinkage estimate",
+      brier_score: 0.3996,
+    },
+    payoff: {
+      long_only_total_bps: -176.0,
+      short_only_total_bps: 244.0,
+      long_short_total_bps: 68.0,
+    },
+  },
+  pipelineHealth: {
+    isStale: true,
+    latestDate: "2026-10-08",
+    tradingDaysSinceLatest: 6,
+    staleMessage: "Automation feed paused since 2026-10-08 (6 trading days).",
+    mockDataDetected: false,
+  },
+  reviews: [
+    {
+      date: "2026-10-08",
+      ihsg_predicted: "Bullish",
+      ihsg_confidence: 82,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Not reviewed",
+      ihsg_actual_pct: null,
+      ihsg_correct: null,
+      accuracy_score: null,
+      foreign_flow_predicted: "Stagnant/Sideways",
+      foreign_flow_actual: "Not reviewed",
+      ihsg_close: 6146.72,
+      previous_close: 6146.72,
+      ihsg_atr14: 79,
+      is_true_atr14: false,
+      volatility_label: "Prev-Day Range",
+      dynamic_s1: 6068,
+      dynamic_r1: 6226,
+      actual_usdidr: 17885,
+      summary:
+        "Bank Indonesia (BI) maintained the BI-Rate at 5.75% in September 2026, consistent with efforts to stabilize the Rupiah and keep inflation within the 2.5±1% target for 2026-2027. Inflation for September 2026 was recorded at 3.28% YoY, while the Rupiah strengthened slightly to 17,895/USD on October 6, 2026, supported by BI's foreign exchange interventions (src_c48f564ee3, src_0ba9a5d054, src_363fc5b63c).",
+      key_risk: "",
+      lock_hash: "e994749a446521e7",
+      lock_status: "retroactive",
+      hash_computed_at: "2026-10-15",
+      lock_note: "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+      recommended_tickers: ["MYOR", "TBLA", "UNVR", "PGEO", "BYAN", "SIMP", "ADRO", "ICBP", "LSIP", "AALI"],
+      sources: {
+        src_c48f564ee3: { url: "https://www.jtrustbank.co.id/market_update/market-update-7-oct-2026", title: "Market Update 7 Oct 2026" },
+        src_0ba9a5d054: { url: "https://www.bi.go.id/id/publikasi/ruang-media/news-release/Pages/sp_2816226.aspx", title: "BI-Rate Tetap 5,75%: Memperkuat Stabilitas, Mendorong Pertumbuhan Ekonomi" },
+        src_363fc5b63c: { url: "https://ekonomi.tvrinews.com/berita/t5gszqc-intervensi-bi-dan-stabilitas-ekonomi-domestik-dorong-penguatan-rupiah-selasa-ini", title: "Intervensi BI dan Stabilitas Ekonomi Domestik Dorong Penguatan Rupiah Selasa Ini — TVRI News | TVRI News" },
+      },
+      isPendingReview: true,
+      isOlderPending: true,
+    },
+    {
+      date: "2026-10-07",
+      ihsg_predicted: "Bullish",
+      ihsg_confidence: 90,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Bearish",
+      ihsg_actual_pct: -0.75,
+      ihsg_correct: false,
+      foreign_flow_predicted: "Stagnant",
+      foreign_flow_actual: "Unknown",
+      foreign_flow_correct: null,
+      accuracy_score: 9,
+      isPendingReview: false,
+      lock_status: "retroactive",
+      lock_hash: "3025099b6f4426f3",
+    },
+    {
+      date: "2026-10-06",
+      ihsg_predicted: "Bullish",
+      ihsg_confidence: 81,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Bullish",
+      ihsg_actual_pct: 1.21,
+      ihsg_correct: true,
+      foreign_flow_predicted: "Stagnant",
+      foreign_flow_actual: "Unknown",
+      foreign_flow_correct: null,
+      accuracy_score: 81,
+      isPendingReview: false,
+      lock_status: "retroactive",
+      lock_hash: "5e48c9b66ab8af24",
+    },
+    {
+      date: "2026-10-05",
+      ihsg_predicted: "Neutral",
+      ihsg_confidence: 82,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Bullish",
+      ihsg_actual_pct: 1.36,
+      ihsg_correct: false,
+      foreign_flow_predicted: "Stagnant",
+      foreign_flow_actual: "Unknown",
+      foreign_flow_correct: null,
+      accuracy_score: 0,
+      isPendingReview: false,
+      lock_status: "retroactive",
+      lock_hash: "c03f5017b7bc3644",
+    },
+    {
+      date: "2026-10-02",
+      ihsg_predicted: "Bearish",
+      ihsg_confidence: 67,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Bullish",
+      ihsg_actual_pct: 0.46,
+      ihsg_correct: false,
+      foreign_flow_predicted: "Distribution",
+      foreign_flow_actual: "Unknown",
+      foreign_flow_correct: null,
+      accuracy_score: 8,
+      isPendingReview: false,
+      lock_status: "retroactive",
+      lock_hash: "4fa244d072675422",
+    },
+    {
+      date: "2026-10-01",
+      ihsg_predicted: "Bullish",
+      ihsg_confidence: 72,
+      calibrated_confidence: 49.7,
+      ihsg_actual: "Bearish",
+      ihsg_actual_pct: -1.02,
+      ihsg_correct: false,
+      foreign_flow_predicted: "Stagnant",
+      foreign_flow_actual: "Unknown",
+      foreign_flow_correct: null,
+      accuracy_score: 0,
+      isPendingReview: false,
+      lock_status: "retroactive",
+      lock_hash: "4800380bf97d5a10",
+    },
+  ],
+};
 
 const formatPct = (value) => {
   if (value === null || value === undefined || value === "") return "—";
@@ -381,7 +550,7 @@ function MacroPulse({ review }) {
             <div className="macro-cell-sub font-mono">
               <span className="macro-sub-label">Exp: {foreignPredicted}</span>
               {review?.isPendingReview ? (
-                <span className="text-secondary font-mono" style={{ fontSize: "11px" }}>
+                <span className="text-secondary font-mono" style={{ fontSize: "12px" }}>
                   (● Active)
                 </span>
               ) : foreignCorrect !== undefined && foreignCorrect !== null ? (
@@ -391,7 +560,7 @@ function MacroPulse({ review }) {
               ) : null}
             </div>
             {divergenceAlert && (
-              <div className="mt-1 text-xs text-warning font-mono" style={{ fontSize: "11px", lineHeight: "1.2" }} title={divergenceAlert}>
+              <div className="mt-1 text-xs text-warning font-mono" style={{ fontSize: "12px", lineHeight: "1.2" }} title={divergenceAlert}>
                 ⚠️ Crossing Divergence
               </div>
             )}
@@ -502,7 +671,7 @@ function ActionableMarketSetup({ review }) {
         </div>
       </div>
 
-      <div style={{ fontSize: "11px", color: "var(--text-tertiary)", margin: "8px 0 12px", fontStyle: "italic" }}>
+      <div style={{ fontSize: "12px", color: "var(--text-tertiary)", margin: "8px 0 12px", fontStyle: "italic" }}>
         * Note: Volatility bounds are historical index spread references, not executable trade signals.
       </div>
 
@@ -816,7 +985,7 @@ function HistoryRow({ review, isSelected, onSelectSession, isSessionLive }) {
                   <div className="detail-sub font-mono">
                     Predicted: {review.foreign_flow_predicted || "N/A"}{" "}
                     {review.isPendingReview ? (
-                      <span className="text-secondary" style={{ fontSize: "11px", marginLeft: "4px" }}>
+                      <span className="text-secondary" style={{ fontSize: "12px", marginLeft: "4px" }}>
                         (● Active)
                       </span>
                     ) : review.foreign_flow_correct !== undefined && review.foreign_flow_correct !== null ? (
@@ -868,7 +1037,7 @@ function HistoryRow({ review, isSelected, onSelectSession, isSessionLive }) {
                             label = hit ? "● MATCH" : "▲ MISS";
                           }
                           return (
-                            <span key={sec} className="sector-tile" style={{ fontSize: "11px", padding: "2px 6px" }}>
+                            <span key={sec} className="sector-tile" style={{ fontSize: "12px", padding: "2px 6px" }}>
                               {sec}: <span className={textCls}>{label}</span>
                             </span>
                           );
@@ -1088,14 +1257,14 @@ function MobileBottomNav({ currentView, onSelectView, onOpenBrief, onOpenMethodo
 }
 
 export default function Dashboard() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(INITIAL_DASHBOARD_DATA);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [theme, setTheme] = useState("dark");
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentView, setCurrentView] = useState("market");
-  const [marketStatus, setMarketStatus] = useState({ isOpen: false, status: "closed", label: "IDX: CLOSED" });
+  const [marketStatus, setMarketStatus] = useState(() => getIdxMarketStatus(null, null));
   const [staleBannerExpanded, setStaleBannerExpanded] = useState(false);
   const [scorecardDetailsOpen, setScorecardDetailsOpen] = useState(false);
   const [quickLedgerExpanded, setQuickLedgerExpanded] = useState(false);
@@ -1146,14 +1315,17 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    let savedTheme = "dark";
+    let savedTheme = (typeof document !== "undefined" && document.documentElement.getAttribute("data-theme")) || "dark";
     try {
       if (typeof window !== "undefined" && window.localStorage) {
-        savedTheme = localStorage.getItem("nexus-theme") || "dark";
+        const stored = localStorage.getItem("nexus-theme");
+        if (stored) savedTheme = stored;
       }
     } catch (e) {}
-    setTheme(savedTheme);
-    if (typeof document !== "undefined") {
+    if (savedTheme !== "dark") {
+      setTheme(savedTheme);
+    }
+    if (typeof document !== "undefined" && document.documentElement.getAttribute("data-theme") !== savedTheme) {
       document.documentElement.setAttribute("data-theme", savedTheme);
     }
 
@@ -1163,7 +1335,9 @@ export default function Dashboard() {
         if (!json.success) {
           throw new Error(json.error || "Dashboard data unavailable");
         }
-        setData(json);
+        startTransition(() => {
+          setData(json);
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -1290,30 +1464,34 @@ export default function Dashboard() {
         {currentView === "market" && (
         <div className="content-container">
           {/* Top Header: Product Name + Plain Description + Freshness + Market Status */}
-          <header className="page-header" style={{ alignItems: "flex-start", marginBottom: "16px" }}>
-            <div>
-              <div className="breadcrumb font-mono">NEXUS / MARKET INTELLIGENCE</div>
-              <h1 className="page-title" style={{ fontSize: "22px", margin: "2px 0" }}>Nexus IHSG Intelligence</h1>
-              <p className="header-subtitle" style={{ fontSize: "13px", color: "var(--text-secondary)", margin: 0 }}>
-                An AI that predicts IHSG direction each morning and grades itself each evening.
-              </p>
+          <header className="page-header" style={{ alignItems: "flex-start", marginBottom: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%", gap: "8px", flexWrap: "wrap" }}>
+              <div>
+                <div className="breadcrumb font-mono">NEXUS / MARKET INTELLIGENCE</div>
+                <h1 className="page-title" style={{ fontSize: "20px", margin: "1px 0" }}>Nexus IHSG Intelligence</h1>
+                <p className="header-subtitle" style={{ fontSize: "12px", color: "var(--text-secondary)", margin: 0 }}>
+                  Daily IHSG pre-market call (06:55) &amp; post-close audit (20:00).
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
+                <div className={`market-status-chip is-${marketStatus.status}`}>
+                  <span className={`live-dot ${marketStatus.isOpen ? "dot-open" : (marketStatus.status === "recess" ? "dot-amber" : "dot-closed")}`}></span>
+                  <span className="font-mono text-xs">{marketStatus.label}</span>
+                </div>
+                <div className="live-badge font-mono">
+                  <span className={`live-dot ${isPipelineStale ? "dot-amber" : "dot-open"}`}></span>
+                  <span>{isPipelineStale ? `Stale: ${dashboard.pipelineHealth.latestDate}` : "Automation Active"}</span>
+                </div>
+              </div>
             </div>
-            <div className="header-actions" style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-              <div className={`market-status-chip is-${marketStatus.status}`} style={{ minHeight: "44px", display: "inline-flex", alignItems: "center" }}>
-                <span className={`live-dot ${marketStatus.isOpen ? "dot-open" : (marketStatus.status === "recess" ? "dot-amber" : "dot-closed")}`}></span>
-                <span className="font-mono text-xs">{marketStatus.label}</span>
-              </div>
-              <div className="live-badge font-mono" style={{ minHeight: "44px", display: "inline-flex", alignItems: "center" }}>
-                <span className={`live-dot ${isPipelineStale ? "dot-amber" : "dot-open"}`}></span>
-                <span>{isPipelineStale ? `Stale: ${dashboard.pipelineHealth.latestDate}` : "Automation Active"}</span>
-              </div>
+            <div className="header-actions" style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
               <button
                 type="button"
                 className="methodology-trigger-btn font-mono"
                 onClick={() => setPipelineStatusOpen(true)}
                 title="View Pipeline Operational Status & Run Schedule"
               >
-                <span>Pipeline Status</span>
+                <span>Status</span>
               </button>
               <button
                 type="button"
@@ -1321,7 +1499,7 @@ export default function Dashboard() {
                 onClick={() => setLineageOpen(true)}
                 title="View Data Lineage & Provenance"
               >
-                <span>Data Lineage</span>
+                <span>Lineage</span>
               </button>
               <button
                 type="button"
@@ -1329,7 +1507,7 @@ export default function Dashboard() {
                 onClick={() => setMethodologyOpen(true)}
                 title="View Scoring Methodology, Weightings & Known Limitations"
               >
-                <span>Methodology &amp; Guide</span>
+                <span>Guide</span>
               </button>
               <button
                 className="theme-toggle-btn"
@@ -1408,12 +1586,12 @@ export default function Dashboard() {
 
           {/* Stale Pipeline Banner (Phase 4.1 & E5 Requirement: collapsed to 1 line with details toggle) */}
           {isPipelineStale && (
-            <div className="stale-pipeline-banner">
-              <div className="stale-banner-content" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span className="stale-icon">⚠️</span>
-                  <span className="stale-banner-text" style={{ fontSize: "12px", fontWeight: 600 }}>
-                    Feed paused since {dashboard.pipelineHealth.latestDate ? formatHeaderDate(dashboard.pipelineHealth.latestDate) : "8 Oct"}, {dashboard.pipelineHealth.tradingDaysSinceLatest || 5} trading days.
+            <div className="stale-pipeline-banner" style={{ flexDirection: "column", alignItems: "stretch" }}>
+              <div className="stale-banner-content" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "nowrap", gap: "8px", width: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", minWidth: 0 }}>
+                  <span className="stale-icon" style={{ fontSize: "16px" }}>⚠️</span>
+                  <span className="stale-banner-text" style={{ fontSize: "12px", fontWeight: 600, lineHeight: 1.25 }}>
+                    Feed paused since {dashboard.pipelineHealth.latestDate ? formatHeaderDate(dashboard.pipelineHealth.latestDate) : "8 Oct"} ({dashboard.pipelineHealth.tradingDaysSinceLatest || 5} trading days).
                   </span>
                 </div>
                 <button
@@ -1423,10 +1601,11 @@ export default function Dashboard() {
                     background: "var(--surface-well)",
                     border: "1px solid var(--warning-border)",
                     color: "var(--warning-text)",
-                    padding: "4px 10px",
+                    padding: "4px 8px",
                     borderRadius: "4px",
                     cursor: "pointer",
                     minHeight: "44px",
+                    flexShrink: 0,
                     display: "inline-flex",
                     alignItems: "center"
                   }}
@@ -1448,39 +1627,37 @@ export default function Dashboard() {
               ══════════════════════════════════════════════════════════════════════ */}
           {dashboard.latest && (
             <section className="today-call-card">
-              <div className="today-call-header">
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-                  <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)", letterSpacing: "0.06em" }}>
-                    {isPipelineStale ? "LATEST VERIFIED SESSION CALL" : "TODAY'S PRE-MARKET CALL"}
+              <div className="today-call-header" style={{ alignItems: "center", flexWrap: "nowrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", minWidth: 0 }}>
+                  <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)", letterSpacing: "0.04em" }}>
+                    {isPipelineStale ? "LATEST VERIFIED CALL" : "TODAY'S PRE-MARKET CALL"}
                   </span>
-                  <span className="font-mono text-xs text-muted">· {formatHeaderDate(dashboard.latest.date)}</span>
-                  <span className="font-mono text-xs" style={{ background: "var(--surface-well)", padding: "2px 6px", borderRadius: "4px" }}>
-                    Generated 06:55 WIB
-                  </span>
+                  <span className="font-mono text-xs text-muted">· {formatHeaderDate(dashboard.latest.date)} (06:55 WIB)</span>
                   {isPipelineStale && (
                     <span className="font-mono text-xs text-warning font-semibold">
-                      (Historical Session — No new call generated today)
+                      · No new call generated today
                     </span>
                   )}
                 </div>
-                <div>
+                <div style={{ flexShrink: 0 }}>
                   <button
                     type="button"
                     className="font-mono text-xs"
                     style={{
                       background: "var(--surface-subtle)",
                       border: "1px solid var(--border-default)",
-                      padding: "6px 12px",
+                      padding: "4px 8px",
                       borderRadius: "var(--radius-sm)",
                       color: "var(--accent-cyan)",
                       cursor: "pointer",
                       minHeight: "44px",
                       display: "inline-flex",
-                      alignItems: "center"
+                      alignItems: "center",
+                      whiteSpace: "nowrap"
                     }}
                     onClick={() => handleOpenBriefModal(dashboard.latest.date)}
                   >
-                    Read Morning Brief Markdown →
+                    Read Brief →
                   </button>
                 </div>
               </div>
@@ -1488,11 +1665,11 @@ export default function Dashboard() {
               <div className="today-call-main">
                 <div className="today-call-dir-hero">
                   <span className="font-mono text-xs text-muted font-bold">PROJECTED BIAS</span>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                     <DirectionBadge direction={dashboard.latest.ihsg_predicted} />
                     {(dashboard.latest.calibrated_confidence || nStats.calibration?.calibrated_confidence_pct) && (
                       <span
-                        className="font-mono text-sm font-bold text-matched"
+                        className="calibrated-conf-badge font-mono text-sm font-bold text-matched"
                         title={`Calibrated probability (${nStats.calibration?.status_label || nStats.calibration?.calibration_note || "illustrative shrinkage estimate"}): shrunk from stated confidence using N0=${nStats.calibration?.prior_strength_n0 ?? 30}, prior cap=${nStats.calibration?.prior_pct ?? 55}%`}
                       >
                         {dashboard.latest.calibrated_confidence ?? nStats.calibration?.calibrated_confidence_pct}% Calibrated Conf (n={nStats.calibration?.sample_size_n ?? nStats.sample_size_n ?? 12}{(nStats.calibration?.sample_size_n ?? nStats.sample_size_n ?? 12) < 30 ? `, ${nStats.calibration?.status_label || nStats.calibration?.calibration_note || "illustrative shrinkage estimate"}` : ""})
@@ -1500,7 +1677,7 @@ export default function Dashboard() {
                     )}
                   </div>
                   {dashboard.latest.ihsg_confidence && (
-                    <span className="font-mono text-xs text-muted" style={{ marginTop: "2px" }}>
+                    <span className="uncalibrated-conf-badge font-mono text-xs text-muted" style={{ marginTop: "1px" }}>
                       Model stated: {dashboard.latest.ihsg_confidence}% (uncalibrated)
                     </span>
                   )}
@@ -1516,7 +1693,7 @@ export default function Dashboard() {
 
               {/* Key Risk Factor */}
               {dashboard.latest.key_risk && (
-                <div className="today-risk-box" style={{ marginTop: "12px" }}>
+                <div className="today-risk-box" style={{ marginTop: "10px" }}>
                   <div className="font-mono text-xs text-warning font-bold" style={{ marginBottom: "2px" }}>
                     KEY RISK FACTOR (PRE-MARKET)
                   </div>
@@ -1527,7 +1704,7 @@ export default function Dashboard() {
               )}
 
               {/* Timestamp & SHA-256 Lock Hash */}
-              <div style={{ marginTop: "12px", paddingTop: "8px", borderTop: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", fontSize: "11px", color: "var(--text-tertiary)", fontFamily: "var(--font-mono)" }}>
+              <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", fontSize: "12px", color: "var(--text-tertiary)", fontFamily: "var(--font-mono)" }}>
                 <span>🕒 Generated 06:55 WIB</span>
                 {dashboard.latest.lock_status === "locked_pre_open" && dashboard.latest.created_at ? (
                   <span>🔒 Locked at 06:55 WIB · SHA-256: <code style={{ color: "var(--accent-cyan)", fontWeight: 600 }}>{dashboard.latest.lock_hash || "verified"}</code></span>
@@ -1678,7 +1855,7 @@ export default function Dashboard() {
                     <div className="font-mono text-sm font-bold text-missed">
                       {nStats.payoff?.long_only_total_bps !== undefined ? `${nStats.payoff.long_only_total_bps > 0 ? "+" : ""}${nStats.payoff.long_only_total_bps} bps` : "-176.0 bps"}
                     </div>
-                    <div className="font-mono text-xs text-muted" style={{ fontSize: "11px" }}>
+                    <div className="font-mono text-xs text-muted" style={{ fontSize: "12px" }}>
                       Realized return on Bullish calls
                     </div>
                   </div>
@@ -1688,7 +1865,7 @@ export default function Dashboard() {
                     <div className="font-mono text-sm font-bold text-matched">
                       {nStats.payoff?.short_only_total_bps !== undefined ? `+${nStats.payoff.short_only_total_bps} bps` : "+244.0 bps"}
                     </div>
-                    <div className="font-mono text-xs text-muted" style={{ fontSize: "11px" }}>
+                    <div className="font-mono text-xs text-muted" style={{ fontSize: "12px" }}>
                       Index shorting (retail unavailable)
                     </div>
                   </div>
@@ -1698,13 +1875,13 @@ export default function Dashboard() {
                     <div className="font-mono text-sm font-bold text-warning">
                       Stated {nStats.calibration?.average_stated_confidence_pct ?? "79.6"}% vs {nStats.calibration?.realized_hit_rate_pct ?? "41.7"}%
                     </div>
-                    <div className="font-mono text-xs text-muted" style={{ fontSize: "11px" }}>
+                    <div className="font-mono text-xs text-muted" style={{ fontSize: "12px" }}>
                       Calibrated: {nStats.calibration?.calibrated_confidence_pct ?? "49.7"}% (n={nStats.calibration?.sample_size_n ?? 12}) · Brier Score: {nStats.calibration?.brier_score ?? "0.3996"}
                     </div>
                   </div>
                 </div>
 
-                <div style={{ fontSize: "11px", color: "var(--text-tertiary)", marginTop: "10px", lineHeight: 1.5 }}>
+                <div style={{ fontSize: "12px", color: "var(--text-tertiary)", marginTop: "10px", lineHeight: 1.5 }}>
                   * Note: Basis points (bps) reflect theoretical cash index movement before brokerage commissions, financing, and borrow fees. Indonesian retail accounts cannot directly short the IHSG cash index. Profit Factor metric is demoted at small sample size (n=12).
                 </div>
 
@@ -1726,7 +1903,7 @@ export default function Dashboard() {
                       />
                     ))}
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "var(--text-tertiary)", marginTop: "4px", fontFamily: "var(--font-mono)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "var(--text-tertiary)", marginTop: "4px", fontFamily: "var(--font-mono)" }}>
                     <span>● Green = Hit (5)</span>
                     <span>▲ Red = Miss (7)</span>
                     <span>⏳ Amber = Pending</span>
@@ -1889,7 +2066,7 @@ export default function Dashboard() {
                                 padding: "6px 12px",
                                 borderRadius: "3px",
                                 cursor: "pointer",
-                                fontSize: "11px",
+                                fontSize: "12px",
                                 fontFamily: "var(--font-mono)",
                                 fontWeight: 600,
                                 minHeight: "44px",
@@ -2109,7 +2286,7 @@ export default function Dashboard() {
                                   borderRadius: "4px",
                                   color: "var(--accent-cyan)",
                                   cursor: "pointer",
-                                  fontSize: "11px",
+                                  fontSize: "12px",
                                   minHeight: "44px",
                                   display: "inline-flex",
                                   alignItems: "center"
@@ -2354,67 +2531,75 @@ export default function Dashboard() {
         <LegalDisclaimerFooter />
       </main>
 
-      {/* SideSheet for Methodology & Audit Guide */}
-      <SideSheet
-        isOpen={methodologyOpen}
-        onClose={() => setMethodologyOpen(false)}
-        title="Nexus System Methodology &amp; Audit Guide"
-        subtitle="Transparent documentation for outside investors, researchers, and recruiters"
-        tag="Audit Guide"
-        maxWidth="820px"
-      >
-        <MethodologyView onClose={() => setMethodologyOpen(false)} historyRescoredAt={dashboard.historyRescoredAt} />
-      </SideSheet>
+      {/* SideSheet for Methodology & Audit Guide (lazy-mounted) */}
+      {methodologyOpen && (
+        <SideSheet
+          isOpen={methodologyOpen}
+          onClose={() => setMethodologyOpen(false)}
+          title="Nexus System Methodology &amp; Audit Guide"
+          subtitle="Transparent documentation for outside investors, researchers, and recruiters"
+          tag="Audit Guide"
+          maxWidth="820px"
+        >
+          <MethodologyView onClose={() => setMethodologyOpen(false)} historyRescoredAt={dashboard.historyRescoredAt} />
+        </SideSheet>
+      )}
 
-      {/* SideSheet for Pipeline Status (G3) */}
-      <SideSheet
-        isOpen={pipelineStatusOpen}
-        onClose={() => setPipelineStatusOpen(false)}
-        title="Nexus Autonomous Pipeline Health"
-        subtitle="Real-time execution telemetry, scheduling, and error logs"
-        tag="System Health"
-        maxWidth="760px"
-      >
-        <PipelineStatusView
-          status={marketStatus}
-          pipelineHealth={dashboard?.pipelineHealth}
-          telemetry={data?.telemetry}
-          latestDate={dashboard?.latest?.date}
-        />
-      </SideSheet>
+      {/* SideSheet for Pipeline Status (G3, lazy-mounted) */}
+      {pipelineStatusOpen && (
+        <SideSheet
+          isOpen={pipelineStatusOpen}
+          onClose={() => setPipelineStatusOpen(false)}
+          title="Nexus Autonomous Pipeline Health"
+          subtitle="Real-time execution telemetry, scheduling, and error logs"
+          tag="System Health"
+          maxWidth="760px"
+        >
+          <PipelineStatusView
+            status={marketStatus}
+            pipelineHealth={dashboard?.pipelineHealth}
+            telemetry={data?.telemetry}
+            latestDate={dashboard?.latest?.date}
+          />
+        </SideSheet>
+      )}
 
-      {/* SideSheet for Data Lineage (G2) */}
-      <SideSheet
-        isOpen={lineageOpen}
-        onClose={() => setLineageOpen(false)}
-        title="Quantitative Data Lineage & Provenance"
-        subtitle="Verification timestamps, vendor sources, and integrity flags"
-        tag="Data Lineage"
-        maxWidth="760px"
-      >
-        <DataLineageView review={activeReview} />
-      </SideSheet>
+      {/* SideSheet for Data Lineage (G2, lazy-mounted) */}
+      {lineageOpen && (
+        <SideSheet
+          isOpen={lineageOpen}
+          onClose={() => setLineageOpen(false)}
+          title="Quantitative Data Lineage & Provenance"
+          subtitle="Verification timestamps, vendor sources, and integrity flags"
+          tag="Data Lineage"
+          maxWidth="760px"
+        >
+          <DataLineageView review={activeReview} />
+        </SideSheet>
+      )}
 
-      {/* SideSheet for Morning Brief Markdown */}
-      <SideSheet
-        isOpen={briefModalOpen}
-        onClose={() => setBriefModalOpen(false)}
-        title={`Morning Brief — ${activeReview?.date}`}
-        subtitle="Pre-Market Intelligence Telegram Document"
-        tag="Markdown Reader"
-        maxWidth="760px"
-      >
-        {briefLoading ? (
-          <div style={{ padding: "32px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "monospace" }}>
-            Retrieving morning intelligence document...
-          </div>
-        ) : (
-          <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
-            <LegalDisclaimerBanner />
-            <RenderWithSources text={briefMarkdown} sources={briefSources} />
-          </article>
-        )}
-      </SideSheet>
+      {/* SideSheet for Morning Brief Markdown (lazy-mounted) */}
+      {briefModalOpen && (
+        <SideSheet
+          isOpen={briefModalOpen}
+          onClose={() => setBriefModalOpen(false)}
+          title={`Morning Brief — ${activeReview?.date}`}
+          subtitle="Pre-Market Intelligence Telegram Document"
+          tag="Markdown Reader"
+          maxWidth="760px"
+        >
+          {briefLoading ? (
+            <div style={{ padding: "32px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "monospace" }}>
+              Retrieving morning intelligence document...
+            </div>
+          ) : (
+            <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
+              <LegalDisclaimerBanner />
+              <RenderWithSources text={briefMarkdown} sources={briefSources} />
+            </article>
+          )}
+        </SideSheet>
+      )}
 
       <MobileBottomNav
         currentView={currentView}

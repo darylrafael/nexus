@@ -243,18 +243,31 @@ def test_no_module_hardcodes_runs_or_sqlite_path():
 
 def test_git_status_runs_and_data_unchanged():
     """
-    Phase 1.3(a): Verify running tests does not introduce any new dirty files in runs/ or data/,
-    and once cleaned, git status --porcelain runs/ data/ remains clean.
+    Phase 1.3(a) & Phase A4: Verify running tests does not introduce any new dirty files in runs/ or data/.
+    Works both inside a git checkout (via `git status --porcelain`) and inside an unzipped release tree
+    without `.git` (via direct filesystem inspection).
     """
-    res = subprocess.run(
-        ["git", "status", "--porcelain", "--", "runs/", "data/"],
-        cwd=str(REPO_ROOT),
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    # Never allow mock test dates (2026-10-14, 2026-10-15, 2026-10-16) to appear in real runs/
+    runs_root = REPO_ROOT / "runs"
+    assert runs_root.is_dir(), "Expected runs/ directory in repository root"
+    existing_run_names = {p.name for p in runs_root.iterdir()}
     for forbidden_mock_date in ("2026-10-14", "2026-10-15", "2026-10-16"):
-        assert forbidden_mock_date not in res.stdout, (
-            f"Mock run directory {forbidden_mock_date} found in real runs/: {res.stdout}"
+        assert forbidden_mock_date not in existing_run_names, (
+            f"Mock run directory {forbidden_mock_date} found in real runs/"
         )
+
+    assert list(REPO_ROOT.glob("*.db")) == [], "Unexpected .db file found in repository root"
+
+    if (REPO_ROOT / ".git").exists():
+        res = subprocess.run(
+            ["git", "status", "--porcelain", "--", "runs/", "data/"],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        assert res.stdout.strip() == "", f"git status --porcelain runs/ data/ is not clean: {res.stdout}"
+        for forbidden_mock_date in ("2026-10-14", "2026-10-15", "2026-10-16"):
+            assert forbidden_mock_date not in res.stdout, (
+                f"Mock run directory {forbidden_mock_date} found in real runs/: {res.stdout}"
+            )
+

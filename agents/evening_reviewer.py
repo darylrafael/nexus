@@ -159,6 +159,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
     data["usdidr"] = {
         "status": "error" if usdidr_err else "ok",
         "rate": usdidr_snap.get("usdidr"),
+        "prev": usdidr_snap.get("usdidr_prev"),
         "change_pct": usdidr_snap.get("usdidr_change_pct"),
         "signal": usdidr_snap.get("rupiah_signal"),
         "candle_date": usdidr_snap.get("candle_date") or target_date or jakarta_now().strftime("%Y-%m-%d"),
@@ -182,6 +183,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
     data["ihsg_retrieved_at"] = ihsg_snap.get("retrieved_at")
 
     data["usdidr_rate"] = usdidr_snap.get("usdidr")
+    data["usdidr_prev"] = usdidr_snap.get("usdidr_prev")
     data["usdidr_change_pct"] = usdidr_snap.get("usdidr_change_pct")
     data["rupiah_signal"] = usdidr_snap.get("rupiah_signal")
     data["usdidr_source"] = usdidr_snap.get("source")
@@ -784,6 +786,7 @@ def _run_evening_review_internal(date_key: str, start_time: float, now: datetime
     actual = collect_actual_data(date_id, target_date=date_key)
     try:
         save_json_artifact(date_key, "evening_actuals.json", actual)
+        save_json_artifact(date_key, "actual_market_data.json", actual)
     except Exception as e:
         print(f"  [evening_reviewer] actuals artifact save failed: {e}")
 
