@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -0.83,
   "ihsg_correct": true,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Barang Konsumen Siklikal/Non-Primer": null,
     "Perindustrian": true,
@@ -18,8 +18,8 @@
     "Banking": false,
     "Toll Road": null
   },
-  "error_rate_pct": 60,
-  "accuracy_score": 40,
+  "error_rate_pct": 25,
+  "accuracy_score": 75,
   "rca_unanticipated": [
     "Bursa Saham Asia Melemah Imbas Ketegangan Geopolitik",
     "Titik Unjuk Rasa dan Rute Demo Buruh Mogok Nasional Hari ini",
@@ -85,5 +85,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Harga Nikel Remuk, Stok LME Justru Makin Menumpuk - KabarBursa.com\nSource IDs: src_c05395f611, src_19acdebf76, src_462725ca48, src_ad18d7c38f, src_2aaaabfd4a, src_662baddb6b, src_01c1839375"
     }
+  },
+  "usdidr_change_pct": 0.127,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.739,
+    "stored_usdidr_change_pct": 0.127,
+    "rescored_at": "2026-10-15"
   }
 }

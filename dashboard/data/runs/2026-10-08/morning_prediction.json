@@ -20,23 +20,14 @@
   "recommended_tickers": [
     "MYOR",
     "TBLA",
-    "DATE",
     "UNVR",
     "PGEO",
     "BYAN",
     "SIMP",
     "ADRO",
     "ICBP",
-    "BUMI",
     "LSIP",
-    "AALI",
-    "INDF",
-    "PTBA",
-    "MEDC",
-    "ENRG",
-    "ITMG",
-    "HRUM",
-    "RUIS"
+    "AALI"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -60,5 +51,12 @@
     "src_e2953db2aa",
     "src_e2b6b06831",
     "src_f362c315e6"
-  ]
+  ],
+  "lock_hash": "e994749a446521e7",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

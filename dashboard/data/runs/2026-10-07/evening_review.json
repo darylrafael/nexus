@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -0.75,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Properti": false,
     "Barang Baku": false,
@@ -18,8 +18,8 @@
     "Keuangan": true,
     "Teknologi": true
   },
-  "error_rate_pct": 80,
-  "accuracy_score": 20,
+  "error_rate_pct": 91,
+  "accuracy_score": 9,
   "rca_unanticipated": [
     "IHSG valuation concerns (P/E ratio) impacting market sentiment",
     "Potential labor demonstrations in October",
@@ -86,5 +86,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_0b12862f48, src_f1dad1f235, src_796f6c7b3d, src_a03a19ceeb, src_bf08793d8b, src_d82bd6dcd4"
     }
+  },
+  "usdidr_change_pct": -0.211,
+  "rupiah_signal": "Strengthened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.112,
+    "stored_usdidr_change_pct": -0.211,
+    "rescored_at": "2026-10-15"
   }
 }

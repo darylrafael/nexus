@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -1.2,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Sektor Barang Baku": null,
     "Sektor Energi": false,
@@ -79,5 +79,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel - Price - Chart - Historical Data - News\n## Nickel fell to 1\nSource IDs: src_f1dad1f235, src_1de5e9219f, src_3a6be14baf, src_dc295145ae, src_bf08793d8b, src_a5bc66cd97, src_d82bd6dcd4"
     }
+  },
+  "usdidr_change_pct": 0.534,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.534,
+    "stored_usdidr_change_pct": 0.534,
+    "rescored_at": "2026-10-15"
   }
 }

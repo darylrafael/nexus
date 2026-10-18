@@ -1,7 +1,7 @@
 import os
 import re
-from datetime import datetime, timedelta
-from pathlib import Path
+from datetime import datetime
+from core.paths import get_runs_dir
 from data_sources.market_data import jakarta_now
 
 
@@ -9,7 +9,7 @@ def resolve_evening_review_date(target_date: str = None) -> str:
     """
     Resolve which session date to evaluate for evening review:
     1. If target_date is given (or TARGET_DATE env var), use it.
-    2. Check the most recent session directory in `runs/` that has
+    2. Check the most recent session directory in the runs directory that has
        morning_prediction.json (or morning_brief.md) and NO evening_review.json.
        If that date is today, only select it if the market has closed (after 16:00 WIB).
     3. If all sessions have reviews, default to today in Jakarta time.
@@ -23,7 +23,7 @@ def resolve_evening_review_date(target_date: str = None) -> str:
     now = jakarta_now()
     today_key = now.strftime("%Y-%m-%d")
 
-    runs_dir = Path(__file__).parent.parent / "runs"
+    runs_dir = get_runs_dir()
     if runs_dir.exists():
         candidate_dirs = sorted(
             [d.name for d in runs_dir.iterdir() if d.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", d.name)],

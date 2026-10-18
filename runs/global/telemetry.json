@@ -1,40 +1,31 @@
 {
   "stats": {
-    "totalRuns": 2,
+    "totalRuns": 1,
     "successfulRuns": 1,
-    "failedRuns": 1,
-    "successRate": "50.0",
-    "avgDurationMs": 2850,
-    "runsToday": 2
+    "failedRuns": 0,
+    "successRate": "100.0",
+    "avgDurationMs": 2029,
+    "runsToday": 1
   },
   "agentBreakdown": [
     {
-      "agent": "market_agent",
-      "total_calls": 2,
-      "avg_duration_ms": 2850.0,
-      "success_rate_pct": 50.0,
-      "error_count": 1
+      "agent": "evening_reviewer",
+      "total_calls": 1,
+      "avg_duration_ms": 2029.0,
+      "success_rate_pct": 100.0,
+      "error_count": 0
     }
   ],
   "sessions": [
     {
-      "id": 2,
-      "timestamp": "2026-10-08T21:49:58.982850+07:00",
-      "agent": "market_agent",
-      "model": "gpt-oss-120b",
+      "id": 1,
+      "timestamp": "2026-10-15T12:08:20.633954+07:00",
+      "agent": "evening_reviewer",
+      "model": "llm_client",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 1200
-    },
-    {
-      "id": 1,
-      "timestamp": "2026-10-08T21:49:58.920700+07:00",
-      "agent": "market_agent",
-      "model": "gpt-oss-120b",
-      "success": 0,
-      "error_msg": "Connection timeout connecting to upstream provider",
-      "duration_ms": 4500
+      "duration_ms": 2029
     }
   ],
-  "exported_at": "2026-10-08T21:49:58.989267+07:00"
+  "exported_at": "2026-10-15T12:08:20.648942+07:00"
 }

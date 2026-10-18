@@ -47,3 +47,11 @@ Thumbs.db
 .superpowers/
 .idea/
 .vscode/
+.ruff_cache/
+
+# Windows unexpanded env variable artifacts & legacy scripts
+/%*
+%SystemDrive%/
+scripts/fix_dashboard_audit.py
+scripts/package_deliverables.py
+

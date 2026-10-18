@@ -61,9 +61,13 @@ export default function VarianceBridge({ activeReview, isHistorical, onResetSele
           <div className="bridge-cell-header font-mono">PRE-MARKET THESIS</div>
           <div className="bridge-cell-body">
             <DirectionBadge direction={activeReview.ihsg_predicted} />
-            {activeReview.ihsg_confidence && (
+            {activeReview.calibrated_confidence ? (
+              <span className="confidence-pill font-mono" title={`Calibrated Quant Ceiling (Raw LLM: ${activeReview.ihsg_confidence}%)`}>
+                {activeReview.calibrated_confidence}% Conf (Calibrated)
+              </span>
+            ) : activeReview.ihsg_confidence ? (
               <span className="confidence-pill font-mono">{activeReview.ihsg_confidence}% Conf</span>
-            )}
+            ) : null}
           </div>
           <div className="bridge-cell-sub font-mono text-xs">
             Exp. Flow: <span className="text-secondary font-medium">{activeReview.foreign_flow_predicted || 'Neutral'}</span>

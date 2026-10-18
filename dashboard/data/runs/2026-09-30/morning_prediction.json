@@ -22,21 +22,13 @@
     "MNCN",
     "BBKP",
     "ADRO",
-    "BUMI",
     "DEWA",
     "EXCL",
     "BBCA",
     "RUIS",
     "PADI",
     "MEDC",
-    "BLTA",
-    "DOWN",
-    "UNTR",
-    "ISAT",
-    "BNBR",
-    "GOTO",
-    "ENRG",
-    "BKSL"
+    "BLTA"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -54,5 +46,12 @@
     "src_b3ae9b8506",
     "src_c97b9fff8d",
     "src_fe6d94eb43"
-  ]
+  ],
+  "lock_hash": "fa772b51fe4360da",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

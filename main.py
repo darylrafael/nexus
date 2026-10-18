@@ -2,7 +2,6 @@ import sys
 from orchestrator.gemini import run
 from memory.obsidian import write_note, read_recent_notes
 from delivery.telegram import send_report
-from datetime import datetime
 from core.time import jakarta_now
 
 

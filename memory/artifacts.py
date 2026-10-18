@@ -4,13 +4,29 @@ import uuid
 from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any
+from core.paths import get_runs_dir, get_memory_dir
 
 
-ARTIFACT_ROOT = Path(__file__).parent.parent / "runs"
+# Optional module-level override for legacy unit tests that patch ARTIFACT_ROOT directly
+ARTIFACT_ROOT: Path | None = None
+
+
+def get_artifact_root() -> Path:
+    if ARTIFACT_ROOT is not None:
+        return Path(ARTIFACT_ROOT)
+    return get_runs_dir()
+
+
+def _resolve_target_dir(date_key: str) -> Path:
+    if ARTIFACT_ROOT is not None:
+        return Path(ARTIFACT_ROOT) / date_key
+    if date_key == "global":
+        return get_memory_dir()
+    return get_runs_dir() / date_key
 
 
 def _run_dir(date_key: str) -> Path:
-    path = ARTIFACT_ROOT / date_key
+    path = _resolve_target_dir(date_key)
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -59,7 +75,7 @@ def save_json_artifact(date_key: str, filename: str, payload: Any) -> Path:
 
 def load_json_artifact(date_key: str, filename: str) -> Any | None:
     from schemas import validate_artifact_data
-    path = ARTIFACT_ROOT / date_key / filename
+    path = _resolve_target_dir(date_key) / filename
     if not path.exists():
         return None
     try:
@@ -77,3 +93,13 @@ def load_json_artifact(date_key: str, filename: str) -> Any | None:
 def save_text_artifact(date_key: str, filename: str, content: str) -> Path:
     path = _run_dir(date_key) / filename
     return atomic_write_file(path, content)
+
+
+def load_text_artifact(date_key: str, filename: str) -> str | None:
+    path = _resolve_target_dir(date_key) / filename
+    if not path.exists():
+        return None
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return None

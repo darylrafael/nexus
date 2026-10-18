@@ -2,11 +2,18 @@ import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional, Union
+from core.paths import get_data_dir
 from core.time import jakarta_now
 
-HOLIDAYS_PATH = Path(__file__).parent.parent / "data" / "idx_holidays.json"
+HOLIDAYS_PATH: Optional[Path] = None
 
 _CACHED_HOLIDAYS: Optional[dict[str, str]] = None
+
+
+def _get_holidays_path() -> Path:
+    if HOLIDAYS_PATH is not None:
+        return Path(HOLIDAYS_PATH)
+    return get_data_dir() / "idx_holidays.json"
 
 
 def load_idx_holidays(force_reload: bool = False) -> dict[str, str]:
@@ -18,9 +25,10 @@ def load_idx_holidays(force_reload: bool = False) -> dict[str, str]:
         return _CACHED_HOLIDAYS
 
     holidays_map = {}
-    if HOLIDAYS_PATH.exists():
+    h_path = _get_holidays_path()
+    if h_path.exists():
         try:
-            data = json.loads(HOLIDAYS_PATH.read_text(encoding="utf-8"))
+            data = json.loads(h_path.read_text(encoding="utf-8"))
             for year, entries in data.get("holidays", {}).items():
                 for item in entries:
                     d_str = item.get("date")
@@ -28,7 +36,7 @@ def load_idx_holidays(force_reload: bool = False) -> dict[str, str]:
                     if d_str:
                         holidays_map[d_str] = name
         except Exception as e:
-            print(f"[calendar] Warning: failed to parse {HOLIDAYS_PATH}: {e}")
+            print(f"[calendar] Warning: failed to parse {h_path}: {e}")
 
     _CACHED_HOLIDAYS = holidays_map
     return _CACHED_HOLIDAYS

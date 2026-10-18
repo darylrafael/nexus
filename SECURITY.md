@@ -69,3 +69,11 @@ If git history ever contains sensitive files or commit history needs to be sanit
 - The codebase enforces strict configuration checks on startup (`config.py`).
 - Missing keys fail loudly with variable names only; values are never echoed to stdout, stderr, or log files.
 - `.gitignore` and `.dockerignore` strictly exclude `.env`, `*.db`, `*.log`, and temporary directories.
+
+---
+
+## 5. API Rate Limiter Architecture & Serverless Limitation
+- **Current Implementation (`dashboard/src/middleware.js`)**: Uses an in-memory sliding-window `Map` (`ipBuckets`) enforcing 60 requests per 60-second window per client IP on `/api/*` routes.
+- **Architectural Limitation**: Because `ipBuckets` is held in process memory, rate-limit counters are **per-instance / per-isolate**. In a multi-region or horizontally scaled serverless deployment (e.g., Vercel Edge/Node isolates), state is not shared across instances and resets on cold starts.
+- **Production Hardening Recommendation**: For high-traffic multi-instance deployments requiring strict global rate limiting across isolates, back `checkRateLimit()` with a shared atomic store (e.g., Upstash Redis `@upstash/ratelimit` or Cloudflare/Vercel KV) or enforce rate limiting at the upstream WAF/CDN layer.
+

@@ -18,14 +18,26 @@ INDONESIAN_MONTH_MAP = {
 }
 
 
-def _verify_target_date(text: str, target_date_str: Optional[str]) -> bool:
-    """Return False if text explicitly refers to a different date than target_date_str."""
+def canonicalize_flow(signal: str | None) -> str:
+    """Canonicalize flow signals to standard labels: Accumulation, Distribution, Stagnant, Unknown."""
+    if not signal:
+        return "Unknown"
+    s = str(signal).strip().lower()
+    if any(k in s for k in ["sideways", "stagnant", "netral", "flat"]):
+        return "Stagnant"
+    if any(k in s for k in ["accumulation", "akumulasi", "inflow", "net buy", "beli bersih", "bullish"]):
+        return "Accumulation"
+    if any(k in s for k in ["distribution", "distribusi", "outflow", "net sell", "jual bersih", "bearish"]):
+        return "Distribution"
+    return "Unknown"
+
+
+def _verify_target_date(text: str, target_date_str: Optional[str], strict: bool = False) -> tuple[bool, str]:
+    """Verify text refers to the target date. In strict mode, an explicit matching date is required."""
     if not target_date_str or not text:
-        return True
+        return (not strict, "no_target_date" if strict else "ok")
 
     text_lower = text.lower()
-
-    # Parse target_date_str (YYYY-MM-DD or 'D MMMM YYYY')
     target_year = None
     target_month = None
     target_day = None
@@ -44,38 +56,50 @@ def _verify_target_date(text: str, target_date_str: Optional[str]) -> bool:
             target_year = int(text_date_m.group(3))
 
     if not target_month or not target_day:
-        return True
+        return (not strict, "unparseable_target_date" if strict else "ok")
 
-    # Check for date patterns in snippet like "(10/8/2026)" or "10/08/2026"
-    date_slash_m = re.search(r"\(?\b(\d{1,2})/(\d{1,2})/(\d{4})\b\)?", text)
-    if date_slash_m:
-        d1 = int(date_slash_m.group(1))
-        d2 = int(date_slash_m.group(2))
-        y = int(date_slash_m.group(3))
-        # If year matches or is present, verify day and month
+    explicit_match_found = False
+
+    # Indonesian articles write dates as Day/Month/Year (e.g. 10/6/2026 = 10 June).
+    date_slash_matches = list(re.finditer(r"\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b", text))
+    for dm in date_slash_matches:
+        d = int(dm.group(1))
+        m = int(dm.group(2))
+        y = int(dm.group(3))
         if y == target_year:
-            # Could be D/M/Y or M/D/Y
-            matches_target = (d1 == target_day and d2 == target_month) or (d2 == target_day and d1 == target_month)
-            if not matches_target:
-                return False
+            # Strictly Day/Month/Year for Indonesian financial articles
+            if d == target_day and m == target_month:
+                explicit_match_found = True
+            else:
+                return False, "date_mismatch_rejected"
 
-    # Check for textual month mentions in snippet like "Senin (10 Agustus 2026)"
-    for m_name, m_num in INDONESIAN_MONTH_MAP.items():
-        if len(m_name) > 3 and m_name in text_lower:
-            if m_num != target_month:
-                # Text mentions a completely different month!
-                # If target month is also mentioned, it might be comparative, otherwise reject
-                target_month_names = [k for k, v in INDONESIAN_MONTH_MAP.items() if v == target_month and len(k) > 3]
-                if not any(tm in text_lower for tm in target_month_names):
-                    return False
+    # Check for textual dates like "6 Oktober 2026" or "Senin (10 Agustus 2026)"
+    text_date_pattern = r"\b(\d{1,2})\s+([a-zA-Z]+)(?:\s+(\d{4}))?\b"
+    for tdm in re.finditer(text_date_pattern, text):
+        d_val = int(tdm.group(1))
+        m_word = tdm.group(2).lower()
+        y_val = int(tdm.group(3)) if tdm.group(3) else target_year
+        if m_word in INDONESIAN_MONTH_MAP:
+            m_val = INDONESIAN_MONTH_MAP[m_word]
+            if y_val == target_year:
+                if d_val == target_day and m_val == target_month:
+                    explicit_match_found = True
+                elif m_val != target_month:
+                    target_month_names = [k for k, v in INDONESIAN_MONTH_MAP.items() if v == target_month and len(k) > 3]
+                    if not any(tm in text_lower for tm in target_month_names):
+                        return False, "date_mismatch_rejected"
 
-    return True
+    if strict and not explicit_match_found:
+        return False, "no_matching_date"
+
+    return True, "verified"
 
 
 def classify_foreign_flow(
     text: str,
     target_date_str: Optional[str] = None,
     threshold_trillion: float = 1.0,
+    strict: bool = False,
 ) -> dict[str, Any]:
     """Parse a Rupiah foreign flow figure and sign, applying the Rp1T threshold.
 
@@ -93,12 +117,13 @@ def classify_foreign_flow(
         }
 
     # Date recency check
-    if not _verify_target_date(text, target_date_str):
+    is_valid_date, date_reason = _verify_target_date(text, target_date_str, strict=strict)
+    if not is_valid_date:
         return {
             "signal": "Unknown",
             "net_trillion": None,
             "raw_figure": None,
-            "reason": "date_mismatch_rejected",
+            "reason": date_reason,
         }
 
     # Regex to capture: (net buy|beli bersih|net sell|jual bersih) ... Rp X (triliun|miliar|t|m)
@@ -127,43 +152,73 @@ def classify_foreign_flow(
             "reason": "no_flow_figure_found",
         }
 
-    # Use first valid match
-    m = matches[0]
-    dir_str = m.group("direction") or ""
-    amount_str = m.group("amount").replace(".", "").replace(",", ".") if "." in m.group("amount") and "," in m.group("amount") else m.group("amount").replace(",", ".")
-    unit_str = m.group("unit").lower()
+    # Helper to parse a match into net signed trillion
+    def _parse_match_to_trillion(m_obj: Any) -> tuple[float, str, str, str]:
+        d_str = m_obj.group("direction") or ""
+        amt_str = m_obj.group("amount").replace(".", "").replace(",", ".") if "." in m_obj.group("amount") and "," in m_obj.group("amount") else m_obj.group("amount").replace(",", ".")
+        u_str = m_obj.group("unit").lower()
+        if not d_str:
+            span_s = max(0, m_obj.start() - 50)
+            span_e = min(len(text), m_obj.end() + 50)
+            surr = text[span_s:span_e].lower()
+            if any(w in surr for w in ["net sell", "jual bersih", "outflow", "distribusi"]):
+                d_str = "net sell"
+            elif any(w in surr for w in ["net buy", "beli bersih", "inflow", "akumulasi"]):
+                d_str = "net buy"
 
-    # If direction was not in the immediate regex group, search within surrounding text (50 chars)
-    if not dir_str:
-        span_start = max(0, m.start() - 50)
-        span_end = min(len(text), m.end() + 50)
-        surrounding = text[span_start:span_end].lower()
-        if any(w in surrounding for w in ["net sell", "jual bersih", "outflow", "distribusi"]):
-            dir_str = "net sell"
-        elif any(w in surrounding for w in ["net buy", "beli bersih", "inflow", "akumulasi"]):
-            dir_str = "net buy"
+        try:
+            r_num = float(amt_str)
+        except ValueError:
+            return 0.0, "Unknown", amt_str, u_str
 
-    try:
-        raw_num = float(amount_str)
-    except ValueError:
-        return {
-            "signal": "Unknown",
-            "net_trillion": None,
-            "raw_figure": None,
-            "reason": "unparseable_number",
-        }
+        if u_str in ["triliun", "trillion", "t"]:
+            amt_t = r_num
+        elif u_str in ["miliar", "milyar", "billion", "m", "b"]:
+            amt_t = r_num / 1000.0
+        else:
+            amt_t = r_num
 
-    # Convert to Trillion IDR
-    if unit_str in ["triliun", "trillion", "t"]:
-        amount_trillion = raw_num
-    elif unit_str in ["miliar", "milyar", "billion", "m", "b"]:
-        amount_trillion = raw_num / 1000.0
-    else:
-        amount_trillion = raw_num
+        is_s = any(w in d_str.lower() for w in ["sell", "jual", "outflow", "distribusi"])
+        signed_t = -amt_t if is_s else amt_t
+        dir_label = "Sell" if is_s else "Buy"
+        return round(signed_t, 4), dir_label, amt_str, u_str
 
-    # Determine sign
-    is_sell = any(w in dir_str.lower() for w in ["sell", "jual", "outflow", "distribusi"])
-    net_signed_trillion = -amount_trillion if is_sell else amount_trillion
+    # Multi-match analysis for scope isolation & crossing divergence
+    parsed_matches = []
+    text_lower = text.lower()
+    for m in matches:
+        signed_val, dir_lbl, amt_str, u_str = _parse_match_to_trillion(m)
+        surround = text_lower[max(0, m.start() - 60):min(len(text_lower), m.end() + 60)]
+        is_reg = any(k in surround for k in ["pasar reguler", "regular market", "papan reguler"])
+        is_nego = any(k in surround for k in ["pasar negosiasi", "seluruh pasar", "all market", "total pasar", "pasar tunai", "crossing"])
+        parsed_matches.append({
+            "match": m,
+            "net_trillion": signed_val,
+            "direction": dir_lbl,
+            "raw_figure": f"{amt_str} {u_str}",
+            "is_regular": is_reg,
+            "is_nego": is_nego,
+        })
+
+    reg_entries = [p for p in parsed_matches if p["is_regular"]]
+    nego_entries = [p for p in parsed_matches if p["is_nego"] and not p["is_regular"]]
+
+    divergence_alert = None
+    if reg_entries and nego_entries:
+        reg_net = reg_entries[0]["net_trillion"]
+        nego_net = nego_entries[0]["net_trillion"]
+        if nego_net > 0 and reg_net < 0:
+            divergence_alert = f"DIVERGENCE: Net buy didorong crossing pasar negosiasi ({nego_entries[0]['raw_figure']}), namun pasar reguler net sell ({reg_entries[0]['raw_figure']})."
+        elif reg_net > 0 and nego_net < 0:
+            divergence_alert = f"DIVERGENCE: Pasar reguler net buy ({reg_entries[0]['raw_figure']}), namun seluruh pasar net sell akibat negosiasi."
+
+    # Priority selection: prioritize explicit regular flow for trading decisions if both exist
+    selected = reg_entries[0] if reg_entries else parsed_matches[0]
+
+    net_signed_trillion = selected["net_trillion"]
+    dir_str = selected["direction"]
+    amount_str = selected["raw_figure"].split()[0]
+    unit_str = selected["raw_figure"].split()[1] if len(selected["raw_figure"].split()) > 1 else ""
 
     # Apply Rp1 Trillion threshold
     if abs(net_signed_trillion) < threshold_trillion:
@@ -173,8 +228,7 @@ def classify_foreign_flow(
     else:
         signal = "Distribution"
 
-    # Detect market scope: Pasar Reguler vs All Market / Pasar Negosiasi
-    text_lower = text.lower()
+    # Detect overall market scope
     is_negotiated = any(k in text_lower for k in ["pasar negosiasi", "seluruh pasar", "all market", "total pasar", "pasar tunai"])
     is_regular_explicit = any(k in text_lower for k in ["pasar reguler", "regular market", "papan reguler"])
 
@@ -186,9 +240,12 @@ def classify_foreign_flow(
     return {
         "signal": signal,
         "net_trillion": round(net_signed_trillion, 4),
-        "raw_figure": f"{amount_str} {unit_str}",
-        "direction": "Sell" if is_sell else "Buy",
+        "raw_figure": f"{amount_str} {unit_str}".strip(),
+        "direction": dir_str,
         "market_scope": market_scope,
         "is_all_market": (market_scope == "all_market"),
+        "regular_net_trillion": reg_entries[0]["net_trillion"] if reg_entries else (net_signed_trillion if market_scope == "regular" else None),
+        "all_market_net_trillion": nego_entries[0]["net_trillion"] if nego_entries else (net_signed_trillion if market_scope == "all_market" else None),
+        "divergence_alert": divergence_alert,
         "reason": "classified_successfully",
     }

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from agents.economics_engine import build_economics_context
 from data_sources.market_data import (

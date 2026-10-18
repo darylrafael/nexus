@@ -1,41 +1,18 @@
 import logging
 import re
 from typing import Any, Optional
+from agents.economics_engine import COMMODITY_LOGIC
 
 logger = logging.getLogger("nexus.validator")
 
-# --- 1. Commodity Economics ---
-COMMODITY_ECONOMICS = {
-    "CPO": {
-        "producers": ["AALI", "LSIP", "SIMP", "TBLA"],
-        "consumers": ["UNVR", "ICBP", "INDF", "MYOR"],
-        "note": "Rising CPO price = margin expansion for planters, margin compression for consumer goods manufacturers."
-    },
-    "Coal": {
-        "producers": ["ADRO", "PTBA", "ITMG", "HRUM", "BYAN", "BUMI"],
-        "consumers": ["electricity-intensive manufacturers, cement"],
-        "note": "Rising coal = revenue uplift for miners, higher input cost for power-intensive industries."
-    },
-    "Nickel": {
-        "producers": ["INCO", "ANTM", "MBMA", "NCKL"],
-        "consumers": ["EV battery supply chain"],
-        "note": "Rising nickel = good for miners, raises battery production costs."
-    },
-    "Crude Oil": {
-        "producers": ["MEDC", "ENRG", "RUIS"],
-        "consumers": ["transport, petrochemical, aviation"],
-        "note": "Rising oil = revenue boost for oil firms, cost pressure for transport and industrial sectors."
-    }
-}
-
 
 def build_commodity_context(commodity_text: str) -> str:
-    """Inject correct producer/consumer logic into commodity data."""
+    """Inject correct producer/consumer logic into commodity data using unified COMMODITY_LOGIC."""
     context = commodity_text + "\n\n## Commodity Economics Rules (DO NOT REVERSE):\n"
-    for commodity, data in COMMODITY_ECONOMICS.items():
-        producers = ", ".join(data["producers"]) if isinstance(data["producers"], list) else data["producers"]
-        consumers = ", ".join(data["consumers"]) if isinstance(data["consumers"], list) else data["consumers"]
-        context += f"- {commodity}: Producers (benefit from price rise) = {producers}. Consumers (hurt by price rise) = {consumers}. {data['note']}\n"
+    for commodity, data in COMMODITY_LOGIC.items():
+        producers = data.get("producers", "")
+        consumers = data.get("consumers", "")
+        context += f"- {commodity}: Producers (benefit from price rise) = {producers}. Consumers (hurt by price rise) = {consumers}.\n"
     return context
 
 

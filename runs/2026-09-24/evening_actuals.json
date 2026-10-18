@@ -101,6 +101,22 @@
   "top_movers": "[no date] IHSG Turun 1,20%, Tinggalkan Level 6.300 (Kamis, 24 September 2026)\nMenurut data RTI Business, frekuensi perdagangan saham dalam negeri hari ini mencapai 1,66 juta kali transaksi, total saham berpindah tangan 29,31 miliar lembar dengan nilai total transaksi Rp11,23 triliun.\n\nSebanyak 462 saham ditutup melemah hari ini, 188 saham menguat, dan 144 saham stagnan.\n\nEmiten top loser hari ini adalah MSIN setelah jatuh 14,88%, diikuti SAFE dan SDMU yang masing-masing te\nSource IDs: src_9bee32248d, src_c50f393f64, src_dd204354fe, src_deaf58e533, src_87544f522c, src_37a8978ca1, src_f6afba2c1f",
   "sector_performance": "[no date] IHSG Merosot ke Posisi 6.298 Disertai Net Sell Jumbo Rp 1,49 Triliun Hari Ini (24/9)\nSektor infrastruktur turun 1,14%. Sektor teknologi tergerus 1,14%. Sektor kesehatan melemah 1,10%.\n\nSektor transportasi dan logistik melorot 0,84%. Sektor energi turun 0,62%. Sektor barang konsumsi primer melemah 0,36%.\n\nTotal volume transaksi bursa mencapai 29,31 miliar saham dengan nilai transaksi Rp 11,22 triliun. Sebanyak 462 saham melemah. Ada 188 saham menguat dan 44 saham\nSource IDs: src_2d1abb41d2, src_98e7492160, src_62a9a1a57a, src_b933beadba, src_d3e91c75a1, src_fa0ccc2887, src_2f9b330574",
   "foreign_flow_raw": "[no date] Instagram\nDengan demikian, investor asing membukukan net buy sebesar Rp2,74 triliun sepanjang pekan pertama September 2026. Pada 31 Agustus 2026, investor asing masih mencatatkan net sell sebesar Rp434,25 miliar.  \n  \nPenulis artikel: Dyah Ayu Kusuma Wardhani, Ibad Durrohman  \nKreator: Naufal J  \n  \n#pasarmodal #investasi #septembereffect #investorasing [...] Inves\nSource IDs: src_f78d9d2ce2, src_d9d2da4931, src_91e8062a8c, src_e2f69e7ef1, src_d773ec74d5, src_c144bb21d8, src_088e2b9b34",
-  "foreign_flow_signal": "Accumulation",
-  "schema_version": 1
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_matching_date"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.534,
+    "stored_usdidr_change_pct": 0.534,
+    "rescored_at": "2026-10-15"
+  }
 }

@@ -67,7 +67,7 @@ function CompactHeuristicRow({ item, onInspect }) {
       <td style={{ width: '130px', textAlign: 'right' }}>
         <button
           className="brief-read-btn font-mono"
-          style={{ padding: '3px 8px', fontSize: '10px' }}
+          style={{ padding: '3px 8px', fontSize: "11px" }}
           onClick={(e) => {
             e.stopPropagation();
             onInspect(item);
@@ -106,8 +106,8 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   }, []);
 
   const stats = data?.stats || {};
-  const heuristics = data?.heuristics || [];
-  const blindSpots = data?.blindSpots || [];
+  const heuristics = useMemo(() => data?.heuristics || [], [data?.heuristics]);
+  const blindSpots = useMemo(() => data?.blindSpots || [], [data?.blindSpots]);
 
   const filteredHeuristics = useMemo(() => {
     if (filter === 'active') return heuristics.filter((h) => h.status === 'ACTIVE');
@@ -130,6 +130,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   const maxBlindSpotCount = Math.max(...blindSpots.map((b) => b.count), 1);
   const activeCount = heuristics.filter((h) => h.status === 'ACTIVE').length;
   const supersededCount = heuristics.filter((h) => h.status !== 'ACTIVE').length;
+  const displayValRate = stats.avgValidationRate != null ? `${stats.avgValidationRate}%` : (heuristics.length > 0 ? "Tracking" : "—");
 
   return (
     <div className="content-container">
@@ -141,7 +142,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
         <div className="header-actions">
           <div className="market-status-chip">
-            <span>OBSIDIAN :27124</span>
+            <span>SYNCED VAULT</span>
           </div>
           <div className="live-badge">
             <span className="live-dot" />
@@ -186,13 +187,13 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         <div className="context-divider" />
         <div className="context-item">
           <span className="context-label font-mono">TOTAL RULES</span>
-          <div className="context-value font-mono font-medium">{stats.totalLessons || 0} Formulated</div>
+          <div className="context-value font-mono font-medium">{stats.totalLessons || heuristics.length || 0} Formulated</div>
         </div>
         <div className="context-divider" />
         <div className="context-item">
           <span className="context-label font-mono">ACTIVE IN PROMPT</span>
           <div className="context-value font-mono font-semibold text-matched">
-            {stats.activeHeuristics || 0} Validated
+            {stats.activeHeuristics || activeCount} Validated
           </div>
         </div>
         <div className="context-divider" />
@@ -204,16 +205,16 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
         <div className="context-divider" />
         <div className="context-item">
-          <span className="context-label font-mono">OBSIDIAN REST</span>
+          <span className="context-label font-mono">KNOWLEDGE STORE</span>
           <div className="context-value font-mono text-matched">
-            Port :27124
+            Local Vault Active
           </div>
         </div>
       </div>
 
-      {/* 01 · Primary Empirical Metrics (De-cluttered, Fluff Badges Removed) */}
+      {/* 01 · Primary Empirical Metrics */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 01 · EMPIRICAL HEALTH &amp; KNOWLEDGE BASE METRICS
+        <span className="console-prompt">{"//"}</span> 01 · EMPIRICAL HEALTH &amp; KNOWLEDGE BASE METRICS
       </div>
       <section className="kpi-row">
         {/* Card 1: Active Heuristics */}
@@ -222,28 +223,28 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             <span className="kpi-label font-mono">Active Heuristics</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || 0} In Prompt</div>
+            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || activeCount} In Prompt</div>
           </div>
           <div className="kpi-context">
-            <span>Validated causal rules constraining pre-market briefs</span>
+            <span>Causal rules constraining 06:55 pre-market briefs</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
           </div>
         </div>
 
-        {/* Card 2: Validation Rate */}
+        {/* Card 2: Empirical Validation Rate */}
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Validation Hit Rate</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono">100.0%</div>
+            <div className="kpi-value font-mono">{displayValRate}</div>
           </div>
           <div className="kpi-context">
-            <span>Zero contradicted rules currently constraining briefs</span>
+            <span>{stats.validatedHeuristicsCount || 0} rules empirically confirmed in subsequent sessions</span>
             <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '100%' }} />
+              <div className="kpi-mini-fill" style={{ width: `${Math.min(100, Math.max(0, Number(stats.avgValidationRate) || 0))}%` }} />
             </div>
           </div>
         </div>
@@ -275,7 +276,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             </div>
           </div>
           <div className="kpi-context">
-            <span>vault/nexus/learning_store.md · HTTPS REST API</span>
+            <span>Persistent Knowledge Base · Evaluated Heuristics</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
@@ -283,9 +284,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* 02 · Primary Subject: Heuristics & Provenance Table (Front & Center!) */}
+      {/* 02 · Primary Subject: Heuristics & Provenance Ledger */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 02 · HEURISTIC RULES &amp; PROVENANCE LEDGER
+        <span className="console-prompt">{"//"}</span> 02 · HEURISTIC RULES &amp; PROVENANCE LEDGER
       </div>
       <section className="history-section">
         <header className="history-header">
@@ -320,7 +321,36 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           </div>
         </header>
 
-        <div className="table-wrapper">
+        {/* Mobile Responsive Cards (visible <= 768px) */}
+        <div className="mobile-cards-list">
+          {filteredHeuristics.map((item) => (
+            <div
+              key={item.id}
+              className="mobile-heuristic-card"
+              onClick={() => setSelectedHeuristic(item)}
+            >
+              <div className="mobile-card-top">
+                <span className="font-mono font-bold text-xs text-primary">{item.id}</span>
+                <span className="font-mono text-xs text-secondary">{item.category}</span>
+                <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
+                  {item.status}
+                </span>
+              </div>
+              <p className="mobile-card-rule">“{item.rule}”</p>
+              <div className="mobile-card-meta font-mono text-xs">
+                <span>Observed: {item.observed} runs</span>
+                <span className="text-matched">Val: {item.validated ?? 0}</span>
+                <span className="text-missed">Contr: {item.contradicted ?? 0}</span>
+                <span className="font-bold text-primary">
+                  {item.validationRate !== null ? `${item.validationRate}%` : 'Hypothesis'}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Quantitative Table (visible > 768px) */}
+        <div className="table-wrapper desktop-table-wrapper">
           <table className="data-table">
             <thead>
               <tr>
@@ -357,7 +387,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
 
       {/* 03 · Secondary Supporting Information: Factor Attribution & Prompt Ingestion Cadence */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 03 · MACRO FACTOR ATTRIBUTION &amp; INGESTION CADENCE
+        <span className="console-prompt">{"//"}</span> 03 · MACRO FACTOR ATTRIBUTION &amp; INGESTION CADENCE
       </div>
       <section className="eval-section">
         <header className="eval-header">
@@ -401,7 +431,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', flex: 1, minWidth: 0 }}>
                             <span 
                               className="font-mono text-tertiary" 
-                              style={{ fontSize: '10px', fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
+                              style={{ fontSize: "11px", fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
                             >
                               #{String(idx + 1).padStart(2, '0')}
                             </span>
@@ -477,7 +507,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                   </p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
                     <span className="font-mono text-xs text-tertiary" style={{ wordBreak: 'break-all' }}>
-                      SOURCE: vault/nexus/learning_store.md (:27124)
+                      SOURCE: Adaptive Memory Store
                     </span>
                     <button
                       className="brief-read-btn font-mono"
@@ -545,12 +575,12 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
 
           <div className="rca-memory-terminal-block" style={{ marginTop: '16px' }}>
             <div className="memory-prefix font-mono">
-              <span className="memory-title">OBSIDIAN PERSISTENCE PROVENANCE</span>
+              <span className="memory-title">KNOWLEDGE STORE PROVENANCE</span>
               <span className="memory-injected-pill font-mono">READ-ONLY SYNC</span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '11px', marginTop: '6px' }}>
-              <div><span className="font-mono text-tertiary">VAULT NOTE:</span> <span className="font-mono text-primary">vault/nexus/learning_store.md</span></div>
-              <div><span className="font-mono text-tertiary">REST PORT:</span> <span className="font-mono text-matched">27124 (Local HTTPS)</span></div>
+              <div><span className="font-mono text-tertiary">PERSISTENT REPO:</span> <span className="font-mono text-primary">Adaptive Learning Store</span></div>
+              <div><span className="font-mono text-tertiary">STORAGE MODE:</span> <span className="font-mono text-matched">Validated Append &amp; Decay</span></div>
               <div><span className="font-mono text-tertiary">INJECTION POINT:</span> <span className="font-mono text-primary">orchestrator/gemini.py · build_prompt()</span></div>
             </div>
           </div>

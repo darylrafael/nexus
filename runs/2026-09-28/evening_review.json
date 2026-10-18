@@ -5,16 +5,16 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -1.51,
   "ihsg_correct": true,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Stagnant/Sideways",
-  "foreign_flow_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
   "sector_accuracy": {
     "Energy": true,
     "Transport & Aviation": false,
     "Financials": null
   },
-  "error_rate_pct": 25,
-  "accuracy_score": 75,
+  "error_rate_pct": 35,
+  "accuracy_score": 65,
   "rca_unanticipated": [
     "Resilience of the global economy in the face of significant negative shocks, including rising U.S. tariffs and trade wars.",
     "Continued geopolitical instability in the Middle East impacting capital markets."
@@ -76,5 +76,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Price LME Nickel September 2026 forward (official Trade cond price)\nSource IDs: src_224e792c1c, src_51ccb30753, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4"
     }
+  },
+  "usdidr_change_pct": 0.871,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.268,
+    "stored_usdidr_change_pct": 0.871,
+    "rescored_at": "2026-10-15"
   }
 }

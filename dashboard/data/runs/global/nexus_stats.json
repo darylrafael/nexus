@@ -14,16 +14,84 @@
     "2026-10-06",
     "2026-10-07"
   ],
+  "is_sample_sufficient": false,
+  "sample_size_n": 12,
+  "sample_warning": "Insufficient sample size (n = 12 < 30) for statistical significance.",
   "direction_accuracy_pct": 41.7,
   "direction_correct_count": 5,
   "direction_scorable_sessions": 12,
-  "flow_accuracy_pct": 8.3,
-  "flow_correct_count": 1,
-  "flow_scorable_sessions": 12,
-  "sector_accuracy_pct": 26.3,
+  "direction_info": {
+    "pct": 41.7,
+    "n": 12,
+    "correct": 5,
+    "label": "n = 12, sample too small",
+    "is_sufficient": false
+  },
+  "direction_ci_95": {
+    "lower_pct": 19.3,
+    "upper_pct": 68.0,
+    "confidence_level": 0.95
+  },
+  "baselines": {
+    "always_bearish_pct": 66.7,
+    "always_bearish_count": 8,
+    "always_bearish_total": 12,
+    "always_bullish_pct": 33.3,
+    "always_bullish_count": 4,
+    "always_bullish_total": 12,
+    "majority_class_pct": 66.7,
+    "persistence_pct": 63.6,
+    "persistence_correct_count": 7,
+    "persistence_scorable_sessions": 11
+  },
+  "calibration": {
+    "average_stated_confidence_pct": 79.6,
+    "calibrated_confidence_pct": 49.7,
+    "sample_size_n": 12,
+    "prior_pct": 55.0,
+    "prior_strength_n0": 30,
+    "empirical_weight": 0.4,
+    "realized_hit_rate_pct": 41.7,
+    "status_label": "illustrative shrinkage estimate",
+    "brier_score": 0.3996,
+    "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
+    "confidence_label": "Illustrative shrinkage estimate (49.7%, n = 12 < 30)",
+    "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
+  },
+  "payoff": {
+    "headline_payoff_bps": -176.0,
+    "long_only_total_bps": -176.0,
+    "long_only_avg_bps": null,
+    "long_only_trades": 4,
+    "short_only_total_bps": 244.0,
+    "short_only_avg_bps": null,
+    "short_only_trades": 6,
+    "short_side_note": "theoretical, not retail-tradable",
+    "long_short_total_bps": 68.0,
+    "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
+  },
+  "flow_accuracy_pct": null,
+  "flow_correct_count": 0,
+  "flow_scorable_sessions": 1,
+  "flow_info": {
+    "pct": null,
+    "n": 1,
+    "correct": 0,
+    "label": "Insufficient data",
+    "is_sufficient": false
+  },
+  "sector_accuracy_pct": 27.8,
   "sector_correct_count": 10,
-  "sector_verifiable_count": 38,
-  "rolling_avg_accuracy": 25.2,
+  "sector_verifiable_count": 36,
+  "sector_info": {
+    "pct": 27.8,
+    "n": 36,
+    "correct": 10,
+    "label": "n = 36",
+    "is_sufficient": true
+  },
+  "rolling_avg_accuracy": 34.3,
+  "rolling_20_accuracy": 34.3,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -33,27 +101,18 @@
     "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%.",
     "Ketika US Treasury 10 tahun mendekati 5,135% dan Rupiah melemah ke level 17.912/USD, tetapi BI menahan suku bunga di 5,75%, maka IHSG tetap tertekan turun sebesar 0,90% dan seluruh 11 sektor mengalami koreksi.",
     "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89.",
-    "Ketika IHSG diprediksi Bearish dengan risiko pelemahan Rupiah, tetapi Rupiah melemah sebesar +0.871%, maka IHSG ditutup Bearish dengan penurunan -1.51%.",
     "Ketika sektor Energi diprediksi Bullish, tetapi sektor transportasi dan logistik yang diprediksi Bearish justru menguat 0,47%, maka sektor Energi hanya naik tipis 0,04%.",
     "Ketika Rupiah melemah signifikan (dari Rp17.880/USD ke Rp17.993/USD, +1.056%), tetapi arus dana asing mencatatkan akumulasi, maka prediksi aksi jual asing akibat pelemahan Rupiah tidak terjadi.",
     "Ketika sinyal komoditas tidak tercatat di pagi hari, tetapi harga komoditas utama seperti Brent Crude (-9.07%) dan Natural Gas (-7.92%) anjlok tajam, maka sektor terkait seperti Energi dapat mengalami penurunan signifikan (-1.10%).",
-    "Ketika brief tidak mencatat risiko geopolitik dan guncangan pasar global, tetapi berita mengenai ancaman inflasi, konflik geopolitik, dan resesi global muncul, maka IHSG dapat anjlok lebih dalam (-1.51%) dari perkiraan awal.",
     "Ketika IHSG diprediksi Bearish, tetapi ketegangan geopolitik menyebabkan bursa saham Asia melemah, maka IHSG ditutup Bearish (-0.83%).",
-    "Ketika foreign flow diprediksi Stagnant/Sideways, tetapi terjadi akumulasi asing, maka IHSG tetap ditutup Bearish (-0.83%).",
-    "Ketika sektor Properti diprediksi Bearish, tetapi sektor properti justru naik +1.25%, maka IHSG tetap ditutup Bearish (-0.83%).",
-    "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%).",
-    "Ketika IHSG diprediksi Bullish, tetapi terjadi pelemahan Rupiah sebesar +2.195% dan sentimen global resesi, maka IHSG ditutup Bearish sebesar -1.02%.",
     "Ketika sektor Coal Mining diprediksi Bearish, tetapi saham CUAN dan BUMI menjadi top gainers, maka sektor tersebut menunjukkan kenaikan yang signifikan.",
     "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan.",
-    "Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign flow diprediksi Distribution, tetapi foreign flow aktual adalah Accumulation (Net Buy Rp 829,70 Miliar) dan IHSG ditutup Bullish (+0.46%), maka sentimen pasar dapat berbalik arah secara signifikan.",
-    "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
     "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar.",
     "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
     "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan.",
     "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
     "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%.",
-    "Ketika BI mempertahankan BI-Rate dan fokus pada stabilitas Rupiah serta aliran portofolio asing (diprediksi bullish), tetapi sentimen valuasi IHSG (rasio P/E) membayangi pasar, maka IHSG dapat ditutup bearish sebesar -0.75%.",
-    "Ketika aliran dana asing diprediksi stagnan/sideways, tetapi terjadi akumulasi asing yang signifikan (net buy Rp 829,70 Miliar) disertai penguatan Rupiah, maka IHSG dapat ditutup bearish sebesar -0.75%."
+    "Ketika BI mempertahankan BI-Rate dan fokus pada stabilitas Rupiah serta aliran portofolio asing (diprediksi bullish), tetapi sentimen valuasi IHSG (rasio P/E) membayangi pasar, maka IHSG dapat ditutup bearish sebesar -0.75%."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -114,9 +173,321 @@
     "Impact of IHSG valuation (P/E ratio) on market performance": 1
   },
   "last_updated": "2026-10-07",
+  "scoring_version": "2.2.0",
+  "history_rescored_at": "2026-10-15",
+  "history_rescore_note": "Rescored on 2026-10-15 across 12 genuine sessions (2026-09-22 to 2026-10-07; 2026-10-08 morning-only pending review) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "rejected_lessons": [
+    {
+      "date": "2026-09-28",
+      "lesson": "Ketika IHSG diprediksi Bearish dengan risiko pelemahan Rupiah, tetapi Rupiah melemah sebesar +0.871%, maka IHSG ditutup Bearish dengan penurunan -1.51%.",
+      "reason": "unreliable_source_data: stored usdidr_change_pct (0.871%) diverges from consecutive spot close (0.268%)"
+    },
+    {
+      "date": "2026-09-29",
+      "lesson": "Ketika brief tidak mencatat risiko geopolitik dan guncangan pasar global, tetapi berita mengenai ancaman inflasi, konflik geopolitik, dan resesi global muncul, maka IHSG dapat anjlok lebih dalam (-1.51%) dari perkiraan awal.",
+      "reason": "session_limit_exceeded: max 2 lessons per session"
+    },
+    {
+      "date": "2026-09-30",
+      "lesson": "Ketika foreign flow diprediksi Stagnant/Sideways, tetapi terjadi akumulasi asing, maka IHSG tetap ditutup Bearish (-0.83%).",
+      "reason": "duplicate_tail: maka ihsg ditutup bearish (-0"
+    },
+    {
+      "date": "2026-09-30",
+      "lesson": "Ketika sektor Properti diprediksi Bearish, tetapi sektor properti justru naik +1.25%, maka IHSG tetap ditutup Bearish (-0.83%).",
+      "reason": "duplicate_tail: maka ihsg ditutup bearish (-0"
+    },
+    {
+      "date": "2026-09-30",
+      "lesson": "Ketika sektor Banking diprediksi Neutral, tetapi sektor keuangan turun -0.38%, maka IHSG tetap ditutup Bearish (-0.83%).",
+      "reason": "duplicate_tail: maka ihsg ditutup bearish (-0"
+    },
+    {
+      "date": "2026-10-01",
+      "lesson": "Ketika IHSG diprediksi Bullish, tetapi terjadi pelemahan Rupiah sebesar +2.195% dan sentimen global resesi, maka IHSG ditutup Bearish sebesar -1.02%.",
+      "reason": "unreliable_source_data: stored usdidr_change_pct (2.195%) diverges from consecutive spot close (0.476%)"
+    },
+    {
+      "date": "2026-10-02",
+      "lesson": "Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign flow diprediksi Distribution, tetapi foreign flow aktual adalah Accumulation (Net Buy Rp 829,70 Miliar) dan IHSG ditutup Bullish (+0.46%), maka sentimen pasar dapat berbalik arah secara signifikan.",
+      "reason": "unreliable_source_data: cites unverified foreign flow from date_mismatch_rejected source"
+    },
+    {
+      "date": "2026-10-02",
+      "lesson": "Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebut mengalami kenaikan terbesar (+17K), maka analisis sektor perlu mempertimbangkan faktor-faktor pendorong spesifik yang mungkin tidak tercakup dalam prediksi awal.",
+      "reason": "invalid_unit: +17K style notation"
+    },
+    {
+      "date": "2026-10-07",
+      "lesson": "Ketika aliran dana asing diprediksi stagnan/sideways, tetapi terjadi akumulasi asing yang signifikan (net buy Rp 829,70 Miliar) disertai penguatan Rupiah, maka IHSG dapat ditutup bearish sebesar -0.75%.",
+      "reason": "unreliable_source_data: cites unverified foreign flow from date_mismatch_rejected source"
+    }
+  ],
+  "heuristics": [
+    {
+      "id": "rule-1",
+      "rule": "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-22"
+    },
+    {
+      "id": "rule-2",
+      "rule": "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-22"
+    },
+    {
+      "id": "rule-3",
+      "rule": "Ketika IHSG diproyeksikan bearish dengan sentimen pelemahan rupiah di level 17.813, tetapi Bank Indonesia mempertahankan BI Rate di 5,75% dan rupiah berbalik menguat 0,447% ke 17.798, maka IHSG justru melakukan rebound dan ditutup flat ke level 6.374,91 (+0,00%).",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-09-23"
+    },
+    {
+      "id": "rule-4",
+      "rule": "Ketika sektor energi dan industri diprediksi bearish menyusul kejatuhan sesi sebelumnya, tetapi terjadi aksi akumulasi asing dan peredaan sentimen makroekonomi, maka sebagian sektor defensif dan konsumer tetap mampu mencatatkan penguatan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-09-23"
+    },
+    {
+      "id": "rule-5",
+      "rule": "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-24"
+    },
+    {
+      "id": "rule-6",
+      "rule": "Ketika sentimen domestik diproyeksikan bullish, tetapi aksi unjuk rasa 50 ribu buruh di Jakarta bersamaan dengan net sell asing Rp 1,49 triliun terjadi, maka sektor energi dan infrastruktur tergerus masing-masing turun 0,62% dan 1,14%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-24"
+    },
+    {
+      "id": "rule-7",
+      "rule": "Ketika US Treasury 10 tahun mendekati 5,135% dan Rupiah melemah ke level 17.912/USD, tetapi BI menahan suku bunga di 5,75%, maka IHSG tetap tertekan turun sebesar 0,90% dan seluruh 11 sektor mengalami koreksi.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-25"
+    },
+    {
+      "id": "rule-8",
+      "rule": "Ketika sentimen global memburuk akibat ketegangan geopolitik dan kenaikan Fed Fund Rate, tetapi pasar mengharapkan stabilitas domestik, maka tekanan jual institusional asing dan pelemahan 558 saham menyeret IHSG ke level 6.241,89.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-25"
+    },
+    {
+      "id": "rule-9",
+      "rule": "Ketika sektor Energi diprediksi Bullish, tetapi sektor transportasi dan logistik yang diprediksi Bearish justru menguat 0,47%, maka sektor Energi hanya naik tipis 0,04%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-28"
+    },
+    {
+      "id": "rule-10",
+      "rule": "Ketika Rupiah melemah signifikan (dari Rp17.880/USD ke Rp17.993/USD, +1.056%), tetapi arus dana asing mencatatkan akumulasi, maka prediksi aksi jual asing akibat pelemahan Rupiah tidak terjadi.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-29"
+    },
+    {
+      "id": "rule-11",
+      "rule": "Ketika sinyal komoditas tidak tercatat di pagi hari, tetapi harga komoditas utama seperti Brent Crude (-9.07%) dan Natural Gas (-7.92%) anjlok tajam, maka sektor terkait seperti Energi dapat mengalami penurunan signifikan (-1.10%).",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-29"
+    },
+    {
+      "id": "rule-12",
+      "rule": "Ketika IHSG diprediksi Bearish, tetapi ketegangan geopolitik menyebabkan bursa saham Asia melemah, maka IHSG ditutup Bearish (-0.83%).",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-09-30"
+    },
+    {
+      "id": "rule-13",
+      "rule": "Ketika sektor Coal Mining diprediksi Bearish, tetapi saham CUAN dan BUMI menjadi top gainers, maka sektor tersebut menunjukkan kenaikan yang signifikan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-10-01"
+    },
+    {
+      "id": "rule-14",
+      "rule": "Ketika sektor Consumer Cyclicals/Staples diprediksi Bullish, tetapi saham MAPI menjadi top loser, maka sektor tersebut menunjukkan penurunan yang signifikan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-10-01"
+    },
+    {
+      "id": "rule-15",
+      "rule": "Ketika Rupiah diprediksi stabil oleh BI, tetapi ada komitmen spesifik dari Bank Indonesia untuk meningkatkan aliran masuk investasi portofolio asing, maka Rupiah dapat menguat (-0.318%) dan mendukung sentimen positif pasar.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-02"
+    },
+    {
+      "id": "rule-16",
+      "rule": "Ketika IHSG diprediksi Neutral, tetapi Global Market Shock, BI Policy Surprise, Geopolitics Surprise, dan Labor/Demo terjadi, maka IHSG naik 0.46%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-05"
+    },
+    {
+      "id": "rule-17",
+      "rule": "Ketika Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 1.56% dan Brent Crude turun 3.42% terjadi, maka harga minyak mentah mengalami penurunan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-05"
+    },
+    {
+      "id": "rule-18",
+      "rule": "Ketika Foreign Flow diprediksi Stagnant/Sideways (Net Buy Rp829.70 Miliar), tetapi Foreign Flow aktual adalah Distribution (Net Sell Rp 252,65 Miliar) terjadi, maka IHSG tetap menguat +1.21%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-06"
+    },
+    {
+      "id": "rule-19",
+      "rule": "Ketika beberapa sektor diprediksi Bearish (Kesehatan, Konsumsi Primer, Energi Oil & Gas Upstream) atau Neutral (Properti), tetapi semua sektor saham naik dengan Transportation memimpin +3.33%, Technology +2.59%, dan Energy +2.33% terjadi, maka IHSG menguat +1.21%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-06"
+    },
+    {
+      "id": "rule-20",
+      "rule": "Ketika BI mempertahankan BI-Rate dan fokus pada stabilitas Rupiah serta aliran portofolio asing (diprediksi bullish), tetapi sentimen valuasi IHSG (rasio P/E) membayangi pasar, maka IHSG dapat ditutup bearish sebesar -0.75%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-10-07"
+    }
+  ],
   "ihsg_accuracy_pct": 41.7,
   "ihsg_correct_count": 5,
-  "ff_accuracy_pct": 8.3,
-  "ff_correct_count": 1,
-  "total_accuracy_sum": 302.0
+  "ff_accuracy_pct": 0.0,
+  "ff_correct_count": 0,
+  "total_accuracy_sum": 412.0
 }

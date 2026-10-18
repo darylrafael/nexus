@@ -48,9 +48,9 @@
   "ihsg_change_pct": -0.43,
   "ihsg_change_pts": -26.16,
   "ihsg_signal": "Bearish",
-  "ihsg_open": 6209.75,
-  "ihsg_high": 6227.9,
-  "ihsg_low": 6140.34,
+  "ihsg_open": null,
+  "ihsg_high": null,
+  "ihsg_low": null,
   "ihsg_volume": 287430500,
   "retrieved_at": "2026-09-30T00:20:55+07:00",
   "source": "yahoo_direct:USDIDR=X",
@@ -101,6 +101,22 @@
   "top_movers": "[no date] IHSG Kembali Turun, Masuk Kisaran 6.120 (Selasa, 29 September 2026)\nSebanyak 373 saham ditutup melemah hari ini, 303 saham menguat, dan 118 saham stagnan.\n\nEmiten top loser hari ini adalah DSFI setelah jatuh 15%, diikuti RISE dan MBTO yang masing-masing terkoreksi 14,79% dan 14,77%.\n\nSementara itu, emiten top gainer diisi oleh SEMA yang meningkat 24,85%, diikuti IFSH yang naik 24,80% dan SOSS yang menguat 24,77%. [...] Sementara ada empat sektor saham yang mengua\nSource IDs: src_ceac3848ed, src_8a04d520ed, src_deaf58e533, src_404a2ca2fb, src_eb97a41039, src_3987f13539, src_87544f522c",
   "sector_performance": "[no date] IHSG 29 September 2026 Ditutup Turun 26 Poin ke 6.121, GOTO Top Losers\nIndeks dengan penurunan terbesar dialami sektor teknologi yang turun 3,37 persen, sektor properti turun 1,31 persem dan sektor energi yang turun 1,10 persen.\n\nBaca juga: IHSG Sesi 1 Ditutup Merah, Dibebani Saham BRMS, AADI, hingga CUAN\n\nSementara indeks sektoral yang menguat ialah barang konsumen siklikal yang naik 0,70 persen, sektor perindustrian naik 0,50 persen dan sektor infrastruktur yan\nSource IDs: src_8bea803676, src_4662fe6721, src_88afde084d, src_aba7f04191, src_1cfc852562, src_9d92e653bb, src_87544f522c",
   "foreign_flow_raw": "[no date] Hadapi September Effect, Ini Historis Arus Dana Asing 5 Tahun Terakhir\nBerdasarkan data Weekly Statistics Bursa Efek Indonesia (BEI), investor asing mencatatkan nilai pembelian saham sebesar Rp21,88 triliun pada perdagangan 1–4 September 2026, sedangkan nilai penjualan mencapai Rp19,14 triliun.\n\nDengan demikian, investor asing membukukan net buy sebesar Rp2,74 tril\nSource IDs: src_9d2cb93012, src_ad1adbcae5, src_c47d15e829, src_648ea25c5b, src_51e8e513a2, src_d5e16ed0d5, src_fc5c963d11",
-  "foreign_flow_signal": "Accumulation",
-  "schema_version": 1
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_matching_date"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.184,
+    "stored_usdidr_change_pct": 1.056,
+    "rescored_at": "2026-10-15"
+  }
 }

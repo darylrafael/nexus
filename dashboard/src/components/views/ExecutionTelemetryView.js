@@ -167,7 +167,7 @@ const AGENT_CATALOG = [
     model: 'OpenRouter + Obsidian API',
     latency: '~85s',
     status: 'STANDBY',
-    desc: 'Evaluates closing prices at 18:55 WIB, attributes errors, and injects lessons into memory.'
+    desc: 'Evaluates closing prices at 20:00 WIB, attributes errors, and injects lessons into memory.'
   }
 ];
 
@@ -197,7 +197,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
   }, []);
 
   const stats = data?.stats || {};
-  const sessions = data?.sessions || [];
+  const sessions = useMemo(() => data?.sessions || [], [data?.sessions]);
   const isAvailable = data?.isAvailable ?? true;
 
   const filteredSessions = useMemo(() => {
@@ -329,7 +329,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
       {/* 01 · KPI Header */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 01 · PIPELINE RELIABILITY &amp; RUNTIME PERFORMANCE
+        <span className="console-prompt">{"//"}</span> 01 · PIPELINE RELIABILITY &amp; RUNTIME PERFORMANCE
       </div>
       <section className="kpi-row">
         {/* Card 1: Pipeline Success Rate */}
@@ -415,7 +415,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
       {/* 02 · Twin Panes: Agent Breakdown & Execution Flow */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 02 · MULTI-AGENT ARCHITECTURE &amp; EXECUTION STATE MACHINE
+        <span className="console-prompt">{"//"}</span> 02 · MULTI-AGENT ARCHITECTURE &amp; EXECUTION STATE MACHINE
       </div>
       <section className="eval-section">
         <header className="eval-header">
@@ -423,7 +423,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
             Multi-Agent Topology &amp; Runtime State Machine
           </div>
           <div className="eval-header-right">
-            <div className="eval-date-badge font-mono">Deterministic State</div>
+            <div className="eval-date-badge font-mono">Runtime State</div>
           </div>
         </header>
 
@@ -435,10 +435,35 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                 <span className="eval-pane-title">Sub-Agent Operational Matrix</span>
                 <span className="eval-section-tag font-mono">6 Pipeline Modules</span>
               </div>
-              <span className="eval-section-tag font-mono">Orchestrator v2.4</span>
+              <span className="eval-section-tag font-mono">Orchestrator Pipeline</span>
             </div>
             <div className="eval-pane-body" style={{ padding: 0 }}>
-              <div className="table-wrapper">
+              {/* Mobile Card List for Sub-Agents (visible <= 768px) */}
+              <div className="mobile-cards-list">
+                {AGENT_CATALOG.map((ag) => (
+                  <div key={ag.name} className="mobile-agent-card">
+                    <div className="mobile-card-top">
+                      <span className="font-mono font-bold text-xs text-primary">{ag.name}</span>
+                      <span className={`status-pill ${ag.status === 'HEALTHY' || ag.status === 'ACTIVE' ? 'status-matched' : 'status-pending'} status-sm font-mono`}>
+                        {ag.status}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                      {ag.role}
+                    </div>
+                    <p style={{ fontSize: '11px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                      {ag.desc}
+                    </p>
+                    <div className="mobile-card-meta font-mono text-xs">
+                      <span className="text-secondary">{ag.model}</span>
+                      <span className="font-bold text-primary">{ag.latency}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Quantitative Table (visible > 768px) */}
+              <div className="table-wrapper desktop-table-wrapper">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -457,7 +482,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                             <span className="font-mono text-xs font-bold text-primary">
                               {ag.name}
                             </span>
-                            <span className="font-mono text-tertiary" style={{ fontSize: '10px' }}>
+                            <span className="font-mono text-tertiary" style={{ fontSize: "11px" }}>
                               {ag.model}
                             </span>
                           </div>
@@ -505,7 +530,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
               <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {/* Stage 1: Morning Brief */}
-                <div className="macro-tape-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', padding: 0, border: 'none', background: 'transparent' }}>
+                <div className="telemetry-cadence-grid">
                   <div className="macro-strip-cell" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)' }}>
                     <div className="macro-cell-head font-mono">06:55 WIB CRON</div>
                     <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>Morning Brief</div>
@@ -517,7 +542,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                     <div className="macro-cell-sub font-mono text-secondary">Exchange Official</div>
                   </div>
                   <div className="macro-strip-cell" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)' }}>
-                    <div className="macro-cell-head font-mono">18:55 WIB CRON</div>
+                    <div className="macro-cell-head font-mono">20:00 WIB CRON</div>
                     <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>Evening Review</div>
                     <div className="macro-cell-sub font-mono text-matched">● Closed-Loop RCA</div>
                   </div>
@@ -540,7 +565,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
                       <span className="font-mono text-tertiary">PERSISTENT KNOWLEDGE:</span>
-                      <span className="font-mono font-bold text-primary">Obsidian Local REST (:27124)</span>
+                      <span className="font-mono font-bold text-primary">Persistent Knowledge Store</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span className="font-mono text-tertiary">DELIVERY DISPATCH:</span>
@@ -560,7 +585,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
       {/* 03 · Compact Historical Execution Ledger */}
       <div className="section-eyebrow font-mono">
-        <span className="console-prompt">//</span> 03 · HISTORICAL EXECUTION LEDGER
+        <span className="console-prompt">{"//"}</span> 03 · HISTORICAL EXECUTION LEDGER
       </div>
       <section className="history-section">
         <header className="history-header">
@@ -592,7 +617,63 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           </div>
         </header>
 
-        <div className="table-wrapper">
+        {/* Mobile Responsive Cards for Execution Sessions (visible <= 768px) */}
+        <div className="mobile-cards-list">
+          {filteredSessions.map((session) => {
+            const isSuccess = Number(session.success) === 1;
+            const isExpanded = expandedId === session.id;
+            return (
+              <div
+                key={session.id}
+                className="mobile-session-card"
+                onClick={() => setExpandedId(isExpanded ? null : session.id)}
+              >
+                <div className="mobile-card-top">
+                  <span className="font-mono font-bold text-xs text-primary">#{session.id}</span>
+                  <span className="font-mono text-xs text-secondary">{formatTimestamp(session.timestamp)}</span>
+                  <span className={`status-pill ${isSuccess ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
+                    {isSuccess ? 'PASS' : 'FAIL'}
+                  </span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span className="font-mono font-bold text-xs text-primary">{session.agent}</span>
+                  <span className="font-mono text-xs text-secondary font-semibold">{formatDuration(session.duration_ms)}</span>
+                </div>
+                {session.query && (
+                  <div className="font-mono text-xs text-tertiary" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {session.query}
+                  </div>
+                )}
+                {isExpanded && (
+                  <div style={{ borderTop: '1px dashed var(--border-subtle)', paddingTop: '8px', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div style={{ fontSize: '11px' }}>
+                      <span className="font-mono text-tertiary">MODEL: </span>
+                      <span className="font-mono text-secondary">{session.model || 'llm_client'}</span>
+                    </div>
+                    <button
+                      className="brief-read-btn font-mono"
+                      style={{ padding: '6px 10px', fontSize: '11px', marginTop: '4px', width: '100%', justifyContent: 'center' }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedRun(session);
+                      }}
+                    >
+                      Deep Inspection (Payload &amp; Trace) ↗
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          {filteredSessions.length === 0 && (
+            <div className="text-muted font-mono text-xs text-center py-4">
+              No execution sessions match the selected filter.
+            </div>
+          )}
+        </div>
+
+        {/* Desktop Quantitative Table (visible > 768px) */}
+        <div className="table-wrapper desktop-table-wrapper">
           <table className="data-table">
             <thead>
               <tr>

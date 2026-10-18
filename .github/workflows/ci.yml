@@ -30,14 +30,48 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-asyncio pyyaml
+          pip install pytest pytest-asyncio pyyaml pyflakes ruff
+
+      - name: Static Analysis (pyflakes & ruff)
+        run: |
+          python -m pyflakes agents data_sources utils memory core scheduler.py
+          ruff check --select F821,F841 agents data_sources utils memory core scheduler.py
+
+      - name: Verify Hygiene, No Percent Paths, and Secret Scan
+        run: |
+          if find . -maxdepth 3 -name '%*' | grep -q .; then
+            echo "ERROR: Path starting with '%' found in repository"
+            find . -maxdepth 3 -name '%*'
+            exit 1
+          fi
+          python -m core.packaging --verify-hygiene
+
+      - name: Verify Evaluation Metric Blocks in Docs
+        run: |
+          python scripts/evaluate.py --check
 
       - name: Run Pytest Suite
         env:
           SKIP_ENV_VALIDATION: "1"
+          NEXUS_SKIP_ENV_VALIDATION: "1"
           PYTHONUTF8: "1"
         run: |
           pytest -v
+
+      - name: Verify Repository Cleanliness After Tests
+        run: |
+          git diff --exit-code -- runs data
+          STATUS_OUT="$(git status --porcelain)"
+          if [ -n "$STATUS_OUT" ]; then
+            echo "ERROR: Dirty or untracked files detected after pytest:"
+            echo "$STATUS_OUT"
+            exit 1
+          fi
+
+      - name: Verify Allowlist Release Zip Packaging
+        run: |
+          python -m core.packaging --build-zip /tmp/nexus_ci_release.zip --verify-zip /tmp/nexus_ci_release.zip
+
 
   build-dashboard:
     name: Next.js Dashboard Build
@@ -58,6 +92,10 @@ jobs:
       - name: Install Dashboard Dependencies
         working-directory: dashboard
         run: npm ci
+
+      - name: Lint Dashboard
+        working-directory: dashboard
+        run: npm run lint
 
       - name: Build Next.js Dashboard
         working-directory: dashboard

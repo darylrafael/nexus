@@ -138,7 +138,13 @@ export default function MarketOverviewKPIs({ dashboard }) {
         <div className="kpi-context">
           <span>Institutional capital tracking</span>
           <div className="kpi-mini-bar">
-            <div className="kpi-mini-fill" style={{ width: '70%' }} />
+            <div
+              className="kpi-mini-fill"
+              style={{
+                width: String(foreignFlow).toLowerCase().includes('accumul') || String(foreignFlow).toLowerCase().includes('distrib') ? '100%' : '50%',
+                background: String(foreignFlow).toLowerCase().includes('accumul') ? 'var(--color-matched, #10b981)' : (String(foreignFlow).toLowerCase().includes('distrib') ? 'var(--color-missed, #ef4444)' : 'var(--color-secondary, #64748b)')
+              }}
+            />
           </div>
         </div>
       </div>
@@ -147,7 +153,7 @@ export default function MarketOverviewKPIs({ dashboard }) {
       <div className="kpi-card">
         <div className="kpi-top">
           <span className="kpi-label font-mono">Sector Breadth</span>
-          <span className="kpi-target-tag font-mono">Deterministic</span>
+          <span className="kpi-target-tag font-mono">Rule-Scored</span>
         </div>
         <div className="kpi-val-row">
           <div className="kpi-value font-mono" style={{ fontSize: '20px', paddingTop: '4px' }}>
@@ -162,7 +168,7 @@ export default function MarketOverviewKPIs({ dashboard }) {
           </span>
         </div>
         <div className="kpi-context">
-          <span>Deterministic sector causality distribution</span>
+          <span>Sector calls rule-scored against IDX-IC</span>
           <div className="kpi-mini-bar">
             <div
               className="kpi-mini-fill"

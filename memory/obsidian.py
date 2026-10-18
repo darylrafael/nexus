@@ -1,6 +1,6 @@
 import urllib3
 import requests
-from datetime import datetime, timedelta
+from datetime import timedelta
 from config import OBSIDIAN_API_KEY, OBSIDIAN_BASE_URL
 from core.time import jakarta_now
 

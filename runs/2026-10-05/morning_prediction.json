@@ -24,19 +24,11 @@
     "LSIP",
     "MEDC",
     "AALI",
-    "BUMI",
     "UNVR",
     "NCKL",
     "TBLA",
     "INDF",
-    "MYOR",
-    "ANTM",
-    "CUAN",
-    "RUIS",
-    "XRPL",
-    "ENRG",
-    "SIMP",
-    "ICBP"
+    "MYOR"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -49,5 +41,12 @@
     "src_b3d8e62948",
     "src_c97b8fff8d",
     "src_e28c2946cb"
-  ]
+  ],
+  "lock_hash": "c03f5017b7bc3644",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

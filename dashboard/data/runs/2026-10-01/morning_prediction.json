@@ -27,14 +27,8 @@
     "GOTO",
     "NCKL",
     "CUAN",
-    "BUMI",
     "MBMA",
-    "SRSN",
-    "BYAN",
-    "UNTR",
-    "MAPI",
-    "CPIN",
-    "INDY"
+    "BYAN"
   ],
   "key_risk": "",
   "commodities_predicted": {},
@@ -51,5 +45,12 @@
     "src_c97b8fff8d",
     "src_e8e98cf5b3",
     "src_ee9f97789b"
-  ]
+  ],
+  "lock_hash": "4800380bf97d5a10",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

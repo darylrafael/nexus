@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 import time
 from agents.commodity_agent import get_ihsg_data
 from agents.economics_engine import build_economics_context
@@ -7,6 +6,7 @@ from agents.validator import build_commodity_context, validate
 from agents.web_agent import get_source_registry, search_multiple, search_web
 from data_sources.market_data import (
     fetch_all_commodities,
+    fetch_usdidr_snapshot,
     format_all_commodities_markdown,
     get_market_calendar_info,
     jakarta_now,
@@ -89,14 +89,21 @@ def _run_market_brief_internal(start: float) -> str:
     commodity_text_data = f"### IHSG Actual Price Data:\n{ihsg_text}\n\n{comm_markdown}"
     commodity_text_context = build_commodity_context(commodity_text_data)
 
-    # Single authoritative commodity changes from consolidated fetch
-    commodity_changes = {
-        "Crude Oil": comm_res["changes"].get("Crude Oil"),
-        "Natural Gas": comm_res["changes"].get("Natural Gas"),
-    }
+    # Authoritative commodity changes from consolidated fetch
+    commodity_changes = comm_res.get("changes") or {}
+
+    # Economics engine treats negative as 'rupiah weakened' and positive as 'rupiah strengthened'.
+    # USD/IDR rising (+%) means Rupiah depreciated/weakened (-%). Pass None when unavailable.
+    try:
+        usdidr_snap = fetch_usdidr_snapshot()
+        usdidr_pct = usdidr_snap.get("usdidr_change_pct") if usdidr_snap else None
+        rupiah_change = -float(usdidr_pct) if usdidr_pct is not None else None
+    except Exception:
+        rupiah_change = None
 
     economics_context = build_economics_context(
         commodity_changes=commodity_changes,
+        rupiah_change=rupiah_change,
         current_date=period_description_id,
         search_days=search_days,
     )
@@ -126,7 +133,7 @@ def _run_market_brief_internal(start: float) -> str:
     print(f"  [market_agent] Fetching foreign flow data for last session ({last_trading_label})...")
     try:
         foreign_flow = search_web(
-            f"asing net buy sell IHSG investor asing {last_trading_date_id}",
+            f"asing net buy sell IHSG pasar reguler seluruh pasar investor asing {last_trading_date_id}",
             days=search_days,
         )
         if len(foreign_flow.strip()) < 50:
@@ -187,9 +194,9 @@ STRICT RULES:
 - Identify affected stocks dynamically from the provided data. Do not hallucinate tickers that don't exist in the context.
 - When you use web-sourced evidence, include its Source ID from the DATA section in the relevant summary or rationale.
 - Do not invent Source IDs. Only cite Source IDs explicitly provided in the DATA section.
-- Foreign flow significance rule: If the net foreign flow is below Rp1 trillion in either direction, classify it as "Stagnant/Sideways" in your signal. Do NOT call it accumulation or distribution.
+- Foreign flow significance rule: Prioritize Pasar Reguler flow over negotiated/crossing transactions. If net buy is driven by negotiated crossing while pasar reguler is net sell, explicitly warn about crossing divergence. If net regular foreign flow is below Rp1 trillion in either direction, classify it as "Stagnant/Sideways" in your signal. Do NOT call it accumulation or distribution.
 - Market reaction takes precedence over textbook theory. Check actual stock price movements before assigning directions.
-- Confidence Score Guide: 80-100% = direct, quantifiable, confirmed impact. 50-79% = likely but indirect transmission. Below 50% = speculative noise.
+- Confidence Score Guide (Institutional Quant Calibration): The maximum conviction ceiling for directional market index calls is 75% due to systemic risk, liquidity absorption, and macro transmission variance. Never assign 80-100% to directional index calls. 65-75% = strong multi-factor confluence. 50-64% = moderate tilt. Below 50% = low conviction / rangebound.
 
 DATA PROVIDED:
 {context}
@@ -280,9 +287,16 @@ Categorize sectors dynamically based on available data:
     final_output = validate(final_output)
 
     try:
+        from dataclasses import asdict
+        from core.locking import lock_morning_prediction
+
         prediction = extract_predictions(final_output, date_key)
+        pred_dict = lock_morning_prediction(
+            asdict(prediction),
+            created_at_iso=jakarta_now().isoformat(timespec="seconds"),
+        )
         save_text_artifact(date_key, "morning_brief.md", final_output)
-        save_json_artifact(date_key, "morning_prediction.json", prediction)
+        save_json_artifact(date_key, "morning_prediction.json", pred_dict)
         save_json_artifact(date_key, "sources.json", get_source_registry())
         save_json_artifact(date_key, "pipeline_status.json", {
             "stage": "morning_brief",

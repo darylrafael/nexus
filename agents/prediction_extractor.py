@@ -134,15 +134,86 @@ def _extract_sector_block(text: str) -> tuple:
     return _get("Bullish"), _get("Bearish"), _get("Neutral")
 
 
-def _extract_tickers(text: str) -> list:
-    tickers = set(re.findall(r'\b([A-Z]{4})\b', text))
-    # Filter out common 4-letter uppercase English/Indonesian words or acronyms
-    noise = {"IHSG", "FROM", "DATA", "WITH", "THIS", "THAT", "EACH", "ONLY",
-             "THAN", "WHEN", "THEN", "OPEN", "HIGH", "WILL", "ALSO", "INTO",
-             "MORE", "MOST", "NEXT", "BEEN", "HAVE", "WERE", "BULL", "BEAR",
-             "BANK", "FLOW", "DROP", "RATE", "REAL", "NETT", "SELL", "NEWS",
-             "ASIA", "IDXR", "USDA"}
-    return list(tickers - noise)
+from collections import Counter
+
+_IDX_TICKERS_CACHE: set[str] | None = None
+
+TICKER_STOPLIST = {
+    "IHSG", "FROM", "DATA", "WITH", "THIS", "THAT", "EACH", "ONLY",
+    "THAN", "WHEN", "THEN", "OPEN", "HIGH", "WILL", "ALSO", "INTO",
+    "MORE", "MOST", "NEXT", "BEEN", "HAVE", "WERE", "BULL", "BEAR",
+    "BANK", "FLOW", "DROP", "RATE", "REAL", "NETT", "SELL", "NEWS",
+    "ASIA", "IDXR", "USDA", "DATE", "XRPL", "HTTP", "JSON", "POST",
+    "RISK", "COST", "PEAK", "SLOW", "FAST", "SPOT", "NONE", "NULL",
+    "INFO", "VIEW", "LINK", "TRUE", "CODE", "PAGE", "LQ45", "BEII",
+    "IDRR", "USDD", "CPOO", "WIBB", "WALL", "DOWW", "TECH", "GOOD",
+    "FOOD", "HOME", "CARE", "BEST", "EAST", "LIFE", "SAFE", "STAR",
+    "GOLD", "COAL", "TIME", "YEAR", "WEEK", "DAYS", "PORT", "SAAT",
+    "PADA", "DARI", "OLEH", "AKAN", "YANG", "JIKA", "AGAR", "BISA",
+    "KINI", "LALU", "KITA", "KAMI", "MERE", "SEGI", "LUAR", "TREN",
+    "SENT", "RUPS", "EMIT", "INDO", "NOTE"
+}
+
+
+def get_idx_universe() -> set[str]:
+    global _IDX_TICKERS_CACHE
+    if _IDX_TICKERS_CACHE is None:
+        from core.paths import get_data_dir
+        p = get_data_dir() / "idx_tickers.json"
+        if p.exists():
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                _IDX_TICKERS_CACHE = set(data.get("tickers", []))
+            except Exception:
+                _IDX_TICKERS_CACHE = set()
+        else:
+            _IDX_TICKERS_CACHE = set()
+    return _IDX_TICKERS_CACHE
+
+
+def _extract_tickers(text: str, max_tickers: int = 10) -> list[str]:
+    """Extract valid IDX tickers from text.
+
+    - Validates against official IDX universe in data/idx_tickers.json.
+    - Filters out stoplist words (e.g. DATE, XRPL, IHSG, etc.).
+    - Ranks deterministically by mention frequency (most frequent first, alphabetical tie-break).
+    - Caps at max_tickers (default 10).
+    """
+    universe = get_idx_universe()
+    raw_tokens = re.findall(r'\b([A-Z]{4})\b', text)
+    valid_candidates = []
+
+    for t in raw_tokens:
+        if t in TICKER_STOPLIST:
+            continue
+        if universe and t not in universe:
+            continue
+        valid_candidates.append(t)
+
+    if not valid_candidates:
+        return []
+
+    counts = Counter(valid_candidates)
+    ranked = sorted(counts.keys(), key=lambda t: (-counts[t], t))
+    return ranked[:max_tickers]
+
+
+def extract_ticker_reasons(text: str, tickers: list[str]) -> dict[str, str]:
+    """Extract a one-line clean context reason for each ticker from the brief."""
+    reasons = {}
+    lines = text.splitlines()
+    for t in tickers:
+        found_reason = ""
+        for line in lines:
+            line_clean = line.strip().replace("*", "").replace("#", "")
+            if t in line_clean:
+                cleaned = re.sub(r'\[.*?\]', '', line_clean).strip()
+                cleaned = re.sub(r'\s+', ' ', cleaned)
+                if len(cleaned) > 10:
+                    found_reason = cleaned[:120]
+                    break
+        reasons[t] = found_reason or "Catalyst identified in market brief."
+    return reasons
 
 
 def _extract_key_risk(text: str) -> str:
@@ -172,6 +243,27 @@ def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
     ff_signal, ff_net                 = _extract_foreign_flow(brief_text, target_date_str=date)
     bull, bear, neutral               = _extract_sector_block(brief_text)
 
+    from utils.stats import compute_empirical_calibrated_confidence
+    from core.paths import get_memory_dir
+
+    dir_correct = 0
+    dir_scorable = 0
+    stats_file = get_memory_dir() / "nexus_stats.json"
+    if stats_file.exists():
+        try:
+            st = json.loads(stats_file.read_text(encoding="utf-8"))
+            dir_correct = int(st.get("direction_correct_count") or 0)
+            dir_scorable = int(st.get("direction_scorable_sessions") or 0)
+        except Exception:
+            pass
+
+    cal_info = compute_empirical_calibrated_confidence(
+        direction_correct=dir_correct,
+        direction_scorable=dir_scorable,
+        stated_confidence_pct=ihsg_conf,
+    )
+    calibrated_conf = cal_info["calibrated_confidence_pct"]
+
     return MarketPrediction(
         date=date,
         ihsg_signal=ihsg_signal,
@@ -186,6 +278,7 @@ def extract_predictions(brief_text: str, date: str) -> "MarketPrediction":
         commodities_predicted=_extract_commodity_signals(brief_text),
         evidence_ids=_extract_source_ids(brief_text),
         raw_ihsg_signal=raw_ihsg,
+        calibrated_confidence=calibrated_conf,
     )
 
 

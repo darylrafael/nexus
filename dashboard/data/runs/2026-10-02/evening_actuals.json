@@ -101,6 +101,22 @@
   "top_movers": "[no date] 10 Saham Top Gainer Perdagangan Jumat 2 Oktober 2026, BLTZ Naik Posisi Teratas\nIDXChannel—Simak 10 saham top gainer pada perdagangan Jumat, 2 Oktober 2026. Sore ini Indeks Harga Saham Gabungan (IHSG) ditutup di posisi 6.036, menguat 0,46 persen atau naik 27,39 poin.\n\nSaham PT Graha Layar Prima Tbk (BLTZ) menempati urutan teratas top gainer hari ini dengan kenaikan harga sebesar 25 persen di Rp3.600 per unit. Disusul oleh PT Bank of India Indonesia Tbk (BSWD).\n\nBa\nSource IDs: src_fdcea398d0, src_89283dbafb, src_87d5816bbc, src_0282e83e8c, src_61f009d472, src_e66c9ac2d2, src_cc96b2e8db",
   "sector_performance": "[no date] Saham IHSG (Index Harga Saham Gabungan)\nIHSG menutup perdagangan Jumat, 2 Oktober 2026 di. Kenaikan terbesar berasal dari health care +17K, konstruksi +11K, Financial activities turun -7K, sementara\nSource: https://stockbit.com/symbol/IHSG\nSource ID: src_87544f522c\n\n[no date] IHSG Menguat 0,46% ke 6.036 pada Jumat (2/10/2026), GOTO, PTBA, ADRO Top Gainers LQ45\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) ditutup menguat 27,38 poin atau 0,46% ke 6.03\nSource IDs: src_87544f522c, src_37f4f9b9ad, src_d5fe880d71, src_af14d69534, src_88afde084d, src_e0e1a2a7b0, src_a4290ce470",
   "foreign_flow_raw": "[no date] Net Buy Berlanjut Rp 829,70 Miliar, Pemodal Asing Borong Saham DSSA\nJAKARTA, investortrust.id – Pemodal asing mencatatkan pembelian bersih (net buy) senilai Rp 829,70 miliar, meski indek harga saham gabungan (IHSG) Bursa Efek Indonesia (BEI), Senin (10/8/2026), ditutup anjlok sebanyak 44,28 poin (0,69%) menjadi 6.365,37.\n\nNet buy terbanyak melanda lima saham beriku\nSource IDs: src_d809d3bb28, src_3f5615f59a, src_2bd525d67f, src_7e574d2c2a, src_102e546583, src_e2f69e7ef1, src_e596dec659",
-  "foreign_flow_signal": "Accumulation",
-  "schema_version": 1
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.29,
+    "stored_usdidr_change_pct": -0.318,
+    "rescored_at": "2026-10-15"
+  }
 }

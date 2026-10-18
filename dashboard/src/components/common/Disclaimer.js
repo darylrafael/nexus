@@ -20,8 +20,8 @@ export function LegalDisclaimerBanner() {
     >
       <span style={{ fontSize: "14px", lineHeight: 1 }}>⚖️</span>
       <div>
-        <strong style={{ fontWeight: 600, color: "var(--warning-text)" }}>REGULATORY DISCLAIMER: </strong>
-        Riset &amp; intelijen pasar ini dihasilkan secara otonom oleh model AI untuk tujuan informasi dan edukasi. Bukan merupakan rekomendasi investasi, anjuran transaksi, atau penawaran efek (UU No. 8/1995 &amp; POJK). Analisis mandiri (DYOR) selalu diwajibkan sebelum mengambil keputusan investasi.
+        <strong style={{ fontWeight: 600, color: "var(--warning-text)" }}>REGULATORY &amp; DATA DISCLAIMER: </strong>
+        Not investment advice. All intelligence is autonomously generated for research, architectural demonstration, and educational purposes. Data is research-tier aggregated from public web APIs without a direct licensed IDX exchange feed. Historical performance does not guarantee future results. Independent research (DYOR) is strictly required.
       </div>
     </div>
   );
@@ -32,30 +32,30 @@ export function LegalDisclaimerFooter() {
     <footer
       className="nexus-legal-footer"
       style={{
-        marginTop: "48px",
-        padding: "24px 20px",
+        marginTop: "32px",
+        padding: "16px 20px",
         borderTop: "1px solid var(--border-subtle)",
         background: "var(--surface)",
-        fontSize: "11px",
+        fontSize: "12px",
         color: "var(--text-tertiary)",
-        lineHeight: 1.6,
+        lineHeight: 1.5,
       }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "8px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-mono)" }}>
             <span style={{ fontWeight: 700, color: "var(--text-secondary)", letterSpacing: "0.05em" }}>NEXUS MARKET INTELLIGENCE</span>
             <span>•</span>
             <span>AUTONOMOUS PIPELINE</span>
             <span>•</span>
-            <span>TELEMETRY v2.0</span>
+            <span>TELEMETRY v2.1</span>
           </div>
-          <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px" }}>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}>
             IDX SESSION: 06:55 WIB BRIEF / 20:00 WIB REVIEW
           </div>
         </div>
-        <p style={{ margin: 0, textAlign: "justify" }}>
-          <strong>Pemberitahuan Hukum &amp; Penafian Tanggung Jawab:</strong> Seluruh materi analisis, proyeksi arah, estimasi aliran dana, dan ringkasan sektor yang disajikan dalam dashboard ini diproduksi oleh pipeline AI multi-agen secara independen dan murni ditujukan sebagai alat bantu riset kuantitatif dan edukasi. Nexus tidak beroperasi sebagai perusahaan efek, perantara pedagang efek, atau penasihat investasi berizin OJK. Kinerja prediksi historis bukan merupakan jaminan kinerja di masa depan. Seluruh risiko investasi dan keputusan finansial berada sepenuhnya di tangan masing-masing pelaku pasar.
+        <p style={{ margin: 0, textAlign: "justify", fontSize: "12px" }}>
+          <strong>Legal Notice &amp; Disclaimer:</strong> All market intelligence, directional forecasts, foreign flow estimates, and sector analyses displayed on this dashboard are autonomously produced by a multi-agent AI pipeline for quantitative research and educational evaluation. Nexus does not provide investment advice, asset management, or securities brokerage services. Market data is <strong>research-tier</strong>, sourced from public web endpoints without a direct licensed IDX exchange feed. Past hit rates or synthetic basis points do not indicate future profitability. Not tradable advice.
         </p>
       </div>
     </footer>

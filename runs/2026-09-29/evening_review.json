@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -0.43,
   "ihsg_correct": true,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Energy (Batu Bara)": false,
     "Transportasi & Logistik": null,
@@ -15,8 +15,8 @@
     "Pertambangan Mineral / Nikkel": null,
     "Perbankan (Big Banks)": null
   },
-  "error_rate_pct": 67,
-  "accuracy_score": 33,
+  "error_rate_pct": 38,
+  "accuracy_score": 62,
   "rca_unanticipated": [
     "Geopolitics Surprise: Ancaman Inflasi & Konflik Geopolitik",
     "Global Market Shock: heightened market expectations of persistently high inflation, higher commodity prices, and a global recession",
@@ -86,5 +86,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel - Price - Chart - Historical Data - News\n### Nickel fell to\nSource IDs: src_f1dad1f235, src_1de5e9219f, src_9e65e1e7dd, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4, src_bae08dce04"
     }
+  },
+  "usdidr_change_pct": 1.056,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.184,
+    "stored_usdidr_change_pct": 1.056,
+    "rescored_at": "2026-10-15"
   }
 }

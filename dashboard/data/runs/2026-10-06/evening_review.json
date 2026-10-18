@@ -5,9 +5,9 @@
   "ihsg_actual": "Bullish",
   "ihsg_actual_pct": 1.21,
   "ihsg_correct": true,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Distribution",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Industri": true,
     "Transportasi & Logistik": true,
@@ -18,8 +18,8 @@
     "Energi (Oil & Gas Upstream)": false,
     "Properti": false
   },
-  "error_rate_pct": 50,
-  "accuracy_score": 50,
+  "error_rate_pct": 19,
+  "accuracy_score": 81,
   "rca_unanticipated": [
     "Global Market Shock (heightened market expectations of persistently high inflation, higher commodity prices, global recession)",
     "Geopolitics Surprise (tensi geopolitik global)",
@@ -87,5 +87,17 @@
     "Nickel (LME)": {
       "raw": "[no date] LME Nickel | London Metal Exchange\nImage 14: Nickel\n\n Summary  Intr\nSource IDs: src_0b12862f48, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_9e65e1e7dd, src_1de5e9219f, src_bf08793d8b"
     }
+  },
+  "usdidr_change_pct": 0.951,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.039,
+    "stored_usdidr_change_pct": 0.951,
+    "rescored_at": "2026-10-15"
   }
 }

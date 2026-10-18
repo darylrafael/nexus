@@ -6,8 +6,8 @@
   "ihsg_actual_pct": 0.46,
   "ihsg_correct": false,
   "foreign_flow_predicted": "Distribution",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Energi": true,
     "Teknologi": false,
@@ -21,8 +21,8 @@
     "Keuangan": false,
     "Barang Konsumen Non-Primer": null
   },
-  "error_rate_pct": 86,
-  "accuracy_score": 14,
+  "error_rate_pct": 92,
+  "accuracy_score": 8,
   "rca_unanticipated": [
     "Bank Indonesia's specific commitment to strengthen the Rupiah by increasing foreign portfolio inflows, which was not detailed in the morning brief's policy reiteration.",
     "Significant foreign accumulation (Net Buy Rp 829,70 Miliar) which contradicted the predicted distribution."
@@ -95,5 +95,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_f1dad1f235, src_2f9423b564, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_d82bd6dcd4"
     }
+  },
+  "usdidr_change_pct": -0.318,
+  "rupiah_signal": "Strengthened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.29,
+    "stored_usdidr_change_pct": -0.318,
+    "rescored_at": "2026-10-15"
   }
 }

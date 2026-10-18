@@ -1,6 +1,5 @@
 import json
 import subprocess
-from pathlib import Path
 
 
 def test_memory_route_payload_contract():

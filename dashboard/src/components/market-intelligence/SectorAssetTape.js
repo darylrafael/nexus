@@ -104,9 +104,31 @@ export default function SectorAssetTape({ review }) {
 
   const entries = Object.entries(review.sector_accuracy || {});
   const isPending = review?.isPendingReview;
-  const commodities = Object.values(review?.actual_commodities || {}).filter(
-    (item) => item && (item.name || item.raw)
-  );
+  const commodities = Object.entries(review?.actual_commodities || {}).map(([key, item]) => {
+    if (!item) return null;
+    let name = item.name || key;
+    let price = item.price;
+    let changePct = item.change_pct;
+    let signal = item.signal;
+
+    if ((price === null || price === undefined) && typeof item.raw === 'string') {
+      const pm = item.raw.match(/\$\s*([0-9]{1,3}(?:,[0-9]{3})*(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)/);
+      if (pm) price = parseFloat(pm[1].replace(/,/g, ''));
+    }
+    if ((changePct === null || changePct === undefined) && typeof item.raw === 'string') {
+      const cm = item.raw.match(/([+-]?[0-9]+(?:\.[0-9]+)?)\s*%/);
+      if (cm) changePct = parseFloat(cm[1]);
+    }
+
+    return {
+      ...item,
+      ticker: item.ticker || key,
+      name,
+      price,
+      change_pct: changePct,
+      signal: signal || (changePct > 0 ? 'Up' : (changePct < 0 ? 'Down' : 'OTC Benchmark'))
+    };
+  }).filter(Boolean);
 
   const usdidr = review?.actual_usdidr;
   const isUsdNumeric = Number.isFinite(Number(usdidr));
@@ -119,7 +141,7 @@ export default function SectorAssetTape({ review }) {
           <div className="eval-pane-header">
             <div className="eval-pane-header-left">
               <span className="eval-pane-title">Sector Intelligence &amp; Feeds</span>
-              <span className="eval-section-tag font-mono">Deterministic Engine</span>
+              <span className="eval-section-tag font-mono">Rule-Scored Engine</span>
             </div>
           </div>
 
@@ -130,7 +152,7 @@ export default function SectorAssetTape({ review }) {
                 <div className="eval-pane-section-header">
                   <span className="eval-section-heading">Sector Bias &amp; Accuracy</span>
                   <span className="eval-section-tag font-mono">
-                    {isPending ? "Today's Sector Bias" : "Rule-Based Impact"}
+                    {isPending ? "Today's Sector Bias" : "Rule-Scored against IDX-IC"}
                   </span>
                 </div>
                 <div className="sector-tape">
@@ -183,10 +205,10 @@ export default function SectorAssetTape({ review }) {
                     <div className="macro-strip-cell" key={item.ticker || name} title={item.raw ? String(item.raw).slice(0, 160) : undefined}>
                       <div className="macro-cell-head">{name}</div>
                       <div className="macro-cell-val font-mono">
-                        {hasPrice ? `$${Number(item.price).toFixed(2)}` : (item.raw ? 'Web Summary' : '—')}
+                        {hasPrice ? `$${Number(item.price).toFixed(2)}` : (item.raw ? 'OTC Benchmark' : '—')}
                       </div>
                       <div className={`macro-cell-sub font-mono ${hasChange ? (isUp ? 'text-matched' : 'text-missed') : 'text-muted'}`}>
-                        {hasChange ? `${isUp ? '▲ +' : '▼ '}${change.toFixed(2)}%` : (item.signal || (item.raw ? 'Indexed' : '—'))}
+                        {hasChange ? `${isUp ? '▲ +' : '▼ '}${change.toFixed(2)}%` : (item.signal || (item.raw ? 'Physical Ref' : '—'))}
                       </div>
                     </div>
                   );

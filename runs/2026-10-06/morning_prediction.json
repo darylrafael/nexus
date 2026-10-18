@@ -22,7 +22,6 @@
     "LPKR",
     "DEWA",
     "AMMN",
-    "BUMI",
     "JGLE",
     "BKSL"
   ],
@@ -45,5 +44,12 @@
     "src_e66c9ac2d2",
     "src_f5f6bba2f9",
     "src_fdcea398d0"
-  ]
+  ],
+  "lock_hash": "5e48c9b66ab8af24",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

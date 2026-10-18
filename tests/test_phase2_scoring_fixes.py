@@ -10,7 +10,6 @@ Comprehensive tests verifying Phase 2 fixes:
 6. Canonical stats & accuracy calculations (scorable denominators, separated metrics).
 """
 import pytest
-from datetime import datetime
 import pandas as pd
 
 from utils.direction import classify_direction
@@ -18,7 +17,6 @@ from utils.flow import classify_foreign_flow
 from utils.stats import compute_session_accuracy, compute_canonical_stats
 from agents.validator import check_numeric_consistency, validate_predictions_post_hoc
 from agents.prediction_extractor import extract_predictions
-from schemas import MarketPrediction
 import data_sources.market_data as md
 
 
@@ -187,8 +185,11 @@ def test_compute_session_accuracy():
     # Both correct, 1 sector scorable (correct) -> 3 / 3 = 100%
     assert compute_session_accuracy(True, True, {"Energy": True}) == 100
 
-    # 1 correct, 1 incorrect, 1 null sector -> 1 / 2 = 50%
-    assert compute_session_accuracy(True, False, {"Energy": None}) == 50
+    # 50% Index (True) + 20% Flow (False) + 0 scorable sectors -> 0.50 / 0.70 = 71%
+    assert compute_session_accuracy(True, False, {"Energy": None}) == 71
+
+    # 50% Index (False) + 20% Flow (True) + 30% Sector (True) -> 0.50*0 + 0.20*1 + 0.30*1 = 50%
+    assert compute_session_accuracy(False, True, {"Energy": True}) == 50
 
     # Unscorable day (all None) -> returns None
     assert compute_session_accuracy(None, None, {"Energy": None}) is None
@@ -225,23 +226,31 @@ def test_compute_canonical_stats_scorable_denominators():
         },
     ]
 
-    stats = compute_canonical_stats(reviews)
-    assert stats["total_sessions"] == 3
-    assert stats["processed_dates"] == ["2026-09-22", "2026-09-23", "2026-09-24"]
+    # Create 9 reviews (3 cycles) so direction and flow have n=6 scorable (>=5 threshold)
+    extended_reviews = []
+    for cycle in range(3):
+        for idx, base in enumerate(reviews):
+            item = dict(base)
+            day = 20 + cycle * 3 + idx
+            item["date"] = f"2026-09-{day:02d}"
+            extended_reviews.append(item)
 
-    # Direction: 2 scorable sessions, 1 correct -> 50.0%
-    assert stats["direction_scorable_sessions"] == 2
-    assert stats["direction_correct_count"] == 1
+    stats = compute_canonical_stats(extended_reviews)
+    assert stats["total_sessions"] == 9
+
+    # Direction: 6 scorable sessions, 3 correct -> 50.0%
+    assert stats["direction_scorable_sessions"] == 6
+    assert stats["direction_correct_count"] == 3
     assert stats["direction_accuracy_pct"] == 50.0
 
-    # Flow: 2 scorable sessions, 1 correct -> 50.0%
-    assert stats["flow_scorable_sessions"] == 2
-    assert stats["flow_correct_count"] == 1
+    # Flow: 6 scorable sessions, 3 correct -> 50.0%
+    assert stats["flow_scorable_sessions"] == 6
+    assert stats["flow_correct_count"] == 3
     assert stats["flow_accuracy_pct"] == 50.0
 
-    # Sector: 3 scorable items, 2 correct -> 66.7%
-    assert stats["sector_verifiable_count"] == 3
-    assert stats["sector_correct_count"] == 2
+    # Sector: 9 scorable items, 6 correct -> 66.7%
+    assert stats["sector_verifiable_count"] == 9
+    assert stats["sector_correct_count"] == 6
     assert stats["sector_accuracy_pct"] == 66.7
 
     # Rolling avg: (67 + 100 + 0) / 3 = 55.7%
@@ -249,4 +258,4 @@ def test_compute_canonical_stats_scorable_denominators():
 
     # Deduplicated lessons
     assert len(stats["all_lessons"]) == 2
-    assert stats["missed_factor_counts"]["Surprise rate hike"] == 2
+    assert stats["missed_factor_counts"]["Surprise rate hike"] == 6

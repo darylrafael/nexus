@@ -1,17 +1,12 @@
 import concurrent.futures
-import json
-import os
-import sqlite3
 import pytest
-from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import requests
 
 from memory.artifacts import (
     atomic_write_file,
     save_json_artifact,
     load_json_artifact,
-    save_text_artifact,
 )
 from memory.obsidian import write_note, read_note, read_recent_notes
 from memory.session import _get_conn, init_db, log_session, export_telemetry_json

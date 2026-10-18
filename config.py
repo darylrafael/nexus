@@ -16,7 +16,8 @@ def validate_config(required_vars=None, allow_skip=True):
 
     Fails loudly listing ONLY missing variable names, never printing any values.
     """
-    if allow_skip and os.getenv("NEXUS_SKIP_ENV_VALIDATION", "").lower() in ("1", "true", "yes"):
+    skip_val = os.getenv("NEXUS_SKIP_ENV_VALIDATION") or os.getenv("SKIP_ENV_VALIDATION", "")
+    if allow_skip and skip_val.lower() in ("1", "true", "yes"):
         return []
 
     keys_to_check = required_vars if required_vars is not None else REQUIRED_CONFIG_VARS

@@ -1,8 +1,5 @@
 import json
-import pytest
 from datetime import datetime, timedelta
-from pathlib import Path
-from unittest.mock import patch, MagicMock
 
 from core.schedule import load_schedule_config, get_job_schedule
 from core.locking import (

@@ -10,8 +10,8 @@ export default function MemoryHeuristics() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchMemory = async () => {
-    setLoading(true);
+  const fetchMemory = async (showLoadingState = true) => {
+    if (showLoadingState) setLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/memory');
@@ -28,7 +28,7 @@ export default function MemoryHeuristics() {
   };
 
   useEffect(() => {
-    fetchMemory();
+    fetchMemory(false);
   }, []);
 
   if (loading) {

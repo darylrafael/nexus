@@ -3,11 +3,8 @@ Evening Reviewer — runs at 19:00 WIB weekdays.
 Full 7-step post-market evaluation and learning pipeline.
 """
 import json
-import os
-import re
 import sys
 from datetime import datetime
-from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -17,20 +14,21 @@ from llm_client import get_content, llm_chat
 from agents.web_agent import search_multiple
 from agents.prediction_extractor import extract_predictions, MarketPrediction
 from data_sources.market_data import (
-    COMMODITY_TICKERS,
     fetch_all_commodities,
     fetch_ihsg_snapshot,
     fetch_usdidr_snapshot,
-    fetch_yfinance_commodity,
     jakarta_now,
+    validate_ohlc,
 )
 from data_sources.news import search_text_with_sources
-from memory.artifacts import load_json_artifact, save_json_artifact
+from memory.artifacts import load_json_artifact, save_json_artifact, load_text_artifact
 from memory.obsidian import read_note
 from memory.learning_store import save_learning, update_performance_stats, detect_market_regime
 from memory.session import log_session
 import time
+from core.sectors import is_close_data
 from utils.direction import classify_direction
+from utils.flow import classify_foreign_flow
 from utils.json_parser import extract_structured_json
 from utils.stats import compute_session_accuracy
 
@@ -42,7 +40,6 @@ def load_morning_brief(date_key: str) -> tuple:
     """
     Read morning brief — tries Obsidian first, falls back to local artifact.
 
-    Fallback path: runs/{date_key}/morning_brief.md
     This file is always written by market_agent.run_market_brief() regardless
     of whether Obsidian is running, so the evening review is resilient to
     Obsidian being offline.
@@ -54,38 +51,30 @@ def load_morning_brief(date_key: str) -> tuple:
 
     # Fallback to local artifacts directory if Obsidian is offline
     if not raw or len(raw.strip()) < 100:
-        print(f"  [step1] [WARN] Obsidian returned nothing. Trying local artifact...")
-        artifact_path = Path(__file__).parent.parent / "runs" / date_key / "morning_brief.md"
-        if artifact_path.exists():
-            raw = artifact_path.read_text(encoding="utf-8")
-            print(f"  [step1] [OK] Loaded morning brief from local file: {artifact_path}")
-        else:
-            print(f"  [step1] [ERR] No local artifact found either: {artifact_path}")
-
-    if not raw or len(raw.strip()) < 100:
-        print(f"  [step1] [ERR] Morning brief not found for {date_key}. Stopping.")
-        return None, None
+        local_raw = load_text_artifact(date_key, "morning_brief.md")
+        if local_raw:
+            raw = local_raw
+            print(f"  [step1] [OK] Loaded morning brief from local artifact for {date_key}")
 
     # Try structured JSON artifact first (faster + exact), fall back to parsing markdown
     structured = load_json_artifact(date_key, "morning_prediction.json")
     if structured:
         try:
             pred = MarketPrediction(**structured)
-            print(f"  [step1] ✅ Structured prediction loaded from JSON artifact.")
+            print("  [step1] ✅ Structured prediction loaded from JSON artifact.")
+            return pred, raw or ""
         except Exception:
-            pred = extract_predictions(raw, date_key)
-            print(f"  [step1] ✅ Brief loaded (JSON artifact malformed; parsed markdown).")
-    else:
-        pred = extract_predictions(raw, date_key)
-        print(f"  [step1] ✅ Brief loaded (no JSON artifact; parsed markdown).")
+            pass
 
+    if not raw or len(raw.strip()) < 100:
+        print(f"  [step1] [ERR] Morning brief not found for {date_key}. Stopping.")
+        return None, None
+
+    pred = extract_predictions(raw, date_key)
+    print("  [step1] ✅ Brief loaded (parsed markdown).")
     print(f"  [step1]    IHSG pred={pred.ihsg_signal} ({pred.ihsg_confidence}%)")
     return pred, raw
 
-
-from utils.direction import classify_direction
-from utils.flow import classify_foreign_flow
-from utils.stats import compute_session_accuracy
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STEP 2 — Collect actual market data
@@ -96,6 +85,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
     Namespaces ihsg and usdidr to avoid provenance collision.
     """
     data = {
+        "date": target_date or date_id,
         "schema_version": 2,
         "evidence_ids": [],
         "target_date": target_date,
@@ -112,11 +102,14 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
             "ihsg_prev": None,
             "ihsg_change_pct": None,
             "ihsg_change_pts": None,
-            "ihsg_signal": "Unknown",
+            "ihsg_signal": "Data error",
             "candle_date": target_date,
             "error": str(e),
+            "error_type": type(e).__name__,
+            "message": str(e),
             "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
             "source": "error",
+            "status": "error",
         }
 
     # Rupiah (USD/IDR)
@@ -128,16 +121,21 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         usdidr_snap = {
             "usdidr": None,
             "usdidr_change_pct": None,
-            "rupiah_signal": "Unavailable",
+            "rupiah_signal": "Data error",
             "candle_date": target_date or jakarta_now().strftime("%Y-%m-%d"),
             "error": str(e),
+            "error_type": type(e).__name__,
+            "message": str(e),
             "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
             "source": "error",
+            "status": "error",
         }
 
     # Namespaced provenance (Phase 2 fix: avoids overwriting source/retrieved_at)
     data["schema_version"] = 2
+    ihsg_err = ihsg_snap.get("error")
     data["ihsg"] = {
+        "status": "error" if ihsg_err else "ok",
         "close": ihsg_snap.get("ihsg_close"),
         "prev": ihsg_snap.get("ihsg_prev"),
         "change_pct": ihsg_snap.get("ihsg_change_pct"),
@@ -151,10 +149,15 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         "source": ihsg_snap.get("source"),
         "retrieved_at": ihsg_snap.get("retrieved_at"),
         "confidence": ihsg_snap.get("confidence", "normal"),
-        "error": ihsg_snap.get("error"),
     }
+    if ihsg_err:
+        data["ihsg"]["error"] = str(ihsg_err)
+        data["ihsg"]["error_type"] = ihsg_snap.get("error_type", "FetchError")
+        data["ihsg"]["message"] = ihsg_snap.get("message", str(ihsg_err))
 
+    usdidr_err = usdidr_snap.get("error")
     data["usdidr"] = {
+        "status": "error" if usdidr_err else "ok",
         "rate": usdidr_snap.get("usdidr"),
         "change_pct": usdidr_snap.get("usdidr_change_pct"),
         "signal": usdidr_snap.get("rupiah_signal"),
@@ -162,8 +165,11 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         "source": usdidr_snap.get("source"),
         "retrieved_at": usdidr_snap.get("retrieved_at"),
         "confidence": usdidr_snap.get("confidence", "normal"),
-        "error": usdidr_snap.get("error"),
     }
+    if usdidr_err:
+        data["usdidr"]["error"] = str(usdidr_err)
+        data["usdidr"]["error_type"] = usdidr_snap.get("error_type", "FetchError")
+        data["usdidr"]["message"] = usdidr_snap.get("message", str(usdidr_err))
 
     # Top-level backwards compatibility flat fields
     data["ihsg_close"] = ihsg_snap.get("ihsg_close")
@@ -183,9 +189,17 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
 
     # Commodities via centralized fetch_all_commodities
     print("  [step2] fetching commodity prices via centralized fetch...")
-    comm_res = fetch_all_commodities(target_label=date_id, search_days=1)
-    data["commodities"] = comm_res["all"]
-    data["evidence_ids"].extend(comm_res["evidence_ids"])
+    try:
+        comm_res = fetch_all_commodities(target_label=date_id, search_days=1)
+        data["commodities"] = comm_res["all"]
+        data["evidence_ids"].extend(comm_res["evidence_ids"])
+    except Exception as e:
+        print(f"  [step2] commodities error: {e}")
+        data["commodities"] = {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "message": str(e),
+        }
 
     # Top gainers / losers
     print("  [step2] fetching top movers...")
@@ -194,48 +208,116 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
             f"saham naik turun terbesar IHSG top gainer loser {date_id}",
             days=1,
             category="top_movers",
-            limit_chars=600,
+            limit_chars=2000,
         )
         data["top_movers"] = text
         data["evidence_ids"].extend(source_ids)
     except Exception as e:
         print(f"  [step2] top movers error: {e}")
-        data["top_movers"] = "N/A"
+        data["top_movers"] = {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "message": str(e),
+        }
 
     # Sector performance (crucial for sector accuracy evaluation)
     print("  [step2] fetching sector performance...")
     try:
         text, source_ids = search_text_with_sources(
-            f"performa sektor IHSG hari ini {date_id} sektor naik turun terbesar",
+            f"performa penutupan sektor IHSG hari ini {date_id} sektor naik turun terbesar",
             days=1,
             category="sector_performance",
-            limit_chars=600,
+            limit_chars=2500,
         )
         data["sector_performance"] = text
         data["evidence_ids"].extend(source_ids)
     except Exception as e:
         print(f"  [step2] sector performance error: {e}")
-        data["sector_performance"] = "N/A"
+        data["sector_performance"] = {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "message": str(e),
+        }
 
-    # Foreign flow using shared utils/flow.py
+    # Foreign flow using shared utils/flow.py (strict date verification)
     print("  [step2] fetching foreign flow...")
     try:
         ff_raw, source_ids = search_text_with_sources(
             f"asing net buy sell IHSG investor asing {date_id}",
             days=1,
             category="foreign_flow",
-            limit_chars=500,
+            limit_chars=1500,
         )
-        data["foreign_flow_raw"] = ff_raw[:500]
+        data["foreign_flow_raw"] = ff_raw[:1500]
         data["evidence_ids"].extend(source_ids)
-        flow_eval = classify_foreign_flow(ff_raw, target_date_str=target_date or date_id)
+        flow_eval = classify_foreign_flow(ff_raw, target_date_str=target_date or date_id, strict=True)
+        if flow_eval.get("error"):
+            flow_eval["status"] = "error"
+        else:
+            flow_eval["status"] = "ok"
         data["foreign_flow"] = flow_eval
         data["foreign_flow_signal"] = flow_eval["signal"]
+        data["divergence_alert"] = flow_eval.get("divergence_alert")
     except Exception as e:
         print(f"  [step2] foreign flow error: {e}")
-        data["foreign_flow"] = {"signal": "Unknown", "net_trillion": None, "error": str(e)}
-        data["foreign_flow_signal"] = "Unknown"
+        data["foreign_flow"] = {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "message": str(e),
+            "signal": "Data error",
+            "net_trillion": None,
+        }
+        data["foreign_flow_signal"] = "Data error"
         data["foreign_flow_raw"]    = "N/A"
+        data["divergence_alert"]    = None
+
+    # Data Quality Evaluation Block (Phase B2)
+    ohlc_valid = validate_ohlc(
+        data["ihsg"].get("open"),
+        data["ihsg"].get("high"),
+        data["ihsg"].get("low"),
+        data["ihsg"].get("close"),
+    )
+    fx_consistent = bool(data["usdidr"].get("rate") is not None and data["usdidr"].get("status") != "error")
+    flow_matched = bool(data["foreign_flow"].get("signal") not in (None, "Unknown", "Data error") and not data["foreign_flow"].get("error"))
+    sector_close = is_close_data(data.get("sector_performance", "") if isinstance(data.get("sector_performance"), str) else "")
+
+    data["data_quality"] = {
+        "overall_valid": bool(ohlc_valid and fx_consistent),
+        "checks": {
+            "ohlc_valid": ohlc_valid,
+            "fx_consistent": fx_consistent,
+            "flow_date_matched": flow_matched,
+            "sector_data_is_close": sector_close,
+        },
+        "fields": {
+            "ihsg": {
+                "source": data["ihsg"].get("source"),
+                "date": data["ihsg"].get("candle_date"),
+                "retrieved_at": data["ihsg"].get("retrieved_at"),
+                "valid": ohlc_valid,
+            },
+            "usdidr": {
+                "source": data["usdidr"].get("source"),
+                "date": data["usdidr"].get("candle_date"),
+                "retrieved_at": data["usdidr"].get("retrieved_at"),
+                "valid": fx_consistent,
+            },
+            "foreign_flow": {
+                "source": "news_search",
+                "date": target_date or date_id,
+                "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+                "valid": flow_matched,
+                "scope": data["foreign_flow"].get("market_scope") or data["foreign_flow"].get("scope", "regular"),
+            },
+            "sectors": {
+                "source": "news_search",
+                "date": target_date or date_id,
+                "retrieved_at": jakarta_now().isoformat(timespec="seconds"),
+                "valid": sector_close,
+            },
+        },
+    }
 
     return data
 
@@ -433,21 +515,28 @@ def _normalize_and_enrich_analysis(
 
     # 5. DETERMINISTIC SYNTHESIS: Guarantee non-empty RCA, lessons, and summary
     has_rca = bool(unanticipated or overestimated or underestimated or info_delay or inverse_correlation)
+    pred_signal = pred.ihsg_signal or "Unknown"
+    if ihsg_actual != "Unknown":
+        act_signal = ihsg_actual
+    elif ihsg_actual_pct is not None:
+        act_signal = "Bearish" if ihsg_actual_pct < 0 else "Bullish"
+    else:
+        act_signal = "Unknown"
+    pct_str = f" {ihsg_actual_pct:+.2f}%" if ihsg_actual_pct is not None else ""
+
     if not has_rca:
-        pred_signal = pred.ihsg_signal or "Unknown"
-        act_signal = ihsg_actual if ihsg_actual != "Unknown" else ("Bearish" if ihsg_actual_pct < 0 else "Bullish")
         if not ihsg_correct:
             if "bull" in pred_signal.lower() and "bear" in act_signal.lower():
                 overestimated.append(
-                    f"Optimisme pembukaan pasar IHSG tertekan aksi jual intraday (IHSG ditutup {act_signal} {ihsg_actual_pct:+.2f}%) berlawanan dengan ekspektasi {pred_signal}."
+                    f"Optimisme pembukaan pasar IHSG tertekan aksi jual intraday (IHSG ditutup {act_signal}{pct_str}) berlawanan dengan ekspektasi {pred_signal}."
                 )
             elif "bear" in pred_signal.lower() and "bull" in act_signal.lower():
                 underestimated.append(
-                    f"Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup {act_signal} {ihsg_actual_pct:+.2f}%) berbanding proyeksi {pred_signal}."
+                    f"Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup {act_signal}{pct_str}) berbanding proyeksi {pred_signal}."
                 )
             else:
                 unanticipated.append(
-                    f"Arah pergerakan indeks IHSG ({act_signal} {ihsg_actual_pct:+.2f}%) mengalami deviasi dari proyeksi pagi ({pred_signal})."
+                    f"Arah pergerakan indeks IHSG ({act_signal}{pct_str}) mengalami deviasi dari proyeksi pagi ({pred_signal})."
                 )
         if not ff_correct and ff_actual != "Unknown":
             unanticipated.append(
@@ -467,19 +556,12 @@ def _normalize_and_enrich_analysis(
         # Fallback if still empty
         if not (unanticipated or overestimated or underestimated or info_delay or inverse_correlation):
             unanticipated.append(
-                f"Volatilitas pasar intraday membawa IHSG ditutup {act_signal} {ihsg_actual_pct:+.2f}% dengan foreign flow {ff_actual}."
+                f"Volatilitas pasar intraday membawa IHSG ditutup {act_signal}{pct_str} dengan foreign flow {ff_actual}."
             )
 
-    if not lessons:
-        act_sig = ihsg_actual if ihsg_actual != "Unknown" else ("Bearish" if ihsg_actual_pct < 0 else "Bullish")
-        lessons.append(
-            f"Ketika proyeksi pagi mengantisipasi IHSG {pred.ihsg_signal} (confidence {pred.ihsg_confidence}%), tetapi sentimen pasar berbalik dan IHSG ditutup {act_sig} {ihsg_actual_pct:+.2f}% (foreign flow {ff_actual}), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time."
-        )
-
     if not summary:
-        act_sig = ihsg_actual if ihsg_actual != "Unknown" else ("Bearish" if ihsg_actual_pct < 0 else "Bullish")
         summary = (
-            f"IHSG ditutup {act_sig} {ihsg_actual_pct:+.2f}% (prediksi {pred.ihsg_signal}); "
+            f"IHSG ditutup {act_signal}{pct_str} (prediksi {pred.ihsg_signal}); "
             f"foreign flow tercatat {ff_actual} (prediksi {pred.foreign_flow_signal})."
         )
 
@@ -759,11 +841,20 @@ def _run_evening_review_internal(date_key: str, start_time: float, now: datetime
         "lessons":                 _string_list(analysis.get("step6_lessons")),
         "summary":                 analysis.get("summary_sentence", "") if isinstance(analysis.get("summary_sentence", ""), str) else "",
         "ihsg_source":             actual.get("ihsg_source") or (actual.get("ihsg", {}).get("source") if isinstance(actual.get("ihsg"), dict) else actual.get("source", "unknown")),
-        "ihsg_confidence":         actual.get("ihsg_confidence") or (actual.get("ihsg", {}).get("confidence") if isinstance(actual.get("ihsg"), dict) else actual.get("confidence", "normal")),
+        "ihsg_data_confidence":    actual.get("ihsg_confidence") or (actual.get("ihsg", {}).get("confidence") if isinstance(actual.get("ihsg"), dict) else actual.get("confidence", "normal")),
         "actual_usdidr":           rate_val,
         "actual_commodities":      {k: v for k, v in actual.get("commodities", {}).items()},
-        "market_regime":           detect_market_regime(learning),
+        "market_regime":           None,
+        "data_quality":            actual.get("data_quality"),
+        "divergence_alert":        actual.get("divergence_alert"),
     }
+    # Enforce Phase B2 rule: sessions with failed data_quality are excluded from scoring and lessons
+    if actual.get("data_quality") and actual["data_quality"].get("overall_valid") is False:
+        learning["accuracy_score"] = None
+        learning["error_rate_pct"] = None
+        learning["lessons"] = []
+        learning["unscorable_reason"] = "data_quality_failed"
+    learning["market_regime"] = detect_market_regime(learning)
 
     # Save structured learning note
     save_learning(date_key, learning)

@@ -17,7 +17,6 @@
   ],
   "recommended_tickers": [
     "BBRI",
-    "BUKA",
     "ENRG",
     "OASA",
     "SMIL",
@@ -26,14 +25,7 @@
     "BBCA",
     "SMDR",
     "AALI",
-    "ICBP",
-    "MBMA",
-    "BMRI",
-    "ADRO",
-    "GOTO",
-    "BUMI",
-    "EXCL",
-    "ANTM"
+    "ICBP"
   ],
   "key_risk": "Sustained currency depreciation and foreign capital outflows crossing critical Rupiah exchange rate thresholds against the US dollar could trigger aggressive domestic institutional selling and deepen the IHSG correction.",
   "commodities_predicted": {},
@@ -52,5 +44,12 @@
     "src_cae0526bbb",
     "src_da1df2a769",
     "src_fd114099c0"
-  ]
+  ],
+  "lock_hash": "7ce218621ab3d7e6",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import Optional, Any
+from typing import Optional
 
 
 class MarketDataProvider(ABC):

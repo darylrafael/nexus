@@ -16,7 +16,6 @@
     "Perbankan (Big Banks)"
   ],
   "recommended_tickers": [
-    "AADI",
     "TLKM",
     "BMRI",
     "BBNI",
@@ -26,15 +25,7 @@
     "CPIN",
     "PTBA",
     "INCO",
-    "TINS",
-    "LSIP",
-    "ITMG",
-    "AALI",
-    "ANTM",
-    "BBCA",
-    "TAMU",
-    "ASII",
-    "MBMA"
+    "TINS"
   ],
   "key_risk": "Volatilitas nilai tukar Rupiah terhadap Dolar AS di sekitar level Rp17.880/USD yang dapat memicu aksi jual lanjutan dari investor asing jika tekanan likuiditas global meningkat.",
   "commodities_predicted": {},
@@ -47,5 +38,12 @@
     "src_b06cf41a68",
     "src_d9d2da4931",
     "src_f362c315e6"
-  ]
+  ],
+  "lock_hash": "ef4453b939e63778",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

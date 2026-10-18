@@ -101,6 +101,22 @@
   "top_movers": "[no date] 558 Saham Melemah, IHSG Turun 0,9% (Jumat, 25 ...\nIndeks Harga Saham Gabungan (IHSG) turun 0,90% ke level 6.241,89 pada penutupan perdagangan Jumat (25/9/2026).\n\nIndeks turun seiring dengan melemahnya 558 saham, sementara 118 saham menguat dan 117 saham stagnan.\n\nBerdasarkan Indeks Sektoral IDX-IC, seluruh atau 11 sektor saham terkoreksi hari ini.\n\nSektor industri jatuh paling dalam hingga 2,52%, diikuti sektor infrastruktur dan sektor transportasi yang masing-ma\nSource IDs: src_cfadaa8cbc, src_86508aaca8, src_e21f2da9cd, src_728094c222, src_9edb4e5db0, src_dcaac2a92c, src_4e93fb27d3",
   "sector_performance": "[no date] Semua Sektor Saham Turun, Industri Paling Bawah (Jumat ...\nIndeks Harga Saham Gabungan (IHSG) turun 0,90% ke level 6.241,89 pada penutupan perdagangan Jumat (25/9/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, semua sektor saham ditutup turun hari ini. Sektor industri jatuh paling dalam setelah melemah 2,52%.\n\nBerikut rincian persentase pergerakan harian Indeks Sektoral IDX-IC pada penutupan perdagangan Jumat (25/9/2026): [...] ## Semua Sektor Saham Turun, Barang Ba\nSource IDs: src_67ea2f4fe6, src_4846d7adae, src_6d44ed0fb0, src_b933beadba, src_fa0ccc2887, src_88afde084d, src_5d4a76dc94",
   "foreign_flow_raw": "[no date] Asing Net Buy atau Net Sell IHSG Agustus 2026\nSepanjang Agustus 2026, asing tercatat net buy tipis Rp942,0 miliar di seluruh pasar IHSG — namun angka ini menyembunyikan pasar reguler yang justru net sell Rp3,47 triliun, dengan surplusnya ditopang pasar negosiasi yang net buy Rp4,41 triliun, mayoritas dari satu transaksi jumbo DSSA terkait pelepasan saham treasuri.\nSource IDs: src_b2b9ee584b, src_cab1d1ad8f, src_630f1d9397, src_7e574d2c2a, src_c53964f434, src_51e8e513a2, src_fc5c963d11",
-  "foreign_flow_signal": "Accumulation",
-  "schema_version": 1
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_matching_date"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.106,
+    "stored_usdidr_change_pct": 0.106,
+    "rescored_at": "2026-10-15"
+  }
 }

@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -1.02,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Heavy Equipment/Mining Services": null,
     "Mineral Non-Energi": null,
@@ -92,5 +92,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_1de5e9219f, src_bf08793d8b, src_d82bd6dcd4, src_bae08dce04"
     }
+  },
+  "usdidr_change_pct": 2.195,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.476,
+    "stored_usdidr_change_pct": 2.195,
+    "rescored_at": "2026-10-15"
   }
 }

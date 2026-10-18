@@ -1,0 +1,409 @@
+"""Nexus Strict & Auditable Mobile/Desktop Viewport Audit (tests/audit_mobile_viewports.py).
+
+Enforces Phase 7.1, 7.2, 7.3, and 7.5 requirements:
+1. Committed threshold constants (tested against weakening in unit tests):
+   - MIN_ESSENTIAL_TEXT_PX = 12
+   - MIN_ANY_TEXT_PX = 11
+   - MIN_TAP_TARGET_PX = 44
+   - MAX_MOBILE_PAGE_HEIGHT_PX = 2900
+   - MAX_CALL_CARD_FOLD_PX = 844
+2. Iterates over ALL visible text nodes and ALL interactive elements.
+3. Verifies stale pipeline state: stale banner visible, "No new call generated today"
+   present, zero "Live" chips, and call card within first 844px at 360/390/430.
+4. Verifies zero horizontal overflow, zero console errors, zero failed same-origin
+   requests, and zero external Google Fonts requests.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+from typing import Any, Dict, List
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+# Committed strict thresholds (Phase 7.3) — do NOT weaken
+MIN_ESSENTIAL_TEXT_PX: int = 12
+MIN_ANY_TEXT_PX: int = 11
+MIN_TAP_TARGET_PX: int = 44
+MAX_MOBILE_PAGE_HEIGHT_PX: int = 2900
+MAX_CALL_CARD_FOLD_PX: int = 844
+MOBILE_WIDTHS: tuple[int, ...] = (360, 390, 430)
+
+DEFAULT_OUTPUT_DIR = os.environ.get(
+    "NEXUS_AUDIT_OUTPUT_DIR",
+    r"C:\Users\Lenovo\.gemini\antigravity\brain\78122c40-e208-430b-a691-9f3f14346e94\screenshots",
+)
+
+VIEWPORTS: List[Dict[str, Any]] = [
+    {"name": "mobile_360", "width": 360, "height": 780},
+    {"name": "mobile_390_iphone", "width": 390, "height": 844},
+    {"name": "mobile_430_promax", "width": 430, "height": 932},
+    {"name": "tablet_768", "width": 768, "height": 1024},
+    {"name": "desktop_1024", "width": 1024, "height": 768},
+    {"name": "desktop_1440", "width": 1440, "height": 900},
+]
+
+
+def validate_audit_thresholds() -> bool:
+    """Assert that committed audit thresholds meet or exceed Phase 7.3 minimums."""
+    if MIN_ESSENTIAL_TEXT_PX < 12:
+        raise ValueError(f"MIN_ESSENTIAL_TEXT_PX weakened: {MIN_ESSENTIAL_TEXT_PX} < 12")
+    if MIN_ANY_TEXT_PX < 11:
+        raise ValueError(f"MIN_ANY_TEXT_PX weakened: {MIN_ANY_TEXT_PX} < 11")
+    if MIN_TAP_TARGET_PX < 44:
+        raise ValueError(f"MIN_TAP_TARGET_PX weakened: {MIN_TAP_TARGET_PX} < 44")
+    if MAX_MOBILE_PAGE_HEIGHT_PX > 2900:
+        raise ValueError(f"MAX_MOBILE_PAGE_HEIGHT_PX weakened: {MAX_MOBILE_PAGE_HEIGHT_PX} > 2900")
+    if MAX_CALL_CARD_FOLD_PX > 844:
+        raise ValueError(f"MAX_CALL_CARD_FOLD_PX weakened: {MAX_CALL_CARD_FOLD_PX} > 844")
+    return True
+
+
+def run_audit(
+    target_url: str = "http://127.0.0.1:3002",
+    output_dir: str = DEFAULT_OUTPUT_DIR,
+) -> Dict[str, Any]:
+    from playwright.sync_api import sync_playwright
+
+    validate_audit_thresholds()
+    os.makedirs(output_dir, exist_ok=True)
+
+    results: Dict[str, Any] = {}
+    all_console_errors: List[str] = []
+    all_failed_requests: List[str] = []
+    external_font_requests: List[str] = []
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+
+        for vp in VIEWPORTS:
+            for theme in ["dark", "light"]:
+                key = f"{vp['name']}_{theme}"
+                print(f"Auditing {key} ({vp['width']}x{vp['height']}) in {theme} mode...")
+
+                context = browser.new_context(
+                    viewport={"width": vp["width"], "height": vp["height"]},
+                    device_scale_factor=2,
+                )
+                page = context.new_page()
+
+                page.on(
+                    "console",
+                    lambda msg, k=key: all_console_errors.append(f"[{k}] {msg.type}: {msg.text}")
+                    if msg.type == "error"
+                    else None,
+                )
+                page.on(
+                    "pageerror",
+                    lambda err, k=key: all_console_errors.append(f"[{k}] PageError: {err}"),
+                )
+                page.on(
+                    "request",
+                    lambda req, k=key: external_font_requests.append(f"[{k}] {req.url}")
+                    if ("fonts.googleapis.com" in req.url or "fonts.gstatic.com" in req.url)
+                    else None,
+                )
+                page.on(
+                    "response",
+                    lambda resp, k=key: all_failed_requests.append(
+                        f"[{k}] {resp.url} returned {resp.status}"
+                    )
+                    if resp.status >= 400 and ("127.0.0.1" in resp.url or "localhost" in resp.url)
+                    else None,
+                )
+
+                page.goto(target_url, wait_until="networkidle")
+                page.wait_for_timeout(800)
+
+                page.evaluate(f"document.documentElement.setAttribute('data-theme', '{theme}')")
+                page.wait_for_timeout(250)
+
+                # 1. Horizontal overflow check
+                overflow_info = page.evaluate(
+                    """() => {
+                    const docWidth = document.documentElement.scrollWidth;
+                    const winWidth = window.innerWidth;
+                    const hasOverflow = docWidth > winWidth + 1;
+                    const overflowingEls = [];
+                    if (hasOverflow) {
+                        for (const el of document.querySelectorAll('*')) {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.right > winWidth + 1.5) {
+                                overflowingEls.push({
+                                    tag: el.tagName,
+                                    class: String(el.className || ''),
+                                    right: Math.round(rect.right),
+                                    winWidth
+                                });
+                                if (overflowingEls.length >= 5) break;
+                            }
+                        }
+                    }
+                    return { docWidth, winWidth, hasOverflow, overflowingEls };
+                }"""
+                )
+
+                # 2. All visible text nodes check against MIN_ANY_TEXT_PX and MIN_ESSENTIAL_TEXT_PX
+                font_audit = page.evaluate(
+                    """(thresholds) => {
+                    const { minAnyPx, minEssentialPx } = thresholds;
+                    const walker = document.createTreeWalker(
+                        document.body,
+                        NodeFilter.SHOW_TEXT,
+                        {
+                            acceptNode: (node) => {
+                                if (!node.textContent || !node.textContent.trim()) {
+                                    return NodeFilter.FILTER_REJECT;
+                                }
+                                let el = node.parentElement;
+                                while (el) {
+                                    const st = window.getComputedStyle(el);
+                                    if (st.display === 'none' || st.visibility === 'hidden' || parseFloat(st.opacity) === 0) {
+                                        return NodeFilter.FILTER_REJECT;
+                                    }
+                                    el = el.parentElement;
+                                }
+                                return NodeFilter.FILTER_ACCEPT;
+                            }
+                        }
+                    );
+
+                    let totalTextNodes = 0;
+                    let countUnder11 = 0;
+                    let countUnder12Essential = 0;
+                    const tinySamples = [];
+                    const essentialTags = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'ARTICLE']);
+
+                    while (walker.nextNode()) {
+                        totalTextNodes++;
+                        const node = walker.currentNode;
+                        const parent = node.parentElement;
+                        const rect = parent.getBoundingClientRect();
+                        if (rect.width === 0 || rect.height === 0) continue;
+                        const style = window.getComputedStyle(parent);
+                        const size = parseFloat(style.fontSize);
+                        const roundedSize = Math.round(size);
+                        const text = node.textContent.trim();
+
+                        if (roundedSize < minAnyPx) {
+                            countUnder11++;
+                            if (tinySamples.length < 8) {
+                                tinySamples.push({
+                                    text: text.slice(0, 35),
+                                    size: Math.round(size * 10) / 10,
+                                    tag: parent.tagName,
+                                    class: String(parent.className || '')
+                                });
+                            }
+                        } else if (roundedSize < minEssentialPx && essentialTags.has(parent.tagName)) {
+                            countUnder12Essential++;
+                            if (tinySamples.length < 8) {
+                                tinySamples.push({
+                                    text: text.slice(0, 35),
+                                    size: Math.round(size * 10) / 10,
+                                    tag: parent.tagName,
+                                    class: String(parent.className || ''),
+                                    note: 'essential tag under 12px'
+                                });
+                            }
+                        }
+                    }
+
+                    return { totalTextNodes, countUnder11, countUnder12Essential, tinySamples };
+                }""",
+                    {
+                        "minAnyPx": MIN_ANY_TEXT_PX,
+                        "minEssentialPx": MIN_ESSENTIAL_TEXT_PX,
+                    },
+                )
+
+                # 3. All interactive elements check against MIN_TAP_TARGET_PX (44x44)
+                tap_audit = page.evaluate(
+                    """(minTargetPx) => {
+                    const selector = [
+                        'button',
+                        'a[href]',
+                        'input',
+                        'select',
+                        'textarea',
+                        '[role="button"]',
+                        '[role="link"]',
+                        '[tabindex]:not([tabindex="-1"])',
+                        '[onclick]'
+                    ].join(', ');
+                    const candidates = new Set(document.querySelectorAll(selector));
+
+                    // Also include elements with React onClick handlers (except table rows which span full width)
+                    for (const el of document.querySelectorAll('*')) {
+                        if (el.tagName === 'TR') continue;
+                        for (const key of Object.keys(el)) {
+                            if (key.startsWith('__reactProps$') && el[key] && typeof el[key].onClick === 'function') {
+                                candidates.add(el);
+                            }
+                        }
+                    }
+
+                    let totalInteractive = 0;
+                    let smallTargets = 0;
+                    const samples = [];
+
+                    for (const el of candidates) {
+                        let cur = el;
+                        let hidden = false;
+                        while (cur) {
+                            const st = window.getComputedStyle(cur);
+                            if (st.display === 'none' || st.visibility === 'hidden' || parseFloat(st.opacity) === 0) {
+                                hidden = true;
+                                break;
+                            }
+                            cur = cur.parentElement;
+                        }
+                        if (hidden) continue;
+
+                        const rect = el.getBoundingClientRect();
+                        if (rect.width <= 0 || rect.height <= 0) continue;
+                        totalInteractive++;
+
+                        if (Math.round(rect.width) < minTargetPx || Math.round(rect.height) < minTargetPx) {
+                            smallTargets++;
+                            if (samples.length < 8) {
+                                samples.push({
+                                    tag: el.tagName,
+                                    class: String(el.className || ''),
+                                    width: Math.round(rect.width * 10) / 10,
+                                    height: Math.round(rect.height * 10) / 10,
+                                    text: (el.textContent || '').trim().slice(0, 25)
+                                });
+                            }
+                        }
+                    }
+
+                    return { totalInteractive, smallTargets, samples };
+                }""",
+                    MIN_TAP_TARGET_PX,
+                )
+
+                # 4. Stale banner, no "Live" chip, and Call Card within 844px fold
+                state_check = page.evaluate(
+                    """(maxFoldPx) => {
+                    const banner = document.querySelector('.stale-pipeline-banner');
+                    const bannerRect = banner ? banner.getBoundingClientRect() : null;
+                    const staleBannerVisible = Boolean(banner && bannerRect && bannerRect.height > 0);
+                    const bodyText = document.body.innerText || '';
+                    const hasNoNewCallText = bodyText.includes('No new call generated today');
+
+                    // Ensure no status pill or sidebar badge claims "LIVE" or "⏳ Live"
+                    let hasLiveChip = false;
+                    for (const el of document.querySelectorAll('.status-pill, .sidebar-session-item, .live-badge')) {
+                        const txt = (el.textContent || '').trim();
+                        if (/\\bLIVE\\b/i.test(txt)) {
+                            hasLiveChip = true;
+                            break;
+                        }
+                    }
+
+                    const badge = document.querySelector('.today-call-card .dir-badge, .today-call-dir-hero .dir-badge');
+                    if (!badge) {
+                        return {
+                            staleBannerVisible,
+                            hasNoNewCallText,
+                            hasLiveChip,
+                            exists: false,
+                            top: null,
+                            bottom: null,
+                            within844Fold: false
+                        };
+                    }
+                    const rect = badge.getBoundingClientRect();
+                    return {
+                        staleBannerVisible,
+                        hasNoNewCallText,
+                        hasLiveChip,
+                        exists: true,
+                        top: Math.round(rect.top),
+                        bottom: Math.round(rect.bottom),
+                        within844Fold: rect.bottom <= maxFoldPx
+                    };
+                }""",
+                    MAX_CALL_CARD_FOLD_PX,
+                )
+
+                # 5. Full page height
+                page_height = page.evaluate("() => document.documentElement.scrollHeight")
+
+                # 6. Screenshots
+                fold_screenshot = os.path.join(output_dir, f"{key}_fold.png")
+                page.screenshot(path=fold_screenshot, full_page=False)
+
+                full_screenshot = os.path.join(output_dir, f"{key}_full.png")
+                page.screenshot(path=full_screenshot, full_page=True)
+
+                is_mobile = vp["width"] in MOBILE_WIDTHS
+                height_pass = (page_height <= MAX_MOBILE_PAGE_HEIGHT_PX) if is_mobile else True
+
+                results[key] = {
+                    "viewport": f"{vp['width']}x{vp['height']}",
+                    "width": vp["width"],
+                    "height": vp["height"],
+                    "theme": theme,
+                    "overflow": overflow_info,
+                    "fonts": font_audit,
+                    "tap_targets": tap_audit,
+                    "fold_check": state_check,
+                    "page_height": page_height,
+                    "height_pass": height_pass,
+                    "fold_screenshot": fold_screenshot,
+                    "full_screenshot": full_screenshot,
+                }
+
+                context.close()
+
+        browser.close()
+
+    results["thresholds"] = {
+        "MIN_ESSENTIAL_TEXT_PX": MIN_ESSENTIAL_TEXT_PX,
+        "MIN_ANY_TEXT_PX": MIN_ANY_TEXT_PX,
+        "MIN_TAP_TARGET_PX": MIN_TAP_TARGET_PX,
+        "MAX_MOBILE_PAGE_HEIGHT_PX": MAX_MOBILE_PAGE_HEIGHT_PX,
+        "MAX_CALL_CARD_FOLD_PX": MAX_CALL_CARD_FOLD_PX,
+    }
+    results["console_errors"] = all_console_errors
+    results["failed_requests"] = all_failed_requests
+    results["external_font_requests"] = external_font_requests
+
+    summary_path = os.path.join(output_dir, "audit_summary.json")
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2)
+
+    print("\n============================================================")
+    print("           EXHAUSTIVE QUALITY AUDIT SUMMARY                 ")
+    print("============================================================")
+    print(f"Configurations Tested: {len(VIEWPORTS) * 2}")
+    print(f"Console Errors: {len(all_console_errors)}")
+    print(f"Failed Same-Origin Requests: {len(all_failed_requests)}")
+    print(f"External Font Requests: {len(external_font_requests)}")
+
+    for k, r in results.items():
+        if k in ("thresholds", "console_errors", "failed_requests", "external_font_requests"):
+            continue
+        ov = r["overflow"]
+        fn = r["fonts"]
+        tt = r["tap_targets"]
+        fc = r["fold_check"]
+        h = r["page_height"]
+        print(
+            f"[{k}] Height: {h}px | Overflow: {ov['hasOverflow']} | "
+            f"Under 11px: {fn['countUnder11']} | Essential <12px: {fn['countUnder12Essential']} | "
+            f"Small Targets (<44px): {tt['smallTargets']} | "
+            f"StaleBanner: {fc['staleBannerVisible']} | LiveChip: {fc['hasLiveChip']} | "
+            f"CallFold: {fc['bottom']}px (<=844: {fc['within844Fold']})"
+        )
+
+    return results
+
+
+if __name__ == "__main__":
+    run_audit()

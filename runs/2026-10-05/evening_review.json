@@ -5,18 +5,18 @@
   "ihsg_actual": "Bullish",
   "ihsg_actual_pct": 1.36,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Distribution",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Oil & Gas Upstream": null,
     "Heavy Equipment": null,
     "Coal Mining": null,
-    "Nickel Mining": null,
+    "Nickel Mining": false,
     "Transport & Aviation": null,
-    "Petrochemicals": null,
+    "Petrochemicals": false,
     "Fertilizer & Utilities": null,
-    "Palm Oil": null
+    "Palm Oil": false
   },
   "error_rate_pct": 100,
   "accuracy_score": 0,
@@ -88,5 +88,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: LME Nickel Falls to 2026 Low of US$16,055/t -\nQ\nSource IDs: src_a4f1b4fef6, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_9e65e1e7dd, src_bf08793d8b, src_bae08dce04"
     }
+  },
+  "usdidr_change_pct": -0.38,
+  "rupiah_signal": "Strengthened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.106,
+    "stored_usdidr_change_pct": -0.38,
+    "rescored_at": "2026-10-15"
   }
 }

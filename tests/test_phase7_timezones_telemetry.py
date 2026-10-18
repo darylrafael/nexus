@@ -1,14 +1,11 @@
-import json
-import pytest
-from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
-from unittest.mock import patch, MagicMock
+from datetime import timedelta
+from unittest.mock import patch
 
-from core.time import jakarta_now, JAKARTA_TZ
-from memory.session import _get_conn, init_db, log_session, export_telemetry_json
+from core.time import jakarta_now
+from memory.session import init_db, log_session, export_telemetry_json
 from memory.artifacts import save_json_artifact, load_json_artifact
 from memory.obsidian import write_note, reset_obsidian_status
-from delivery.telegram import markdown_to_safe_html, clean_telegram_text
+from delivery.telegram import markdown_to_safe_html
 from utils.text import split_text
 from schemas import validate_artifact_data
 
@@ -138,7 +135,8 @@ def test_artifact_schema_validation(tmp_path, monkeypatch):
 
 # ── 5. Obsidian Offline Circuit Breaker ──────────────────────────────────────
 
-def test_obsidian_circuit_breaker():
+def test_obsidian_circuit_breaker(monkeypatch):
+    monkeypatch.setattr("memory.obsidian.OBSIDIAN_API_KEY", "dummy_test_key")
     reset_obsidian_status()
 
     import memory.obsidian as obs

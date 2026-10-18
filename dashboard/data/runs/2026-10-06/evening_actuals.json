@@ -101,6 +101,22 @@
   "top_movers": "[no date] Semua Sektor Saham Naik, Transportasi Memimpin (Selasa, 6 Oktober 2026)\nFrekuensi perdagangan saham dalam negeri hari ini 1,88 juta kali transaksi, total saham berpindah tangan 48,23 miliar lembar, dan nilai transaksi mencapai Rp12,35 triliun.\n\nTRUE menjadi emiten top gainer hari ini usai terbang 34,78%, diikuti POLA yang melonjak 34,15% dan ASMI yang melesat 32%.\n\nROCK menjadi emiten top loser setelah anjlok 14,86%, diikuti FORU yang turun 10,79% dan LUCY yang m\nSource IDs: src_6442a13701, src_89283dbafb, src_570b9a06d2, src_deaf58e533, src_216ad30460, src_d0f7591dd0, src_e66c9ac2d2",
   "sector_performance": "[no date] Instagram\nIHSG +1,26% ke level 6.196,092 di sesi I Selasa (6/10/2026). Sektor dengan kenaikan terbesar Transportation +3,33%, Technology +2,59%, dan Energy +2,33%. Saham penopang utama IHSG GOTO +6,90%, intraday GOTO melesat +10,34% ke level Rp32 per saham di sesi I, dan catat nilai transaksi terbesar. Tren pemulihan berlanjut setelah GOTO keluar dari level Rp50, akibat kebijakan baru BEI. Seemtara itu, BBRI +1,60%, BMRI +1,22%, DEWA +7,51%, AMMN +1,66%, DCII +2,\nSource IDs: src_1406fcb76d, src_e726eca9a4, src_e021d59f9c, src_ca60e8da32, src_88afde084d, src_144cbd384a, src_6eba3ee238",
   "foreign_flow_raw": "[no date] Net Sell masih Berlanjut Rp 252,65 Miliar, Sebaliknya Investor Asing Mulai Kolek Saham Bank Besar Ini\nJAKARTA, investortrust.id – Pemodal asing masih melanjutkan penjualan bersih (net sell) saham senilai Rp 252,65 miliar, seiring dengan penurunan indeks harga saham gabungan (IHSG) Bursa Efek Indonesia (BEI) sebanyak 16,35 poin (0,28%) menjadi 5.886 pada Kamis (11/6\nSource IDs: src_21f5a38d17, src_7e574d2c2a, src_d443fbbfe4, src_61df098b53, src_db3cf4e212, src_bb7e7c0c93, src_8e718f89d5",
-  "foreign_flow_signal": "Distribution",
-  "schema_version": 1
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_matching_date"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.039,
+    "stored_usdidr_change_pct": 0.951,
+    "rescored_at": "2026-10-15"
+  }
 }

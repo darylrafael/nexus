@@ -1,17 +1,32 @@
-import sqlite3
 import json
-from datetime import datetime
 from pathlib import Path
+import sqlite3
 from memory.artifacts import atomic_write_file
+from core.paths import get_db_path, get_memory_dir
 from core.time import jakarta_now
 
-DB_PATH = Path(__file__).parent.parent / "nexus_sessions.db"
-_DB_INITIALIZED = False
+import sys
+
+DB_PATH: Path | None = None
+_DB_INITIALIZED: bool | Path = False
+
+
+def _get_active_db_path() -> Path:
+    override = getattr(sys.modules[__name__], "DB_PATH", None)
+    return Path(override) if override is not None else get_db_path()
+
+
+def set_db_path(path: Path | str | None):
+    """Override DB path for isolated test environments."""
+    mod = sys.modules[__name__]
+    setattr(mod, "DB_PATH", Path(path) if path is not None else None)
+    setattr(mod, "_DB_INITIALIZED", False)
 
 
 def _get_conn() -> sqlite3.Connection:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    active_path = _get_active_db_path()
+    active_path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(active_path, timeout=30.0)
     conn.execute("PRAGMA journal_mode = WAL;")
     conn.execute("PRAGMA busy_timeout = 30000;")
     conn.row_factory = sqlite3.Row
@@ -19,9 +34,10 @@ def _get_conn() -> sqlite3.Connection:
 
 
 def init_db(force: bool = False):
-    """Create tables if they don't exist. Initialized once per process unless forced."""
-    global _DB_INITIALIZED
-    if _DB_INITIALIZED and not force:
+    """Create tables if they don't exist. Initialized once per DB path unless forced."""
+    mod = sys.modules[__name__]
+    active_path = _get_active_db_path()
+    if getattr(mod, "_DB_INITIALIZED", False) == active_path and not force and active_path.exists():
         return
     with _get_conn() as conn:
         conn.execute("""
@@ -46,7 +62,7 @@ def init_db(force: bool = False):
                 agents_used     TEXT    DEFAULT '{}'
             )
         """)
-    _DB_INITIALIZED = True
+    setattr(mod, "_DB_INITIALIZED", active_path)
 
 
 def log_session(
@@ -181,9 +197,9 @@ def export_telemetry_json(output_path: Path = None) -> dict:
     }
 
     if output_path is None:
-        runs_dir = Path(__file__).parent.parent / "runs" / "global"
-        runs_dir.mkdir(parents=True, exist_ok=True)
-        output_path = runs_dir / "telemetry.json"
+        mem_dir = get_memory_dir()
+        mem_dir.mkdir(parents=True, exist_ok=True)
+        output_path = mem_dir / "telemetry.json"
     else:
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)

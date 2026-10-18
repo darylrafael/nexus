@@ -10,8 +10,8 @@ export default function ExecutionTelemetry() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTelemetry = async () => {
-    setLoading(true);
+  const fetchTelemetry = async (showLoadingState = true) => {
+    if (showLoadingState) setLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/telemetry');
@@ -28,7 +28,7 @@ export default function ExecutionTelemetry() {
   };
 
   useEffect(() => {
-    fetchTelemetry();
+    fetchTelemetry(false);
   }, []);
 
   if (loading) {
@@ -56,7 +56,7 @@ export default function ExecutionTelemetry() {
       <PipelineHealth stats={data.stats} />
 
       <div className="section-eyebrow font-mono" style={{ marginTop: '28px' }}>
-        02 · DETERMINISTIC AGENT PERFORMANCE
+        02 · PIPELINE AGENT PERFORMANCE
       </div>
       <AgentBreakdownTable breakdown={data.agentBreakdown} />
 

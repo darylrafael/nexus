@@ -7,16 +7,13 @@ Comprehensive tests verifying Phase B2:
 3. build_learning_context with exponential time decay, regime prioritization, and lifecycle badging.
 4. update_performance_stats canonical heuristics lifecycle tracking.
 """
-import pytest
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from memory.learning_store import (
     detect_market_regime,
     evaluate_heuristic_lifecycle,
     build_learning_context,
     update_performance_stats,
-    load_performance_stats,
-    MAX_LESSONS_INJECTED,
 )
 from core.time import jakarta_now
 
@@ -116,7 +113,7 @@ def test_evaluate_heuristic_lifecycle():
 
 
 def test_build_learning_context_decay_and_regime():
-    now_str = jakarta_now().strftime("%Y-%m-%d")
+    jakarta_now().strftime("%Y-%m-%d")
     recent_date = (jakarta_now() - timedelta(days=1)).strftime("%Y-%m-%d")
     stale_date = (jakarta_now() - timedelta(days=20)).strftime("%Y-%m-%d")
 

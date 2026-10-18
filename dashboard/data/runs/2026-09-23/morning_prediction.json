@@ -24,12 +24,7 @@
     "BMRI",
     "GOTO",
     "ADRO",
-    "BYAN",
-    "TAPG",
-    "ASII",
-    "APIC",
-    "BBCA",
-    "INDY"
+    "BYAN"
   ],
   "key_risk": "Pergerakan nilai tukar rupiah terhadap dolar AS (USD/IDR di kisaran Rp17.813) serta hasil pengumuman resmi BI Rate akan menjadi penentu utama apakah IHSG mampu melakukan *rebound* atau justru melanjutkan tren pelemahan ke bawah level psikologis 6.250 [src_7857e20ee0].",
   "commodities_predicted": {},
@@ -49,5 +44,12 @@
     "src_ed70769def",
     "src_f1dad1f235",
     "src_f362c315e6"
-  ]
+  ],
+  "lock_hash": "02f6f8f11cf83ffa",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

@@ -1,5 +1,4 @@
 import pytest
-from datetime import datetime, date
 from unittest.mock import MagicMock
 
 from core.calendar import (
@@ -7,16 +6,12 @@ from core.calendar import (
     is_idx_trading_day,
     get_holiday_reason,
     get_last_trading_day,
-    get_trading_day_or_previous,
 )
 from data_sources.provider import (
-    MarketDataProvider,
     YahooMarketDataProvider,
     LicensedMarketDataProvider,
-    get_market_data_provider,
 )
 import agents.web_agent as wa
-from schemas import SourceRecord
 
 
 # ── 1. IDX Trading Holiday Calendar ──────────────────────────────────────────
@@ -78,6 +73,7 @@ def test_market_data_provider_licensing_and_public_mode_guard(monkeypatch):
 def test_web_agent_domain_filtering(monkeypatch):
     wa.clear_search_cache()
 
+    now_str = wa.jakarta_now().isoformat()
     mock_client = MagicMock()
     mock_client.search.return_value = {
         "results": [
@@ -85,19 +81,19 @@ def test_web_agent_domain_filtering(monkeypatch):
                 "title": "Legitimate News Article",
                 "url": "https://market.bisnis.com/read/20261008/ihsg-menguat",
                 "content": "IHSG ditutup menguat",
-                "published_date": "2026-10-08T10:00:00",
+                "published_date": now_str,
             },
             {
                 "title": "Unverified Social Rumor",
                 "url": "https://www.tiktok.com/@trader_xyz/video/12345",
                 "content": "Saham ini bakal terbang",
-                "published_date": "2026-10-08T10:00:00",
+                "published_date": now_str,
             },
             {
                 "title": "Twitter Thread",
                 "url": "https://x.com/analyst/status/67890",
                 "content": "Rumor IHSG",
-                "published_date": "2026-10-08T10:00:00",
+                "published_date": now_str,
             },
             {
                 "title": "Report Without Date",

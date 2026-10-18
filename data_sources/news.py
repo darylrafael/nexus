@@ -2,12 +2,16 @@ from agents.web_agent import format_source_records, search_web_records
 
 
 def _limit_text_preserving_source_ids(text: str, source_ids: list[str], limit_chars: int | None) -> str:
-    if limit_chars is None or len(text) <= limit_chars:
+    if limit_chars is None:
         return text
 
     suffix = "\nSource IDs: " + ", ".join(source_ids) if source_ids else ""
-    body_limit = max(limit_chars - len(suffix), 0)
-    return text[:body_limit].rstrip() + suffix
+    if len(text) <= limit_chars:
+        if suffix and suffix not in text:
+            return text + suffix
+        return text
+
+    return text[:limit_chars].rstrip() + suffix
 
 
 def search_text_with_sources(

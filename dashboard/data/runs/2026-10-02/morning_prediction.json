@@ -30,19 +30,8 @@
     "RUIS",
     "BNBR",
     "GOTO",
-    "BUMI",
     "PADI",
-    "BYAN",
-    "CUAN",
-    "ENRG",
-    "KPIG",
-    "MEDC",
-    "PTBA",
-    "BBRI",
-    "BMRI",
-    "ALKA",
-    "ITMG",
-    "DSSA"
+    "BYAN"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -63,5 +52,12 @@
     "src_d6e6102c8e",
     "src_ee9f97789b",
     "src_f362c315e6"
-  ]
+  ],
+  "lock_hash": "4fa244d072675422",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

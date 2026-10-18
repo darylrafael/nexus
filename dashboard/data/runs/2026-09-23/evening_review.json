@@ -5,17 +5,17 @@
   "ihsg_actual": "Bullish",
   "ihsg_actual_pct": 1.56,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Energi": false,
     "Properti & Industri": false,
     "Barang Konsumen Non": true,
     "Keuangan": null
   },
-  "error_rate_pct": 80,
-  "accuracy_score": 20,
+  "error_rate_pct": 88,
+  "accuracy_score": 12,
   "rca_unanticipated": [
     "Bank Indonesia memutuskan mempertahankan BI Rate di level 5,75% sesuai antisipasi, meredakan ketidakpastian pasar."
   ],
@@ -75,5 +75,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today | Live LME Nickel Spot Price (2026)\n--.--\n\n•\n\nLC\nSource IDs: src_cae0526bbb, src_e7b01f3b12, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_3d959b8119"
     }
+  },
+  "usdidr_change_pct": -0.447,
+  "rupiah_signal": "Strengthened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.447,
+    "stored_usdidr_change_pct": -0.447,
+    "rescored_at": "2026-10-15"
   }
 }

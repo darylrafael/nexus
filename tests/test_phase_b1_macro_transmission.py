@@ -1,6 +1,5 @@
-import pytest
 from utils.flow import classify_foreign_flow
-from agents.economics_engine import build_economics_context, SECTOR_LOGIC, RUPIAH_LOGIC
+from agents.economics_engine import build_economics_context, SECTOR_LOGIC
 
 
 def test_classify_foreign_flow_regular_market():

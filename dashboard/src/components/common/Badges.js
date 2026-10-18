@@ -1,11 +1,11 @@
 'use client';
 
-export function StatusBadge({ correct, isPending, size = 'md' }) {
+export function StatusBadge({ correct, isPending, size = 'md', isLive = false }) {
   if (isPending || correct === null || correct === undefined) {
     return (
-      <span className={`status-pill status-pending ${size === 'sm' ? 'status-sm' : ''}`}>
+      <span className={`status-pill ${isLive ? 'status-pending' : 'status-unreviewed'} ${size === 'sm' ? 'status-sm' : ''}`}>
         <span className="status-indicator-dot" />
-        <span className="status-text font-mono">IN PROGRESS</span>
+        <span className="status-text font-mono">{isLive ? 'LIVE' : 'NOT REVIEWED'}</span>
       </span>
     );
   }
@@ -39,14 +39,14 @@ export function DirectionBadge({ direction }) {
   );
 }
 
-export function OutcomePip({ isPending, isHit, date, title }) {
+export function OutcomePip({ isPending, isHit, date, title, isLive = false }) {
   if (isPending) {
     return (
       <span 
-        className="outcome-pip pip-pending font-mono" 
-        title={title || `${date}: Session Active In Progress`}
+        className={`outcome-pip ${isLive ? 'pip-pending' : 'pip-unreviewed'} font-mono`} 
+        title={title || `${date}: ${isLive ? 'Session Active Live' : 'Not reviewed'}`}
       >
-        ⏳ Live
+        {isLive ? '⏳ Live' : '⏳ Not reviewed'}
       </span>
     );
   }
@@ -101,7 +101,7 @@ export function DataQualityBadge({ isWebFallback, isUnscorable, confidence }) {
           border: "1px solid var(--border-default)",
           color: "var(--text-tertiary)",
           fontWeight: 600,
-          fontSize: "10px",
+          fontSize: "11px",
           letterSpacing: "0.04em",
         }}
         title="Session cannot be scored due to holiday, early close, or market disruption"
@@ -124,7 +124,7 @@ export function DataQualityBadge({ isWebFallback, isUnscorable, confidence }) {
           border: "1px solid var(--warning-border)",
           color: "var(--warning-text)",
           fontWeight: 600,
-          fontSize: "10px",
+          fontSize: "11px",
           letterSpacing: "0.04em",
         }}
         title="Data sourced via web search fallback, not primary provider"

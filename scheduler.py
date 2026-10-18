@@ -1,7 +1,6 @@
 import os
 import sys
 import traceback
-from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -15,6 +14,7 @@ from delivery.telegram import send_report
 from memory.obsidian import write_note
 from data_sources.market_data import jakarta_now
 from core.calendar import is_idx_trading_day, get_holiday_reason
+from core.paths import get_runs_dir, get_dashboard_runs_dir
 from core.schedule import load_schedule_config
 from core.locking import run_lock_context
 from utils.dates import (
@@ -41,10 +41,12 @@ def daily_brief(force: bool = False):
         print(f"\n[scheduler] Today ({date_key}) is non-trading day: {reason}. Skipping morning brief.")
         return
 
-    brief_artifact = Path(__file__).parent / "runs" / date_key / "morning_prediction.json"
-    brief_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "morning_prediction.json"
-    review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
-    review_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "evening_review.json"
+    runs_dir = get_runs_dir()
+    dash_runs_dir = get_dashboard_runs_dir()
+    brief_artifact = runs_dir / date_key / "morning_prediction.json"
+    brief_artifact_dash = dash_runs_dir / date_key / "morning_prediction.json"
+    review_artifact = runs_dir / date_key / "evening_review.json"
+    review_artifact_dash = dash_runs_dir / date_key / "evening_review.json"
 
     brief_exists = brief_artifact.exists() or brief_artifact_dash.exists()
     review_exists = review_artifact.exists() or review_artifact_dash.exists()
@@ -53,7 +55,7 @@ def daily_brief(force: bool = False):
     if not is_forced and should_delegate_to_evening_review(now, brief_exists, review_exists):
         print(f"\n[scheduler] Notice: daily_brief invoked at {now.strftime('%H:%M WIB')} (after market close 16:00 WIB).")
         print(f"[scheduler] Morning brief for {date_key} already exists, but evening review is pending.")
-        print(f"[scheduler] Auto-delegating execution to evening_review()...")
+        print("[scheduler] Auto-delegating execution to evening_review()...")
         evening_review(force=False, target_date=date_key)
         return
 
@@ -96,7 +98,7 @@ def daily_brief(force: bool = False):
             # Record failed status artifact
             try:
                 import json
-                run_dir = Path(__file__).parent / "runs" / date_key
+                run_dir = get_runs_dir() / date_key
                 run_dir.mkdir(parents=True, exist_ok=True)
                 status_file = run_dir / "pipeline_status.json"
                 status_file.write_text(json.dumps({
@@ -133,7 +135,7 @@ def evening_review(force: bool = False, target_date: str = None):
     # Guard 2: Late-night stale execution guard (Anti-2AM Telegram spam).
     if not is_forced and not target_date and not os.getenv("TARGET_DATE") and is_late_night_stale(now):
         print(f"\n[scheduler] Current time is {now.strftime('%H:%M WIB')}, outside the acceptable evening review window (16:00 - 22:59 WIB).")
-        print(f"[scheduler] Skipping stale delayed execution to prevent waking user at 2 AM.")
+        print("[scheduler] Skipping stale delayed execution to prevent waking user at 2 AM.")
         return
 
     date_key = resolve_evening_review_date(target_date)
@@ -144,8 +146,10 @@ def evening_review(force: bool = False, target_date: str = None):
         print(f"\n[scheduler] Current time is {now.strftime('%H:%M WIB')} (before market close 16:00 WIB). Skipping review until market closes.")
         return
 
-    review_artifact = Path(__file__).parent / "runs" / date_key / "evening_review.json"
-    review_artifact_dash = Path(__file__).parent / "dashboard" / "data" / "runs" / date_key / "evening_review.json"
+    runs_dir = get_runs_dir()
+    dash_runs_dir = get_dashboard_runs_dir()
+    review_artifact = runs_dir / date_key / "evening_review.json"
+    review_artifact_dash = dash_runs_dir / date_key / "evening_review.json"
     if (review_artifact.exists() or review_artifact_dash.exists()) and not is_forced:
         print(f"\n[scheduler] Evening review for {date_key} already exists. Skipping duplicate execution.")
         return
@@ -161,7 +165,7 @@ def evening_review(force: bool = False, target_date: str = None):
             learning = run_evening_review(date_key)
 
             if learning is None:
-                status_file = Path(__file__).parent / "runs" / date_key / "pipeline_status.json"
+                status_file = get_runs_dir() / date_key / "pipeline_status.json"
                 reason_msg = "no morning brief found"
                 if status_file.exists():
                     try:
@@ -204,12 +208,12 @@ def evening_review(force: bool = False, target_date: str = None):
                 rca_items.append(f"• [Korelasi Terbalik] {f}")
 
             if rca_items:
-                msg += f"\n*Root Cause Analysis*:\n"
+                msg += "\n*Root Cause Analysis*:\n"
                 for item in rca_items[:4]:
                     msg += f"  {item}\n"
 
             if learning.get("lessons"):
-                msg += f"\n*Lessons Learned*:\n"
+                msg += "\n*Lessons Learned*:\n"
                 for lesson in learning["lessons"][:2]:
                     msg += f"  💡 {lesson}\n"
 

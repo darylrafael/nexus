@@ -6,7 +6,7 @@ export default function AgentBreakdownTable({ breakdown = [] }) {
     return (
       <div className="eval-pane" style={{ marginBottom: '24px' }}>
         <div className="eval-pane-header">
-          <span className="eval-pane-title">Deterministic Agent Performance</span>
+          <span className="eval-pane-title">Pipeline Agent Performance</span>
           <span className="eval-section-tag font-mono">Aggregation</span>
         </div>
         <div style={{ padding: '24px' }}>
@@ -23,7 +23,7 @@ export default function AgentBreakdownTable({ breakdown = [] }) {
     <div className="eval-pane" style={{ marginBottom: '28px' }}>
       <div className="eval-pane-header">
         <div className="eval-pane-header-left">
-          <span className="eval-pane-title">Deterministic Agent Performance Breakdown</span>
+          <span className="eval-pane-title">Pipeline Agent Performance Breakdown</span>
           <span className="eval-section-tag font-mono">SQLite Session Telemetry</span>
         </div>
         <span className="eval-section-tag font-mono">{breakdown.length} Component Agents</span>

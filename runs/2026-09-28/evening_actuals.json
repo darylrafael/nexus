@@ -101,6 +101,28 @@
   "top_movers": "[no date] IHSG Ditutup 8 September 2026 Naik 66 Poin ke 6.86, MBMA Top Gainers\n### Top losers\n\n PT Bank Negara Indonesia Tbk (BBNI) turun 1,02 persen\n PT Indofood CBP Sukses Makmur Tbk (ICBP) turun 0,69 persen\n PT Kalbe Farma Tbk (KLBF) turun 0,64 persen\n\n### Top gainers\n\n PT Merdeka Battery Materials Tbk (MBMA) naik 9,80 persen\n PT Merdeka Copper Gold Tbk (MDKA) naik 8,33 persen\n PT Amman Mineral Internasional Tbk (AMMN) naik 5,90 persen\n\nBaca juga: IHSG Diprediksi Masih\nSource IDs: src_85788b0655, src_bc31ab2e97, src_1338bfa322, src_4fcb7722be, src_43790e4686, src_3987f13539, src_1258914712",
   "sector_performance": "[no date] IHSG Ambruk di Posisi 6.147 Hari Ini (28/9), Net Sell Asing Tembus Rp 1,13 T\nSektor barang konsumsi primer melorot 0,98%. Sektor kesehatan turun 0,66%. Sektor perindustrian melemah 0,32%.\n\nDua sektor menguat di tengah pelemahan IHSG. Sektor transportasi dan logistik menguat 0,47%. Sektor energi naik tipis 0,04%.\n\nTotal volume transaksi bursa mencapai 37,37 miliar saham dengan nilai transaksi Rp 12,59 triliun. Sebanyak 532 saham melemah. Ada 180 saham menguat dan\nSource IDs: src_4019e102ab, src_4655a5dd8b, src_872a3a896c, src_1338bfa322, src_4b55cb6b17, src_88afde084d, src_f70476c0c0",
   "foreign_flow_raw": "[no date] Investor Asing Jual Saham Rp 77,73 Triliun, IHSG Masih Minus 28 Persen\nPromo Indomaret 28 September 2026, Diskon Kecap 725g Jadi Rp 16.900 dan Kebutuhan Lain\n\nBelanja\n\n28/09/2026, 06:08 WIB\n\nFIF Terbitkan Obligasi Rp 2,5 Triliun, Bunga hingga 7,4 Persen\n\nFIF Terbitkan Obligasi Rp 2,5 Triliun, Bunga hingga 7,4 Persen\n\nEkbis\n\n28/09/2026, 06:07 WIB\n\nAsing Lepas Saham\nSource IDs: src_50c8e8bfbb, src_9d2cb93012, src_d9d2da4931, src_91e8062a8c, src_c144bb21d8, src_fefdfbe406, src_51e8e513a2",
-  "foreign_flow_signal": "Stagnant/Sideways",
-  "schema_version": 1
+  "foreign_flow_signal": "Accumulation",
+  "schema_version": 1,
+  "foreign_flow": {
+    "signal": "Accumulation",
+    "net_trillion": 77.73,
+    "raw_figure": "77.73 triliun",
+    "direction": "Buy",
+    "market_scope": "regular",
+    "is_all_market": false,
+    "regular_net_trillion": 77.73,
+    "all_market_net_trillion": null,
+    "divergence_alert": null,
+    "reason": "classified_successfully"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.268,
+    "stored_usdidr_change_pct": 0.871,
+    "rescored_at": "2026-10-15"
+  }
 }

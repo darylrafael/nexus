@@ -67,11 +67,11 @@ Salah satu keputusan arsitektural terpenting dalam Nexus adalah: **LLM tidak dip
    - Contoh: Kenaikan harga minyak sawit mentah (CPO) secara langsung memetakan dampak positif ke sektor `Agri / CPO` (seperti AALI, TAPG, LSIP), dan kenaikan harga batu bara ke sektor `Energy`.
    - Hal ini mencegah halusinasi model LLM yang dapat salah mengartikan arah transmisi harga komoditas global terhadap indeks sektoral domestik.
 
-2. **Deterministic Mathematical Scoring (`utils/direction.py` & `utils/flow.py`)**:
+2. **Deterministic Mathematical Scoring (utils/direction.py & utils/flow.py)**:
    - Prediksi vs Aktual tidak dinilai oleh persepsi subjektif LLM.
-   - Evaluasi arah menggunakan ambang batas pasti `±0.20%` (dibawah nilai ini dikategorikan `NEUTRAL`).
-   - Foreign flow dinilai menggunakan ambang batas pasti `±Rp 1.0 Triliun` (di bawah nilai ini dikategorikan `NEUTRAL`).
-
+   - Evaluasi arah IHSG menggunakan ambang batas pasti ±0.20% (dibawah nilai ini dikategorikan NEUTRAL).
+   - Foreign flow dinilai menggunakan ambang batas materialitas ±Rp 1.0 Triliun dengan verifikasi tanggal D/M/Y ketat. Ketika scorable $n < 5$, aliran dana asing diperlakukan sebagai konteks institusional dan disembunyikan dari metrik persentase aktif.
+   - Bobot komposit dinamis: 50% Arah Indeks + 30% Alokasi Sektoral (11 IDX-IC close data) + 20% Aliran Dana Asing, dinormalisasi otomatis hanya pada komponen yang scorable.
 3. **Probabilistic Reasoning Layer (LLM Client)**:
    - LLM bertugas menyintesis narasi makro, menghubungkan sentimen global (misal keputusan suku bunga The Fed / BI, pergerakan Wall Street), menyusun brief terstruktur, dan melakukan analisis akar penyebab (*Root Cause Analysis* / RCA) saat prediksi meleset.
 

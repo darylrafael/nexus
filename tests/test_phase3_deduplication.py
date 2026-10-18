@@ -7,10 +7,8 @@ Comprehensive tests for Phase 3:
 3. Unified markdown formatting of commodities.
 4. Pipeline status tracking and partial state recording on failure.
 """
-import pytest
 from unittest.mock import MagicMock
 from datetime import datetime
-from pathlib import Path
 import json
 
 import agents.web_agent as wa
@@ -18,7 +16,6 @@ from data_sources.market_data import (
     fetch_all_commodities,
     format_all_commodities_markdown,
 )
-from schemas import SourceRecord
 
 
 # ── 1. Tavily Search Deduplication & Caching ──────────────────────────────────

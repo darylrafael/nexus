@@ -54,6 +54,14 @@ class MarketPrediction:
     commodities_predicted: dict[str, str] = field(default_factory=dict)
     evidence_ids: list[str] = field(default_factory=list)
     raw_ihsg_signal: Optional[str] = None
+    calibrated_confidence: Optional[float] = None
+    lock_hash: Optional[str] = None
+    locked_at: Optional[str] = None
+    lock_status: Optional[str] = None
+    hash_computed_at: Optional[str] = None
+    created_at: Optional[str] = None
+    out_of_sample_verified: Optional[bool] = None
+    lock_note: Optional[str] = None
 
 
 @dataclass

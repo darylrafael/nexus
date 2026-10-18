@@ -6,13 +6,10 @@ Comprehensive tests for Phase 4:
    balanced brackets, and truncated JSON repair.
 2. llm_client: completion validation, content extraction, and multi-tier fallback on retriable errors.
 """
-import pytest
 from unittest.mock import MagicMock
 
 from utils.json_parser import (
     extract_structured_json,
-    strip_thinking_tags,
-    strip_markdown_fences,
     repair_truncated_json,
 )
 import llm_client as lc

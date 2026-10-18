@@ -20,8 +20,6 @@
   "recommended_tickers": [
     "BBRI",
     "TBLA",
-    "INET",
-    "PPRI",
     "PTBA",
     "LSIP",
     "ITMG",
@@ -29,31 +27,7 @@
     "INTD",
     "MEDC",
     "WMPP",
-    "BLTZ",
-    "HRUM",
-    "ASII",
-    "AALI",
-    "AKKU",
-    "RUIS",
-    "COCO",
-    "KKES",
-    "SQMI",
-    "BYAN",
-    "PGAS",
-    "SIMP",
-    "AGAR",
-    "ROCK",
-    "FORU",
-    "ADRO",
-    "SONA",
-    "BUMI",
-    "ENRG",
-    "BALI",
-    "BNBR",
-    "KLBF",
-    "BMRI",
-    "IRSX",
-    "IFSH"
+    "BLTZ"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -76,5 +50,12 @@
     "src_ddc2cab96c",
     "src_eae9d5c380",
     "src_fac8d63fe8"
-  ]
+  ],
+  "lock_hash": "3025099b6f4426f3",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

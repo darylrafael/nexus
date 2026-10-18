@@ -5,9 +5,9 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -1.69,
   "ihsg_correct": true,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Transport & Logistics": null,
     "Oil & Gas Upstream": null,
@@ -15,8 +15,8 @@
     "Consumer Goods": null,
     "Energy & Mining": null
   },
-  "error_rate_pct": 50,
-  "accuracy_score": 50,
+  "error_rate_pct": 0,
+  "accuracy_score": 100,
   "rca_unanticipated": [
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes",
     "Geopolitical tensions impacting broader Asian markets"
@@ -79,5 +79,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026\nLME NICKEL CASH\nSource IDs: src_c8c625dc7b, src_f1dad1f235, src_40978f34e2, src_57067b670a, src_dc295145ae, src_f7e08abcd2, src_3d959b8119"
     }
+  },
+  "usdidr_change_pct": 0.393,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.393,
+    "stored_usdidr_change_pct": 0.393,
+    "rescored_at": "2026-10-15"
   }
 }

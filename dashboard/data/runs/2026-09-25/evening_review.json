@@ -5,15 +5,14 @@
   "ihsg_actual": "Bearish",
   "ihsg_actual_pct": -0.9,
   "ihsg_correct": false,
-  "foreign_flow_predicted": "Stagnant/Sideways",
-  "foreign_flow_actual": "Accumulation",
-  "foreign_flow_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
-    "Consumer Non-Cyclical": false,
-    "Energy & Mining": false,
-    "Technology": false,
-    "Infrastructure": false,
-    "Banking": false
+    "Consumer Non-Cyclical": null,
+    "Energy & Mining": null,
+    "Technology & Infrastructure": null,
+    "Banking": null
   },
   "error_rate_pct": 100,
   "accuracy_score": 0,
@@ -78,5 +77,17 @@
     "Nickel (LME)": {
       "raw": "[no date] LME Nickel - Metals\nCurrent and historical Nickel prices, stocks an\nSource IDs: src_4f342dd2e4, src_f1dad1f235, src_1de5e9219f, src_dc295145ae, src_bf08793d8b, src_2db748e979, src_5d82c6d985"
     }
+  },
+  "usdidr_change_pct": 0.106,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.106,
+    "stored_usdidr_change_pct": 0.106,
+    "rescored_at": "2026-10-15"
   }
 }

@@ -21,24 +21,10 @@
     "INCO",
     "BBCA",
     "ASII",
-    "VKTR",
     "ZATA",
     "UNVR",
-    "KLCI",
     "AALI",
-    "BBRI",
-    "TPIA",
-    "LSIP",
-    "SRSN",
-    "BUMI",
-    "TLKM",
-    "MDKA",
-    "KOTA",
-    "BMRI",
-    "MEDC",
-    "INET",
-    "ADRO",
-    "IATA"
+    "BBRI"
   ],
   "key_risk": "Volatilitas nilai tukar Rupiah terhadap Dolar AS di tengah ketahanan ekonomi global dan arah kebijakan lanjutan Federal Reserve menjadi risiko utama yang dapat memicu tekanan jual tak terduga pada sesi perdagangan hari ini.",
   "commodities_predicted": {},
@@ -50,5 +36,12 @@
     "src_b77e197c9b",
     "src_c97b8fff8d",
     "src_d9828c92c2"
-  ]
+  ],
+  "lock_hash": "6889456e9c11d8f8",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }

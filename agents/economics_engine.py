@@ -1,5 +1,3 @@
-from agents.web_agent import search_web
-
 # Economic logic only — NO hardcoded tickers
 # Tickers are discovered dynamically via search
 
@@ -38,7 +36,7 @@ RUPIAH_LOGIC = {
 }
 
 
-from agents.web_agent import search_web, search_multiple
+from agents.web_agent import search_multiple
 
 def get_affected_stocks(
     commodity: str,
@@ -108,17 +106,24 @@ def build_economics_context(
             lines.append(f"  → {point}")
 
     if rate_direction:
+        rd = rate_direction.lower()
         lines.append(f"\n### Interest Rate {rate_direction.title()}:")
-        if rate_direction == "hike":
+        if rd in ["hike", "raise", "increase"]:
             lines.append("  → Banks: BULLISH short-term (wider NIM)")
             lines.append("  → Property: BEARISH (higher mortgage costs)")
             lines.append("  → Infrastructure: BEARISH (higher project financing costs)")
             lines.append("  → Rupiah: BULLISH (rate hike attracts foreign inflows)")
-        else:
+        elif rd in ["cut", "lower", "decrease"]:
             lines.append("  → Banks: BEARISH short-term (NIM compression)")
-            lines.append("  → Property: BULLISH (cheaper mortgages)")
+            lines.append("  → Property: BULLISH (cheaper mortgages stimulating demand)")
+            lines.append("  → Infrastructure: BULLISH (lower capital expenditure financing costs)")
+            lines.append("  → Rupiah: CAUTION (narrower yield spread against USD)")
+        else:  # hold / maintain / pause / neutral
+            lines.append("  → Banks: NEUTRAL/STABLE (predictable NIM & deposit costs)")
+            lines.append("  → Property: NEUTRAL (stable mortgage rates)")
+            lines.append("  → Macro: STABLE (policy continuity supporting economic certainty)")
 
-    lines.append(f"\n### Sector Behavior Rules:")
+    lines.append("\n### Sector Behavior Rules:")
     for sector, rule in SECTOR_LOGIC.items():
         lines.append(f"  → {sector}: {rule}")
 

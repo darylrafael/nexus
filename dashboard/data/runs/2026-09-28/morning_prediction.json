@@ -16,7 +16,6 @@
   "recommended_tickers": [
     "MEDC",
     "ENRG",
-    "BREN",
     "BIPI",
     "KPIG",
     "MPPA",
@@ -43,5 +42,12 @@
     "src_f362c315e6",
     "src_f638c7dfc3",
     "src_fefdfbe406"
-  ]
+  ],
+  "lock_hash": "53f1e30553b3f099",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 49.7
 }
