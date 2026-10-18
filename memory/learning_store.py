@@ -508,6 +508,8 @@ def save_learning(date: str, learning: dict) -> bool:
         lessons_md += f"{i}. {lesson}\n"
 
     rca = _format_rca(learning)
+    ihsg_act_pct = learning.get("ihsg_actual_pct")
+    ihsg_act_pct_str = f"{ihsg_act_pct:+.2f}%" if isinstance(ihsg_act_pct, (int, float)) else "N/A"
 
     content = f"""# Nexus Evening Review — {date}
 
@@ -518,7 +520,7 @@ def save_learning(date: str, learning: dict) -> bool:
 
 | Metric | Predicted | Actual | Correct |
 |--------|-----------|--------|---------|
-| IHSG Direction | {learning.get('ihsg_predicted','?')} ({learning.get('ihsg_confidence','?')}%) | {learning.get('ihsg_actual','?')} ({learning.get('ihsg_actual_pct', 0):+.2f}%) | {'✅' if learning.get('ihsg_correct') else '❌'} |
+| IHSG Direction | {learning.get('ihsg_predicted','?')} ({learning.get('ihsg_confidence','?')}%) | {learning.get('ihsg_actual','?')} ({ihsg_act_pct_str}) | {'✅' if learning.get('ihsg_correct') else '❌'} |
 | Foreign Flow | {learning.get('foreign_flow_predicted','?')} | {learning.get('foreign_flow_actual','?')} | {'✅' if learning.get('foreign_flow_correct') else '❌'} |
 | USD/IDR | — | {learning.get('actual_usdidr','?')} | — |
 

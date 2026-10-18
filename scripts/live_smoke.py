@@ -294,7 +294,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 2
 
-    with tempfile.TemporaryDirectory(prefix="nexus_live_smoke_") as tmp_root_str:
+    with tempfile.TemporaryDirectory(prefix="nexus_live_smoke_", ignore_cleanup_errors=True) as tmp_root_str:
         tmp_root = Path(tmp_root_str)
         runs_dir = Path(env_runs) if env_runs else (tmp_root / "isolated_runs")
         assert_safe_runs_dir(runs_dir)

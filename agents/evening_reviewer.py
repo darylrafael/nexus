@@ -614,13 +614,26 @@ def run_llm_analysis(
     # Build commodity summary string for prompt
     commodity_str = ""
     for name, val in actual.get("commodities", {}).items():
-        if isinstance(val, dict) and "change_pct" in val:
+        if isinstance(val, dict) and val.get("change_pct") is not None:
             commodity_str += f"  - {name}: {val['change_pct']:+.2f}% (actual)\n"
         elif isinstance(val, dict) and "raw" in val:
             commodity_str += f"  - {name}: {val['raw'][:100]}\n"
 
     volume = actual.get("ihsg_volume")
     volume_str = f"{volume:,}" if isinstance(volume, (int, float)) else "N/A"
+
+    ihsg_pct = actual.get("ihsg_change_pct")
+    ihsg_pts = actual.get("ihsg_change_pts")
+    if isinstance(ihsg_pct, (int, float)) and isinstance(ihsg_pts, (int, float)):
+        ihsg_change_str = f"{ihsg_pct:+.2f}%, {ihsg_pts:+.1f} pts"
+    elif isinstance(ihsg_pct, (int, float)):
+        ihsg_change_str = f"{ihsg_pct:+.2f}%"
+    else:
+        ihsg_change_str = "N/A"
+
+    usdidr_pct = actual.get("usdidr_change_pct")
+    usdidr_pct_str = f"{usdidr_pct:+.3f}%" if isinstance(usdidr_pct, (int, float)) else "N/A"
+    ihsg_actual_pct_json = f"{ihsg_pct:.4f}" if isinstance(ihsg_pct, (int, float)) else "null"
 
     prompt = f"""You are a quantitative analyst performing a post-market evaluation of a morning brief prediction.
 Date: {date} ({date_id})
@@ -636,11 +649,11 @@ Key Risk Flagged: {pred.key_risk}
 Tickers Mentioned: {', '.join(pred.recommended_tickers[:15])}
 
 ═══ ACTUAL RESULTS ═══
-IHSG Close: {actual.get('ihsg_close', 'N/A')} ({actual.get('ihsg_change_pct', 0):+.2f}%, {actual.get('ihsg_change_pts', 0):+.1f} pts)
+IHSG Close: {actual.get('ihsg_close', 'N/A')} ({ihsg_change_str})
 IHSG Open/High/Low: {actual.get('ihsg_open','?')} / {actual.get('ihsg_high','?')} / {actual.get('ihsg_low','?')}
 IHSG Volume: {volume_str}
 IHSG Signal: {actual.get('ihsg_signal', 'Unknown')}
-USD/IDR: {actual.get('usdidr', 'N/A')} ({actual.get('usdidr_change_pct', 0):+.3f}%) — Rupiah {actual.get('rupiah_signal', '?')}
+USD/IDR: {actual.get('usdidr', 'N/A')} ({usdidr_pct_str}) — Rupiah {actual.get('rupiah_signal', '?')}
 Foreign Flow Actual: {actual.get('foreign_flow_signal', 'Unknown')}
 Foreign Flow Data: {actual.get('foreign_flow_raw', '')[:300]}
 Commodity Actuals:
@@ -665,7 +678,7 @@ Perform the following analysis and return ONLY a valid JSON object (no markdown,
     "ihsg_correct": true/false,
     "ihsg_predicted": "{pred.ihsg_signal}",
     "ihsg_actual": "{actual.get('ihsg_signal', '?')}",
-    "ihsg_actual_pct": {actual.get('ihsg_change_pct', 0)},
+    "ihsg_actual_pct": {ihsg_actual_pct_json},
     "foreign_flow_correct": true/false,
     "foreign_flow_predicted": "{pred.foreign_flow_signal}",
     "foreign_flow_actual": "{actual.get('foreign_flow_signal', '?')}",

@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 import json
 from pathlib import Path
 import sqlite3
@@ -23,14 +24,19 @@ def set_db_path(path: Path | str | None):
     setattr(mod, "_DB_INITIALIZED", False)
 
 
-def _get_conn() -> sqlite3.Connection:
+@contextmanager
+def _get_conn():
     active_path = _get_active_db_path()
     active_path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(active_path, timeout=30.0)
     conn.execute("PRAGMA journal_mode = WAL;")
     conn.execute("PRAGMA busy_timeout = 30000;")
     conn.row_factory = sqlite3.Row
-    return conn
+    try:
+        with conn:
+            yield conn
+    finally:
+        conn.close()
 
 
 def init_db(force: bool = False):
