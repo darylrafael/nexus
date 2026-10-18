@@ -24,19 +24,23 @@ def set_db_path(path: Path | str | None):
     setattr(mod, "_DB_INITIALIZED", False)
 
 
-@contextmanager
-def _get_conn():
+class _ManagedConnection(sqlite3.Connection):
+    """sqlite3.Connection that closes automatically upon exiting a 'with' block."""
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        try:
+            super().__exit__(exc_type, exc_val, exc_tb)
+        finally:
+            self.close()
+
+
+def _get_conn() -> sqlite3.Connection:
     active_path = _get_active_db_path()
     active_path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(active_path, timeout=30.0)
+    conn = sqlite3.connect(active_path, timeout=30.0, factory=_ManagedConnection)
     conn.execute("PRAGMA journal_mode = WAL;")
     conn.execute("PRAGMA busy_timeout = 30000;")
     conn.row_factory = sqlite3.Row
-    try:
-        with conn:
-            yield conn
-    finally:
-        conn.close()
+    return conn
 
 
 def init_db(force: bool = False):
