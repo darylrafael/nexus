@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-19",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -3.64,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Basic Materials (Coal)": false,
+    "Energy (Oil & Gas Upstream)": false,
+    "Consumer Non-Cyclicals (CPO Producers)": false,
+    "Overall Market": true,
+    "Banking": true,
+    "Property": true,
+    "Consumer Cyclicals (CPO Consumers)": true,
+    "Energy (Gas Upstream)": true,
+    "Utilities (Gas Consumers)": false,
+    "Toll Road": false,
+    "Aviation": null
+  },
+  "error_rate_pct": 42,
+  "accuracy_score": 58,
+  "rca_unanticipated": [
+    "Proyeksi kenaikan BI-Rate 25 bps pada RDG Oktober 2026 yang memperberat tekanan likuiditas perbankan dan pasar ekuitas.",
+    "Rencana aksi unjuk rasa bergelombang buruh pada 15-30 Oktober 2026 terkait tuntutan upah minimum yang menambah ketidakpastian iklim usaha."
+  ],
+  "rca_overestimated": [
+    "Daya tahan sektor berbasis komoditas (Oil & Gas, Batubara, CPO) terhadap guncangan pasar, di mana penguatan komoditas acuan gagal menopang saham sektor terkait di tengah kepanikan sistemik."
+  ],
+  "rca_underestimated": [
+    "Tingkat keparahan aksi jual akibat isu downgrade MSCI dan pelemahan Rupiah ke Rp18.035 per USD yang menyeret seluruh sektor ke zona merah tanpa terkecuali."
+  ],
+  "rca_info_delay": [
+    "Ekspektasi pengetatan moneter lanjutan BI dan detail rilis pelemahan Rupiah yang berlanjut melampaui level 18.000 selama jam perdagangan."
+  ],
+  "rca_inverse_correlation": [
+    "Harga minyak mentah WTI naik +2,99% dan batubara menguat, tetapi sektor energi dan barang baku tetap terkoreksi tajam (barang baku anjlok 6,09%) karena tekanan jual asing akibat risiko downgrade MSCI mendominasi efek komoditas."
+  ],
+  "lessons": [
+    "Ketika IHSG diproyeksikan bearish dengan harapan penopang pada sektor komoditas, tetapi kepanikan risiko downgrade MSCI dan pelemahan Rupiah ke Rp18.035 per USD melanda pasar, maka seluruh sektor bergerak negatif dan IHSG anjlok 3,64% ke level 4.996,61.",
+    "Ketika komoditas energi menguat (WTI +2,99%), tetapi sentimen risiko sistemik dan potensi kenaikan BI-Rate 25 bps menekan pasar modal, maka sektor barang baku justru menjadi yang terlemah dengan penurunan 6,09%."
+  ],
+  "summary": "Prediksi IHSG bearish dan foreign flow distribution terbukti tepat seiring anjloknya IHSG sebesar 3,64% ke level 4.996,61 akibat isu MSCI dan pelemahan Rupiah, meskipun ekspektasi penguatan sektor komoditas gagal terwujud karena seluruh sektor berakhir di zona negatif.",
+  "actual_usdidr": 18035.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 97.93,
+      "previous_close": 95.09,
+      "change_pct": 2.99,
+      "signal": "Up",
+      "retrieved_at": "2026-10-19T20:01:00+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 108.38,
+      "previous_close": 106.06,
+      "change_pct": 2.19,
+      "signal": "Up",
+      "retrieved_at": "2026-10-19T20:01:00+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.15,
+      "previous_close": 3.2,
+      "change_pct": -1.53,
+      "signal": "Down",
+      "retrieved_at": "2026-10-19T20:01:00+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Batu Bara Newcastle Menguat, Musim Dingin Jadi Katalis Pasar - Kaba\nSource IDs: src_9a982b982c, src_171c2fa6b0, src_b1abc5aac6, src_a277ed8ce1, src_a517d8fb0b, src_4d4b55251b, src_4d907b14ac"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil rose\nSource IDs: src_9c7bf9e109, src_fbbd4653a1, src_f5acc49bab, src_b056c42a9b, src_56b4172631, src_c0a99d32e5, src_6399c9b951"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel - Price - Chart - Historical Data - News\n## Nickel rose to 1\nSource IDs: src_f1dad1f235, src_bf08793d8b, src_0aa94af6f2, src_a4f1b4fef6, src_e7b01f3b12, src_0b12862f48, src_dc295145ae"
+    }
+  }
+}
