@@ -109,3 +109,27 @@ def get_trading_day_or_previous(reference_date: Union[str, date, datetime] = Non
     while not is_idx_trading_day(cur):
         cur -= timedelta(days=1)
     return cur.strftime("%Y-%m-%d")
+
+
+def get_next_trading_day(
+    reference_date: Union[str, date, datetime] = None,
+    include_today: bool = False,
+) -> str:
+    """
+    Find the next IDX trading day.
+    If include_today is True and reference_date is a trading day, return reference_date.
+    Otherwise, walk forward strictly after reference_date.
+    """
+    if reference_date is None:
+        ref_d = jakarta_now().date()
+    else:
+        ref_d = _normalize_date(reference_date)
+
+    if include_today and is_idx_trading_day(ref_d):
+        return ref_d.strftime("%Y-%m-%d")
+
+    cur = ref_d + timedelta(days=1)
+    while not is_idx_trading_day(cur):
+        cur += timedelta(days=1)
+    return cur.strftime("%Y-%m-%d")
+

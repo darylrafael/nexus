@@ -28,6 +28,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any, Dict, List
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -54,9 +55,10 @@ ALLOWED_11PX_MICRO_LABEL_SELECTORS: Dict[str, str] = {
     ".source-citation-arrow": "Decorative external-link arrow ('↗') inside citation pill",
 }
 
-DEFAULT_OUTPUT_DIR = os.environ.get(
-    "NEXUS_AUDIT_OUTPUT_DIR",
-    r"C:\Users\Lenovo\.gemini\antigravity\brain\78122c40-e208-430b-a691-9f3f14346e94\screenshots",
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+DEFAULT_OUTPUT_DIR = str(
+    Path(os.environ.get("NEXUS_AUDIT_OUTPUT_DIR", REPO_ROOT / "audit_output"))
 )
 
 VIEWPORTS: List[Dict[str, Any]] = [
@@ -534,5 +536,43 @@ def run_audit(
     return results
 
 
+def check_playwright_and_server_available(target_url: str = "http://127.0.0.1:3002") -> tuple[bool, str]:
+    """Check if Playwright, chromium browser, and dashboard server are available."""
+    try:
+        from playwright.sync_api import sync_playwright  # noqa: F401
+    except ImportError:
+        return False, "playwright package is not installed"
+
+    import urllib.request
+    try:
+        req = urllib.request.Request(target_url, headers={"User-Agent": "Nexus-Test-Check"})
+        with urllib.request.urlopen(req, timeout=1.0) as resp:
+            if resp.status >= 500:
+                return False, f"Dashboard server at {target_url} returned HTTP {resp.status}"
+    except Exception:
+        return False, f"Dashboard server at {target_url} is not running or unreachable"
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+    except Exception as e:
+        return False, f"Playwright chromium browser unavailable: {e}"
+
+    return True, "Available"
+
+
+def test_mobile_viewports_audit():
+    """Run mobile viewports quality audit when dashboard server is running."""
+    import pytest
+    avail, reason = check_playwright_and_server_available()
+    if not avail:
+        pytest.skip(reason)
+
+    results = run_audit()
+    assert len(results) >= 12
+
+
 if __name__ == "__main__":
     run_audit()
+

@@ -182,6 +182,13 @@ npm run start -- -p 3002
 ```
 Open [http://127.0.0.1:3002](http://127.0.0.1:3002).
 
+### 4. Optional Windows Automation Helpers
+The repository ships with optional Windows automation helpers configured relative to the repository root:
+- `run_brief.bat` / `run_review.bat`: Executes morning brief or evening review using the local virtual environment.
+- `run_scheduler.bat` / `start_hidden.vbs`: Starts the local background scheduler (visible or silent).
+- `register_tasks.ps1`: Registers Windows Task Scheduler tasks aligned with `schedule.yaml` (06:55 and 20:00 WIB).
+- All paths are relative (`%~dp0` / `$PSScriptRoot`), contain no hardcoded personal paths or credentials, and write logs to `*.log` (excluded from git and release packages).
+
 ---
 
 ## Release Package

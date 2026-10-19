@@ -14,6 +14,7 @@ from core.packaging import (
     collect_allowlisted_files,
     is_allowed_release_path,
     is_forbidden_path,
+    scan_files_for_personal_paths,
     scan_files_for_secrets,
     verify_zip_contents,
 )
@@ -196,3 +197,40 @@ def test_session_py_has_no_unused_global_db_path():
     """Phase 6.4: memory/session.py has no `global DB_PATH` and uses configurable path."""
     session_code = (REPO_ROOT / "memory" / "session.py").read_text(encoding="utf-8")
     assert "global DB_PATH" not in session_code
+
+
+def test_personal_path_scan_passes_on_repo_and_catches_leaks(tmp_path: pathlib.Path):
+    """Phase A3: Personal path scan passes on repo and catches leaked local/tooling paths."""
+    files = collect_allowlisted_files(REPO_ROOT, strict_untracked=False)
+    findings = scan_files_for_personal_paths(files, REPO_ROOT)
+    assert findings == [], f"Personal/tooling path scan found issues in repository: {findings}"
+
+    # Negative example (synthetic leaks caught)
+    tool_word = "anti" + "gravity"
+    bs = chr(92)
+    fake_win = f"PATH = \"C:{bs}Users{bs}JohnDoe{bs}project{bs}file.txt\"\n"
+    fake_leaks = [
+        ("leak_win.py", fake_win),
+        ("leak_linux.py", 'PATH = "' + "/ho" + "me/developer/nexus/config.py\"\n"),
+        ("leak_mac.py", 'PATH = "' + "/Us" + "ers/alice/secrets.json\"\n"),
+        ("leak_gemini.py", 'PATH = "/tmp/' + ".ge" + 'mini/cache/model.bin"\n'),
+        ("leak_tool.py", f'PATH = "/tmp/{tool_word}/brain/data"\n'),
+        ("leak_uuid.py", 'SESSION = "' + "12345678" + "-abcd" + '-ef01-2345-6789abcdef01"\n'),
+    ]
+    for fname, content in fake_leaks:
+        (tmp_path / fname).write_text(content, encoding="utf-8")
+
+    leak_findings = scan_files_for_personal_paths([f[0] for f in fake_leaks], tmp_path)
+    assert len(leak_findings) == len(fake_leaks), f"Expected {len(fake_leaks)} findings, got: {leak_findings}"
+
+    # Positive example (clean generic code passes)
+    clean_code = (
+        'import os\n'
+        'from pathlib import Path\n'
+        'DEFAULT_DIR = Path("./audit_output")\n'
+        'USER_CONFIG = os.environ.get("NEXUS_CONFIG", "./config.yaml")\n'
+    )
+    (tmp_path / "clean_module.py").write_text(clean_code, encoding="utf-8")
+    clean_findings = scan_files_for_personal_paths(["clean_module.py"], tmp_path)
+    assert clean_findings == []
+

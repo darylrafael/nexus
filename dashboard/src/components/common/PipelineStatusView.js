@@ -54,7 +54,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
             <div className="font-mono text-base font-bold" style={{ margin: "4px 0", color: "var(--text-primary)" }}>
               06:55 WIB
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
               Autonomous macro sentiment, commodity proxy mapping, sector impact inference, and cryptographic prediction lock before the 09:00 opening bell.
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
             <div className="font-mono text-base font-bold" style={{ margin: "4px 0", color: "var(--text-primary)" }}>
               16:00 WIB
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
               Official closing auction concludes. Post-market exchange data finalized across Yahoo Finance and IDX-IC sector feeds.
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
             <div className="font-mono text-base font-bold" style={{ margin: "4px 0", color: "var(--text-primary)" }}>
               20:00 WIB
             </div>
-            <div style={{ fontSize: "11px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
               Automated scoring against actuals, directional attribution, root cause analysis (RCA), and lesson extraction for prompt feedback.
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
         <div style={{ fontSize: "12px", color: "var(--text-primary)", marginBottom: "8px" }}>
           Next Scheduled Event: <strong>{status?.nextEvent || "06:55 WIB Morning Brief"}</strong>
         </div>
-        <div style={{ fontSize: "11px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+        <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
           The autonomous scheduler cross-references official Indonesian Stock Exchange (IDX) statutory holidays from <code>data/idx_holidays.json</code>. Pipeline runs never trigger on weekends or verified exchange holidays.
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
   "data_quality": { "ohlc_valid": false }
 }`}
         </pre>
-        <div style={{ fontSize: "11px", color: "var(--text-tertiary)", marginTop: "6px" }}>
+        <div style={{ fontSize: "12px", color: "var(--text-tertiary)", marginTop: "6px" }}>
           Dashboard UI surfaces data errors explicitly rather than defaulting to 0 or &quot;Unknown&quot;.
         </div>
       </div>

@@ -92,3 +92,25 @@ test('middleware checks header and cookie auth and rejects query-string key', as
     process.env.NEXUS_PUBLIC_MODE = originalPublic;
   }
 });
+
+test('rate limiter demonstrates per-instance in-memory isolation (Phase D5 & SECURITY.md)', async () => {
+  // Instance A and Instance B simulate two isolated serverless runtime isolates
+  const nonce = Date.now();
+  const modA = await import(`../src/middleware.js?instance=A&t=${nonce}`);
+  const modB = await import(`../src/middleware.js?instance=B&t=${nonce}`);
+
+  const testIp = '10.200.1.55';
+  const max = 2;
+  const windowMs = 10000;
+
+  // Exhaust limit on Instance A
+  assert.equal(modA.checkRateLimit(testIp, max, windowMs).allowed, true);
+  assert.equal(modA.checkRateLimit(testIp, max, windowMs).allowed, true);
+  assert.equal(modA.checkRateLimit(testIp, max, windowMs).allowed, false);
+
+  // Instance B has its own independent in-memory bucket (not shared)
+  const resB1 = modB.checkRateLimit(testIp, max, windowMs);
+  assert.equal(resB1.allowed, true);
+  assert.equal(resB1.remaining, 1);
+});
+

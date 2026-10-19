@@ -22,7 +22,7 @@ If `.env` was previously distributed, archived, or exposed, assume all credentia
 ## 2. Where to Update Rotated Values
 
 1. **Local Development**:
-   - Update `c:\Users\Lenovo\nexus\.env`.
+   - Update your local `.env` file (e.g. at the repository root).
    - Never commit `.env` or paste its contents into chat/issues.
 2. **GitHub Actions Secrets** (for automated workflows):
    - Navigate to **GitHub Repo** → **Settings** → **Secrets and variables** → **Actions**.

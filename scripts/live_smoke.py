@@ -225,6 +225,34 @@ def validate_smoke_session(session_dir: Path) -> dict[str, Any]:
         "detail": "0 mock provenance flags" if not mock_reasons else "; ".join(mock_reasons),
     }
 
+    # 8. Validator inconsistencies reviewed
+    val_file = session_dir / "validator_flags.json"
+    if val_file.is_file():
+        try:
+            vdata = json.loads(val_file.read_text(encoding="utf-8"))
+            vflags = vdata.get("flags", [])
+            vcount = vdata.get("count", len(vflags))
+            is_reviewed = vdata.get("reviewed") is True
+            explanations = vdata.get("explanations", [])
+            if vcount == 0:
+                v_ok = True
+                v_detail = "0 directional/numeric inconsistencies flagged"
+            else:
+                all_explained = is_reviewed and (len(explanations) == vcount or all("explanation" in f for f in vflags))
+                v_ok = all_explained
+                verbatim_lines = "; ".join(f"L{f.get('line_number')}: {f.get('issue')} ('{f.get('line', '').strip()[:60]}')" for f in vflags)
+                if all_explained:
+                    v_detail = f"{vcount} inconsistencies flagged and reviewed with explanations: {verbatim_lines}"
+                else:
+                    v_detail = f"{vcount} unexplained inconsistencies flagged: {verbatim_lines}"
+        except Exception as e:
+            v_ok = False
+            v_detail = f"Failed to parse validator_flags.json: {e}"
+    else:
+        v_ok = True
+        v_detail = "0 inconsistencies (validator_flags.json not present)"
+    checks["validator_inconsistencies_reviewed"] = {"passed": v_ok, "detail": v_detail}
+
     all_passed = all(c["passed"] for c in checks.values())
     return {
         "passed": all_passed,
@@ -239,7 +267,7 @@ def print_validation_table(report: dict[str, Any]) -> None:
     print("=" * 78)
     for check_name, info in report["checks"].items():
         status = "PASS" if info["passed"] else "FAIL"
-        print(f"  [{status}] {check_name:<30} | {info['detail']}")
+        print(f"  [{status}] {check_name:<34} | {info['detail']}")
     print("-" * 78)
     overall = "PASS" if report["passed"] else "FAIL"
     print(f"  OVERALL: {overall}")
@@ -264,6 +292,17 @@ def main(argv: list[str] | None = None) -> int:
         type=str,
         default=None,
         help="Validate an existing isolated session directory instead of running live network calls.",
+    )
+    parser.add_argument(
+        "--date",
+        type=str,
+        default=None,
+        help="Target date YYYY-MM-DD for live smoke test.",
+    )
+    parser.add_argument(
+        "--allow-non-trading",
+        action="store_true",
+        help="Allow running smoke test against a non-trading date (marked as non-representative).",
     )
     args = parser.parse_args(argv)
 
@@ -294,6 +333,28 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 2
 
+    from core.calendar import get_last_trading_day, is_idx_trading_day, get_holiday_reason
+    from core.time import jakarta_now
+
+    target_date = args.date
+    if target_date:
+        if not is_idx_trading_day(target_date):
+            reason = get_holiday_reason(target_date) or "Non-trading day"
+            if not args.allow_non_trading:
+                print(f"[live_smoke] ERROR: Target date {target_date} is a non-trading day ({reason}). Use --allow-non-trading to bypass.")
+                return 1
+            print(f"[live_smoke] ⚠️ NON-TRADING TARGET: {target_date} ({reason}) results not representative.")
+    else:
+        today_date = jakarta_now().date()
+        today_str = today_date.strftime("%Y-%m-%d")
+        if not is_idx_trading_day(today_str):
+            reason = get_holiday_reason(today_str) or "Non-trading day"
+            target_date = get_last_trading_day(today_str)
+            print(f"[live_smoke] Today ({today_str}) is a non-trading day ({reason}). Selecting last completed IDX trading session: {target_date}")
+        else:
+            target_date = get_last_trading_day(today_str)
+            print(f"[live_smoke] Selecting last completed IDX trading session for full evening evaluation: {target_date}")
+
     with tempfile.TemporaryDirectory(prefix="nexus_live_smoke_", ignore_cleanup_errors=True) as tmp_root_str:
         tmp_root = Path(tmp_root_str)
         runs_dir = Path(env_runs) if env_runs else (tmp_root / "isolated_runs")
@@ -308,19 +369,18 @@ def main(argv: list[str] | None = None) -> int:
         from agents.evening_reviewer import run_evening_review
         from agents.market_agent import run_market_brief
 
-        print(f"[live_smoke] Running live morning brief into isolated dir: {get_runs_dir()}")
-        run_market_brief()
+        print(f"[live_smoke] Running live morning brief for {target_date} into isolated dir: {get_runs_dir()}")
+        run_market_brief(target_date=target_date, allow_non_trading=args.allow_non_trading)
 
-        session_dirs = [d for d in runs_dir.iterdir() if d.is_dir() and d.name != "global" and not d.name.startswith("_")]
-        if not session_dirs:
-            print("[live_smoke] ERROR: Morning brief did not create a session directory.")
+        session_dir = runs_dir / target_date
+        if not session_dir.is_dir():
+            print(f"[live_smoke] ERROR: Morning brief did not create session directory: {session_dir}")
             return 1
 
-        date_key = sorted(session_dirs)[-1].name
-        print(f"[live_smoke] Running live evening review for session {date_key}...")
-        run_evening_review(date_key=date_key)
+        print(f"[live_smoke] Running live evening review for session {target_date}...")
+        run_evening_review(date_key=target_date, allow_non_trading=args.allow_non_trading)
 
-        report = validate_smoke_session(runs_dir / date_key)
+        report = validate_smoke_session(session_dir)
         print_validation_table(report)
         return 0 if report["passed"] else 1
 

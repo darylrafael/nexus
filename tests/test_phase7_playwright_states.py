@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any, Dict
@@ -131,49 +132,53 @@ def run_playwright_fixture_state_checks(target_url: str = "http://127.0.0.1:3002
         }
         ctx_missing.close()
 
-        # 4. axe-core accessibility check in both dark and light themes at 390px
+        # 4. axe-core accessibility check in both dark and light themes at 360px, 390px, and 430px (D1)
+        axe_env = os.environ.get("NEXUS_AXE_PATH")
         axe_candidates = [
-            Path(r"C:\Users\Lenovo\.gemini\antigravity\brain\78122c40-e208-430b-a691-9f3f14346e94\screenshots\axe.min.js"),
+            Path(axe_env) if axe_env else None,
             REPO_ROOT / "dashboard" / "node_modules" / "axe-core" / "axe.min.js",
+            REPO_ROOT / "audit_output" / "axe.min.js",
         ]
-        axe_path = next((p for p in axe_candidates if p.exists()), None)
+        axe_path = next((p for p in axe_candidates if p and p.exists()), None)
         if axe_path is not None:
             axe_results: Dict[str, Any] = {}
-            for theme in ("dark", "light"):
-                ctx_axe = browser.new_context(
-                    viewport={"width": 390, "height": 844},
-                    color_scheme=theme,
-                )
-                page_axe = ctx_axe.new_page()
-                page_axe.goto(target_url, wait_until="networkidle")
-                page_axe.evaluate(
-                    f"""() => {{
-                        document.documentElement.setAttribute('data-theme', '{theme}');
-                        try {{ localStorage.setItem('nexus-theme', '{theme}'); }} catch (e) {{}}
-                    }}"""
-                )
-                page_axe.wait_for_timeout(400)
-                page_axe.add_script_tag(path=str(axe_path))
-                axe_out = page_axe.evaluate(
-                    """async () => {
-                        const res = await window.axe.run();
-                        return {
-                            violations_count: res.violations.length,
-                            passes_count: res.passes.length,
-                            violations: res.violations.map(v => ({
-                                id: v.id,
-                                impact: v.impact,
-                                nodes: v.nodes.length
-                            }))
-                        };
-                    }"""
-                )
-                assert axe_out["violations_count"] == 0, (
-                    f"axe-core violations found in {theme} mode: {axe_out['violations']}"
-                )
-                axe_results[theme] = axe_out
-                ctx_axe.close()
-            results["axe_core_390px"] = axe_results
+            for w, h in ((360, 740), (390, 844), (430, 932)):
+                for theme in ("dark", "light"):
+                    combo_key = f"{w}px_{theme}"
+                    ctx_axe = browser.new_context(
+                        viewport={"width": w, "height": h},
+                        color_scheme=theme,
+                    )
+                    page_axe = ctx_axe.new_page()
+                    page_axe.goto(target_url, wait_until="networkidle")
+                    page_axe.evaluate(
+                        f"""() => {{
+                            document.documentElement.setAttribute('data-theme', '{theme}');
+                            try {{ localStorage.setItem('nexus-theme', '{theme}'); }} catch (e) {{}}
+                        }}"""
+                    )
+                    page_axe.wait_for_timeout(400)
+                    page_axe.add_script_tag(path=str(axe_path))
+                    axe_out = page_axe.evaluate(
+                        """async () => {
+                            const res = await window.axe.run();
+                            return {
+                                violations_count: res.violations.length,
+                                passes_count: res.passes.length,
+                                violations: res.violations.map(v => ({
+                                    id: v.id,
+                                    impact: v.impact,
+                                    nodes: v.nodes.length
+                                }))
+                            };
+                        }"""
+                    )
+                    assert axe_out["violations_count"] == 0, (
+                        f"axe-core violations found in {combo_key}: {axe_out['violations']}"
+                    )
+                    axe_results[combo_key] = axe_out
+                    ctx_axe.close()
+            results["axe_core_mobile"] = axe_results
 
         browser.close()
 
@@ -209,6 +214,46 @@ def test_fixture_state_payloads_schema_and_location():
     assert missing["reviews"][0]["isUnscorable"] is True
 
 
+def check_playwright_and_server_available(target_url: str = "http://127.0.0.1:3002") -> tuple[bool, str]:
+    """Check if Playwright, chromium browser, and dashboard server are available."""
+    try:
+        from playwright.sync_api import sync_playwright  # noqa: F401
+    except ImportError:
+        return False, "playwright package is not installed"
+
+    import urllib.request
+    try:
+        req = urllib.request.Request(target_url, headers={"User-Agent": "Nexus-Test-Check"})
+        with urllib.request.urlopen(req, timeout=1.0) as resp:
+            if resp.status >= 500:
+                return False, f"Dashboard server at {target_url} returned HTTP {resp.status}"
+    except Exception:
+        return False, f"Dashboard server at {target_url} is not running or unreachable"
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+    except Exception as e:
+        return False, f"Playwright chromium browser unavailable: {e}"
+
+    return True, "Available"
+
+
+def test_playwright_fixture_state_integration():
+    """Run Playwright verification against UI fixtures when dashboard server is running."""
+    import pytest
+    avail, reason = check_playwright_and_server_available()
+    if not avail:
+        pytest.skip(reason)
+
+    results = run_playwright_fixture_state_checks()
+    assert results["stale_fixture"]["passed"] is True
+    assert results["fresh_today_fixture"]["passed"] is True
+    assert results["missing_field_fixture"]["passed"] is True
+
+
 if __name__ == "__main__":
     res = run_playwright_fixture_state_checks()
     print(json.dumps(res, indent=2))
+

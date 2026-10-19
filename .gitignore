@@ -55,3 +55,7 @@ Thumbs.db
 scripts/fix_dashboard_audit.py
 scripts/package_deliverables.py
 
+# Audit artifacts
+audit_output/
+
+

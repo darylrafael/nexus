@@ -67,7 +67,7 @@ function CompactHeuristicRow({ item, onInspect }) {
       <td style={{ width: '130px', textAlign: 'right' }}>
         <button
           className="brief-read-btn font-mono"
-          style={{ padding: '3px 8px', fontSize: "11px" }}
+          style={{ padding: '6px 12px', fontSize: "12px", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
           onClick={(e) => {
             e.stopPropagation();
             onInspect(item);
@@ -431,7 +431,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', flex: 1, minWidth: 0 }}>
                             <span 
                               className="font-mono text-tertiary" 
-                              style={{ fontSize: "11px", fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
+                              style={{ fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
                             >
                               #{String(idx + 1).padStart(2, '0')}
                             </span>
@@ -578,7 +578,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               <span className="memory-title">KNOWLEDGE STORE PROVENANCE</span>
               <span className="memory-injected-pill font-mono">READ-ONLY SYNC</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '11px', marginTop: '6px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '12px', marginTop: '6px' }}>
               <div><span className="font-mono text-tertiary">PERSISTENT REPO:</span> <span className="font-mono text-primary">Adaptive Learning Store</span></div>
               <div><span className="font-mono text-tertiary">STORAGE MODE:</span> <span className="font-mono text-matched">Validated Append &amp; Decay</span></div>
               <div><span className="font-mono text-tertiary">INJECTION POINT:</span> <span className="font-mono text-primary">orchestrator/gemini.py · build_prompt()</span></div>

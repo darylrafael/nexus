@@ -12,6 +12,16 @@ export default function DataLineageView({ review }) {
   }
 
   const dq = review.data_quality || {};
+  const dqChecks = dq.checks || {};
+  const rawFlowMatch = dq.flow_date_matched !== undefined ? dq.flow_date_matched : dqChecks.flow_date_matched;
+  let flowValidity = "VALID";
+  if (rawFlowMatch !== undefined) {
+    if (typeof rawFlowMatch === "string") {
+      flowValidity = (rawFlowMatch.includes("matched=") && !rawFlowMatch.includes("matched=none") && !rawFlowMatch.includes("matched=mismatch")) ? "VALID" : "INVALID";
+    } else {
+      flowValidity = rawFlowMatch ? "VALID" : "INVALID";
+    }
+  }
 
   const lineageItems = [
     {
@@ -38,8 +48,10 @@ export default function DataLineageView({ review }) {
       source: "IDX Regular Market News (Antara/Bisnis via Tavily Search)",
       date: review.date,
       retrievalTime: "20:00 WIB",
-      validityFlag: dq.flow_date_matched !== undefined ? (dq.flow_date_matched ? "VALID" : "INVALID") : "VALID",
-      note: "Strict Indonesian D/M/Y calendar date matching. Scope restricted to Regular Market to avoid crossing/negotiated distortion.",
+      validityFlag: flowValidity,
+      note: typeof rawFlowMatch === "string"
+        ? `Calendar verification (${rawFlowMatch}). Strict Indonesian D/M/Y calendar date matching.`
+        : "Strict Indonesian D/M/Y calendar date matching. Scope restricted to Regular Market to avoid crossing/negotiated distortion.",
     },
     {
       metric: "Sector Breakdown (11 IDX-IC Indices)",
@@ -108,13 +120,13 @@ export default function DataLineageView({ review }) {
               </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "8px", margin: "8px 0", fontSize: "11px", fontFamily: "var(--font-mono)" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "8px", margin: "8px 0", fontSize: "12px", fontFamily: "var(--font-mono)" }}>
               <div>Recorded Value: <strong style={{ color: "var(--text-primary)" }}>{item.value}</strong></div>
               <div>Snapshot Date: <strong>{item.date}</strong></div>
               <div>Retrieval Timestamp: <strong>{item.retrievalTime}</strong></div>
             </div>
 
-            <div style={{ fontSize: "11px", color: "var(--text-tertiary)", borderTop: "1px solid var(--border-subtle)", paddingTop: "6px", marginTop: "6px" }}>
+            <div style={{ fontSize: "12px", color: "var(--text-tertiary)", borderTop: "1px solid var(--border-subtle)", paddingTop: "6px", marginTop: "6px" }}>
               {item.note}
             </div>
           </div>

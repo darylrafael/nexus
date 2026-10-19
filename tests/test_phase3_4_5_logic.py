@@ -327,3 +327,48 @@ def test_phase5_lock_ledger_and_post_lock_tamper_detection():
     assert verify_bad["valid"] is False
     assert verify_bad["tampered"] is True
     assert "prediction_content_modified" in verify_bad["reason"]
+
+
+def test_lock_ledger_chain_and_entry_tamper_detection(tmp_path, monkeypatch):
+    """Phase D4: End-to-end verification detects tampered entry_hash and broken prev_hash chains in lock ledger."""
+    import core.locking as lock_mod
+
+    # Run strictly in isolated tmp_path
+    monkeypatch.setattr(lock_mod, "RUNS_DIR", tmp_path / "runs")
+
+    wib_tz = timezone(timedelta(hours=7))
+    t1 = datetime(2026, 10, 19, 6, 50, 0, tzinfo=wib_tz).isoformat(timespec="seconds")
+    t2 = datetime(2026, 10, 20, 6, 50, 0, tzinfo=wib_tz).isoformat(timespec="seconds")
+
+    pred1 = {"date": "2026-10-19", "ihsg_direction": "Bearish", "ihsg_confidence": 70}
+    locked1 = lock_morning_prediction(pred1, created_at_iso=t1)
+
+    pred2 = {"date": "2026-10-20", "ihsg_direction": "Bullish", "ihsg_confidence": 65}
+    locked2 = lock_morning_prediction(pred2, created_at_iso=t2)
+
+    # Both initial predictions verify cleanly
+    assert verify_prediction_lock("2026-10-19", locked1)["valid"] is True
+    assert verify_prediction_lock("2026-10-20", locked2)["valid"] is True
+
+    ledger_file = get_lock_ledger_path()
+    lines = [json.loads(line) for line in ledger_file.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert len(lines) == 2
+
+    # 1. Tamper with prev_hash in line 2 of the ledger
+    lines_corrupted_chain = [dict(lines[0]), dict(lines[1])]
+    lines_corrupted_chain[1]["prev_hash"] = "TAMPERED_PREV_HASH"
+    ledger_file.write_text("\n".join(json.dumps(ln) for ln in lines_corrupted_chain) + "\n", encoding="utf-8")
+    verify_chain_tamper = verify_prediction_lock("2026-10-20", locked2)
+    assert verify_chain_tamper["valid"] is False
+    assert verify_chain_tamper["tampered"] is True
+    assert "ledger_chain_broken" in verify_chain_tamper["reason"]
+
+    # 2. Tamper with entry_hash in line 1 of the ledger
+    lines_corrupted_entry = [dict(lines[0]), dict(lines[1])]
+    lines_corrupted_entry[0]["entry_hash"] = "tampered_entry_hash"
+    ledger_file.write_text("\n".join(json.dumps(ln) for ln in lines_corrupted_entry) + "\n", encoding="utf-8")
+    verify_entry_tamper = verify_prediction_lock("2026-10-19", locked1)
+    assert verify_entry_tamper["valid"] is False
+    assert verify_entry_tamper["tampered"] is True
+    assert "ledger_entry_hash_mismatch" in verify_entry_tamper["reason"]
+

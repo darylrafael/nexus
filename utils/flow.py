@@ -32,10 +32,22 @@ def canonicalize_flow(signal: str | None) -> str:
     return "Unknown"
 
 
-def _verify_target_date(text: str, target_date_str: Optional[str], strict: bool = False) -> tuple[bool, str]:
+def _verify_target_date(
+    text: str,
+    target_date_str: Optional[str],
+    strict: bool = False,
+) -> tuple[bool, str, Optional[str]]:
     """Verify text refers to the target date. In strict mode, an explicit matching date is required."""
     if not target_date_str or not text:
-        return (not strict, "no_target_date" if strict else "ok")
+        return (not strict, "no_target_date" if strict else "ok", None)
+
+    # If target_date is not a valid IDX trading day, refuse flow classification
+    from core.calendar import is_idx_trading_day
+    try:
+        if not is_idx_trading_day(target_date_str):
+            return False, "non_trading_target_date", None
+    except Exception:
+        pass
 
     text_lower = text.lower()
     target_year = None
@@ -56,9 +68,10 @@ def _verify_target_date(text: str, target_date_str: Optional[str], strict: bool 
             target_year = int(text_date_m.group(3))
 
     if not target_month or not target_day:
-        return (not strict, "unparseable_target_date" if strict else "ok")
+        return (not strict, "unparseable_target_date" if strict else "ok", None)
 
     explicit_match_found = False
+    matched_date_str: Optional[str] = None
 
     # Indonesian articles write dates as Day/Month/Year (e.g. 10/6/2026 = 10 June).
     date_slash_matches = list(re.finditer(r"\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b", text))
@@ -66,12 +79,16 @@ def _verify_target_date(text: str, target_date_str: Optional[str], strict: bool 
         d = int(dm.group(1))
         m = int(dm.group(2))
         y = int(dm.group(3))
+        found_date = f"{y:04d}-{m:02d}-{d:02d}"
         if y == target_year:
             # Strictly Day/Month/Year for Indonesian financial articles
             if d == target_day and m == target_month:
                 explicit_match_found = True
+                matched_date_str = found_date
             else:
-                return False, "date_mismatch_rejected"
+                return False, "date_mismatch_rejected", found_date
+        else:
+            return False, "date_mismatch_rejected", found_date
 
     # Check for textual dates like "6 Oktober 2026" or "Senin (10 Agustus 2026)"
     text_date_pattern = r"\b(\d{1,2})\s+([a-zA-Z]+)(?:\s+(\d{4}))?\b"
@@ -81,18 +98,20 @@ def _verify_target_date(text: str, target_date_str: Optional[str], strict: bool 
         y_val = int(tdm.group(3)) if tdm.group(3) else target_year
         if m_word in INDONESIAN_MONTH_MAP:
             m_val = INDONESIAN_MONTH_MAP[m_word]
+            found_date = f"{y_val:04d}-{m_val:02d}-{d_val:02d}"
             if y_val == target_year:
                 if d_val == target_day and m_val == target_month:
                     explicit_match_found = True
-                elif m_val != target_month:
+                    matched_date_str = found_date
+                elif m_val != target_month or d_val != target_day:
                     target_month_names = [k for k, v in INDONESIAN_MONTH_MAP.items() if v == target_month and len(k) > 3]
-                    if not any(tm in text_lower for tm in target_month_names):
-                        return False, "date_mismatch_rejected"
+                    if not any(tm in text_lower for tm in target_month_names) or d_val != target_day:
+                        return False, "date_mismatch_rejected", found_date
 
     if strict and not explicit_match_found:
-        return False, "no_matching_date"
+        return False, "no_matching_date", matched_date_str
 
-    return True, "verified"
+    return True, "verified", (matched_date_str or f"{target_year:04d}-{target_month:02d}-{target_day:02d}")
 
 
 def classify_foreign_flow(
@@ -114,16 +133,20 @@ def classify_foreign_flow(
             "net_trillion": None,
             "raw_figure": None,
             "reason": "empty_input",
+            "matched_date": None,
+            "target_date": target_date_str,
         }
 
     # Date recency check
-    is_valid_date, date_reason = _verify_target_date(text, target_date_str, strict=strict)
+    is_valid_date, date_reason, matched_date = _verify_target_date(text, target_date_str, strict=strict)
     if not is_valid_date:
         return {
             "signal": "Unknown",
             "net_trillion": None,
             "raw_figure": None,
             "reason": date_reason,
+            "matched_date": matched_date,
+            "target_date": target_date_str,
         }
 
     # Regex to capture: (net buy|beli bersih|net sell|jual bersih) ... Rp X (triliun|miliar|t|m)
@@ -248,4 +271,6 @@ def classify_foreign_flow(
         "all_market_net_trillion": nego_entries[0]["net_trillion"] if nego_entries else (net_signed_trillion if market_scope == "all_market" else None),
         "divergence_alert": divergence_alert,
         "reason": "classified_successfully",
+        "matched_date": matched_date,
+        "target_date": target_date_str,
     }

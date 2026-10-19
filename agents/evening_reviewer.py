@@ -273,7 +273,7 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
         data["foreign_flow_raw"]    = "N/A"
         data["divergence_alert"]    = None
 
-    # Data Quality Evaluation Block (Phase B2)
+    # Data Quality Evaluation Block (Phase B2 & B4)
     ohlc_valid = validate_ohlc(
         data["ihsg"].get("open"),
         data["ihsg"].get("high"),
@@ -284,12 +284,17 @@ def collect_actual_data(date_id: str, target_date: str = None) -> dict:
     flow_matched = bool(data["foreign_flow"].get("signal") not in (None, "Unknown", "Data error") and not data["foreign_flow"].get("error"))
     sector_close = is_close_data(data.get("sector_performance", "") if isinstance(data.get("sector_performance"), str) else "")
 
+    target_d_str = target_date or date_id
+    matched_d_str = data["foreign_flow"].get("matched_date")
+    flow_matched_report = f"matched={matched_d_str or 'none'}, target={target_d_str}"
+
     data["data_quality"] = {
         "overall_valid": bool(ohlc_valid and fx_consistent),
+        "flow_date_matched": flow_matched_report,
         "checks": {
             "ohlc_valid": ohlc_valid,
             "fx_consistent": fx_consistent,
-            "flow_date_matched": flow_matched,
+            "flow_date_matched": flow_matched_report,
             "sector_data_is_close": sector_close,
         },
         "fields": {
@@ -746,16 +751,33 @@ CRITICAL RULES:
 # MAIN ENTRY POINT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def run_evening_review(date_key: str = None) -> dict | None:
+def run_evening_review(date_key: str = None, allow_non_trading: bool = False) -> dict | None:
     """
     Full 7-step evening review pipeline.
-    Returns learning dict, or None if morning brief not found.
+    Returns learning dict, or None if morning brief not found, or {"status": "skipped", ...} if non-trading.
     """
     start_time = time.time()
     now = jakarta_now()
     if not date_key:
         from utils.dates import resolve_evening_review_date
         date_key = resolve_evening_review_date()
+
+    from core.calendar import is_idx_trading_day, get_holiday_reason
+    if not allow_non_trading and not is_idx_trading_day(date_key):
+        reason = get_holiday_reason(date_key) or "Non-trading day"
+        print(f"[evening_reviewer] SKIPPED: {date_key} is a non-trading day ({reason}). To override, pass allow_non_trading=True.")
+        skip_payload = {
+            "stage": "evening_review",
+            "status": "skipped",
+            "date": date_key,
+            "reason": reason,
+            "skipped_at": now.isoformat(timespec="seconds"),
+        }
+        try:
+            save_json_artifact(date_key, "pipeline_status.json", skip_payload)
+        except Exception as exc:
+            print(f"[evening_reviewer] Warning: failed to save skip artifact: {exc}")
+        return skip_payload
 
     try:
         return _run_evening_review_internal(date_key, start_time, now)

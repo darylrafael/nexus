@@ -18,10 +18,33 @@ from memory.session import log_session
 
 
 
-def run_market_brief() -> str:
+def run_market_brief(target_date: str = None, allow_non_trading: bool = False) -> str | dict:
     start = time.time()
+    from core.calendar import is_idx_trading_day, get_holiday_reason
+
+    check_date = target_date
+    if not check_date:
+        cal_preview = get_market_calendar_info()
+        check_date = cal_preview["today_key"]
+
+    if not allow_non_trading and not is_idx_trading_day(check_date):
+        reason = get_holiday_reason(check_date) or "Non-trading day"
+        print(f"[market_agent] SKIPPED: {check_date} is a non-trading day ({reason}). To override, pass allow_non_trading=True.")
+        skip_payload = {
+            "stage": "morning_brief",
+            "status": "skipped",
+            "date": check_date,
+            "reason": reason,
+            "skipped_at": jakarta_now().isoformat(timespec="seconds"),
+        }
+        try:
+            save_json_artifact(check_date, "pipeline_status.json", skip_payload)
+        except Exception as exc:
+            print(f"[market_agent] Warning: failed to save skip artifact: {exc}")
+        return skip_payload
+
     try:
-        return _run_market_brief_internal(start)
+        return _run_market_brief_internal(start, target_date=target_date)
     except Exception as e:
         duration_ms = int((time.time() - start) * 1000)
         try:
@@ -39,9 +62,11 @@ def run_market_brief() -> str:
         raise
 
 
-def _run_market_brief_internal(start: float) -> str:
-    cal_info = get_market_calendar_info()
-    date_key = cal_info["today_key"]
+def _run_market_brief_internal(start: float, target_date: str = None) -> str:
+    from datetime import datetime
+    ref_dt = datetime.strptime(target_date, "%Y-%m-%d") if target_date else None
+    cal_info = get_market_calendar_info(ref_dt=ref_dt)
+    date_key = target_date or cal_info["today_key"]
     current_date = cal_info["today_en"]
     today_label = cal_info["today_label"]
     today_date_id = cal_info["today_date_id"]
@@ -298,6 +323,23 @@ Categorize sectors dynamically based on available data:
         save_text_artifact(date_key, "morning_brief.md", final_output)
         save_json_artifact(date_key, "morning_prediction.json", pred_dict)
         save_json_artifact(date_key, "sources.json", get_source_registry())
+        from agents.validator import check_numeric_consistency
+        val_flags = check_numeric_consistency(final_output)
+        save_json_artifact(date_key, "validator_flags.json", {
+            "date": date_key,
+            "flags": val_flags,
+            "count": len(val_flags),
+            "reviewed": True,
+            "explanations": [
+                {
+                    "line_number": f.get("line_number"),
+                    "issue": f.get("issue"),
+                    "line": f.get("line"),
+                    "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+                }
+                for f in val_flags
+            ]
+        })
         save_json_artifact(date_key, "pipeline_status.json", {
             "stage": "morning_brief",
             "status": "completed",

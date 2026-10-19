@@ -89,6 +89,7 @@ FORBIDDEN_DIR_SEGMENTS = frozenset({
     "env",
     ".idea",
     ".vscode",
+    "audit_output",
 })
 
 FORBIDDEN_GLOBS = (
@@ -109,6 +110,17 @@ SECRET_PATTERNS: Sequence[Tuple[str, re.Pattern[str]]] = (
     ("Google/Gemini key (AIza)", re.compile(r"AIza[0-9A-Za-z_-]{20,}")),
     ("Telegram Bot Token", re.compile(r"\b\d{8,10}:[A-Za-z0-9_-]{35}\b")),
     ("Tavily API key (tvly-)", re.compile(r"tvly-[A-Za-z0-9_-]{12,}")),
+)
+
+_TOOL_KEYWORD = "anti" + "gravity"
+
+PERSONAL_PATH_PATTERNS: Sequence[Tuple[str, re.Pattern[str]]] = (
+    ("Windows user profile path", re.compile(r"[A-Za-z]:[\\/]Users[\\/]", re.I)),
+    ("Linux user home path", re.compile(r"(?:^|[\s\"'(=])/(?:home|root)/[a-zA-Z0-9._-]+(?:/|$)", re.I)),
+    ("macOS user home path", re.compile(r"(?:^|[\s\"'(=])/Users/[a-zA-Z0-9._-]+(?:/|$)", re.I)),
+    ("Tooling directory (.gemini)", re.compile(r"(?:^|[\s\"'/\\])\.gemini(?:[/\\]|$)", re.I)),
+    (f"Tooling directory ({_TOOL_KEYWORD})", re.compile(r"\b" + _TOOL_KEYWORD + r"\b", re.I)),
+    ("UUID-like tooling session ID", re.compile(r"\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b")),
 )
 
 
@@ -283,6 +295,30 @@ def scan_files_for_secrets(
     return findings
 
 
+def scan_files_for_personal_paths(
+    rel_paths: Iterable[str],
+    repo_root: pathlib.Path = REPO_ROOT,
+) -> List[str]:
+    """Scan specified files for personal user paths, tooling directories, and UUID paths."""
+    findings: List[str] = []
+    for rel in rel_paths:
+        norm = normalize_rel_path(rel)
+        abs_path = repo_root / norm
+        if not abs_path.is_file():
+            continue
+        try:
+            content = abs_path.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+
+        for label, pattern in PERSONAL_PATH_PATTERNS:
+            match = pattern.search(content)
+            if match:
+                findings.append(f"Personal/tooling path pattern '{label}' matched in {norm}: '{match.group(0)}'")
+
+    return findings
+
+
 def verify_zip_contents(zip_path: pathlib.Path) -> List[str]:
     """Inspect a built zip archive and return a list of any policy violations."""
     violations: List[str] = []
@@ -315,6 +351,10 @@ def verify_zip_contents(zip_path: pathlib.Path) -> List[str]:
             for label, pattern in SECRET_PATTERNS:
                 if pattern.search(raw):
                     violations.append(f"Secret '{label}' found inside zip entry {name}")
+            for label, pattern in PERSONAL_PATH_PATTERNS:
+                m = pattern.search(raw)
+                if m:
+                    violations.append(f"Personal/tooling path '{label}' found inside zip entry {name}: '{m.group(0)}'")
 
     return violations
 
@@ -495,7 +535,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             for item in secret_findings:
                 print(f"  - {item}", file=sys.stderr)
             return 1
-        print(f"OK: Hygiene, untracked check & secret scan passed across {len(files)} tracked files.")
+        personal_findings = scan_files_for_personal_paths(files, REPO_ROOT)
+        if personal_findings:
+            print("ERROR: Personal/tooling path scan failed:", file=sys.stderr)
+            for item in personal_findings:
+                print(f"  - {item}", file=sys.stderr)
+            return 1
+        print(f"OK: Hygiene, untracked check, secret scan & path scan passed across {len(files)} tracked files.")
 
     if args.build_zip:
         out_path = pathlib.Path(args.build_zip)

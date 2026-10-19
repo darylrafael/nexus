@@ -96,7 +96,7 @@ function CompactSessionRow({ session, expanded, onToggle, onDeepInspect }) {
                 </div>
                 <button
                   className="brief-read-btn font-mono"
-                  style={{ padding: '4px 10px', fontSize: '11px' }}
+                  style={{ padding: '6px 12px', fontSize: '12px', minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
                   onClick={(e) => {
                     e.stopPropagation();
                     onDeepInspect(session);
@@ -451,7 +451,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                     <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)' }}>
                       {ag.role}
                     </div>
-                    <p style={{ fontSize: '11px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                    <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
                       {ag.desc}
                     </p>
                     <div className="mobile-card-meta font-mono text-xs">
@@ -482,7 +482,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                             <span className="font-mono text-xs font-bold text-primary">
                               {ag.name}
                             </span>
-                            <span className="font-mono text-tertiary" style={{ fontSize: "11px" }}>
+                            <span className="font-mono text-tertiary" style={{ fontSize: "12px" }}>
                               {ag.model}
                             </span>
                           </div>
@@ -646,13 +646,13 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                 )}
                 {isExpanded && (
                   <div style={{ borderTop: '1px dashed var(--border-subtle)', paddingTop: '8px', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    <div style={{ fontSize: '11px' }}>
+                    <div style={{ fontSize: '12px' }}>
                       <span className="font-mono text-tertiary">MODEL: </span>
                       <span className="font-mono text-secondary">{session.model || 'llm_client'}</span>
                     </div>
                     <button
                       className="brief-read-btn font-mono"
-                      style={{ padding: '6px 10px', fontSize: '11px', marginTop: '4px', width: '100%', justifyContent: 'center' }}
+                      style={{ padding: '6px 12px', fontSize: '12px', minHeight: '44px', marginTop: '4px', width: '100%', justifyContent: 'center', display: 'inline-flex', alignItems: 'center' }}
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedRun(session);

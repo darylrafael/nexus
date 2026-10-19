@@ -148,3 +148,54 @@ def test_sqlite_wal_mode_and_concurrency(tmp_path, monkeypatch):
     telemetry = export_telemetry_json(output_path=telemetry_path)
     assert telemetry["stats"]["totalRuns"] == 10
     assert telemetry_path.exists()
+
+
+def test_managed_connection_auto_closes_on_normal_exit(tmp_path):
+    """Phase D3: _ManagedConnection automatically commits and closes on normal with-block exit."""
+    import sqlite3
+    from memory.session import _ManagedConnection
+
+    db_file = tmp_path / "managed_test.db"
+    conn = sqlite3.connect(db_file, factory=_ManagedConnection)
+    with conn:
+        conn.execute("CREATE TABLE items (id INT, val TEXT);")
+        conn.execute("INSERT INTO items VALUES (1, 'hello');")
+
+    # Connection must be closed on exiting 'with conn'
+    with pytest.raises(sqlite3.ProgrammingError, match="Cannot operate on a closed database"):
+        conn.execute("SELECT * FROM items;")
+
+    # Verify committed changes persisted on a new connection
+    conn2 = sqlite3.connect(db_file)
+    row = conn2.execute("SELECT val FROM items WHERE id=1;").fetchone()
+    conn2.close()
+    assert row[0] == "hello"
+
+
+def test_managed_connection_rolls_back_and_closes_on_exception(tmp_path):
+    """Phase D3: _ManagedConnection rolls back transaction and closes even when an exception is raised."""
+    import sqlite3
+    from memory.session import _ManagedConnection
+
+    db_file = tmp_path / "managed_rollback.db"
+    conn0 = sqlite3.connect(db_file)
+    conn0.execute("CREATE TABLE items (id INT, val TEXT);")
+    conn0.commit()
+    conn0.close()
+
+    conn = sqlite3.connect(db_file, factory=_ManagedConnection)
+    with pytest.raises(ValueError, match="simulated failure"):
+        with conn:
+            conn.execute("INSERT INTO items VALUES (2, 'aborted');")
+            raise ValueError("simulated failure")
+
+    # Connection must be closed
+    with pytest.raises(sqlite3.ProgrammingError, match="Cannot operate on a closed database"):
+        conn.execute("SELECT * FROM items;")
+
+    # Verify aborted row was rolled back
+    conn2 = sqlite3.connect(db_file)
+    rows = conn2.execute("SELECT * FROM items;").fetchall()
+    conn2.close()
+    assert len(rows) == 0
+
