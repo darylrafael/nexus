@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 98968,
+    "avgDurationMs": 106570,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 98968.0,
+      "avg_duration_ms": 106570.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,15 +19,15 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-10-16T00:32:30.889895",
+      "timestamp": "2026-10-19T00:32:34.092239",
       "query": "daily_brief",
       "agent": "market_agent",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: Rupiah Dibayangi Konflik Timur Tengah dan Inflasi AS\n- **Summary**: Rupiah ditutup melemah tipis 0.02% ke Rp17,903 per dolar AS pada Rabu, 14 Oktober 2026, tertekan oleh sentimen konflik Timur Tengah dan inflasi AS yang tinggi (src_e844bcb180). Bank Indonesia sebelumnya mempertahankan BI-Rate di 5.75% pada 22-23 September 2026 untuk menjaga stabilitas nilai tukar dan inflasi (src_994c5cacb3). Inflasi IHK September 2026 naik menjadi 3.28% YoY, didorong oleh harga pangan dan komoditas global (src_85f904375e).\n- **Market Impact**: Bearish | **Confidence**: 85%\n- **Rationale**: Pelemahan Rupiah, meskipun tipis, bersama dengan tekanan inflasi yang masih tinggi dan sentimen eksternal negatif, dapat membebani sentimen pasar domestik. Meskipun BI mempertahankan suku bunga, kekhawatiran terhadap stabilitas mata uang dan potensi kenaikan biaya impor dapat memicu aksi jual di pasar saham, terutama pada sektor yang bergantung pada impor.\n- **Affected Stocks**: ",
+      "result": "---\n### 1. Indonesian Economic News: MSCI Threatens Indonesia's Market Status, Rupiah Touches Rp18,000 Amidst Market Turmoil\n- **Summary**: On Friday, October 16, 2026, the Indonesian Stock Exchange (IHSG) plummeted 11.57% to 5,185.10, triggered by MSCI Inc.'s consideration to downgrade Indonesia's market status from Emerging Market to Standalone Market (src_ae99e8c7fe, src_e250f81860, src_90d505f7cd, src_7376c1e656). This led to a trading halt after an 8% drop (src_b22ff97728, src_e250f81860). Concurrently, the Rupiah weakened significantly, touching Rp18,000 per US Dollar, prompting Bank Indonesia to intervene in the market (src_d1133386cc, src_90d505f7cd). The market also saw a massive net sell by foreign investors of Rp3.34 trillion (src_22fd18ae0f).\n- **Market Impact**: Bearish | **Confidence**: 95%\n- **Rationale**: The potential downgrade by MSCI is a severe negative catalyst, signaling reduced foreign investment appeal and capital outflow risk, as evidenced by the sharp IHSG dro",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 98968
+      "duration_ms": 106570
     }
   ],
-  "exported_at": "2026-10-16T00:32:30.891426"
+  "exported_at": "2026-10-19T00:32:34.093883"
 }
