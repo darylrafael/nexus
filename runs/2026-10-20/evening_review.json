@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-20",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 5.65,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Energy (Oil & Coal)": null,
+    "Basic Materials (CPO & Nickel)": null,
+    "Banking": null,
+    "Consumer Non-Cyclicals": null,
+    "Technology": null,
+    "Property & Real Estate": null,
+    "Energy (Gas Upstream)": null,
+    "Financials (Non-Banking)": null
+  },
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": [
+    "Bank Indonesia memberi sinyal pemangkasan BI Rate 2026",
+    "Bursa saham Asia melemah pada 20 Oktober 2026, dipicu aksi jual saham teknologi"
+  ],
+  "rca_overestimated": [
+    "The market's reaction to the ongoing MSCI downgrade threat",
+    "The anticipated BI Rate decision with a potential 25 bps hike"
+  ],
+  "rca_underestimated": [
+    "The potential for a significant IHSG rebound (+5.65%)",
+    "The positive market impact of Bank Indonesia signaling a potential BI Rate cut (pemangkasan)"
+  ],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [
+    "Brief predicted a bearish IHSG due to MSCI downgrade threat and anticipated BI Rate hike, but IHSG closed bullish (+5.65%) after Bank Indonesia signaled a potential rate cut.",
+    "Despite foreign flow remaining in distribution, which typically correlates with a weaker IHSG, the index surged +5.65%.",
+    "While other Asian markets weakened due to tech sell-off, IHSG showed strong resilience and a significant rebound."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 81% dan ada antisipasi kenaikan BI Rate, tetapi Bank Indonesia memberi sinyal pemangkasan BI Rate, maka IHSG dapat rebound signifikan sebesar +5.65%.",
+    "Ketika foreign flow aktualnya distribusi, tetapi ada katalis positif domestik yang kuat seperti sinyal kebijakan moneter, maka IHSG dapat bergerak berlawanan arah dengan prediksi dan foreign flow, ditunjukkan dengan kenaikan +5.65%."
+  ],
+  "summary": "Despite a strong bearish prediction and continued foreign flow distribution, the IHSG experienced a significant bullish rebound of +5.65%, primarily driven by an unexpected signal from Bank Indonesia regarding a potential rate cut, which countered the brief's anticipated hike and MSCI downgrade concerns.",
+  "actual_usdidr": 17943.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 99.79,
+      "previous_close": 97.97,
+      "change_pct": 1.86,
+      "signal": "Up",
+      "retrieved_at": "2026-10-20T20:00:54+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 110.53,
+      "previous_close": 105.92,
+      "change_pct": 4.35,
+      "signal": "Up",
+      "retrieved_at": "2026-10-20T20:00:54+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.99,
+      "previous_close": 3.24,
+      "change_pct": -7.57,
+      "signal": "Down",
+      "retrieved_at": "2026-10-20T20:00:54+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Newcastle Tembus US$152 per Ton, Pasokan Global Men\nSource IDs: src_f7e74b3333, src_628dab5d91, src_171c2fa6b0, src_a277ed8ce1, src_4d907b14ac, src_ee9f97789b, src_4d4b55251b"
+    },
+    "CPO": {
+      "raw": "[no date] Palm Oil - Price - Chart - Historical Data - News\n## Palm Oil rose\nSource IDs: src_9c7bf9e109, src_b363e40885, src_f5acc49bab, src_fbbd4653a1, src_56b4172631, src_c0a99d32e5, src_21ae48cf96"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_bf08793d8b, src_a4f1b4fef6, src_f1dad1f235, src_0b12862f48, src_dc295145ae, src_a03a19ceeb"
+    }
+  }
+}
