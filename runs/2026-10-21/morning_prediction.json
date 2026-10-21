@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-21",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 85,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp2.28 Triliun (regular market) (src_ff67c33f8e).",
+  "sector_bullish": [
+    "Select Commodity Miners (Coal, Nickel)"
+  ],
+  "sector_bearish": [
+    "Raw Materials (General)",
+    "Infrastructure",
+    "Non-Primary Consumer Goods",
+    "Primary Consumer Goods",
+    "Property",
+    "Aviation/Transport",
+    "Technology"
+  ],
+  "sector_neutral": [
+    "Banking"
+  ],
+  "recommended_tickers": [
+    "HRUM",
+    "TBLA",
+    "LSIP",
+    "BUMI",
+    "MSCI",
+    "ANTM",
+    "BBRI",
+    "FOMC",
+    "GOTO",
+    "MEDC",
+    "INCO",
+    "AALI",
+    "BYAN",
+    "BBNI",
+    "TLKM",
+    "BBCA",
+    "ENRG",
+    "SMAR",
+    "ADRO",
+    "EMAS",
+    "PTBA",
+    "UNVR",
+    "RUIS",
+    "INDF",
+    "ICBP",
+    "MYOR",
+    "BMRI",
+    "SIMP"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bullish",
+    "CPO": "bullish",
+    "Nickel": "bullish"
+  },
+  "evidence_ids": [
+    "src_00a3bd293a",
+    "src_189af8646d",
+    "src_1f80716249",
+    "src_2a06ee6aae",
+    "src_2aee1e73f5",
+    "src_4080587888",
+    "src_56c7dbcc7c",
+    "src_5a487b060d",
+    "src_83fb9a2e5a",
+    "src_93bee4ed2c",
+    "src_9c7bf9e109",
+    "src_a277ed8ce1",
+    "src_b10c393161",
+    "src_b135acadb2",
+    "src_cfc3bf86ba",
+    "src_ff67c33f8e"
+  ]
+}
