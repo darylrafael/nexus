@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-21",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 85,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.94,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Select Commodity Miners (Coal, Nickel)": null,
+    "Raw Materials (General)": null,
+    "Infrastructure": null,
+    "Non-Primary Consumer Goods": null,
+    "Primary Consumer Goods": null,
+    "Property": null,
+    "Aviation/Transport": null,
+    "Technology": null,
+    "Banking": null
+  },
+  "error_rate_pct": 50,
+  "accuracy_score": 50,
+  "rca_unanticipated": [
+    "Kekuatan akumulasi investor domestik yang mampu menyerap aksi jual asing secara masif di pasar reguler",
+    "Sentimen technical rebound yang mendorong penguatan pada 369 saham dan mengangkat 9 dari 11 indeks sektoral"
+  ],
+  "rca_overestimated": [
+    "Dampak penekanan indeks dari foreign net sell jumbo sebesar Rp2,21 triliun",
+    "Sentimen pelemahan nilai tukar Rupiah (USD/IDR di level 17.943) terhadap pergerakan IHSG"
+  ],
+  "rca_underestimated": [
+    "Minat beli pelaku pasar lokal pada saham-saham likuid LQ45 seperti AKRA, ICBP, dan BBTN saat IHSG menyentuh area oversold"
+  ],
+  "rca_info_delay": [
+    "Konfirmasi kekuatan arus beli domestik intraday yang baru terlihat setelah pembukaan sesi perdagangan reguler"
+  ],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan foreign outflow jumbo (net sell Rp2,21 triliun) dan pelemahan Rupiah akan menyeret IHSG ke zona merah, namun indeks justru rebound naik +0,94% karena serapan likuiditas domestik yang solid."
+  ],
+  "lessons": [
+    "Ketika foreign flow diprediksi distribusi masif dengan net sell Rp2,21 triliun dan Rupiah melemah ke Rp17.943, tetapi aksi beli balik domestik mendominasi dengan 369 saham menguat, maka IHSG justru menguat +0,94% (+49,47 poin) ke level 5.328,36.",
+    "Ketika sentimen makro dan nilai tukar menekan sentimen pasar pagi, tetapi rebound teknikal terjadi pada saham-saham penggerak LQ45 seperti ICBP dan BBTN, maka 9 dari 11 sektor mampu ditutup menguat menopang kenaikan IHSG +0,94%."
+  ],
+  "summary": "IHSG bergerak berlawanan dari prediksi bearish pagi hari dengan menguat +0,94% ke 5.328,36 didorong serapan beli investor domestik pada 9 sektor saham, meskipun investor asing membukukan net sell jumbo Rp2,21 triliun.",
+  "actual_usdidr": 17943.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 97.81,
+      "previous_close": 101.41,
+      "change_pct": -3.55,
+      "signal": "Down",
+      "retrieved_at": "2026-10-21T20:00:51+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 108.55,
+      "previous_close": 109.86,
+      "change_pct": -1.19,
+      "signal": "Down",
+      "retrieved_at": "2026-10-21T20:00:51+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.86,
+      "previous_close": 3.12,
+      "change_pct": -8.09,
+      "signal": "Down",
+      "retrieved_at": "2026-10-21T20:00:51+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batu Bara Newcastle Tembus US$156,5 per Ton di Tengah LNG Mah\nSource IDs: src_628dab5d91, src_9f92a1afc6, src_2a67ad3a37, src_a277ed8ce1, src_e2b6b06831, src_4d4b55251b, src_ee9f97789b"
+    },
+    "CPO": {
+      "raw": "[no date] Indonesia Sets October 2026 Reference Price for CPO at $1,042.15 pe\nSource IDs: src_7d21b50051, src_9c7bf9e109, src_f5acc49bab, src_fbbd4653a1, src_56b4172631, src_c0a99d32e5, src_b689a96add"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] LME Nickel | London Metal Exchange\n### LME Nickel opening stocks\n\n|\nSource IDs: src_0b12862f48, src_3cf1e31494, src_bf08793d8b, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_d82bd6dcd4"
+    }
+  }
+}

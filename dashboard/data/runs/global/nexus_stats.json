@@ -1,11 +1,11 @@
 {
-  "total_sessions": 19,
-  "total_accuracy_sum": 521,
-  "rolling_avg_accuracy": 27.4,
+  "total_sessions": 20,
+  "total_accuracy_sum": 571,
+  "rolling_avg_accuracy": 28.6,
   "ihsg_correct_count": 9,
-  "ff_correct_count": 4,
-  "ihsg_accuracy_pct": 47.4,
-  "ff_accuracy_pct": 21.1,
+  "ff_correct_count": 5,
+  "ihsg_accuracy_pct": 45.0,
+  "ff_accuracy_pct": 25.0,
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
     "Geopolitical tensions impacting broader Asian markets": 1,
@@ -97,7 +97,10 @@
     "Bank Indonesia memberi sinyal pemangkasan BI Rate 2026": 1,
     "Bursa saham Asia melemah pada 20 Oktober 2026, dipicu aksi jual saham teknologi": 1,
     "The potential for a significant IHSG rebound (+5.65%)": 1,
-    "The positive market impact of Bank Indonesia signaling a potential BI Rate cut (pemangkasan)": 1
+    "The positive market impact of Bank Indonesia signaling a potential BI Rate cut (pemangkasan)": 1,
+    "Kekuatan akumulasi investor domestik yang mampu menyerap aksi jual asing secara masif di pasar reguler": 1,
+    "Sentimen technical rebound yang mendorong penguatan pada 369 saham dan mengangkat 9 dari 11 indeks sektoral": 1,
+    "Minat beli pelaku pasar lokal pada saham-saham likuid LQ45 seperti AKRA, ICBP, dan BBTN saat IHSG menyentuh area oversold": 1
   },
   "all_lessons": [
     "Ketika Bank Indonesia menahan suku bunga di 5,75%, tetapi imbal hasil US Treasury 10 tahun melonjak 15 bps ke 5,11% dan Rupiah melemah ke 17.893,0 terjadi, maka IHSG justru berbalik arah turun 1,20% ke level 6.298,61.",
@@ -140,7 +143,9 @@
     "Ketika IHSG diproyeksikan bearish dengan harapan penopang pada sektor komoditas, tetapi kepanikan risiko downgrade MSCI dan pelemahan Rupiah ke Rp18.035 per USD melanda pasar, maka seluruh sektor bergerak negatif dan IHSG anjlok 3,64% ke level 4.996,61.",
     "Ketika komoditas energi menguat (WTI +2,99%), tetapi sentimen risiko sistemik dan potensi kenaikan BI-Rate 25 bps menekan pasar modal, maka sektor barang baku justru menjadi yang terlemah dengan penurunan 6,09%.",
     "Ketika IHSG diprediksi Bearish dengan confidence 81% dan ada antisipasi kenaikan BI Rate, tetapi Bank Indonesia memberi sinyal pemangkasan BI Rate, maka IHSG dapat rebound signifikan sebesar +5.65%.",
-    "Ketika foreign flow aktualnya distribusi, tetapi ada katalis positif domestik yang kuat seperti sinyal kebijakan moneter, maka IHSG dapat bergerak berlawanan arah dengan prediksi dan foreign flow, ditunjukkan dengan kenaikan +5.65%."
+    "Ketika foreign flow aktualnya distribusi, tetapi ada katalis positif domestik yang kuat seperti sinyal kebijakan moneter, maka IHSG dapat bergerak berlawanan arah dengan prediksi dan foreign flow, ditunjukkan dengan kenaikan +5.65%.",
+    "Ketika foreign flow diprediksi distribusi masif dengan net sell Rp2,21 triliun dan Rupiah melemah ke Rp17.943, tetapi aksi beli balik domestik mendominasi dengan 369 saham menguat, maka IHSG justru menguat +0,94% (+49,47 poin) ke level 5.328,36.",
+    "Ketika sentimen makro dan nilai tukar menekan sentimen pasar pagi, tetapi rebound teknikal terjadi pada saham-saham penggerak LQ45 seperti ICBP dan BBTN, maka 9 dari 11 sektor mampu ditutup menguat menopang kenaikan IHSG +0,94%."
   ],
   "processed_dates": [
     "2026-09-24",
@@ -161,7 +166,8 @@
     "2026-10-15",
     "2026-10-16",
     "2026-10-19",
-    "2026-10-20"
+    "2026-10-20",
+    "2026-10-21"
   ],
-  "last_updated": "2026-10-20"
+  "last_updated": "2026-10-21"
 }
