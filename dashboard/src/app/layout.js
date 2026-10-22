@@ -1,21 +1,8 @@
-import localFont from 'next/font/local';
 import './globals.css';
 
-const nexusSans = localFont({
-  src: './fonts/nexus-sans-latin.woff2',
-  variable: '--font-next-sans',
-  display: 'optional',
-});
-
-const nexusMono = localFont({
-  src: './fonts/nexus-mono-latin.woff2',
-  variable: '--font-next-mono',
-  display: 'optional',
-});
-
 export const metadata = {
-  title: "Nexus Dashboard",
-  description: "Autonomous IHSG AI Analyst",
+  title: "Nexus Dashboard — Daily Intelligence Report",
+  description: "Autonomous IHSG AI Analyst & Market Intelligence",
 };
 
 export const viewport = {
@@ -26,11 +13,18 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${nexusSans.variable} ${nexusMono.variable}`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         {children}
       </body>
     </html>
   );
 }
-

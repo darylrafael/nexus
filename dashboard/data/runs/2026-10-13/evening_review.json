@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-13",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 82,
+  "ihsg_actual": "Neutral",
+  "ihsg_actual_pct": -0.17,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {},
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Realisasi foreign flow tercatat Distribution berbanding proyeksi pagi Stagnant/Sideways.",
+    "Pergerakan komoditas Crude Oil (WTI) (+1.13%) mempengaruhi sentimen sektoral terkait."
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": [
+    "Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%), tetapi sentimen pasar berbalik dan IHSG ditutup Neutral -0.17% (foreign flow Distribution), maka perlu memperketat stop-loss sektoral dan mengevaluasi dinamika arus dana asing secara real-time."
+  ],
+  "summary": "IHSG ditutup Neutral -0.17% (prediksi Bearish); foreign flow tercatat Distribution (prediksi Stagnant/Sideways).",
+  "actual_usdidr": 17925.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 92.52,
+      "previous_close": 91.49,
+      "change_pct": 1.13,
+      "signal": "Up",
+      "retrieved_at": "2026-10-13T20:00:54+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 104.9,
+      "previous_close": 104.28,
+      "change_pct": 0.59,
+      "signal": "Up",
+      "retrieved_at": "2026-10-13T20:00:54+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.18,
+      "previous_close": 3.17,
+      "change_pct": 0.25,
+      "signal": "Up",
+      "retrieved_at": "2026-10-13T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Batubara Hari Ini | Harga Batu Bara Live\n### Data Historis\n\nA\nSource IDs: src_bf87caef32, src_4d4b55251b, src_171c2fa6b0, src_2860e4904c, src_4d907b14ac, src_ee9f97789b, src_a277ed8ce1"
+    },
+    "CPO": {
+      "raw": "[no date] Harga CPO Mulai Bangkit, Tapi Banyak Kabar Buruk\nSeorang trader di\nSource IDs: src_b056c42a9b, src_a89fca5177, src_2291dd7086, src_cc70369964, src_9c7bf9e109, src_21ae48cf96, src_c0a99d32e5"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME stock\nSource IDs: src_e7b01f3b12, src_c48eb1f222, src_bae08dce04, src_dc295145ae, src_f1dad1f235, src_d82bd6dcd4, src_bf08793d8b"
+    }
+  },
+  "usdidr_change_pct": 0.538,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.14,
+    "stored_usdidr_change_pct": 0.538,
+    "rescored_at": "2026-10-15"
+  }
+}

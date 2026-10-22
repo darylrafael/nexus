@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-13",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 82,
+  "foreign_flow_signal": "Stagnant/Sideways",
+  "foreign_flow_net": "Net Buy Rp29.63 billion in all markets (src_ce35a9a1b0).",
+  "sector_bullish": [
+    "Energy (Oil & Gas Upstream)",
+    "Consumer Non-Cyclicals (CPO Consumers)"
+  ],
+  "sector_bearish": [
+    "Energy (Coal Miners)",
+    "Energy (Natural Gas Upstream)",
+    "Consumer Staples (CPO Producers)",
+    "Property & Real Estate",
+    "Aviation, Shipping, Petrochemicals"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Basic Materials",
+    "Industrials",
+    "Consumer Cyclicals",
+    "Healthcare",
+    "Technology",
+    "Infrastructure"
+  ],
+  "recommended_tickers": [
+    "PTBA",
+    "BBCA",
+    "SIMP",
+    "MYOR",
+    "BBRI",
+    "ADRO",
+    "BYAN",
+    "RUIS",
+    "ICBP",
+    "TBLA"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bearish",
+    "CPO": "bearish",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_0306fdb5b2",
+    "src_0ba9a5d054",
+    "src_4e60982c98",
+    "src_5d99d87e10",
+    "src_6cef14311b",
+    "src_75375bd4d1",
+    "src_87d30eb18d",
+    "src_98b104d81b",
+    "src_a277ed8ce1",
+    "src_ac5eb90123",
+    "src_b9262cf86c",
+    "src_c8d9be6aba",
+    "src_c8dd3be5ae",
+    "src_ce35a9a1b0",
+    "src_d578ac6f65",
+    "src_eae9d5c380",
+    "src_f362c315e6"
+  ],
+  "lock_hash": "1c38425b028275b7",
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 48.3
+}

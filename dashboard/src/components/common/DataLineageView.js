@@ -23,6 +23,21 @@ export default function DataLineageView({ review }) {
     }
   }
 
+  const usdidrVal = review.actual_usdidr || review.macro?.usdidr_rate;
+  const usdidrDisplay = (usdidrVal && Number.isFinite(Number(usdidrVal)) && Number(usdidrVal) > 0)
+    ? `Rp ${Number(usdidrVal).toLocaleString("id-ID")}`
+    : (usdidrVal && usdidrVal !== "Illustrative" ? String(usdidrVal) : "Not recorded");
+
+  const flowVal = review.foreign_flow_actual;
+  const flowDisplay = (flowVal && flowVal !== "Unknown" && flowVal !== "Not reviewed")
+    ? flowVal
+    : (flowVal || "Unrecorded / Missing");
+
+  const comEntries = Object.entries(review.actual_commodities || {});
+  const commodityDisplay = comEntries.length > 0
+    ? comEntries.map(([k, v]) => `${v?.name || k}: ${v?.price ? '$' + Number(v.price).toLocaleString('en-US', { maximumFractionDigits: 2 }) : (v?.signal || 'Ref')}`).slice(0, 3).join(" · ")
+    : "No commodity feeds logged for this session";
+
   const lineageItems = [
     {
       metric: "IHSG Index Close (^JKSE)",
@@ -30,21 +45,21 @@ export default function DataLineageView({ review }) {
       source: "Yahoo Finance (^JKSE)",
       date: review.date,
       retrievalTime: "20:00 WIB",
-      validityFlag: dq.ohlc_valid !== undefined ? (dq.ohlc_valid ? "VALID" : "INVALID") : "VALID",
+      validityFlag: dq.ohlc_valid !== undefined ? (dq.ohlc_valid ? "VALID" : "INVALID") : (review.ihsg_actual ? "VALID" : "PENDING"),
       note: "Validated against strict OHLC checks: Close <= High, Close >= Low, distinct from previous candle.",
     },
     {
       metric: "USD/IDR Exchange Rate (USDIDR=X)",
-      value: review.macro?.usdidr_rate ? `Rp ${Number(review.macro.usdidr_rate).toLocaleString("id-ID")}` : "Rp 15,650 (approx)",
+      value: usdidrDisplay,
       source: "Yahoo Finance (USDIDR=X) & Bank Indonesia",
       date: review.date,
       retrievalTime: "20:00 WIB",
-      validityFlag: dq.fx_consistent !== undefined ? (dq.fx_consistent ? "VALID" : "INVALID") : "VALID",
+      validityFlag: dq.fx_consistent !== undefined ? (dq.fx_consistent ? "VALID" : "INVALID") : (usdidrVal ? "VALID" : "UNAVAILABLE"),
       note: "Cross-checked with stored consecutive levels; daily percent delta mathematically verified.",
     },
     {
       metric: "Foreign Net Flow (Regular Market)",
-      value: review.foreign_flow_actual || "Neutral / Stagnant",
+      value: flowDisplay,
       source: "IDX Regular Market News (Antara/Bisnis via Tavily Search)",
       date: review.date,
       retrievalTime: "20:00 WIB",
@@ -63,13 +78,13 @@ export default function DataLineageView({ review }) {
       note: "Close data enforced. Midday and Sesi I snapshots detected and rejected.",
     },
     {
-      metric: "Commodity Proxies (Brent, Gold)",
-      value: "Brent: $78.4 / Gold: $2,650",
-      source: "Yahoo Finance (BZ=F, GC=F)",
+      metric: "Commodity Proxies (Energy, Metals, Ag)",
+      value: commodityDisplay,
+      source: "Yahoo Finance (BZ=F, GC=F) & Verified Cash Indices",
       date: review.date,
       retrievalTime: "06:55 WIB (Morning)",
-      validityFlag: "VALID",
-      note: "Liquid international futures. Coal, CPO, and Nickel without structured APIs are marked 'Price unavailable' (Rule B4).",
+      validityFlag: comEntries.length > 0 ? "VALID" : "UNAVAILABLE",
+      note: "Liquid international futures & reference prices. Coal, CPO, and Nickel without structured APIs marked 'Price unavailable' (Rule B4).",
     },
   ];
 

@@ -99,6 +99,62 @@ function enrichCommodityMap(commodities) {
   return enriched;
 }
 
+function formatWatchlistNote(ticker, rawLine) {
+  if (!rawLine || typeof rawLine !== 'string') return "Sector catalyst from morning brief — research only";
+  
+  let clean = rawLine
+    .replace(/^[#*\s-]+/, '')
+    .replace(/\*\*(?:Bullish|Bearish|Neutral|BUY|SELL|Buy|Sell)\*\*[:\s-]*/gi, '')
+    .replace(/\*\*/g, '')
+    .replace(/\b(?:buy on weakness|target price|entry level|stop loss|tp|sl)\b/gi, '')
+    // Clean out raw citation hashes like (src_51e8e513a2), [src_xxx], or standalone src_xxx
+    .replace(/,\s*src_[a-zA-Z0-9_-]+/gi, '')
+    .replace(/[\(\[]?\s*src_[a-zA-Z0-9_-]+\s*[\)\]]?/gi, '')
+    .trim();
+
+  // Strip redundant leading ticker symbol, e.g. "BYAN: " or "BYAN - "
+  const prefixRegex = new RegExp(`^${ticker}[:\\s-]+`, 'i');
+  clean = clean.replace(prefixRegex, '').trim();
+
+  // Clean empty parentheses or dangling separators
+  clean = clean
+    .replace(/\(\s*,?\s*/g, '(')
+    .replace(/,\s*\)/g, ')')
+    .replace(/\(\s*\)/g, '')
+    .replace(/^[-,:\s]+/, '')
+    .replace(/[-,:\s]+$/, '')
+    .trim();
+
+  // Clean common repetitive unhelpful phrases
+  clean = clean.replace(/No price change provided for [^,]+,\s*but expected to be/i, 'Expected to be');
+
+  return clean.length > 0 ? clean : "Sector catalyst from morning brief — research only";
+}
+
+function cleanWatchlist(tickers, briefText) {
+  if (!Array.isArray(tickers) || tickers.length === 0) return [];
+  const lines = briefText ? briefText.split('\n') : [];
+
+  return tickers.map(ticker => {
+    let note = "Sector catalyst from morning brief — research only";
+    if (lines.length > 0) {
+      const matchLine = lines.find(l => {
+        const regex = new RegExp(`(?:^|[#*\\s-])${ticker}\\b`, 'i');
+        return regex.test(l);
+      });
+      if (matchLine) {
+        note = formatWatchlistNote(ticker, matchLine);
+      }
+    }
+    return {
+      ticker,
+      sector: "IDX Focus",
+      bias: "MONITORED",
+      note
+    };
+  });
+}
+
 function slimSourcesMap(sourcesMap, textBlobs = []) {
   if (!sourcesMap || typeof sourcesMap !== 'object') return {};
   const combined = textBlobs.filter(Boolean).join(' ');
@@ -263,35 +319,7 @@ export async function GET(request) {
             }
 
             // Build clean monitored watchlist (D2: clean ticker, sector, clean sentence note, no raw markdown, no trade-action language)
-            const tickers = predData.recommended_tickers || data.recommended_tickers || [];
-            let actionableWatchlist = [];
-            if (Array.isArray(tickers) && tickers.length > 0) {
-              actionableWatchlist = tickers.map(ticker => {
-                let note = "Sector catalyst from morning brief — research only";
-                if (briefText) {
-                  const lines = briefText.split('\n');
-                  const matchLine = lines.find(l => l.includes(ticker));
-                  if (matchLine) {
-                    let cleanL = matchLine
-                      .replace(/\*\*(?:Bullish|Bearish|Neutral|BUY|SELL|Buy|Sell)\*\*[:\s-]*/gi, '')
-                      .replace(/^[#*\s-]+/, '')
-                      .replace(/\[.*?\]/g, '')
-                      .replace(/\*\*/g, '')
-                      .trim();
-                    cleanL = cleanL.replace(/\b(?:buy on weakness|target price|entry level|stop loss|tp|sl)\b/gi, '').trim();
-                    if (cleanL.length > 0) {
-                      note = cleanL.length > 120 ? `${cleanL.slice(0, 117)}...` : cleanL;
-                    }
-                  }
-                }
-                return {
-                  ticker,
-                  sector: "IDX Focus",
-                  bias: "MONITORED",
-                  note
-                };
-              });
-            }
+            const actionableWatchlist = cleanWatchlist(predData.recommended_tickers || data.recommended_tickers || [], briefText);
 
             const revLockStatus = predData.lock_status || data.lock_status || "retroactive";
             const revCreatedAt = predData.created_at || data.created_at || null;
@@ -299,13 +327,36 @@ export async function GET(request) {
               ? (predData.locked_at || data.locked_at || "06:55 WIB")
               : null;
 
+            // Pre-market thesis as written at 06:55 (NOT the post-close review summary).
+            let premarketSummary = "";
+            if (briefText) {
+              const m = briefText.match(/### 1\.[^\n]+\n-\s+\*\*Summary\*\*:\s*([^\n]+)/);
+              if (m) premarketSummary = m[1].trim();
+            }
+
+            // The ATR/S1/R1 stored in evening_actuals are computed AFTER this session's
+            // close, so they are a reference band for the NEXT session. Keep them under
+            // explicit names; the pre-market band for this session is derived later
+            // from the previous session (see post-sort pass below).
+            const nextSessionAtr = data.ihsg_atr14 ?? null;
+            const nextSessionIsTrueAtr = isTrueAtr;
+            const nextSessionVolLabel = volatilityLabel;
+            const hashComputedAt = predData.hash_computed_at || data.hash_computed_at || null;
+
             reviews.push({
               date,
               ...data,
+              premarket_summary: premarketSummary,
+              _next_atr: nextSessionAtr,
+              _next_is_true_atr: nextSessionIsTrueAtr,
+              _next_vol_label: nextSessionVolLabel,
               lock_hash: predData.lock_hash || data.lock_hash || null,
               locked_at: revLockedAt,
               lock_status: revLockStatus,
-              hash_computed_at: predData.hash_computed_at || data.hash_computed_at || "2026-10-15",
+              // A hash "computed" before the session date is impossible for a real
+              // pre-open lock — flag it instead of displaying it as if it were valid.
+              hash_computed_at: hashComputedAt,
+              hash_timestamp_inconsistent: Boolean(hashComputedAt && hashComputedAt < date),
               created_at: revCreatedAt,
               lock_note: predData.lock_note || data.lock_note || (revLockStatus === "retroactive" ? "Hash added retroactively; not proof of pre-open lock" : null),
               calibrated_confidence: nexusStats?.calibration?.calibrated_confidence_pct ?? predData.calibrated_confidence ?? data.calibrated_confidence ?? null,
@@ -321,6 +372,7 @@ export async function GET(request) {
               sources: slimSourcesMap(sourcesMap, [
                 data.summary,
                 data.key_risk,
+                premarketSummary,
                 ...(data.rca_unanticipated || []),
                 ...(data.rca_underestimated || []),
                 ...(data.rca_overestimated || []),
@@ -393,34 +445,7 @@ export async function GET(request) {
             }
 
             // Monitored Watchlist derived strictly from brief — remove trade-action "BUY" language
-            let actionableWatchlist = [];
-            if (Array.isArray(pred.recommended_tickers) && pred.recommended_tickers.length > 0) {
-              actionableWatchlist = pred.recommended_tickers.map(ticker => {
-                let note = "Sector catalyst from morning brief — research only";
-                if (briefText) {
-                  const lines = briefText.split('\n');
-                  const matchLine = lines.find(l => l.includes(ticker));
-                  if (matchLine) {
-                    let cleanL = matchLine
-                      .replace(/\*\*(?:Bullish|Bearish|Neutral|BUY|SELL|Buy|Sell)\*\*[:\s-]*/gi, '')
-                      .replace(/^[#*\s-]+/, '')
-                      .replace(/\[.*?\]/g, '')
-                      .replace(/\*\*/g, '')
-                      .trim();
-                    cleanL = cleanL.replace(/\b(?:buy on weakness|target price|entry level|stop loss|tp|sl)\b/gi, '').trim();
-                    if (cleanL.length > 0) {
-                      note = cleanL.length > 120 ? `${cleanL.slice(0, 117)}...` : cleanL;
-                    }
-                  }
-                }
-                return {
-                  ticker,
-                  sector: "IDX Focus",
-                  bias: "MONITORED",
-                  note
-                };
-              });
-            }
+            const actionableWatchlist = cleanWatchlist(pred.recommended_tickers || [], briefText);
 
             const isPastSession = date < todayKey;
             const predLockStatus = pred.lock_status || "retroactive";
@@ -478,6 +503,34 @@ export async function GET(request) {
 
     // Sort reviews by date descending
     reviews.sort((a, b) => b.date.localeCompare(a.date));
+
+    // Link premarket pivot & ATR from the previous trading session (since reviews are sorted desc)
+    for (let i = 0; i < reviews.length; i++) {
+      const prev = reviews[i + 1] || null;
+      if (prev) {
+        const prevClose = prev.ihsg_close ?? reviews[i].previous_close ?? reviews[i].ihsg_prev ?? null;
+        const prevAtr = prev._next_atr ?? prev.ihsg_atr14 ?? null;
+        reviews[i].premarket_pivot = prevClose ? Math.round(Number(prevClose)) : null;
+        reviews[i].premarket_atr = prevAtr ? Number(prevAtr) : null;
+        reviews[i].premarket_vol_label = prev._next_vol_label || prev.volatility_label || "Prev-Day Range";
+        reviews[i].premarket_is_true_atr = prev._next_is_true_atr ?? prev.is_true_atr14 ?? false;
+        if (prevClose && prevAtr) {
+          reviews[i].premarket_s1 = Math.round(Number(prevClose) - Number(prevAtr));
+          reviews[i].premarket_r1 = Math.round(Number(prevClose) + Number(prevAtr));
+        }
+      } else {
+        const prevClose = reviews[i].previous_close ?? reviews[i].ihsg_prev ?? null;
+        const curAtr = reviews[i].ihsg_atr14 ?? null;
+        reviews[i].premarket_pivot = prevClose ? Math.round(Number(prevClose)) : null;
+        reviews[i].premarket_atr = curAtr ? Number(curAtr) : null;
+        reviews[i].premarket_vol_label = reviews[i].volatility_label || "Prev-Day Range";
+        reviews[i].premarket_is_true_atr = reviews[i].is_true_atr14 || false;
+        if (prevClose && curAtr) {
+          reviews[i].premarket_s1 = Math.round(Number(prevClose) - Number(curAtr));
+          reviews[i].premarket_r1 = Math.round(Number(prevClose) + Number(curAtr));
+        }
+      }
+    }
 
     // Pipeline Health & Staleness Check (trading days)
     const latestDate = reviews.length > 0 ? reviews[0].date : null;

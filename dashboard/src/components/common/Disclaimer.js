@@ -32,30 +32,30 @@ export function LegalDisclaimerFooter() {
     <footer
       className="nexus-legal-footer"
       style={{
-        marginTop: "32px",
-        padding: "16px 20px",
+        marginTop: "20px",
+        padding: "12px 16px",
         borderTop: "1px solid var(--border-subtle)",
         background: "var(--surface)",
         fontSize: "12px",
         color: "var(--text-tertiary)",
-        lineHeight: 1.5,
+        lineHeight: 1.45,
       }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-mono)" }}>
-            <span style={{ fontWeight: 700, color: "var(--text-secondary)", letterSpacing: "0.05em" }}>NEXUS MARKET INTELLIGENCE</span>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px", fontFamily: "var(--font-mono)" }}>
+            <span style={{ fontWeight: 700, color: "var(--text-secondary)", letterSpacing: "0.04em" }}>NEXUS MARKET INTEL</span>
             <span>•</span>
             <span>AUTONOMOUS PIPELINE</span>
             <span>•</span>
             <span>TELEMETRY v2.1</span>
           </div>
           <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}>
-            IDX SESSION: 06:55 WIB BRIEF / 20:00 WIB REVIEW
+            IDX: 06:55 WIB BRIEF / 20:00 WIB REVIEW
           </div>
         </div>
-        <p style={{ margin: 0, textAlign: "justify", fontSize: "12px" }}>
-          <strong>Legal Notice &amp; Disclaimer:</strong> All market intelligence, directional forecasts, foreign flow estimates, and sector analyses displayed on this dashboard are autonomously produced by a multi-agent AI pipeline for quantitative research and educational evaluation. Nexus does not provide investment advice, asset management, or securities brokerage services. Market data is <strong>research-tier</strong>, sourced from public web endpoints without a direct licensed IDX exchange feed. Past hit rates or synthetic basis points do not indicate future profitability. Not tradable advice.
+        <p style={{ margin: 0, fontSize: "12px", lineHeight: 1.45 }}>
+          <strong>Legal Notice &amp; Disclaimer:</strong> All market intelligence, directional forecasts, and sector analyses are autonomously generated for quantitative research and educational evaluation. Nexus does not provide investment advice, brokerage, or asset management services. Market data is research-tier from public APIs without a direct licensed IDX feed. Past hit rates do not guarantee future returns. Independent verification (DYOR) required.
         </p>
       </div>
     </footer>

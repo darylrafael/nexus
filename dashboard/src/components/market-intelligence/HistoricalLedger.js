@@ -189,7 +189,7 @@ export default function HistoricalLedger({ reviews = [], activeReview, onSelectS
               <th>Session Date</th>
               <th>Pre-Market Call</th>
               <th>Session Close</th>
-              <th>Spread (Bps)</th>
+              <th>IHSG Return (% / bps)</th>
               <th>Foreign Flow</th>
               <th>Sector Hit</th>
               <th>Accuracy</th>

@@ -34,7 +34,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
           </div>
           <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>
             {isStale
-              ? `Market feed was paused following the ${latestDate || "8 Oct"} session. GitHub Actions scheduled workflows run automatically at 06:55 and 20:00 WIB.`
+              ? `Market feed was paused following the ${latestDate || "latest"} session. GitHub Actions scheduled workflows run automatically at 06:55 and 20:00 WIB.`
               : "All scheduled autonomous agents are actively tracking the Indonesian Stock Exchange (IHSG)."}
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function PipelineStatusView({ status, pipelineHealth, telemetry, 
               06:55 WIB
             </div>
             <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
-              Autonomous macro sentiment, commodity proxy mapping, sector impact inference, and cryptographic prediction lock before the 09:00 opening bell.
+              Autonomous macro sentiment, commodity proxy mapping, sector impact inference, and pre-market prediction lock generation before the 09:00 opening bell (historical runs hashed retroactively).
             </div>
           </div>
 

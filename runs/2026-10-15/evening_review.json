@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-15",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 81,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.33,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energi": false,
+    "Properti": null,
+    "Kesehatan": null,
+    "Barang Baku": null,
+    "Barang Konsumen Primer": null,
+    "Teknologi": null,
+    "Keuangan": null,
+    "Barang Konsumen Non-Primer": null,
+    "Infrastruktur": null,
+    "Transportasi dan Logistik": null
+  },
+  "error_rate_pct": 38,
+  "accuracy_score": 62,
+  "rca_unanticipated": [
+    "Tekanan eksternal dari lonjakan inflasi AS yang memicu aksi jual masif di bursa regional Asia (Nikkei turun 5,09% dan KOSPI turun 7,91%)",
+    "Sentimen domestik terkait aksi unjuk rasa buruh KSPI/Partai Buruh per 15 Oktober 2026 yang menuntut kenaikan upah 7,5-9,5%"
+  ],
+  "rca_overestimated": [
+    "Daya tahan sektor komoditas (Energi dan Barang Baku) terhadap pelemahan pasar secara menyeluruh didorong penguatan harga komoditas global"
+  ],
+  "rca_underestimated": [
+    "Kepanikan pasar akibat depresiasi Rupiah yang menembus Rp17.932 per USD (+0,699%) di tengah sentimen risk-off global"
+  ],
+  "rca_info_delay": [
+    "Koreksi tajam bursa regional Asia pasca rilis data inflasi AS yang dampaknya baru terefleksi penuh selama jam perdagangan sesi I"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi sektor Energi menguat berdasarkan sinyal bullish komoditas minyak dan batu bara, namun seluruh sektor ambles terpapar aksi jual masif sehingga sektor Energi justru anjlok terdalam sebesar 3,71%"
+  ],
+  "lessons": [
+    "Ketika sinyal IHSG diproyeksikan bearish dengan sektor energi bullish defensif, tetapi sentimen inflasi AS memicu kejatuhan bursa regional Asia, maka seluruh sektor melemah dan IHSG merosot -1,33% ke 5.863,78 dengan sektor energi turun -3,71%.",
+    "Ketika rupiah diproyeksikan tertekan moderat, tetapi pelemahan berlanjut hingga Rp17.932 per USD bersamaan dengan aksi unjuk rasa buruh, maka sentimen pasar memburuk menyeret 621 saham ke zona merah."
+  ],
+  "summary": "Prediksi IHSG bearish terbukti akurat dengan indeks turun 1,33% ke 5.863,78, namun prediksi rotasi sektoral ke komoditas meleset karena sentimen inflasi AS dan pelemahan rupiah menyeret seluruh sektor ke zona negatif.",
+  "actual_usdidr": 17932.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 93.86,
+      "previous_close": 93.74,
+      "change_pct": 0.13,
+      "signal": "Up",
+      "retrieved_at": "2026-10-15T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 104.25,
+      "previous_close": 106.65,
+      "change_pct": -2.25,
+      "signal": "Down",
+      "retrieved_at": "2026-10-15T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.24,
+      "previous_close": 3.17,
+      "change_pct": 2.37,
+      "signal": "Up",
+      "retrieved_at": "2026-10-15T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "raw": "[no date] Harga Historis Newcastle Coal Futures - Investing.com\n| Tanggal | T\nSource IDs: src_a517d8fb0b, src_171c2fa6b0, src_95a5b4bef3, src_ee9f97789b, src_a277ed8ce1, src_00eb0cff08, src_4d907b14ac"
+    },
+    "CPO": {
+      "raw": "[no date] CPOCV26 | Crude Palm Oil Oct 2026 Overview | MarketWatch\n| Energy |\nSource IDs: src_cc70369964, src_9c7bf9e109, src_fbbd4653a1, src_56b4172631, src_a8b4b70f3e, src_c0a99d32e5, src_21ae48cf96"
+    },
+    "Nickel (LME)": {
+      "raw": "[no date] westmetall . market data . prices/lme stocks . copper, tin, lead, z\nSource IDs: src_bf08793d8b, src_3cf1e31494, src_e7b01f3b12, src_878ce6b228, src_0b12862f48, src_f1dad1f235, src_dc295145ae"
+    }
+  },
+  "usdidr_change_pct": 0.699,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "no_matching_date",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.218,
+    "stored_usdidr_change_pct": 0.699,
+    "rescored_at": "2026-10-15"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-19",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 82,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp3.34 Triliun (src_22fd18ae0f).",
+  "sector_bullish": [
+    "Energy (Oil & Gas Upstream)",
+    "Basic Materials (Coal)",
+    "Consumer Non-Cyclicals (CPO Producers)"
+  ],
+  "sector_bearish": [
+    "Overall Market",
+    "Consumer Cyclicals (CPO Consumers)",
+    "Energy (Gas Upstream)",
+    "Aviation",
+    "Banking",
+    "Property"
+  ],
+  "sector_neutral": [
+    "Utilities (Gas Consumers)",
+    "Toll Road"
+  ],
+  "recommended_tickers": [
+    "BYAN",
+    "DSSA",
+    "PGAS",
+    "BFIN",
+    "PTBA",
+    "AKRA",
+    "INCO",
+    "MSIN",
+    "BLTZ",
+    "APIC"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bullish",
+    "CPO": "bullish",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_06aad57e6b",
+    "src_1207564f05",
+    "src_22fd18ae0f",
+    "src_2830ff1be0",
+    "src_2f02022571",
+    "src_411391bfea",
+    "src_51e8e513a2",
+    "src_522beceb9f",
+    "src_7376c1e656",
+    "src_83fb9a2e5a",
+    "src_90d505f7cd",
+    "src_9c7bf9e109",
+    "src_a277ed8ce1",
+    "src_ae99e8c7fe",
+    "src_b22ff97728",
+    "src_bf08793d8b",
+    "src_bff016cc21",
+    "src_d1133386cc",
+    "src_e250f81860",
+    "src_f362c315e6"
+  ],
+  "lock_hash": "078123f827884a00",
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 48.3
+}

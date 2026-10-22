@@ -466,7 +466,10 @@ def main():
 
     b_dir = before_stats.get("direction_accuracy_pct")
     a_dir = canonical_stats.get("direction_accuracy_pct")
-    print(f"| Direction Accuracy | {b_dir}% | {a_dir}% | {'Unchanged' if b_dir == a_dir else f'{a_dir - b_dir:+.1f}%'} |")
+    b_dir_str = f"{b_dir}%" if b_dir is not None else "None"
+    a_dir_str = f"{a_dir}%" if a_dir is not None else "None"
+    delta_str = "Unchanged" if b_dir == a_dir else (f"{a_dir - b_dir:+.1f}%" if (a_dir is not None and b_dir is not None) else "Rescored")
+    print(f"| Direction Accuracy | {b_dir_str} | {a_dir_str} | {delta_str} |")
 
     b_flow = before_stats.get("flow_accuracy_pct")
     a_flow = canonical_stats.get("flow_accuracy_pct")
@@ -478,13 +481,18 @@ def main():
     a_sec = canonical_stats.get("sector_accuracy_pct")
     print(f"| Sector Accuracy | {b_sec}% | {a_sec}% | {canonical_stats['sector_info']['label']} |")
 
-    b_brier = before_stats.get("calibration", {}).get("brier_score")
+    b_brier = before_stats.get("calibration", {}).get("brier_score") if isinstance(before_stats.get("calibration"), dict) else None
     a_brier = canonical_stats.get("calibration", {}).get("brier_score")
-    print(f"| Brier Score | {b_brier} | {a_brier} | {'Unchanged' if b_brier == a_brier else f'{a_brier - b_brier:+.4f}'} |")
+    b_brier_str = f"{b_brier:.4f}" if b_brier is not None else "None"
+    a_brier_str = f"{a_brier:.4f}" if a_brier is not None else "None"
+    delta_brier = "Unchanged" if b_brier == a_brier else (f"{a_brier - b_brier:+.4f}" if (a_brier is not None and b_brier is not None) else "Rescored")
+    print(f"| Brier Score | {b_brier_str} | {a_brier_str} | {delta_brier} |")
 
-    b_cal = before_stats.get("calibration", {}).get("calibrated_confidence_pct")
+    b_cal = before_stats.get("calibration", {}).get("calibrated_confidence_pct") if isinstance(before_stats.get("calibration"), dict) else None
     a_cal = canonical_stats.get("calibration", {}).get("calibrated_confidence_pct")
-    print(f"| Calibrated Conf | {b_cal}% | {a_cal}% | Realized shrinkage |")
+    b_cal_str = f"{b_cal}%" if b_cal is not None else "None"
+    a_cal_str = f"{a_cal}%" if a_cal is not None else "None"
+    print(f"| Calibrated Conf | {b_cal_str} | {a_cal_str} | Realized shrinkage |")
 
     b_rej = len(before_stats.get("rejected_lessons", []))
     a_rej = len(rejected_lessons)

@@ -181,29 +181,25 @@ test('/api/stats rejects mock artifacts, surfaces mockDataDetected, and computes
   }
 });
 
-test('Phase 3.5: cleaned real runs/ corpus returns isStale=true, latestDate=2026-10-08, n=12, and zero mock dates', async () => {
-  const req = new Request('http://localhost:3002/api/stats?today=2026-10-16');
+test('Phase 3.5: cleaned real runs/ corpus returns genuine sessions up to 2026-10-19, n=20, and zero mock dates', async () => {
+  const req = new Request('http://localhost:3002/api/stats?today=2026-10-25');
   const res = await GET(req);
   const json = await res.json();
 
   assert.equal(json.success, true);
-  assert.equal(json.pipelineHealth.latestDate, '2026-10-08');
+  assert.equal(json.pipelineHealth.latestDate, '2026-10-19');
   assert.equal(json.pipelineHealth.isStale, true);
-  assert.equal(json.pipelineHealth.tradingDaysSinceLatest, 6);
+  assert.equal(json.pipelineHealth.tradingDaysSinceLatest, 4);
   assert.equal(json.pipelineHealth.mockDataDetected, false);
 
-  const reviewDates = json.reviews.map((r) => r.date);
-  assert.equal(reviewDates.includes('2026-10-14'), false);
-  assert.equal(reviewDates.includes('2026-10-15'), false);
-  assert.equal(reviewDates.includes('2026-10-16'), false);
-  assert.equal(json.reviews[0].date, '2026-10-08');
+  assert.equal(json.reviews[0].date, '2026-10-19');
   assert.equal(json.reviews[0].lock_status, 'retroactive');
-  assert.equal(json.reviews[0].calibrated_confidence, 49.7);
+  assert.equal(json.reviews[0].calibrated_confidence, 48.3);
 
-  assert.equal(json.nexusStats.sample_size_n, 12);
-  assert.equal(json.nexusStats.direction_scorable_sessions, 12);
-  assert.equal(json.nexusStats.direction_accuracy_pct, 41.7);
-  assert.equal(json.nexusStats.calibration.calibrated_confidence_pct, 49.7);
-  assert.equal(json.nexusStats.calibration.brier_score, 0.3996);
+  assert.equal(json.nexusStats.sample_size_n, 20);
+  assert.equal(json.nexusStats.direction_scorable_sessions, 20);
+  assert.equal(json.nexusStats.direction_accuracy_pct, 45.0);
+  assert.equal(json.nexusStats.calibration.calibrated_confidence_pct, 48.3);
+  assert.equal(json.nexusStats.calibration.brier_score, 0.3798);
 });
 

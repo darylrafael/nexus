@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 2029,
+    "avgDurationMs": 106570,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
-      "agent": "evening_reviewer",
+      "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 2029.0,
+      "avg_duration_ms": 106570.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,13 +19,15 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-10-15T12:08:20.633954+07:00",
-      "agent": "evening_reviewer",
+      "timestamp": "2026-10-19T00:32:34.092239",
+      "query": "daily_brief",
+      "agent": "market_agent",
       "model": "llm_client",
+      "result": "---\n### 1. Indonesian Economic News: MSCI Threatens Indonesia's Market Status, Rupiah Touches Rp18,000 Amidst Market Turmoil\n- **Summary**: On Friday, October 16, 2026, the Indonesian Stock Exchange (IHSG) plummeted 11.57% to 5,185.10, triggered by MSCI Inc.'s consideration to downgrade Indonesia's market status from Emerging Market to Standalone Market (src_ae99e8c7fe, src_e250f81860, src_90d505f7cd, src_7376c1e656). This led to a trading halt after an 8% drop (src_b22ff97728, src_e250f81860). Concurrently, the Rupiah weakened significantly, touching Rp18,000 per US Dollar, prompting Bank Indonesia to intervene in the market (src_d1133386cc, src_90d505f7cd). The market also saw a massive net sell by foreign investors of Rp3.34 trillion (src_22fd18ae0f).\n- **Market Impact**: Bearish | **Confidence**: 95%\n- **Rationale**: The potential downgrade by MSCI is a severe negative catalyst, signaling reduced foreign investment appeal and capital outflow risk, as evidenced by the sharp IHSG dro",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 2029
+      "duration_ms": 106570
     }
   ],
-  "exported_at": "2026-10-15T12:08:20.648942+07:00"
+  "exported_at": "2026-10-19T00:32:34.093883"
 }

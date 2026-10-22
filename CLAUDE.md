@@ -95,48 +95,48 @@ TELEGRAM_CHAT_ID=
 
 ## Generated Evaluation Metrics (`scripts/evaluate.py`)
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-15`, Verified Runs: **13**, Scored Reviews: **n=12**, Unreviewed Pending: **1**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-15`, Verified Runs: **20**, Scored Reviews: **n=20**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |
 | :--- | :--- | :--- |
-| Scored Sessions (n) | **12** | ⚠️ Sample too small to conclude skill (n < 30) |
-| Direction Hit Rate | **41.7%** (5/12) | 95% Wilson CI: [19.3%, 68.0%] |
-| Rolling Accuracy | **34.3%** | Trailing dynamic 50/30/20 attribution average |
+| Scored Sessions (n) | **20** | ⚠️ Sample too small to conclude skill (n < 30) |
+| Direction Hit Rate | **45.0%** (9/20) | 95% Wilson CI: [25.8%, 65.8%] |
+| Rolling Accuracy | **36.1%** | Trailing dynamic 50/30/20 attribution average |
 
 ### TABLE 2: EMPIRICAL NAIVE BASELINES COMPARISON
 | Strategy / Baseline | Accuracy (Hits/n) | Delta vs Nexus Model | Buy-Side Assessment |
 | :--- | :--- | :--- | :--- |
-| **Nexus Multi-Agent Model** | **41.7%** (5/12) | 0.0% | Active directional thesis |
-| Always-Bearish (Down Only) | **66.7%** (8/12) | +25.0% | Outperforms model due to prevailing market downtrend |
-| Persistence (Repeat T-1) | **63.6%** (7/11) | +21.9% | Exploits directional momentum across consecutive sessions |
-| Always-Bullish (Up Only) | **33.3%** (4/12) | -8.4% | Model outperforms permanent long bias |
+| **Nexus Multi-Agent Model** | **45.0%** (9/20) | 0.0% | Active directional thesis |
+| Always-Bearish (Down Only) | **65.0%** (13/20) | +20.0% | Outperforms model due to prevailing market downtrend |
+| Persistence (Repeat T-1) | **52.6%** (10/19) | +7.6% | Exploits directional momentum across consecutive sessions |
+| Always-Bullish (Up Only) | **30.0%** (6/20) | -15.0% | Model outperforms permanent long bias |
 
 ### TABLE 3: PIPELINE SUB-COMPONENT SCORING BREAKDOWN
 | Component | Nominal Weight | Scorable (n) | Realized Hit Rate | Institutional Interpretation |
 | :--- | :--- | :--- | :--- | :--- |
-| IHSG Direction | 50% | n = 12 | 41.7% (5/12) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
-| Sector Breakdown | 30% | n = 36 | 27.8% (10/36) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
-| Foreign Flow | 20% | n = 1 | Insufficient data | Suppressed from scoring when scorable n < 5; treated as institutional context |
+| IHSG Direction | 50% | n = 20 | 45.0% (9/20) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
+| Sector Breakdown | 30% | n = 57 | 33.3% (19/57) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
+| Foreign Flow | 20% | n = 3 | Insufficient data | Suppressed from scoring when scorable n < 5; treated as institutional context |
 
 ### TABLE 4: PROBABILISTIC CONFIDENCE CALIBRATION & BRIER SCORE
 | Calibration Metric | Measured Value | Plain Language Buy-Side Interpretation |
 | :--- | :--- | :--- |
-| Model Stated Confidence (Uncalibrated) | **79.6%** | Raw uncalibrated LLM confidence output across n=12 scored sessions |
-| Realized Direction Hit Rate | **41.7%** | Actual empirical accuracy (5/12 scored sessions) |
-| Calibrated Confidence (Shrinkage) | **49.7%** (n=12, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
-| Brier Score | **0.3996** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
+| Model Stated Confidence (Uncalibrated) | **80.5%** | Raw uncalibrated LLM confidence output across n=20 scored sessions |
+| Realized Direction Hit Rate | **45.0%** | Actual empirical accuracy (9/20 scored sessions) |
+| Calibrated Confidence (Shrinkage) | **48.3%** (n=20, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
+| Brier Score | **0.3798** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
 
 ### TABLE 5: ECONOMIC PAYOFF STRUCTURE (BASIS POINTS)
 | Strategy Portfolio | Realized Payoff (bps) | Trade Count | Tradability / Practical Feasibility |
 | :--- | :--- | :--- | :--- |
-| **Long-Only (Headline Payoff)** | **-176.0 bps** | 4 calls | Realizable long exposure on retail Indonesian brokerage accounts |
-| Short-Side Payoff | **+244.0 bps** | 6 calls | **Theoretical only; not retail-tradable on IDX cash index** |
-| Combined Theoretical Long/Short | **+68.0 bps** | 10 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
+| **Long-Only (Headline Payoff)** | **-364.0 bps** | 5 calls | Realizable long exposure on retail Indonesian brokerage accounts |
+| Short-Side Payoff | **+2041.0 bps** | 13 calls | **Theoretical only; not retail-tradable on IDX cash index** |
+| Combined Theoretical Long/Short | **+1677.0 bps** | 18 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
 
 ### TABLE 6: SELF-LEARNING LOOP HYGIENE & QUARANTINE AUDIT
-- Valid Injected Lessons: **20** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
-- Quarantined / Rejected Lessons: **9** (prevented from corrupting future pre-market intelligence)
+- Valid Injected Lessons: **30** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
+- Quarantined / Rejected Lessons: **17** (prevented from corrupting future pre-market intelligence)
 
 | Session Date | Quarantine Reason | Sample Quarantined Content |
 | :--- | :--- | :--- |
@@ -149,5 +149,13 @@ TELEGRAM_CHAT_ID=
 | 2026-10-02 | `unreliable_source_data: cites unverified foreign flow from date_mismatch_rejected source` | Ketika IHSG diprediksi Bearish dengan confidence 67% dan foreign ... |
 | 2026-10-02 | `invalid_unit: +17K style notation` | Ketika sektor Kesehatan diprediksi Bearish, tetapi sektor tersebu... |
 | 2026-10-07 | `unreliable_source_data: cites unverified foreign flow from date_mismatch_rejected source` | Ketika aliran dana asing diprediksi stagnan/sideways, tetapi terj... |
+| 2026-10-08 | `numeric_contradiction: stated IHSG 82.0% vs actual -1.88%` | Ketika IHSG diprediksi bullish dengan keyakinan 82% didukung peng... |
+| 2026-10-09 | `session_limit_exceeded: max 2 lessons per session` | Ketika komoditas Coal diprediksi 'bearish', tetapi harga Batu Bar... |
+| 2026-10-12 | `session_limit_exceeded: max 2 lessons per session` | Ketika sektor Industrials dan Energi diprediksi Bullish, tetapi I... |
+| 2026-10-12 | `session_limit_exceeded: max 2 lessons per session` | Ketika sektor Infrastruktur dan Barang Konsumen Non-Primer dipred... |
+| 2026-10-13 | `boilerplate_generic: matches pattern 'perlu memperketat stop-loss'` | Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%)... |
+| 2026-10-14 | `boilerplate_generic: matches pattern 'perlu memperketat stop-loss'` | Ketika proyeksi pagi mengantisipasi IHSG Bearish (confidence 82%)... |
+| 2026-10-16 | `numeric_contradiction: stated IHSG 11.57% vs actual -11.57%` | Ketika [tidak ada risiko besar yang teridentifikasi di pagi hari]... |
+| 2026-10-19 | `numeric_contradiction: stated IHSG 3.64% vs actual -3.64%` | Ketika IHSG diproyeksikan bearish dengan harapan penopang pada se... |
 <!-- METRICS:END -->
 

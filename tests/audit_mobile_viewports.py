@@ -94,7 +94,7 @@ def validate_audit_thresholds() -> bool:
 
 
 def run_audit(
-    target_url: str = "http://127.0.0.1:3002",
+    target_url: str = os.environ.get("NEXUS_AUDIT_URL", "http://127.0.0.1:3002/?today=2026-10-25"),
     output_dir: str = DEFAULT_OUTPUT_DIR,
 ) -> Dict[str, Any]:
     from playwright.sync_api import sync_playwright

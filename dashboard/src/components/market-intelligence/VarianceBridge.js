@@ -96,9 +96,9 @@ export default function VarianceBridge({ activeReview, isHistorical, onResetSele
           </div>
         </div>
 
-        {/* Cell 3: Spread & Delta */}
+        {/* Cell 3: Return & Delta */}
         <div className="bridge-cell">
-          <div className="bridge-cell-header font-mono">SPREAD &amp; DELTA</div>
+          <div className="bridge-cell-header font-mono">RETURN &amp; DELTA (% / bps)</div>
           <div className="bridge-cell-body">
             {isPending ? (
               <span className="font-mono text-xs text-muted">Awaiting Market Close</span>

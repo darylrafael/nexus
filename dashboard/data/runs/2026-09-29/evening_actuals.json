@@ -113,7 +113,7 @@
     "overall_valid": true,
     "ohlc_valid": false,
     "flow_verified": false,
-    "flow_reason": "no_matching_date",
+    "flow_reason": "date_mismatch_rejected",
     "fx_reliable": false,
     "spot_usdidr_change_pct": 0.184,
     "stored_usdidr_change_pct": 1.056,

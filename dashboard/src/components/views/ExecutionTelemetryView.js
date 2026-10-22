@@ -255,7 +255,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
         <div className="header-actions">
           <div className="market-status-chip">
-            <span>CADENCE: 07:00 / 19:00</span>
+            <span>CADENCE: 06:55 / 20:00 WIB</span>
           </div>
           <div className="live-badge">
             <span className="live-dot" />
@@ -552,7 +552,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                 <div className="rca-memory-terminal-block">
                   <div className="memory-prefix font-mono">
                     <span className="memory-title">INFRASTRUCTURE &amp; RUNTIME TOPOLOGY</span>
-                    <span className="memory-injected-pill font-mono">HIGH-AVAILABILITY</span>
+                    <span className="memory-injected-pill font-mono">STANDALONE / CRON</span>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', marginTop: '6px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
@@ -561,7 +561,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
                       <span className="font-mono text-tertiary">FAILOVER ENGINE:</span>
-                      <span className="font-mono font-bold text-matched">Gemini 2.5 Pro Fallback</span>
+                      <span className="font-mono font-bold text-matched">Gemini Fallback</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
                       <span className="font-mono text-tertiary">PERSISTENT KNOWLEDGE:</span>
@@ -680,8 +680,8 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                 <th style={{ width: '100px' }}>Run ID</th>
                 <th style={{ width: '180px' }}>Timestamp</th>
                 <th>Agent Name</th>
-                <th style={{ width: '130px' }}>Wall Latency</th>
-                <th style={{ width: '130px' }}>Execution Verdict</th>
+                <th style={{ width: '130px' }}>Duration</th>
+                <th style={{ width: '130px' }}>Status</th>
               </tr>
             </thead>
             <tbody>

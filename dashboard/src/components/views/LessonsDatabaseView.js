@@ -193,7 +193,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         <div className="context-item">
           <span className="context-label font-mono">ACTIVE IN PROMPT</span>
           <div className="context-value font-mono font-semibold text-matched">
-            {stats.activeHeuristics || activeCount} Validated
+            {stats.activeHeuristics || activeCount} Active (n≥1)
           </div>
         </div>
         <div className="context-divider" />
@@ -242,7 +242,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             <div className="kpi-value font-mono">{displayValRate}</div>
           </div>
           <div className="kpi-context">
-            <span>{stats.validatedHeuristicsCount || 0} rules empirically confirmed in subsequent sessions</span>
+            <span>{stats.validatedHeuristicsCount || 0} rules formulated from post-market reviews (n=1 hindsight)</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: `${Math.min(100, Math.max(0, Number(stats.avgValidationRate) || 0))}%` }} />
             </div>
@@ -296,7 +296,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               Autonomous causal market rules and verifiable evidence traces (click row for deep inspection)
             </div>
             <div className="table-scroll-hint font-mono text-xs">
-              ← Geser tabel ke kanan untuk melihat seluruh kolom audit →
+              ← Scroll table horizontally to view full audit columns →
             </div>
           </div>
           <div className="filter-tabs">
@@ -564,7 +564,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               <div key={h.id} style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                   <span className="font-mono text-xs font-bold text-primary">#{i + 1} · {h.category}</span>
-                  <span className="font-mono text-xs text-matched font-bold">100% Validated</span>
+                  <span className="font-mono text-xs text-matched font-bold">n={h.observed || 1} ({h.validationRate ?? 100}%)</span>
                 </div>
                 <p className="font-mono text-xs text-secondary" style={{ lineHeight: 1.5, margin: 0 }}>
                   “{h.rule}”
@@ -580,7 +580,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '12px', marginTop: '6px' }}>
               <div><span className="font-mono text-tertiary">PERSISTENT REPO:</span> <span className="font-mono text-primary">Adaptive Learning Store</span></div>
-              <div><span className="font-mono text-tertiary">STORAGE MODE:</span> <span className="font-mono text-matched">Validated Append &amp; Decay</span></div>
+              <div><span className="font-mono text-tertiary">STORAGE MODE:</span> <span className="font-mono text-matched">Append-Only Hindsight Log</span></div>
               <div><span className="font-mono text-tertiary">INJECTION POINT:</span> <span className="font-mono text-primary">orchestrator/gemini.py · build_prompt()</span></div>
             </div>
           </div>

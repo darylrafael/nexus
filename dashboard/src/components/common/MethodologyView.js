@@ -54,13 +54,19 @@ export default function MethodologyView({ onClose, historyRescoredAt = "2026-10-
           At <strong>20:00 WIB</strong>, the evening review evaluates morning projections against authoritative market close data using an explicit scorable blend:
         </p>
         <div style={{ background: "var(--surface-subtle)", border: "1px solid var(--border-subtle)", borderRadius: 6, padding: "12px 16px", marginBottom: 12, fontSize: 13 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "8px 12px", alignItems: "baseline" }}>
-            <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>50% Weight:</span>
-            <span><strong>Index Direction:</strong> Evaluated strictly against official close-to-close percentage change (&plusmn;0.2% Neutral band).</span>
-            <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>30% Weight:</span>
-            <span><strong>Sector Accuracy:</strong> Deterministic rule-based scoring of predicted sectors against 11 IDX-IC closing returns. Subsectors with conflicting calls on the same parent index are marked <em>unverifiable</em> and excluded from scoring.</span>
-            <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>20% Weight:</span>
-            <span><strong>Foreign Flow:</strong> Strict Indonesian D/M/Y date-verified net flow. If no same-day verified data exists, the metric is marked <em>Unknown</em> and dynamically excluded from the denominator.</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: 12, alignItems: "baseline" }}>
+              <span style={{ fontWeight: 700, color: "var(--accent-cyan)" }}>50% Weight:</span>
+              <span><strong>Index Direction:</strong> Evaluated strictly against official close-to-close percentage change (&plusmn;0.2% Neutral band).</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: 12, alignItems: "baseline" }}>
+              <span style={{ fontWeight: 700, color: "var(--accent-cyan)" }}>30% Weight:</span>
+              <span><strong>Sector Accuracy:</strong> Deterministic rule-based scoring of predicted sectors against 11 IDX-IC closing returns. Subsectors with conflicting calls on the same parent index are marked <em>unverifiable</em> and excluded from scoring.</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: 12, alignItems: "baseline" }}>
+              <span style={{ fontWeight: 700, color: "var(--accent-cyan)" }}>20% Weight:</span>
+              <span><strong>Foreign Flow:</strong> Strict Indonesian D/M/Y date-verified net flow. If no same-day verified data exists, the metric is marked <em>Unknown</em> and dynamically excluded from the denominator.</span>
+            </div>
           </div>
         </div>
         <p style={{ fontSize: 12, color: "var(--text-tertiary)", fontStyle: "italic", margin: 0 }}>
@@ -80,11 +86,11 @@ export default function MethodologyView({ onClose, historyRescoredAt = "2026-10-
           <li><strong>Persistence Baseline:</strong> Predicting that today will repeat yesterday&apos;s actual direction.</li>
           <li><strong>Wilson 95% Confidence Interval:</strong> Calculates the true underlying binomial hit rate range given the small sample size.</li>
           <li><strong>Brier Score:</strong> Measures probability calibration (0.00 is perfect, 0.25 is random coin-flip).</li>
-          <li><strong>Calibrated Confidence (Empirical Shrinkage):</strong> Uncalibrated LLM stated confidence (<code>C_stated</code>, averaging ~79.6%) is shrunk toward the empirical hit rate (<code>k / n</code>) using a conservative prior cap (<code>P_cap = 55.0%</code>) and prior strength (<code>N0 = 30</code>), with weight <code>w = min(n / 30, 1.0)</code>:
+          <li><strong>Calibrated Confidence (Empirical Shrinkage):</strong> Uncalibrated LLM stated confidence (<code>C_stated</code>, averaging ~80.5%) is shrunk toward the empirical hit rate (<code>k / n</code>) using a conservative prior cap (<code>P_cap = 55.0%</code>) and prior strength (<code>N0 = 30</code>), with weight <code>w = min(n / 30, 1.0)</code>:
             <br />
             <code>Calibrated% = round(w &times; (100 &times; k / n) + (1 - w) &times; min(C_stated, 55.0), 1)</code>
             <br />
-            For <code>k=5, n=12</code> (<code>w = 0.40</code>) and <code>C_stated &ge; 55%</code>, both per-call and headline calibrated confidence equal <strong>49.7%</strong> (labeled <em>illustrative shrinkage estimate</em> while <code>n &lt; 30</code>).
+            For current audit dataset <code>k=9, n=20</code> (<code>w = 0.67</code>) and <code>C_stated &ge; 55%</code>, headline calibrated confidence equals <strong>48.3%</strong> (labeled <em>illustrative shrinkage estimate</em> while <code>n &lt; 30</code>).
           </li>
         </ul>
       </section>
@@ -98,7 +104,7 @@ export default function MethodologyView({ onClose, historyRescoredAt = "2026-10-
             <strong>Sample Size:</strong> With $n &lt; 30$ historical sessions, statistical power is insufficient to conclude that accuracy differs from random variation.
           </p>
           <p style={{ margin: "0 0 6px 0" }}>
-            <strong>Pre-Open Lock Provenance:</strong> Historical sessions (2026-09-22 to 2026-10-08) were hashed during post-hoc audit and are explicitly marked <code>lock_status = &quot;retroactive&quot;</code> (<em>Hash added retroactively; not proof of pre-open lock</em>). Only new sessions hashed at creation time before 09:00 WIB and appended to <code>runs/global/lock_ledger.jsonl</code> carry <code>locked_pre_open</code> status.
+            <strong>Pre-Open Lock Provenance:</strong> All 20 historical sessions in this audit dataset (2026-09-22 to 2026-10-19) were hashed retroactively during post-hoc audit and are explicitly marked <code>lock_status = &quot;retroactive&quot;</code> (<em>Hash added retroactively; not proof of pre-open lock</em>). Only live automated runs executed at 06:55 WIB carry verified pre-open locks.
           </p>
           <p style={{ margin: "0 0 6px 0" }}>
             <strong>Synthetic Index Payoff:</strong> Basis points (bps) capture is a theoretical index tracking calculation before brokerage commissions, borrowing costs, and execution slippage. Indonesian retail investors cannot directly short the IHSG cash index.

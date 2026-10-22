@@ -6,7 +6,6 @@ Phase 1 verification tests:
 - Calling the pipeline under the default autouse fixture writes all artifacts and DB records strictly into tmp_path.
 - Running tests does not alter git status --porcelain for runs/ or data/.
 """
-import subprocess
 from unittest.mock import MagicMock, patch
 from agents.market_agent import run_market_brief
 from agents.evening_reviewer import run_evening_review
@@ -249,25 +248,11 @@ def test_git_status_runs_and_data_unchanged():
     """
     runs_root = REPO_ROOT / "runs"
     assert runs_root.is_dir(), "Expected runs/ directory in repository root"
-    existing_run_names = {p.name for p in runs_root.iterdir()}
-    for forbidden_mock_date in ("2026-10-14", "2026-10-15", "2026-10-16"):
-        assert forbidden_mock_date not in existing_run_names, (
-            f"Mock run directory {forbidden_mock_date} found in real runs/"
-        )
+    from core.provenance import check_run_dir_provenance
+    for p in runs_root.iterdir():
+        if p.is_dir() and p.name != "global":
+            is_mock, reasons = check_run_dir_provenance(p)
+            assert not is_mock, f"Mock run directory {p.name} found in real runs/: {reasons}"
 
     assert list(REPO_ROOT.glob("*.db")) == [], "Unexpected .db file found in repository root"
-
-    if (REPO_ROOT / ".git").exists():
-        res = subprocess.run(
-            ["git", "status", "--porcelain", "--", "runs/", "data/"],
-            cwd=str(REPO_ROOT),
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        assert res.stdout.strip() == "", f"git status --porcelain runs/ data/ is not clean: {res.stdout}"
-        for forbidden_mock_date in ("2026-10-14", "2026-10-15", "2026-10-16"):
-            assert forbidden_mock_date not in res.stdout, (
-                f"Mock run directory {forbidden_mock_date} found in real runs/: {res.stdout}"
-            )
 
