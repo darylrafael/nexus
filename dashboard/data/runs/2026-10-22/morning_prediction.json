@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-22",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 80,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell (amount not specified)",
+  "sector_bullish": [
+    "Transportation",
+    "Plantation (CPO)",
+    "Utilities"
+  ],
+  "sector_bearish": [
+    "Oil & Gas Upstream",
+    "Consumer Goods",
+    "Property"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Basic Materials (Coal)",
+    "Infrastructure"
+  ],
+  "recommended_tickers": [
+    "LSIP",
+    "UNVR",
+    "ADRO",
+    "PTBA",
+    "TBLA",
+    "MSCI",
+    "MEDC",
+    "ANTM",
+    "MYOR",
+    "SIMP",
+    "BBRI",
+    "BYAN",
+    "BBCA",
+    "ICBP",
+    "ENRG",
+    "BUMI",
+    "BMRI",
+    "INDF",
+    "BBTN",
+    "RUIS",
+    "AALI",
+    "HRUM",
+    "ITMG"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "Bearish",
+    "Coal": "Bearish",
+    "CPO": "bullish"
+  },
+  "evidence_ids": [
+    "src_1207564f05",
+    "src_1f80716249",
+    "src_2d37d7bdaa",
+    "src_3dbd558ca3",
+    "src_4096fd17c4",
+    "src_4eb51811bf",
+    "src_5ca821c51a",
+    "src_663e3cf2d3",
+    "src_9c7bf9e109",
+    "src_a277ed8ce1",
+    "src_aa3288cc39",
+    "src_bf72455352",
+    "src_c9f437132e",
+    "src_cc0e9c04ec",
+    "src_f54aa1039b"
+  ]
+}
