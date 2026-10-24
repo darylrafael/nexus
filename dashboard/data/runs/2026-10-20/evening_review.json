@@ -6,20 +6,21 @@
   "ihsg_actual_pct": 5.65,
   "ihsg_correct": false,
   "foreign_flow_predicted": "Distribution",
-  "foreign_flow_actual": "Distribution",
-  "foreign_flow_correct": true,
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Energy (Oil & Coal)": null,
     "Basic Materials (CPO & Nickel)": null,
     "Banking": null,
     "Consumer Non-Cyclicals": null,
-    "Technology": null,
-    "Property & Real Estate": null,
+    "Technology": true,
+    "Property & Real Estate": false,
     "Energy (Gas Upstream)": null,
-    "Financials (Non-Banking)": null
+    "Financials (Non-Banking)": null,
+    "Other Sectors with Top Losers": null
   },
-  "error_rate_pct": 50,
-  "accuracy_score": 50,
+  "error_rate_pct": 81,
+  "accuracy_score": 19,
   "rca_unanticipated": [
     "Bank Indonesia memberi sinyal pemangkasan BI Rate 2026",
     "Bursa saham Asia melemah pada 20 Oktober 2026, dipicu aksi jual saham teknologi"
@@ -84,5 +85,17 @@
     "Nickel (LME)": {
       "raw": "[no date] Nickel Price Today: Price, Trends & Forecast 2026 | Tacto\nLME NICKE\nSource IDs: src_e7b01f3b12, src_bf08793d8b, src_a4f1b4fef6, src_f1dad1f235, src_0b12862f48, src_dc295145ae, src_a03a19ceeb"
     }
+  },
+  "usdidr_change_pct": 0.428,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.51,
+    "stored_usdidr_change_pct": 0.428,
+    "rescored_at": "2026-10-15"
   }
 }

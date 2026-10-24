@@ -101,5 +101,24 @@
   "top_movers": "[no date] IDX Channel - Market Movers Hari Ini: IHSG Menguat 0,94%... | Facebook\n## IDX Channel's Post\n\n### IDX Channel\n\n2 hours ago\n\n2h  ·\n\nMarket Movers Hari Ini: IHSG Menguat 0,94%\n\nIHSG ditutup menguat 49,47 poin atau 0,94% ke level 5.328,36 pada perdagangan Rabu (21/10/2026).\n\nDi tengah penguatan pasar, saham STRK memimpin jajaran top gainer dengan kenaikan 34,31% ke level Rp137 per saham. Sementara itu, saham AMMS menjadi top loser setelah terkoreksi 9,40% ke level R\nSource IDs: src_eb5288b925, src_d91370fffe, src_7376ff2a5d, src_f798d68e24, src_6216dc68c9, src_87d5816bbc, src_f9cc40a3c3",
   "sector_performance": "[no date] IHSG Menguat 0,94% ke 5.328 pada Rabu (21/10/2026), AKRA, ICBP, BBTN Top Gainers LQ45\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) ditutup menguat 49,47 poin atau 0,94% ke 5.328,36 pada akhir perdagangan Rabu (21/10/2026).\n\nSebanyak 369 saham naik, 308 saham turun dan 116 saham stagnan.\n\nSembilan indeks sektoral menguat, menopang kenaikan IHSG. Sedangkan dua indeks sektoral lainnya tergelincir ke zona merah.\n\nIndeks sektoral dengan kenaikan terbesar\nSource IDs: src_ac3367aab2, src_ec793180ca, src_23abaa5094, src_c8d9be6aba, src_9ebf38cf32, src_41d7cd4800, src_87544f522c",
   "foreign_flow_raw": "[no date] Asing Net Sell Jumbo Rp 2,21 Triliun Saat IHSG Rebound, Cek Saham yang Banyak Dijual\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) melonjak pada perdagangan Selasa (20/10/2026), tetapi tekanan jual investor asing masih membayangi pasar saham Indonesia.\n\nDi tengah penguatan indeks setelah anjlok tajam akibat pengumuman Morgan Stanley Capital Internation\nSource IDs: src_d172fd7032, src_0e29794912, src_b8e8d8f4e3, src_7a5395640c, src_8e718f89d5, src_3f6a20e0fa, src_4eb51811bf",
-  "foreign_flow_signal": "Distribution"
+  "foreign_flow_signal": "Unknown",
+  "schema_version": 2,
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-10-20",
+    "target_date": "2026-10-21"
+  },
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.0,
+    "stored_usdidr_change_pct": 0.669,
+    "rescored_at": "2026-10-15"
+  }
 }

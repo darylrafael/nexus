@@ -125,7 +125,7 @@ def test_smoke_run_market_brief(
     }
     mock_llm_chat.return_value = MockLLMResponse(MOCK_BRIEF_MARKDOWN)
 
-    result = run_market_brief()
+    result = run_market_brief(allow_non_trading=True)  # independent of run weekday
 
     assert result is not None
     assert "IHSG Daily Brief" in result

@@ -565,7 +565,7 @@ function HeuristicRuleItem({ lesson, index }) {
           </div>
         </div>
       ) : (
-        <p className="rca-lesson-text">"{text}"</p>
+        <p className="rca-lesson-text">&ldquo;{text}&rdquo;</p>
       )}
 
       <div className="rca-lesson-meta font-mono">
@@ -693,7 +693,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
 
   const rowUsdIdr = Number.isFinite(Number(review.actual_usdidr))
     ? `Rp ${formatNumber(review.actual_usdidr)}`
-    : (review.actual_usdidr === "Illustrative" ? "Rp 15,385" : (review.actual_usdidr || "Rp 15,385"));
+    : "—"; // no verified FX close for this session — never show a placeholder rate
 
   return (
     <>
@@ -1254,7 +1254,7 @@ export default function Dashboard() {
           </div>
 
           <div className="section-eyebrow font-mono">
-            <span className="console-prompt">//</span> 01 · QUANTITATIVE MODEL PERFORMANCE
+            <span className="console-prompt">{"//"}</span> 01 · QUANTITATIVE MODEL PERFORMANCE
           </div>
 
           {/* Metric KPIs */}
@@ -1458,7 +1458,7 @@ export default function Dashboard() {
           {activeReview && (
             <>
               <div className="section-eyebrow font-mono">
-                <span className="console-prompt">//</span> 02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
+                <span className="console-prompt">{"//"}</span> 02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
               </div>
               <section className="eval-section">
                 <header className="eval-header">
@@ -1622,7 +1622,7 @@ export default function Dashboard() {
           )}
 
           <div className="section-eyebrow font-mono">
-            <span className="console-prompt">//</span> 03 · AUDITABLE EXECUTION ARCHIVE
+            <span className="console-prompt">{"//"}</span> 03 · AUDITABLE EXECUTION ARCHIVE
           </div>
           <section className="history-section">
             <header className="history-header">

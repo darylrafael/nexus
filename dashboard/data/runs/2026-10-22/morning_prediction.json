@@ -25,24 +25,11 @@
     "ADRO",
     "PTBA",
     "TBLA",
-    "MSCI",
     "MEDC",
     "ANTM",
     "MYOR",
     "SIMP",
-    "BBRI",
-    "BYAN",
-    "BBCA",
-    "ICBP",
-    "ENRG",
-    "BUMI",
-    "BMRI",
-    "INDF",
-    "BBTN",
-    "RUIS",
-    "AALI",
-    "HRUM",
-    "ITMG"
+    "BBRI"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -66,5 +53,12 @@
     "src_c9f437132e",
     "src_cc0e9c04ec",
     "src_f54aa1039b"
-  ]
+  ],
+  "lock_hash": "30e2e5bf5b3dd6b3",
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 44.7
 }

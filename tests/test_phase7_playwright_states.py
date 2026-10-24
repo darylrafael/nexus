@@ -14,7 +14,11 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 from core.paths import REPO_ROOT, get_runs_dir
-from playwright.sync_api import sync_playwright
+import pytest
+
+# Playwright is an optional dev dependency (browser binaries are not installed in CI).
+# Skip this module cleanly instead of failing collection for the whole suite.
+sync_playwright = pytest.importorskip("playwright.sync_api").sync_playwright
 
 FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
 STALE_FIXTURE_PATH = FIXTURES_DIR / "stale_fixture.json"

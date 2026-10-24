@@ -6,8 +6,8 @@
   "ihsg_actual_pct": 0.94,
   "ihsg_correct": false,
   "foreign_flow_predicted": "Distribution",
-  "foreign_flow_actual": "Distribution",
-  "foreign_flow_correct": true,
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
   "sector_accuracy": {
     "Select Commodity Miners (Coal, Nickel)": null,
     "Raw Materials (General)": null,
@@ -19,8 +19,8 @@
     "Technology": null,
     "Banking": null
   },
-  "error_rate_pct": 50,
-  "accuracy_score": 50,
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
   "rca_unanticipated": [
     "Kekuatan akumulasi investor domestik yang mampu menyerap aksi jual asing secara masif di pasar reguler",
     "Sentimen technical rebound yang mendorong penguatan pada 369 saham dan mengangkat 9 dari 11 indeks sektoral"
@@ -84,5 +84,17 @@
     "Nickel (LME)": {
       "raw": "[no date] LME Nickel | London Metal Exchange\n### LME Nickel opening stocks\n\n|\nSource IDs: src_0b12862f48, src_3cf1e31494, src_bf08793d8b, src_e7b01f3b12, src_f1dad1f235, src_dc295145ae, src_d82bd6dcd4"
     }
+  },
+  "usdidr_change_pct": 0.669,
+  "rupiah_signal": "Weakened",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": true,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.0,
+    "stored_usdidr_change_pct": 0.669,
+    "rescored_at": "2026-10-15"
   }
 }

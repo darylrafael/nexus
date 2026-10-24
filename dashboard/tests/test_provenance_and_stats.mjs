@@ -181,25 +181,31 @@ test('/api/stats rejects mock artifacts, surfaces mockDataDetected, and computes
   }
 });
 
-test('Phase 3.5: cleaned real runs/ corpus returns genuine sessions up to 2026-10-19, n=20, and zero mock dates', async () => {
-  const req = new Request('http://localhost:3002/api/stats?today=2026-10-25');
+// Invariant-based: the real corpus grows every trading day (Actions appends runs),
+// so this test must not pin a specific latest date or sample size.
+test('Phase 3.5: real runs/ corpus returns genuine sessions, consistent stats, and zero mock dates', async () => {
+  const req = new Request('http://localhost:3002/api/stats');
   const res = await GET(req);
   const json = await res.json();
 
   assert.equal(json.success, true);
-  assert.equal(json.pipelineHealth.latestDate, '2026-10-19');
-  assert.equal(json.pipelineHealth.isStale, true);
-  assert.equal(json.pipelineHealth.tradingDaysSinceLatest, 4);
   assert.equal(json.pipelineHealth.mockDataDetected, false);
 
-  assert.equal(json.reviews[0].date, '2026-10-19');
-  assert.equal(json.reviews[0].lock_status, 'retroactive');
-  assert.equal(json.reviews[0].calibrated_confidence, 48.3);
+  const latest = json.pipelineHealth.latestDate;
+  assert.match(latest, /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(latest >= '2026-10-19', `corpus regressed: latest session ${latest} < 2026-10-19`);
+  assert.equal(json.reviews[0].date, latest, 'newest review must match pipeline latestDate');
+  assert.ok(json.pipelineHealth.tradingDaysSinceLatest >= 0);
 
-  assert.equal(json.nexusStats.sample_size_n, 20);
-  assert.equal(json.nexusStats.direction_scorable_sessions, 20);
-  assert.equal(json.nexusStats.direction_accuracy_pct, 45.0);
-  assert.equal(json.nexusStats.calibration.calibrated_confidence_pct, 48.3);
-  assert.equal(json.nexusStats.calibration.brier_score, 0.3798);
+  // Reviews must be sorted newest-first with unique dates.
+  const dates = json.reviews.map((r) => r.date);
+  assert.deepEqual([...dates].sort().reverse(), dates);
+  assert.equal(new Set(dates).size, dates.length);
+
+  const s = json.nexusStats;
+  assert.ok(s.sample_size_n >= 20, `sample size shrank to ${s.sample_size_n}`);
+  assert.ok(s.direction_scorable_sessions <= s.sample_size_n);
+  assert.ok(s.direction_accuracy_pct >= 0 && s.direction_accuracy_pct <= 100);
+  assert.ok(s.calibration.brier_score >= 0 && s.calibration.brier_score <= 1);
+  assert.ok(s.calibration.calibrated_confidence_pct >= 0 && s.calibration.calibrated_confidence_pct <= 100);
 });
-

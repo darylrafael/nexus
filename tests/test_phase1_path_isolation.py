@@ -136,7 +136,7 @@ def test_pipeline_writes_exclusively_to_tmp_path(
     }
     mock_llm_chat.return_value = _DummyLLMResponse(SAMPLE_BRIEF_MD)
 
-    brief_out = run_market_brief()
+    brief_out = run_market_brief(allow_non_trading=True)  # test checks path isolation, not the calendar guard
     assert brief_out is not None
 
     runs_dir = get_runs_dir()
@@ -200,7 +200,7 @@ def test_pipeline_writes_exclusively_to_tmp_path(
         "summary_sentence": "IHSG ditutup melemah tipis.",
     }
 
-    review_out = run_evening_review(date_key=date_key)
+    review_out = run_evening_review(date_key=date_key, allow_non_trading=True)
     assert review_out is not None
     assert (runs_dir / date_key / "evening_actuals.json").exists()
     assert (runs_dir / date_key / "evening_review.json").exists()

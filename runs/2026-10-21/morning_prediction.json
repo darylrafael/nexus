@@ -23,31 +23,13 @@
     "HRUM",
     "TBLA",
     "LSIP",
-    "BUMI",
-    "MSCI",
     "ANTM",
     "BBRI",
-    "FOMC",
     "GOTO",
     "MEDC",
     "INCO",
     "AALI",
-    "BYAN",
-    "BBNI",
-    "TLKM",
-    "BBCA",
-    "ENRG",
-    "SMAR",
-    "ADRO",
-    "EMAS",
-    "PTBA",
-    "UNVR",
-    "RUIS",
-    "INDF",
-    "ICBP",
-    "MYOR",
-    "BMRI",
-    "SIMP"
+    "BYAN"
   ],
   "key_risk": "",
   "commodities_predicted": {
@@ -73,5 +55,12 @@
     "src_b135acadb2",
     "src_cfc3bf86ba",
     "src_ff67c33f8e"
-  ]
+  ],
+  "lock_hash": "db2c45001f5702e0",
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "locked_at": null,
+  "out_of_sample_verified": false,
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "calibrated_confidence": 44.7
 }

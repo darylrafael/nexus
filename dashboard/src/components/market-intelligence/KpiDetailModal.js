@@ -202,7 +202,7 @@ export default function KpiDetailModal({
 
               {/* Directional Split Cards */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// DIRECTIONAL BIAS SPLIT</div>
+                <div className="modal-section-title font-mono">{"// "}DIRECTIONAL BIAS SPLIT</div>
                 <div className="directional-split-grid">
                   <div className="split-box">
                     <div className="split-head">
@@ -246,7 +246,7 @@ export default function KpiDetailModal({
 
               {/* Interactive Sessions List */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// SESSION LOG (CLICK TO INSPECT)</div>
+                <div className="modal-section-title font-mono">{"// "}SESSION LOG (CLICK TO INSPECT)</div>
                 <div className="modal-sessions-table-wrapper">
                   <table className="modal-table">
                     <thead>
@@ -337,7 +337,7 @@ export default function KpiDetailModal({
 
               {/* Multi-Factor Weight Matrix */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// 4-PILLAR ATTRIBUTION WEIGHT FORMULA</div>
+                <div className="modal-section-title font-mono">{"// "}4-PILLAR ATTRIBUTION WEIGHT FORMULA</div>
                 <div className="factor-weights-list">
                   <div className="factor-weight-row">
                     <div className="factor-info">
@@ -425,7 +425,7 @@ export default function KpiDetailModal({
 
               {/* Sector Performance Table */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// SECTOR PERFORMANCE MATRIX</div>
+                <div className="modal-section-title font-mono">{"// "}SECTOR PERFORMANCE MATRIX</div>
                 <div className="modal-sessions-table-wrapper">
                   <table className="modal-table">
                     <thead>
@@ -471,7 +471,7 @@ export default function KpiDetailModal({
 
               {/* Deterministic Hardcoded Causal Rules */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// HARDCODED CAUSAL MAPPING RULES</div>
+                <div className="modal-section-title font-mono">{"// "}HARDCODED CAUSAL MAPPING RULES</div>
                 <div className="causal-rules-grid">
                   <div className="causal-rule-card">
                     <span className="causal-rule-head font-mono">COAL (ICE NEWCASTLE) → IDXENERGY</span>
@@ -532,7 +532,7 @@ export default function KpiDetailModal({
 
               {/* Dynamic Heuristic Rules List */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">// LIVE INJECTED HEURISTIC RULES (OBSIDIAN SYNC)</div>
+                <div className="modal-section-title font-mono">{"// "}LIVE INJECTED HEURISTIC RULES (OBSIDIAN SYNC)</div>
                 <div className="memory-rules-feed">
                   {dynamicRules.length > 0 ? (
                     dynamicRules.map((ruleText, idx) => (
