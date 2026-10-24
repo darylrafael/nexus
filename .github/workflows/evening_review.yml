@@ -96,7 +96,8 @@ jobs:
             CMD="$CMD --date ${{ inputs.target_date }}"
           fi
           eval $CMD
-          python scripts/rescore_history.py
+          python scripts/rescore_history.py --apply
+          python scripts/evaluate.py
 
       - name: Upload Evening Review Run Artifact
         if: always()
@@ -110,7 +111,9 @@ jobs:
 
       - name: Commit and push run artifacts
         run: |
-          git add runs/
+          mkdir -p dashboard/data/runs
+          cp -r runs/* dashboard/data/runs/ 2>/dev/null || true
+          git add -f runs/ dashboard/data/runs/ README.md CLAUDE.md CHANGELOG.md METHODOLOGY.md FIX_REPORT.md
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else

@@ -25,7 +25,6 @@
     "2026-10-21",
     "2026-10-22"
   ],
-  "rejected_mock_dates": [],
   "is_sample_sufficient": false,
   "sample_size_n": 23,
   "sample_warning": "Insufficient sample size (n = 23 < 30) for statistical significance.",
@@ -92,14 +91,14 @@
     "label": "Insufficient data",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 33.3,
+  "sector_accuracy_pct": 33.9,
   "sector_correct_count": 20,
-  "sector_verifiable_count": 60,
+  "sector_verifiable_count": 59,
   "sector_info": {
-    "pct": 33.3,
-    "n": 60,
+    "pct": 33.9,
+    "n": 59,
     "correct": 20,
-    "label": "n = 60",
+    "label": "n = 59",
     "is_sufficient": true
   },
   "rolling_avg_accuracy": 32.2,
@@ -246,6 +245,9 @@
     "The bullish performance of the Energy sector, which led the strengthening sectors on Oct 22.": 1
   },
   "last_updated": "2026-10-22",
+  "scoring_version": "2.2.0",
+  "history_rescored_at": "2026-10-15",
+  "history_rescore_note": "Rescored on 2026-10-15 across 12 genuine sessions (2026-09-22 to 2026-10-07; 2026-10-08 morning-only pending review) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -808,13 +810,9 @@
       "last_observed": "2026-10-22"
     }
   ],
-  "active_heuristics_count": 15,
-  "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 21,
   "ihsg_accuracy_pct": 39.1,
   "ihsg_correct_count": 9,
   "ff_accuracy_pct": 0.0,
   "ff_correct_count": 1,
-  "total_accuracy_sum": 741.0,
-  "schema_version": 1
+  "total_accuracy_sum": 741.0
 }

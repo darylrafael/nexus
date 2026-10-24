@@ -174,39 +174,12 @@
   "divergence_alert": null,
   "data_quality": {
     "overall_valid": true,
-    "flow_date_matched": "matched=2026-10-24, target=2026-10-22",
-    "checks": {
-      "ohlc_valid": true,
-      "fx_consistent": true,
-      "flow_date_matched": "matched=2026-10-24, target=2026-10-22",
-      "sector_data_is_close": true
-    },
-    "fields": {
-      "ihsg": {
-        "source": "yahoo_direct:^JKSE",
-        "date": "2026-10-22",
-        "retrieved_at": "2026-10-24T16:34:05+07:00",
-        "valid": true
-      },
-      "usdidr": {
-        "source": "yahoo_direct:USDIDR=X",
-        "date": "2026-10-22",
-        "retrieved_at": "2026-10-24T16:34:05+07:00",
-        "valid": true
-      },
-      "foreign_flow": {
-        "source": "news_search",
-        "date": "2026-10-22",
-        "retrieved_at": "2026-10-24T16:34:21+07:00",
-        "valid": false,
-        "scope": "regular"
-      },
-      "sectors": {
-        "source": "news_search",
-        "date": "2026-10-22",
-        "retrieved_at": "2026-10-24T16:34:21+07:00",
-        "valid": true
-      }
-    }
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.596,
+    "stored_usdidr_change_pct": -0.017,
+    "rescored_at": "2026-10-15"
   }
 }

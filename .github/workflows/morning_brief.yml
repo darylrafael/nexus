@@ -98,7 +98,9 @@ jobs:
 
       - name: Commit and push run artifacts
         run: |
-          git add runs/
+          mkdir -p dashboard/data/runs
+          cp -r runs/* dashboard/data/runs/ 2>/dev/null || true
+          git add -f runs/ dashboard/data/runs/
           if git diff --staged --quiet; then
             echo "No new artifacts to commit."
           else

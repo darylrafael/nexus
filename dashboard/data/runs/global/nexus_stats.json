@@ -1,5 +1,5 @@
 {
-  "total_sessions": 22,
+  "total_sessions": 23,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -22,50 +22,51 @@
     "2026-10-16",
     "2026-10-19",
     "2026-10-20",
-    "2026-10-21"
+    "2026-10-21",
+    "2026-10-22"
   ],
   "is_sample_sufficient": false,
-  "sample_size_n": 22,
-  "sample_warning": "Insufficient sample size (n = 22 < 30) for statistical significance.",
-  "direction_accuracy_pct": 40.9,
+  "sample_size_n": 23,
+  "sample_warning": "Insufficient sample size (n = 23 < 30) for statistical significance.",
+  "direction_accuracy_pct": 39.1,
   "direction_correct_count": 9,
-  "direction_scorable_sessions": 22,
+  "direction_scorable_sessions": 23,
   "direction_info": {
-    "pct": 40.9,
-    "n": 22,
+    "pct": 39.1,
+    "n": 23,
     "correct": 9,
-    "label": "n = 22, sample too small",
+    "label": "n = 23, sample too small",
     "is_sufficient": false
   },
   "direction_ci_95": {
-    "lower_pct": 23.3,
-    "upper_pct": 61.3,
+    "lower_pct": 22.2,
+    "upper_pct": 59.2,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 59.1,
+    "always_bearish_pct": 56.5,
     "always_bearish_count": 13,
-    "always_bearish_total": 22,
-    "always_bullish_pct": 36.4,
-    "always_bullish_count": 8,
-    "always_bullish_total": 22,
-    "majority_class_pct": 59.1,
-    "persistence_pct": 52.4,
-    "persistence_correct_count": 11,
-    "persistence_scorable_sessions": 21
+    "always_bearish_total": 23,
+    "always_bullish_pct": 39.1,
+    "always_bullish_count": 9,
+    "always_bullish_total": 23,
+    "majority_class_pct": 56.5,
+    "persistence_pct": 54.5,
+    "persistence_correct_count": 12,
+    "persistence_scorable_sessions": 22
   },
   "calibration": {
-    "average_stated_confidence_pct": 80.8,
-    "calibrated_confidence_pct": 44.7,
-    "sample_size_n": 22,
+    "average_stated_confidence_pct": 80.7,
+    "calibrated_confidence_pct": 42.8,
+    "sample_size_n": 23,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
-    "empirical_weight": 0.7333,
-    "realized_hit_rate_pct": 40.9,
+    "empirical_weight": 0.7667,
+    "realized_hit_rate_pct": 39.1,
     "status_label": "illustrative shrinkage estimate",
-    "brier_score": 0.4079,
+    "brier_score": 0.418,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Illustrative shrinkage estimate (44.7%, n = 22 < 30)",
+    "confidence_label": "Illustrative shrinkage estimate (42.8%, n = 23 < 30)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -73,11 +74,11 @@
     "long_only_total_bps": -364.0,
     "long_only_avg_bps": null,
     "long_only_trades": 5,
-    "short_only_total_bps": 1382.0,
+    "short_only_total_bps": 1270.0,
     "short_only_avg_bps": null,
-    "short_only_trades": 15,
+    "short_only_trades": 16,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1018.0,
+    "long_short_total_bps": 906.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
   "flow_accuracy_pct": null,
@@ -100,7 +101,7 @@
     "label": "n = 59",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 33.7,
+  "rolling_avg_accuracy": 32.2,
   "rolling_20_accuracy": 31.4,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
@@ -136,7 +137,9 @@
     "Ketika IHSG diprediksi Bearish dengan confidence 81% dan ada antisipasi kenaikan BI Rate, tetapi Bank Indonesia memberi sinyal pemangkasan BI Rate, maka IHSG dapat rebound signifikan sebesar +5.65%.",
     "Ketika foreign flow aktualnya distribusi, tetapi ada katalis positif domestik yang kuat seperti sinyal kebijakan moneter, maka IHSG dapat bergerak berlawanan arah dengan prediksi dan foreign flow, ditunjukkan dengan kenaikan +5.65%.",
     "Ketika foreign flow diprediksi distribusi masif dengan net sell Rp2,21 triliun dan Rupiah melemah ke Rp17.943, tetapi aksi beli balik domestik mendominasi dengan 369 saham menguat, maka IHSG justru menguat +0,94% (+49,47 poin) ke level 5.328,36.",
-    "Ketika sentimen makro dan nilai tukar menekan sentimen pasar pagi, tetapi rebound teknikal terjadi pada saham-saham penggerak LQ45 seperti ICBP dan BBTN, maka 9 dari 11 sektor mampu ditutup menguat menopang kenaikan IHSG +0,94%."
+    "Ketika sentimen makro dan nilai tukar menekan sentimen pasar pagi, tetapi rebound teknikal terjadi pada saham-saham penggerak LQ45 seperti ICBP dan BBTN, maka 9 dari 11 sektor mampu ditutup menguat menopang kenaikan IHSG +0,94%.",
+    "Ketika morning brief memprediksi sektor 'Oil & Gas Upstream' 'Bearish' dan komoditas 'Oil' secara umum 'Bearish', tetapi sektor 'Energy' memimpin penguatan di pasar dan Brent Crude naik +1.96%, maka prediksi sektor dan komoditas tersebut dapat meleset secara signifikan.",
+    "Ketika morning brief mengidentifikasi 'ketidakpastian pasar keuangan global' sebagai risiko utama, tetapi IHSG 'Lanjut Menguat' sebesar +1.12% saat 'Bursa Kawasan Asia Lesu', maka faktor pendorong domestik seperti 'kebijakan regulator' atau 'rencana reformasi struktural bursa saham' mungkin memiliki dampak yang lebih besar dari perkiraan."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -232,9 +235,16 @@
     "The positive market impact of Bank Indonesia signaling a potential BI Rate cut (pemangkasan)": 1,
     "Kekuatan akumulasi investor domestik yang mampu menyerap aksi jual asing secara masif di pasar reguler": 1,
     "Sentimen technical rebound yang mendorong penguatan pada 369 saham dan mengangkat 9 dari 11 indeks sektoral": 1,
-    "Minat beli pelaku pasar lokal pada saham-saham likuid LQ45 seperti AKRA, ICBP, dan BBTN saat IHSG menyentuh area oversold": 1
+    "Minat beli pelaku pasar lokal pada saham-saham likuid LQ45 seperti AKRA, ICBP, dan BBTN saat IHSG menyentuh area oversold": 1,
+    "Rupiah strengthened by -0.017% against the USD, contrary to the brief's mention of 'tekanan Rupiah'.": 1,
+    "The domestic market showed resilience, with IHSG closing bullish (+1.12%) despite other Asian markets being 'lesu'.": 1,
+    "Brent Crude showed a bullish movement of +1.96%, contradicting the 'Oil: Bearish' commodity signal.": 1,
+    "Positive 'kebijakan regulator' or 'rencana reformasi struktural bursa saham' likely contributed to the IHSG's strength.": 1,
+    "The strength of domestic market drivers, potentially including 'kebijakan regulator' or 'rencana reformasi struktural bursa saham'.": 1,
+    "The positive momentum and strengthening of the Rupiah.": 1,
+    "The bullish performance of the Energy sector, which led the strengthening sectors on Oct 22.": 1
   },
-  "last_updated": "2026-10-21",
+  "last_updated": "2026-10-22",
   "scoring_version": "2.2.0",
   "history_rescored_at": "2026-10-15",
   "history_rescore_note": "Rescored on 2026-10-15 across 12 genuine sessions (2026-09-22 to 2026-10-07; 2026-10-08 morning-only pending review) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
@@ -323,6 +333,11 @@
       "date": "2026-10-19",
       "lesson": "Ketika IHSG diproyeksikan bearish dengan harapan penopang pada sektor komoditas, tetapi kepanikan risiko downgrade MSCI dan pelemahan Rupiah ke Rp18.035 per USD melanda pasar, maka seluruh sektor bergerak negatif dan IHSG anjlok 3,64% ke level 4.996,61.",
       "reason": "numeric_contradiction: stated IHSG 3.64% vs actual -3.64%"
+    },
+    {
+      "date": "2026-10-22",
+      "lesson": "Ketika morning brief memprediksi IHSG 'Bearish' dengan 80% confidence di tengah 'tekanan Rupiah' dan 'ketidakpastian pasar keuangan global', tetapi Rupiah justru 'Strengthened' sebesar -0.017% dan pasar domestik menunjukkan ketahanan, maka IHSG dapat ditutup 'Bullish' sebesar +1.12%.",
+      "reason": "unreliable_source_data: stored usdidr_change_pct (-0.017%) diverges from consecutive spot close (0.596%)"
     }
   ],
   "heuristics": [
@@ -767,9 +782,35 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-10-21"
+    },
+    {
+      "id": "rule-35",
+      "rule": "Ketika morning brief memprediksi sektor 'Oil & Gas Upstream' 'Bearish' dan komoditas 'Oil' secara umum 'Bearish', tetapi sektor 'Energy' memimpin penguatan di pasar dan Brent Crude naik +1.96%, maka prediksi sektor dan komoditas tersebut dapat meleset secara signifikan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-22"
+    },
+    {
+      "id": "rule-36",
+      "rule": "Ketika morning brief mengidentifikasi 'ketidakpastian pasar keuangan global' sebagai risiko utama, tetapi IHSG 'Lanjut Menguat' sebesar +1.12% saat 'Bursa Kawasan Asia Lesu', maka faktor pendorong domestik seperti 'kebijakan regulator' atau 'rencana reformasi struktural bursa saham' mungkin memiliki dampak yang lebih besar dari perkiraan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-10-22"
     }
   ],
-  "ihsg_accuracy_pct": 40.9,
+  "ihsg_accuracy_pct": 39.1,
   "ihsg_correct_count": 9,
   "ff_accuracy_pct": 0.0,
   "ff_correct_count": 1,
