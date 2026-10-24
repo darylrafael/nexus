@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-23",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 58,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.95,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energy": true,
+    "Transportation & Logistics": null,
+    "Infrastruktur": null,
+    "Keuangan": null,
+    "Teknologi": null,
+    "Barang Baku": null,
+    "Barang Konsumen Primer": null,
+    "Barang Konsumen Non-Primer": false,
+    "Properti": null,
+    "Industri": false
+  },
+  "error_rate_pct": 88,
+  "accuracy_score": 12,
+  "rca_unanticipated": [
+    "BI Perpanjang DP 0 Persen Kredit Mobil dan Motor Sampai 2027",
+    "Pemprov Jateng Gandeng TNI Polri untuk Kawal Investasi",
+    "All 11 sectors closed in the green, with Barang Konsumen Non-Primer leading at +3.13% and Industri at +3.12%."
+  ],
+  "rca_overestimated": [
+    "The morning brief's bearish IHSG signal (58% confidence) was strongly contradicted by the actual bullish close of +0.95%.",
+    "Bearish commodity signals for Oil and Natural Gas were partially correct, but Brent Crude showed a bullish +1.96%."
+  ],
+  "rca_underestimated": [
+    "Strong domestic buying sentiment leading to a broad-based rally across all 11 sectors, particularly in Barang Konsumen Non-Primer (+3.13%) and Industri (+3.12%), which were predicted as neutral.",
+    "The positive impact of BI's extension of 0% down payment for vehicle loans on consumer-related sectors."
+  ],
+  "rca_info_delay": [
+    "BI Perpanjang DP 0 Persen Kredit Mobil dan Motor Sampai 2027 (published 12:00:00 GMT)",
+    "Pemprov Jateng Gandeng TNI Polri untuk Kawal Investasi (published 10:00:00 GMT)"
+  ],
+  "rca_inverse_correlation": [
+    "The morning brief predicted a Bearish IHSG with 58% confidence, but the IHSG closed Bullish, gaining +0.95%. This inverse movement suggests that domestic positive catalysts, such as the unexpected BI policy on vehicle loans, outweighed the bearish sentiment."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan kepercayaan 58%, tetapi kebijakan BI yang memperpanjang DP 0% untuk kredit kendaraan bermotor terjadi, maka IHSG justru menguat 0.95%.",
+    "Ketika sektor Barang Konsumen Non-Primer dan Industri diprediksi Netral, tetapi sentimen positif domestik yang kuat terjadi, maka kedua sektor tersebut memimpin penguatan dengan masing-masing +3.13% dan +3.12%.",
+    "Ketika Foreign Flow diprediksi Distribusi (Net Sell), dan memang terjadi Net Sell Rp1.29 Triliun, tetapi IHSG tetap menguat 0.95%, maka faktor domestik dapat mengimbangi tekanan jual asing."
+  ],
+  "summary": "Despite a morning prediction of a bearish IHSG and foreign distribution, the market closed bullish by 0.95% with all sectors gaining, likely driven by unexpected positive domestic news like BI's extension of 0% down payment for vehicle loans, even as foreign investors net sold Rp1.29 Triliun.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18050.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 103.27,
+      "previous_close": 103.66,
+      "change_pct": -0.38,
+      "signal": "Down",
+      "retrieved_at": "2026-10-24T16:51:04+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 111.7,
+      "previous_close": 109.55,
+      "change_pct": 1.96,
+      "signal": "Up",
+      "retrieved_at": "2026-10-24T16:51:05+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.05,
+      "previous_close": 3.06,
+      "change_pct": -0.26,
+      "signal": "Down",
+      "retrieved_at": "2026-10-24T16:51:05+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 15:33:45 GMT | freshness: unknown] Norsk Hydro flags higher smelting costs after quarterly profit miss - Mining.com\nCopper $ 5.6358 / lb  2.72%. Brent Crude Oil $ 104.4 / bbl  -4.21%. Palladium $ 1496.5 / ozt  5.39%. Crude Oil $ 101.85 / bbl  -3.06%. Silver Futures $ 75.495 / ozt  7.47%. Micro Gold Futures $ 4713.1 / ozt  3.80%. Micro Silver Futures $ 75.48 / ozt  7.54%. Platinum $ 1973.85 / ozt  4.22%. Gold Futures $ 4713.3 / ozt  3.84%. Reuters | October 23, 2026 | 8:30 am  Critical Minerals Markets Europe Latin America Middle East Aluminum Oil & Gas Oil and Gas. Norsk Hydr\nSource IDs: src_76e4cc8c2c, src_ae788e931b, src_7ce76598e7, src_5695cef56f, src_c52fd1c2c9, src_f506ab2eb3, src_66b8eba599",
+      "source_ids": [
+        "src_76e4cc8c2c",
+        "src_ae788e931b",
+        "src_7ce76598e7",
+        "src_5695cef56f",
+        "src_c52fd1c2c9",
+        "src_f506ab2eb3",
+        "src_66b8eba599"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-24T16:51:08+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": -0.67,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 14:00:00 GMT | freshness: unknown] Kraft Pulp - Price - Chart - Historical Data - News\n|  | Price |  |  | Day | Month | Year | Date |\n ---  ---  ---  --- |\n| Lumber | 519.51 |  | -3.49 | -0.67% | -3.26% | -11.87% | Oct/23 |\n| Palm Oil | 4,818.00 |  | 26.00 | 0.54% | 0.96% | 9.00% | Oct/23 |\n| Rubber | 254.30 |  | -1.70 | -0.66% | 1.92% | 46.40% | Oct/23 |\n| Cobalt | 34,620.00 |  | 0 | 0% | -12.66% | -28.72% | Oct/22 |\n| Lead | 1,914.58 |  | 10.15 | 0.53% | -1.33% | -5.24% | Oct/23 |\n| Aluminum | 3,047.30 |  | 37.85 | 1.26% | -6.41% | 6.55% | Oct/23 | [...] ##### Members\n\n####\nSource IDs: src_c41039cf6a",
+      "source_ids": [
+        "src_c41039cf6a"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-10-24T16:51:10+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 17:00:00 GMT | freshness: unknown] westmetall . market data . prices/lme stocks . copper, tin, lead, zinc, aluminium, nickel, gold, fine silver\n| LME Stocks | 22. October 2026 | Changes |\n --- \n| in tons | Chart Table Average |\n| Copper | 272,950 | 27,675 |  |\n| Tin | 4,095 | -160 |  |\n| Lead | 323,975 | -5,325 |  |\n| Zinc | 167,075 | -750 |  |\n| Aluminium | 236,025 | -100 |  |\n| Nickel | 280,674 | -192 |  |\n\n| Exchange Rates | 23. October 2026 | 22. October 2026 |\n --- \n| EUR/USD LME-FX-rate (MTLE) | 1.11910 | 1.11990 |  |\n| ECB-Fixing (14:15 Uhr) | 1.11930 | 1.12050 |  |\n|\nSource IDs: src_b48be3065e, src_fcabbb7bad",
+      "source_ids": [
+        "src_b48be3065e",
+        "src_fcabbb7bad"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-24T16:51:13+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.0,
+    "stored_usdidr_change_pct": -0.017,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.017,
+  "rupiah_signal": "Strengthened"
+}

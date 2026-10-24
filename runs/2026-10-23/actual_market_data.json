@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-23",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_76e4cc8c2c",
+    "src_ae788e931b",
+    "src_7ce76598e7",
+    "src_5695cef56f",
+    "src_c52fd1c2c9",
+    "src_f506ab2eb3",
+    "src_66b8eba599",
+    "src_c41039cf6a",
+    "src_b48be3065e",
+    "src_fcabbb7bad",
+    "src_ef2aeca4b1",
+    "src_0dc021830b",
+    "src_e1ca6595f8",
+    "src_0dc021830b",
+    "src_add44ca546",
+    "src_6121efb57e",
+    "src_66683e5478",
+    "src_c90cfa9b70",
+    "src_dcd1ad35af",
+    "src_af2e21157c",
+    "src_4c23a0bfee",
+    "src_f07ae396b0",
+    "src_fadb5df3d1"
+  ],
+  "target_date": "2026-10-23",
+  "ihsg": {
+    "status": "ok",
+    "close": 5439.26,
+    "prev": 5387.9,
+    "change_pct": 0.95,
+    "change_pts": 51.35,
+    "signal": "Bullish",
+    "open": 5397.34,
+    "high": 5455.21,
+    "low": 5366.29,
+    "volume": 397036500,
+    "candle_date": "2026-10-23",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-10-24T16:51:03+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18050.0,
+    "prev": 18053.0,
+    "change_pct": -0.017,
+    "signal": "Strengthened",
+    "candle_date": "2026-10-23",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-10-24T16:51:04+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5439.26,
+  "ihsg_prev": 5387.9,
+  "ihsg_change_pct": 0.95,
+  "ihsg_change_pts": 51.35,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-10-24T16:51:03+07:00",
+  "usdidr_rate": 18050.0,
+  "usdidr_prev": 18053.0,
+  "usdidr_change_pct": -0.017,
+  "rupiah_signal": "Strengthened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-10-24T16:51:04+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 103.27,
+      "previous_close": 103.66,
+      "change_pct": -0.38,
+      "signal": "Down",
+      "retrieved_at": "2026-10-24T16:51:04+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 111.7,
+      "previous_close": 109.55,
+      "change_pct": 1.96,
+      "signal": "Up",
+      "retrieved_at": "2026-10-24T16:51:05+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.05,
+      "previous_close": 3.06,
+      "change_pct": -0.26,
+      "signal": "Down",
+      "retrieved_at": "2026-10-24T16:51:05+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 15:33:45 GMT | freshness: unknown] Norsk Hydro flags higher smelting costs after quarterly profit miss - Mining.com\nCopper $ 5.6358 / lb  2.72%. Brent Crude Oil $ 104.4 / bbl  -4.21%. Palladium $ 1496.5 / ozt  5.39%. Crude Oil $ 101.85 / bbl  -3.06%. Silver Futures $ 75.495 / ozt  7.47%. Micro Gold Futures $ 4713.1 / ozt  3.80%. Micro Silver Futures $ 75.48 / ozt  7.54%. Platinum $ 1973.85 / ozt  4.22%. Gold Futures $ 4713.3 / ozt  3.84%. Reuters | October 23, 2026 | 8:30 am  Critical Minerals Markets Europe Latin America Middle East Aluminum Oil & Gas Oil and Gas. Norsk Hydr\nSource IDs: src_76e4cc8c2c, src_ae788e931b, src_7ce76598e7, src_5695cef56f, src_c52fd1c2c9, src_f506ab2eb3, src_66b8eba599",
+      "source_ids": [
+        "src_76e4cc8c2c",
+        "src_ae788e931b",
+        "src_7ce76598e7",
+        "src_5695cef56f",
+        "src_c52fd1c2c9",
+        "src_f506ab2eb3",
+        "src_66b8eba599"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-24T16:51:08+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": -0.67,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 14:00:00 GMT | freshness: unknown] Kraft Pulp - Price - Chart - Historical Data - News\n|  | Price |  |  | Day | Month | Year | Date |\n ---  ---  ---  --- |\n| Lumber | 519.51 |  | -3.49 | -0.67% | -3.26% | -11.87% | Oct/23 |\n| Palm Oil | 4,818.00 |  | 26.00 | 0.54% | 0.96% | 9.00% | Oct/23 |\n| Rubber | 254.30 |  | -1.70 | -0.66% | 1.92% | 46.40% | Oct/23 |\n| Cobalt | 34,620.00 |  | 0 | 0% | -12.66% | -28.72% | Oct/22 |\n| Lead | 1,914.58 |  | 10.15 | 0.53% | -1.33% | -5.24% | Oct/23 |\n| Aluminum | 3,047.30 |  | 37.85 | 1.26% | -6.41% | 6.55% | Oct/23 | [...] ##### Members\n\n####\nSource IDs: src_c41039cf6a",
+      "source_ids": [
+        "src_c41039cf6a"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-10-24T16:51:10+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 23 Oct 2026 17:00:00 GMT | freshness: unknown] westmetall . market data . prices/lme stocks . copper, tin, lead, zinc, aluminium, nickel, gold, fine silver\n| LME Stocks | 22. October 2026 | Changes |\n --- \n| in tons | Chart Table Average |\n| Copper | 272,950 | 27,675 |  |\n| Tin | 4,095 | -160 |  |\n| Lead | 323,975 | -5,325 |  |\n| Zinc | 167,075 | -750 |  |\n| Aluminium | 236,025 | -100 |  |\n| Nickel | 280,674 | -192 |  |\n\n| Exchange Rates | 23. October 2026 | 22. October 2026 |\n --- \n| EUR/USD LME-FX-rate (MTLE) | 1.11910 | 1.11990 |  |\n| ECB-Fixing (14:15 Uhr) | 1.11930 | 1.12050 |  |\n|\nSource IDs: src_b48be3065e, src_fcabbb7bad",
+      "source_ids": [
+        "src_b48be3065e",
+        "src_fcabbb7bad"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-24T16:51:13+07:00"
+    }
+  },
+  "top_movers": "[Fri, 23 Oct 2026 10:52:41 GMT | freshness: unknown] IHSG Ditutup Naik 0,95% ke Level 5.439 (Jumat, 23 Oktober 2026)\nAdapun BTEK menjadi emiten top loser setelah turun 8,33%, diikuti BUKK yang melemah 6,94% dan LINK yang turun 6,93%.\n\nSejalan dengan IHSG, bursa kawasan Asia sore ini cenderung parkir di zona hijau. Indeks Hang Seng naik 0,69% ke 23.093,37; indeks Shanghai naik 0,89% ke 3.690,48; indeks Strait Times naik 0,13% ke 5.422,16; sedangkan indeks Nikkei turun 0,34% ke 62.693,16.\n\n(Baca: IHSG Lanjut Menguat saat Bursa Kawasan Asia Lesu (Kamis, 22 Oktober 2026))\n\nEditor : Adi Ahdiat\n\n### Tags [...] Menurut data RTI Business, frekuensi perdagangan saham dalam negeri hari ini mencapai 1,82 juta kali transaksi, total saham berpindah tangan 43,99 miliar lembar dengan nilai total transaksi Rp16,2 triliun.\n\nSebanyak 477 saham ditutup menguat hari ini, 187 saham melemah, dan 129 saham stagnan.\n\nEmiten top gainer hari ini adalah WMUU yang melonjak 33,33%, diikuti FAST, PTSP, dan TOBA yang sama-sama naik 25%. [...] Indeks Harga Saham Gabungan (IHSG) naik 0,95% ke level 5.439,26 pada penutupan perdagangan Jumat (23/10/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, seluruh atau 11 sektor saham dalam negeri menguat hari ini.\n\nSektor barang konsumen non-primer memimpin dengan kenaikan 3,13%, diikuti sektor industri dan sektor energi yang masing-masing naik 3,12% dan 2,48%.\nSource: https://databoks.katadata.co.id/pasar/statistik/6adb2a774b78a/ihsg-ditutup-naik-095-ke-level-5439-jumat-23-oktober-2026\nSource ID: src_ef2aeca4b1\n\n[Sat, 24 Oct 2026 01:00:15 GMT | freshness: unknown] Saham Hari Ini 24 Oktober 2026: IHSG Menguat 0,95%, Tembus Level 5.439, Saham Ini Jadi Sorotan\nBacaan Lainnya\n\n Dolar Hari Ini 24 Oktober 2026: Kurs Dolar AS Tembus Rp18.069, Rupiah Kembali Tertekan\n Harga Emas Hari Ini 24 Oktober 2026: Antam, UBS, dan Galeri24 Kompak Turun\n Harga Bahan Pokok Hari Ini di Kota Medan, 23 Oktober 2026: Cabai dan Bawang Jadi Perhatian\n\nNilai transaksi saham mencapai sekitar\nSource IDs: src_ef2aeca4b1, src_0dc021830b",
+  "sector_performance": "[Fri, 23 Oct 2026 10:58:02 GMT | freshness: unknown] Semua Sektor Saham Naik, Barang Konsumen Non-Primer Teratas (Jumat, 23 Oktober 2026)\n1. Barang konsumen non-primer: 3,13%\n2. Industri: 3,12%\n3. Energi: 2,48%\n4. Infrastruktur: 1,91%\n5. Transportasi dan logistik: 1,59%\n6. Barang konsumen primer: 0,98%\n7. Barang baku: 0,74%\n8. Properti: 0,71%\n9. Teknologi: 0,46%\n10. Keuangan: 0,14%\n11. Kesehatan: 0,09%\n\nMenurut data RTI Business, 477 saham ditutup naik hari ini, 187 saham melemah, dan 129 saham stagnan. [...] Menurut data Bursa Efek Indonesia (BEI), Indeks Harga Saham Gabungan (IHSG) naik 0,95% ke level 5.439,26 pada penutupan perdagangan Jumat (23/10/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, semua sektor saham ditutup naik hari ini. Sektor barang konsumen non-primer memimpin setelah menguat 3,13%.\n\nBerikut rincian persentase pergerakan harian Indeks Sektoral IDX-IC pada penutupan perdagangan Jumat (23/10/2026): [...] Frekuensi perdagangan saham dalam negeri hari ini 1,82 juta kali transaksi, total saham berpindah tangan 43,99 miliar lembar, dan nilai transaksi mencapai Rp16,20 triliun.\n\nWMUU menjadi emiten top gainer hari ini usai terbang 33,33%, diikuti FAST, PTSP, dan TOBA yang kompak melonjak 25% serta KONI yang melesat 24,91%.\n\nBTEK menjadi emiten top loser setelah turun 8,33%, diikuti BUKK yang melemah 6,94% dan LINK yang turun 6,93%.\nSource: https://databoks.katadata.co.id/pasar/statistik/6adb295b989dd/semua-sektor-saham-naik-barang-konsumen-non-primer-teratas-jumat-23-oktober-2026\nSource ID: src_e1ca6595f8\n\n[Sat, 24 Oct 2026 01:00:15 GMT | freshness: unknown] Saham Hari Ini 24 Oktober 2026: IHSG Menguat 0,95%, Tembus Level 5.439, Saham Ini Jadi Sorotan\nSektor barang konsumen non-primer memimpin dengan kenaikan 3,13 persen. Selanjutnya, sektor industri menguat 3,12 persen, sedangkan sektor energi naik 2,48 persen.\n\nBACA JUGA: Saham Hari Ini Jumat 23 Oktober 2026: IHSG Dibuka Menguat, Investor Cermati Peluang dan Risiko Pasar [...] Mengutip data perdagangan yang dipublikasikan Katadata, penguatan IHSG mencapai 51,36 poin dibandingkan penutupan sebelumnya. Kinerja positif tersebut mencerminkan dominasi saham-saham yang bergerak di zona hijau pada perdagangan akhir pekan.\n\nIHSG Hari Ini Menguat, Seluruh Sektor Saham Positif\n\nPada perdagangan Jumat, 23 Oktober 2026, seluruh 11 sektor saham dalam klasifikasi IDX Industrial Classification (IDX-IC) tercatat menguat. [...] KLIKSUMUT.COM | JAKARTA – Pergerakan saham hari ini menjadi perhatian investor sete\nSource IDs: src_e1ca6595f8, src_0dc021830b, src_add44ca546, src_6121efb57e, src_66683e5478",
+  "foreign_flow_raw": "[Sat, 24 Oct 2026 02:12:25 GMT | freshness: unknown] 10 Saham dengan Net Sell Asing Terbesar pada 23 Oktober 2026\n### Transaksi Asing dan Pergerakan IHSG\n\nInvestor asing mencatatkan transaksi jual bersih di seluruh pasar sebesar Rp1,29 triliun pada Jumat, 23 Oktober 2026. Di pasar reguler, nilai net sell asing mencapai Rp1,62 triliun. Sementara itu, pasar negosiasi dan tunai mencatatkan transaksi beli bersih atau net buy sebesar Rp330,57 miliar. [...] Investor asing mencatatkan transaksi jual bersih pada sejumlah saham di Bursa Efek Indonesia saat Indeks Harga Saham Gabungan (IHSG) menguat pada penutupan perdagangan Jumat, 23 Oktober 2026. Berdasarkan data Stockbit, terdapat 10 saham dengan nilai net sell asing terbesar, dipimpin oleh PT Bank Central Asia Tbk (BBCA) dengan nilai jual bersih Rp770,5 miliar. [...] 1. PT Bank Central Asia Tbk (BBCA) — Mencatatkan net sell asing terbesar dengan nilai Rp770,5 miliar pada perdagangan Jumat, 23 Oktober 2026.\n2. PT Bank Rakyat Indonesia (Persero) Tbk (BBRI) — Berada di posisi kedua dengan nilai jual bersih investor asing sebesar Rp346,8 miliar.\n3. PT Bank Negara Indonesia (Persero) Tbk (BBNI) — Menempati posisi ketiga dengan net sell asing mencapai Rp101,2 miliar.\nSource: https://demokratis.co.id/daftar-saham-net-sell-asing-oktober\nSource ID: src_c90cfa9b70\n\n[Fri, 23 Oct 2026 12:00:00 GMT | freshness: unknown] Asing Tetap Net Sell Jumbo saat IHSG Terus Menanjak, Saham Ini Diobral\nJAKARTA, investor.id – Investor asing tetap gencar mel",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-10-24",
+    "target_date": "2026-10-23",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-10-24, target=2026-10-23",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-10-24, target=2026-10-23",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-10-23",
+        "retrieved_at": "2026-10-24T16:51:03+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-10-23",
+        "retrieved_at": "2026-10-24T16:51:04+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-10-23",
+        "retrieved_at": "2026-10-24T16:51:17+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-10-23",
+        "retrieved_at": "2026-10-24T16:51:17+07:00",
+        "valid": true
+      }
+    }
+  }
+}

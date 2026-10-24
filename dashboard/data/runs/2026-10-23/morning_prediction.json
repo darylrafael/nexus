@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-23",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 58,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp1.48 Triliun (all market) | Net Sell Rp1.47 Triliun (pasar reguler) (src_8166c5c89e, src_40149fdbc5)",
+  "sector_bullish": [
+    "Energy",
+    "Transportation & Logistics",
+    "Infrastruktur",
+    "Keuangan"
+  ],
+  "sector_bearish": [
+    "Teknologi"
+  ],
+  "sector_neutral": [
+    "Barang Baku",
+    "Barang Konsumen Primer",
+    "Barang Konsumen Non-Primer",
+    "Properti",
+    "Industri"
+  ],
+  "recommended_tickers": [
+    "BBRI",
+    "BBNI",
+    "BMRI",
+    "ASII",
+    "BBCA",
+    "BRIS",
+    "TLKM"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_01b8cd7a9c",
+    "src_31ab6d1bae",
+    "src_3b1bcfec07",
+    "src_40149fdbc5",
+    "src_4b9deb8e7b",
+    "src_58a4c8eece",
+    "src_8166c5c89e",
+    "src_85807e95ed",
+    "src_859512668e",
+    "src_954955f659",
+    "src_a4db0b4237",
+    "src_e304227044",
+    "src_f626ce816d"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 41.0,
+  "lock_hash": "3d2cc6a5e1891c17",
+  "locked_at": null,
+  "lock_status": "retroactive",
+  "hash_computed_at": "2026-10-15",
+  "created_at": "2026-10-24T16:51:01+07:00",
+  "out_of_sample_verified": false,
+  "lock_note": "Hash added retroactively on 2026-10-15; not proof of pre-open lock",
+  "schema_version": 1
+}
