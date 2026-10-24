@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 96164,
+    "avgDurationMs": 45029,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
-      "agent": "market_agent",
+      "agent": "evening_reviewer",
       "total_calls": 1,
-      "avg_duration_ms": 96164.0,
+      "avg_duration_ms": 45029.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,15 +19,13 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-10-22T00:32:22.367538",
-      "query": "daily_brief",
-      "agent": "market_agent",
+      "timestamp": "2026-10-24T16:34:50.644430+07:00",
+      "agent": "evening_reviewer",
       "model": "llm_client",
-      "result": "---\n### 1. Indonesian Economic News: BI Rate Ditahan di 5,75% di Tengah Tekanan Rupiah dan Geopolitik\n- **Summary**: Bank Indonesia (BI) mempertahankan suku bunga acuan (BI Rate) di level 5,75% dalam Rapat Dewan Gubernur (RDG) pada 20\u201321 Oktober 2026. Keputusan ini diambil di tengah tekanan terhadap nilai tukar Rupiah yang melemah ke Rp17.985 per dolar AS pada 20 Oktober 2026, serta ketidakpastian pasar keuangan global dan ketegangan geopolitik di Timur Tengah. BI memperkirakan ekonomi Indonesia tumbuh 4,9%\u20135,7% pada 2026, ditopang konsumsi rumah tangga dan investasi. (src_cc0e9c04ec, src_4096fd17c4)\n- **Market Impact**: Neutral | **Confidence**: 85%\n- **Rationale**: Penahanan BI Rate dapat memberikan stabilitas jangka pendek bagi pasar, meredakan kekhawatiran kenaikan suku bunga yang lebih agresif. Namun, tekanan Rupiah yang masih tinggi dan sentimen negatif dari ancaman penurunan klasifikasi pasar saham Indonesia oleh MSCI (src_663e3cf2d3) dapat membatasi potensi penguatan. Pasar per",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 96164
+      "duration_ms": 45029
     }
   ],
-  "exported_at": "2026-10-22T00:32:22.368716"
+  "exported_at": "2026-10-24T16:34:50.645700+07:00"
 }
