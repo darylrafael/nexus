@@ -3,6 +3,110 @@ import fs from 'fs';
 import path from 'path';
 import { getRunsDirectory, checkRunDirProvenance, isMockProvenance } from '@/lib/nexusData';
 
+function cleanRuleString(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .replace(/\[([^\]]+)\]/g, '$1')
+    .replace(/^["'“”]+|["'“”]+$/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function parseTriggerOutcome(cleanText) {
+  let trigger = '';
+  let outcome = '';
+  if (/^Ketika\s+/i.test(cleanText) && /\bmaka\s+/i.test(cleanText)) {
+    const withoutKetika = cleanText.replace(/^Ketika\s+/i, '');
+    const parts = withoutKetika.split(/\bmaka\s+/i);
+    trigger = (parts[0] || '').replace(/,?\s*terjadi\s*$/i, '').trim();
+    outcome = parts.slice(1).join(' ').trim();
+  } else if (cleanText.includes('–') || cleanText.includes(' - ')) {
+    const parts = cleanText.split(/\s+[-–]\s+/);
+    trigger = (parts[0] || '').trim();
+    outcome = parts.slice(1).join(' - ').trim();
+  }
+  return { trigger, outcome };
+}
+
+function clusterBlindSpots(missedFactorCounts) {
+  const clusters = [
+    {
+      id: 'global-macro',
+      name: 'Global Market & US Yield / Inflation Shock',
+      keywords: ['fed', 'treasury', 'inflasi as', 'global market shock', 'dow jones', 's&p', 'nasdaq', 'recession', 'resesi', 'tariffs', 'trade war', 'global macroeconomic'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'commodities',
+      name: 'Energy & Commodity Price Reversal',
+      keywords: ['oil', 'brent', 'wti', 'coal', 'batu bara', 'newcastle', 'cpo', 'natural gas', 'nickel', 'komoditas', 'energi'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'foreign-flow',
+      name: 'Foreign Institutional Flow Divergence',
+      keywords: ['foreign', 'asing', 'net sell', 'net buy', 'accumulation', 'distribution', 'akumulasi', 'distribusi', 'outflow', 'inflow', 'msci'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'monetary-policy',
+      name: 'BI Rate & Domestic Policy Catalyst',
+      keywords: ['bi rate', 'bi-rate', 'bank indonesia', 'bi policy', 'makroprudensial', 'dp 0', 'pinisi', 'pemangkasan', 'regulator', 'ipo', 'reformasi'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'fx-rupiah',
+      name: 'USD/IDR Exchange Rate Volatility',
+      keywords: ['rupiah', 'usd/idr', 'currency', 'depresiasi', 'nilai tukar', '17.', '18.'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'geopolitics',
+      name: 'Geopolitical & Asian Regional Contagion',
+      keywords: ['geopolit', 'middle east', 'timur tengah', 'iran', 'ukraina', 'rusia', 'bursa asia', 'kospi', 'nikkei', 'asian markets'],
+      count: 0,
+      examples: [],
+    },
+    {
+      id: 'domestic-sector',
+      name: 'Domestic Sector & Labor / Social Dynamics',
+      keywords: ['buruh', 'demo', 'strike', 'unjuk rasa', 'sektor', 'sector', 'rebound', 'oversold', 'lq45', 'valuasi', 'p/e'],
+      count: 0,
+      examples: [],
+    },
+  ];
+
+  let totalMentions = 0;
+
+  for (const [rawFactor, rawCount] of Object.entries(missedFactorCounts || {})) {
+    const c = Number(rawCount) || 1;
+    totalMentions += c;
+    const lower = rawFactor.toLowerCase();
+
+    let matched = clusters.find((cl) => cl.keywords.some((kw) => lower.includes(kw)));
+    if (!matched) {
+      matched = clusters[clusters.length - 1];
+    }
+    matched.count += c;
+    if (matched.examples.length < 3) {
+      matched.examples.push(cleanRuleString(rawFactor));
+    }
+  }
+
+  return clusters
+    .filter((cl) => cl.count > 0)
+    .map((cl) => ({
+      ...cl,
+      sharePct: totalMentions > 0 ? Math.round((cl.count / totalMentions) * 100) : 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+}
+
 export async function GET(request) {
   try {
     const url = new URL(request.url);
@@ -46,14 +150,12 @@ export async function GET(request) {
             if (isMockProvenance(data).isMock) continue;
             dailyReviews.push({ date, ...data });
 
-            // If global stats was empty, accumulate lessons directly
             if (allLessons.length === 0 && Array.isArray(data.lessons)) {
               data.lessons.forEach(l => {
                 if (l && !allLessons.includes(l)) allLessons.push(l);
               });
             }
 
-            // Accumulate RCA factors if missedFactorCounts empty
             if (Object.keys(missedFactorCounts).length === 0) {
               const factors = [
                 ...(data.rca_unanticipated || []),
@@ -72,30 +174,32 @@ export async function GET(request) {
       }
     }
 
-    // 3. Format Recurring Blind Spots (sorted descending by count)
-    const blindSpots = Object.entries(missedFactorCounts)
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count);
+    // 3. Cluster Recurring Blind Spots into clean thematic categories
+    const blindSpots = clusterBlindSpots(missedFactorCounts);
+    const rawBlindSpotsCount = Object.keys(missedFactorCounts).length;
 
     // 4. Trace Provenance & Ground Heuristics in Verified Artifact Evidence
-    const heuristics = allLessons.map((ruleText, idx) => {
+    const rawHeuristics = allLessons.map((rawRuleText, idx) => {
+      const ruleText = cleanRuleString(rawRuleText);
+      const { trigger, outcome } = parseTriggerOutcome(ruleText);
       const evidence = [];
       let originDate = '';
       let lastObserved = '';
 
-      // Find all sessions mentioning this rule (dailyReviews is newest-first)
       const matchingReviews = dailyReviews.filter(rev =>
-        (rev.lessons || []).some(l => l.includes(ruleText) || ruleText.includes(l))
+        (rev.lessons || []).some(l => {
+          const cl = cleanRuleString(l);
+          return cl.includes(ruleText) || ruleText.includes(cl);
+        })
       );
       if (matchingReviews.length > 0) {
-        originDate = matchingReviews[matchingReviews.length - 1].date; // earliest session = when rule was formulated
+        originDate = matchingReviews[matchingReviews.length - 1].date;
         lastObserved = matchingReviews[0].date;
       }
 
-      // Categorize rule deterministically
       let category = 'Market Sentiment';
       const rLower = ruleText.toLowerCase();
-      if (rLower.includes('bi rate') || rLower.includes('bunga') || rLower.includes('fed') || rLower.includes('treasury') || rLower.includes('yield')) {
+      if (rLower.includes('bi rate') || rLower.includes('bunga') || rLower.includes('fed') || rLower.includes('treasury') || rLower.includes('yield') || rLower.includes('dp 0')) {
         category = 'Monetary Policy';
       } else if (rLower.includes('rupiah') || rLower.includes('usd') || rLower.includes('kurs') || rLower.includes('valas')) {
         category = 'Foreign Exchange';
@@ -103,13 +207,12 @@ export async function GET(request) {
         category = 'Commodities';
       } else if (rLower.includes('asing') || rLower.includes('outflow') || rLower.includes('inflow') || rLower.includes('flow') || rLower.includes('akumulasi') || rLower.includes('distribusi')) {
         category = 'Liquidity & Flows';
-      } else if (rLower.includes('pe') || rLower.includes('p/e') || rLower.includes('valuasi') || rLower.includes('demo') || rLower.includes('buruh') || rLower.includes('resesi')) {
-        category = 'Valuation & Macro Sentiment';
-      } else if (rLower.includes('sektor') || rLower.includes('banking') || rLower.includes('teknologi') || rLower.includes('kesehatan') || rLower.includes('transportasi')) {
+      } else if (rLower.includes('pe') || rLower.includes('p/e') || rLower.includes('valuasi') || rLower.includes('demo') || rLower.includes('buruh') || rLower.includes('resesi') || rLower.includes('geopolitik')) {
+        category = 'Macro & Geopolitics';
+      } else if (rLower.includes('sektor') || rLower.includes('banking') || rLower.includes('teknologi') || rLower.includes('kesehatan') || rLower.includes('transportasi') || rLower.includes('industri')) {
         category = 'Sector Causality';
       }
 
-      // Origin session provenance
       if (originDate) {
         const origRev = dailyReviews.find(r => r.date === originDate);
         evidence.push({
@@ -121,7 +224,6 @@ export async function GET(request) {
         });
       }
 
-      // Evaluate rule on subsequent sessions (date > originDate) where rule was actively injected
       const subsequentSessions = dailyReviews.filter(rev => originDate && rev.date > originDate);
 
       let validated = 0;
@@ -149,7 +251,6 @@ export async function GET(request) {
         let isSuccess = false;
         let explanation = '';
 
-        // Domain-specific causality check:
         let matchedSectorKey = null;
         for (const [secKey, kws] of Object.entries(sectorKeywords)) {
           if (kws.some(kw => rLower.includes(kw))) {
@@ -158,10 +259,10 @@ export async function GET(request) {
           }
         }
 
-        if (matchedSectorKey && rev.sector_accuracy && rev.sector_accuracy[matchedSectorKey] !== undefined) {
+        if (matchedSectorKey && rev.sector_accuracy && rev.sector_accuracy[matchedSectorKey] !== undefined && rev.sector_accuracy[matchedSectorKey] !== null) {
           isRelevant = true;
           isSuccess = Boolean(rev.sector_accuracy[matchedSectorKey]);
-          explanation = isSuccess 
+          explanation = isSuccess
             ? `Rule-constrained sector ${matchedSectorKey} matched actual market tape.`
             : `Sector ${matchedSectorKey} diverged from causal constraint.`;
         } else if (category === 'Liquidity & Flows') {
@@ -223,22 +324,36 @@ export async function GET(request) {
         status = 'SUPERSEDED';
       } else if (totalTested === 1) {
         status = validated === 1 ? 'ACTIVE' : 'HYPOTHESIS';
-      } else if (totalTested === 0) {
-        status = 'HYPOTHESIS';
       }
 
       return {
-        id: `rule-${idx + 1}`,
+        id: `R-${String(idx + 1).padStart(2, '0')}`,
         rule: ruleText,
+        trigger,
+        outcome,
         category,
+        originDate: originDate || lastUpdated,
         observed: totalTested,
         validated,
         contradicted,
         validationRate,
         status,
-        lastObserved: lastObserved || lastUpdated,
+        lastObserved: lastObserved || originDate || lastUpdated,
         evidence
       };
+    });
+
+    // Sort heuristics: ACTIVE first (by validationRate desc, observed desc), then HYPOTHESIS (newest originDate first), then SUPERSEDED
+    const statusPriority = { ACTIVE: 0, HYPOTHESIS: 1, SUPERSEDED: 2 };
+    const heuristics = [...rawHeuristics].sort((a, b) => {
+      const pa = statusPriority[a.status] ?? 9;
+      const pb = statusPriority[b.status] ?? 9;
+      if (pa !== pb) return pa - pb;
+      if ((b.validationRate ?? -1) !== (a.validationRate ?? -1)) {
+        return (b.validationRate ?? -1) - (a.validationRate ?? -1);
+      }
+      if (b.observed !== a.observed) return b.observed - a.observed;
+      return String(b.originDate || '').localeCompare(String(a.originDate || ''));
     });
 
     const activeRulesCount = heuristics.filter(h => h.status === 'ACTIVE').length;
@@ -257,12 +372,16 @@ export async function GET(request) {
         supersededHeuristics: heuristics.filter(h => h.status === 'SUPERSEDED').length,
         quarantinedCount: rejectedLessons.length,
         blindSpotsCount: blindSpots.length,
+        rawBlindSpotsCount,
         avgValidationRate,
         validatedHeuristicsCount: heuristics.filter(h => h.validated > 0).length,
         lastCycle: lastUpdated
       },
       blindSpots,
-      quarantinedLessons: rejectedLessons,
+      quarantinedLessons: rejectedLessons.map(q => ({
+        ...q,
+        lesson: cleanRuleString(q.lesson),
+      })),
       heuristics
     });
     response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');

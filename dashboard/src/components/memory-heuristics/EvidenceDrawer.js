@@ -14,7 +14,10 @@ export default function EvidenceDrawer({ isOpen, onClose, heuristic }) {
 
   const {
     rule,
+    trigger,
+    outcome,
     category,
+    originDate,
     status,
     observed,
     validated,
@@ -27,25 +30,39 @@ export default function EvidenceDrawer({ isOpen, onClose, heuristic }) {
     <SideSheet
       isOpen={isOpen}
       onClose={onClose}
-      title="Heuristic Provenance & Evidence"
-      subtitle={`Category: ${category} · Rule ${heuristic.id}`}
-      tag="Audit Provenance"
-      maxWidth="680px"
+      title={`Rule ${heuristic.id} · ${category}`}
+      subtitle={`Formulated ${originDate || 'in post-market audit'} · Forward Provenance`}
+      tag={status}
+      maxWidth="660px"
     >
       <div className="evidence-panel-root">
-        {/* Rule Definition Box */}
+        {/* Structured WHEN -> THEN Rule Card */}
         <div className="evidence-rule-card">
           <div className="evidence-rule-header">
-            <span className="detail-label font-mono">Formulated Heuristic Rule</span>
+            <span className="detail-label font-mono">Causal Heuristic Structure</span>
             <HeuristicStatusBadge status={status} />
           </div>
-          <p className="evidence-rule-text">“{rule}”</p>
+
+          {trigger && outcome ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '6px' }}>
+              <div style={{ padding: '8px 10px', background: 'var(--surface-well)', borderRadius: '4px', borderLeft: '3px solid var(--accent-cyan)' }}>
+                <div className="font-mono text-xs" style={{ color: 'var(--accent-cyan)', fontWeight: 700, marginBottom: '2px' }}>WHEN (CONDITION / DIVERGENCE)</div>
+                <div style={{ fontSize: '12.5px', color: 'var(--text-primary)', lineHeight: 1.45 }}>{trigger}</div>
+              </div>
+              <div style={{ padding: '8px 10px', background: 'var(--surface-well)', borderRadius: '4px', borderLeft: '3px solid var(--matched-text)' }}>
+                <div className="font-mono text-xs" style={{ color: 'var(--matched-text)', fontWeight: 700, marginBottom: '2px' }}>THEN (MARKET IMPACT / CONSTRAINT)</div>
+                <div style={{ fontSize: '12.5px', color: 'var(--text-primary)', lineHeight: 1.45 }}>{outcome}</div>
+              </div>
+            </div>
+          ) : (
+            <p className="evidence-rule-text" style={{ marginTop: '6px' }}>{rule}</p>
+          )}
         </div>
 
         {/* Empirical Metrics Bar */}
         <div className="evidence-metrics-grid">
           <div className="evidence-metric-item">
-            <span className="font-mono text-xs text-muted">Observed</span>
+            <span className="font-mono text-xs text-muted">Tested Runs</span>
             <span className="font-mono text-base font-bold">{observed}</span>
           </div>
           <div className="evidence-metric-item">
@@ -57,17 +74,17 @@ export default function EvidenceDrawer({ isOpen, onClose, heuristic }) {
             <span className="font-mono text-base font-bold text-missed">{contradicted}</span>
           </div>
           <div className="evidence-metric-item">
-            <span className="font-mono text-xs text-secondary">Validation Rate</span>
+            <span className="font-mono text-xs text-secondary">Win Rate</span>
             <span className="font-mono text-base font-bold">
-              {validationRate !== null ? `${validationRate}%` : 'Unresolved'}
+              {validationRate !== null ? `${validationRate}%` : 'Awaiting'}
             </span>
           </div>
         </div>
 
         {/* Historical Evidence Provenance Ledger */}
         <div className="evidence-ledger-header">
-          <span className="eval-section-heading">Observed Session History</span>
-          <span className="eval-section-tag font-mono">{evidence.length} Record{evidence.length === 1 ? '' : 's'}</span>
+          <span className="eval-section-heading">Session Provenance Trace</span>
+          <span className="eval-section-tag font-mono">{evidence.length} Event{evidence.length === 1 ? '' : 's'}</span>
         </div>
 
         <div className="evidence-timeline">
@@ -82,7 +99,7 @@ export default function EvidenceDrawer({ isOpen, onClose, heuristic }) {
                 </span>
               </div>
               <div className="evidence-timeline-body font-mono text-xs">
-                <span>IHSG Actual: </span>
+                <span>IHSG Close: </span>
                 <span className="font-bold">{item.ihsg_actual}</span>
                 {item.ihsg_actual_pct !== undefined && item.ihsg_actual_pct !== 0 && (
                   <span className="text-muted"> ({formatPct(item.ihsg_actual_pct)})</span>

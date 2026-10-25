@@ -175,8 +175,11 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
+  const [page, setPage] = useState(1);
   const [expandedId, setExpandedId] = useState(null);
   const [selectedRun, setSelectedRun] = useState(null);
+
+  const PAGE_SIZE = 10;
 
   useEffect(() => {
     fetch('/api/telemetry')
@@ -204,6 +207,13 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
     if (filter === 'failed') return sessions.filter((s) => Number(s.success) === 0);
     return sessions;
   }, [sessions, filter]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredSessions.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginatedSessions = useMemo(() => {
+    const start = (safePage - 1) * PAGE_SIZE;
+    return filteredSessions.slice(start, start + PAGE_SIZE);
+  }, [filteredSessions, safePage]);
 
   if (loading) {
     return <main className="center-state">Loading execution telemetry...</main>;
@@ -470,19 +480,19 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           <div className="filter-tabs">
             <button
               className={`filter-tab-btn font-mono ${filter === 'all' ? 'active' : ''}`}
-              onClick={() => setFilter('all')}
+              onClick={() => { setFilter('all'); setPage(1); }}
             >
               All ({sessions.length})
             </button>
             <button
               className={`filter-tab-btn font-mono ${filter === 'success' ? 'active' : ''}`}
-              onClick={() => setFilter('success')}
+              onClick={() => { setFilter('success'); setPage(1); }}
             >
               Success ({successCount})
             </button>
             <button
               className={`filter-tab-btn font-mono ${filter === 'failed' ? 'active' : ''}`}
-              onClick={() => setFilter('failed')}
+              onClick={() => { setFilter('failed'); setPage(1); }}
             >
               Failed ({failedCount})
             </button>
@@ -490,7 +500,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </header>
 
         <div className="mobile-cards-list">
-          {filteredSessions.map((session) => {
+          {paginatedSessions.map((session) => {
             const isSuccess = Number(session.success) === 1;
             const isExpanded = expandedId === session.id;
             return (
@@ -527,7 +537,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
               </div>
             );
           })}
-          {filteredSessions.length === 0 && (
+          {paginatedSessions.length === 0 && (
             <div className="text-muted font-mono text-xs text-center py-4">
               No execution sessions match the selected filter.
             </div>
@@ -546,7 +556,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
               </tr>
             </thead>
             <tbody>
-              {filteredSessions.map((session) => (
+              {paginatedSessions.map((session) => (
                 <CompactSessionRow
                   key={session.id}
                   session={session}
@@ -555,7 +565,7 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                   onDeepInspect={(run) => setSelectedRun(run)}
                 />
               ))}
-              {filteredSessions.length === 0 && (
+              {paginatedSessions.length === 0 && (
                 <tr>
                   <td colSpan={5} className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '32px 0' }}>
                     No execution sessions match the selected filter.
@@ -565,6 +575,48 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
             </tbody>
           </table>
         </div>
+
+        {filteredSessions.length > PAGE_SIZE && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '12px 16px',
+              borderTop: '1px solid var(--border-subtle)',
+              background: 'var(--surface-subtle)',
+              flexWrap: 'wrap',
+              gap: '10px',
+            }}
+          >
+            <span className="font-mono text-xs text-secondary">
+              Showing {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, filteredSessions.length)} of {filteredSessions.length} runs
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <button
+                type="button"
+                className="filter-tab-btn font-mono"
+                disabled={safePage <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                style={{ opacity: safePage <= 1 ? 0.45 : 1, cursor: safePage <= 1 ? 'default' : 'pointer' }}
+              >
+                ← Prev
+              </button>
+              <span className="font-mono text-xs text-primary" style={{ padding: '0 8px' }}>
+                Page {safePage} of {totalPages}
+              </span>
+              <button
+                type="button"
+                className="filter-tab-btn font-mono"
+                disabled={safePage >= totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                style={{ opacity: safePage >= totalPages ? 0.45 : 1, cursor: safePage >= totalPages ? 'default' : 'pointer' }}
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       <RunDetailDrawer
