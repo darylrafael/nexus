@@ -393,13 +393,14 @@ def main():
     canonical_stats = compute_canonical_stats(all_reviews)
     if not canonical_stats.get("rejected_mock_dates"):
         canonical_stats.pop("rejected_mock_dates", None)
+    first_date = all_reviews[0].get("date", "2026-09-22") if all_reviews else "2026-09-22"
+    last_date = all_reviews[-1].get("date", "2026-10-23") if all_reviews else "2026-10-23"
     canonical_stats["scoring_version"] = "2.2.0"
-    canonical_stats["history_rescored_at"] = "2026-10-15"
+    canonical_stats["history_rescored_at"] = last_date
     canonical_stats["history_rescore_note"] = (
-        "Rescored on 2026-10-15 across 12 genuine sessions (2026-09-22 to 2026-10-07; "
-        "2026-10-08 morning-only pending review) with strict Indonesian D/M/Y date matching, "
-        "geometric OHLC validation, FX convention & consecutive spot close verification, "
-        "and scorable-only dynamic components."
+        f"Rescored across {len(all_reviews)} genuine sessions ({first_date} to {last_date}) "
+        "with strict Indonesian D/M/Y date matching, geometric OHLC validation, "
+        "FX convention & consecutive spot close verification, and scorable-only dynamic components."
     )
 
     # Sync canonical calibrated_confidence into morning_prediction.json files (Phase 4.2: remove UI vs headline discrepancy)
@@ -437,6 +438,9 @@ def main():
         }
         for h in heuristics
     ]
+    canonical_stats["active_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "ACTIVE")
+    canonical_stats["superseded_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "SUPERSEDED")
+    canonical_stats["hypothesis_heuristics_count"] = sum(1 for h in heuristics if h["status"] == "HYPOTHESIS")
 
     # Backwards-compatibility aliases
     canonical_stats["ihsg_accuracy_pct"] = canonical_stats["direction_accuracy_pct"] or 0.0

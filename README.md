@@ -75,7 +75,7 @@ Designed with buy-side quantitative rigor: deterministic economic rules prevent 
 All performance figures, baselines, confidence intervals, calibration metrics, payoff structures, and self-learning hygiene counts are generated deterministically from `runs/global/nexus_stats.json` and `runs/index.json` via `python scripts/evaluate.py`:
 
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-15`, Verified Runs: **24**, Scored Reviews: **n=24**, Unreviewed Pending: **0**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-23`, Verified Runs: **24**, Scored Reviews: **n=24**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |

@@ -254,8 +254,8 @@
   },
   "last_updated": "2026-10-23",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-10-15",
-  "history_rescore_note": "Rescored on 2026-10-15 across 12 genuine sessions (2026-09-22 to 2026-10-07; 2026-10-08 morning-only pending review) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-10-23",
+  "history_rescore_note": "Rescored across 24 genuine sessions (2026-09-22 to 2026-10-23) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -849,6 +849,9 @@
       "last_observed": "2026-10-23"
     }
   ],
+  "active_heuristics_count": 15,
+  "superseded_heuristics_count": 0,
+  "hypothesis_heuristics_count": 23,
   "ihsg_accuracy_pct": 37.5,
   "ihsg_correct_count": 9,
   "ff_accuracy_pct": 0.0,

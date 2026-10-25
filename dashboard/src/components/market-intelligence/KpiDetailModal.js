@@ -74,10 +74,12 @@ export default function KpiDetailModal({
 
   // Baselines
   const baselines = nexusStats.baselines || {};
-  const alwaysBearishPct = baselines.always_bearish_pct ?? 65.0;
-  const persistencePct = baselines.persistence_pct ?? 52.6;
-  const ciLower = nexusStats?.direction_ci_95?.lower_pct ?? 25.8;
-  const ciUpper = nexusStats?.direction_ci_95?.upper_pct ?? 65.8;
+  const alwaysBearishPct = baselines.always_bearish_pct ?? "?";
+  const persistencePct = baselines.persistence_pct ?? "?";
+  const ciLower = nexusStats?.direction_ci_95?.lower_pct ?? "?";
+  const ciUpper = nexusStats?.direction_ci_95?.upper_pct ?? "?";
+  const avgStatedConf = nexusStats?.calibration?.average_stated_confidence_pct ?? "?";
+  const quarantinedCount = (nexusStats?.rejected_lessons || []).length;
 
   // Sector aggregated breakdown from genuine review sessions
   const sectorMap = {
@@ -134,8 +136,8 @@ export default function KpiDetailModal({
     badgeTag = "Hardcoded Logic";
   } else if (type === "memory") {
     title = "Heuristic Memory Feedback Loop";
-    subtitle = "Closed-Loop RCA Rules Injected into 07:00 WIB Pre-Market Prompt";
-    badgeTag = "Obsidian:27124 Sync";
+    subtitle = "Closed-Loop RCA Rules Injected into 06:55 WIB Pre-Market Prompt";
+    badgeTag = "Synced Artifact Vault";
   }
 
   return (
@@ -326,7 +328,7 @@ export default function KpiDetailModal({
                   <div className="modal-metric-val font-mono">
                     {nexusStats?.calibration?.calibrated_confidence_pct != null ? `${nexusStats.calibration.calibrated_confidence_pct}%` : "N/A"}
                   </div>
-                  <div className="modal-metric-sub font-mono">Calibrated vs Stated (80.5%)</div>
+                  <div className="modal-metric-sub font-mono">Calibrated vs Stated ({avgStatedConf}%)</div>
                 </div>
                 <div className="kpi-modal-card">
                   <div className="modal-metric-label font-mono">EVALUATION SAMPLE</div>
@@ -337,49 +339,38 @@ export default function KpiDetailModal({
 
               {/* Multi-Factor Weight Matrix */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">{"// "}4-PILLAR ATTRIBUTION WEIGHT FORMULA</div>
+                <div className="modal-section-title font-mono">{"// "}3-PILLAR DYNAMIC SCORABLE ATTRIBUTION (50 / 30 / 20)</div>
                 <div className="factor-weights-list">
                   <div className="factor-weight-row">
                     <div className="factor-info">
-                      <span className="factor-title">1. Directional Index Direction</span>
-                      <span className="factor-desc">Kesesuaian arah pergerakan IHSG (Bullish / Bearish / Neutral)</span>
+                      <span className="factor-title">1. IHSG Index Direction</span>
+                      <span className="factor-desc">Kesesuaian arah penutupan IHSG terhadap pita toleransi &plusmn;0.20% (Bullish / Bearish / Neutral)</span>
                     </div>
                     <div className="factor-stats font-mono">
-                      <span className="factor-weight-tag">Bobot 35%</span>
+                      <span className="factor-weight-tag">Bobot 50%</span>
                       <span className="factor-score text-matched">{dashboard.winRate}% Hit</span>
                     </div>
                   </div>
 
                   <div className="factor-weight-row">
                     <div className="factor-info">
-                      <span className="factor-title">2. Sector-by-Sector Engine</span>
-                      <span className="factor-desc">Ketepatan arah sektor IDX yang dipetakan dari komoditas</span>
+                      <span className="factor-title">2. Deterministic Sector Breakdown</span>
+                      <span className="factor-desc">Ketepatan proyeksi sektor terhadap 11 indeks sektoral resmi IDX-IC pada penutupan</span>
                     </div>
                     <div className="factor-stats font-mono">
-                      <span className="factor-weight-tag">Bobot 25%</span>
+                      <span className="factor-weight-tag">Bobot 30%</span>
                       <span className="factor-score">{dashboard.sectorHitRate}% Hit</span>
                     </div>
                   </div>
 
                   <div className="factor-weight-row">
                     <div className="factor-info">
-                      <span className="factor-title">3. Foreign Flow Alignment</span>
-                      <span className="factor-desc">Deteksi akumulasi vs distribusi modal institusi asing</span>
+                      <span className="factor-title">3. Verified Foreign Flow Alignment</span>
+                      <span className="factor-desc">Deteksi akumulasi (&gt; +Rp1T) vs distribusi (&lt; -Rp1T) pasar reguler berverifikasi tanggal D/M/Y</span>
                     </div>
                     <div className="factor-stats font-mono">
                       <span className="factor-weight-tag">Bobot 20%</span>
-                      <span className="factor-score">{ffMatchRate ? `${ffMatchRate}% Match` : "No Data"}</span>
-                    </div>
-                  </div>
-
-                  <div className="factor-weight-row">
-                    <div className="factor-info">
-                      <span className="factor-title">4. Dynamic ATR Boundary</span>
-                      <span className="factor-desc">Pengendalian rentang toleransi pergerakan harga S1/R1</span>
-                    </div>
-                    <div className="factor-stats font-mono">
-                      <span className="factor-weight-tag">Bobot 20%</span>
-                      <span className="factor-score text-matched">Active Capture</span>
+                      <span className="factor-score">{ffEvaluated.length >= 5 && ffMatchRate ? `${ffMatchRate}% Match` : `n=${ffEvaluated.length} (Unscored <5)`}</span>
                     </div>
                   </div>
                 </div>
@@ -387,9 +378,9 @@ export default function KpiDetailModal({
 
               {/* Honest Root Cause Diagnosis */}
               <div className="institutional-callout">
-                <span className="callout-icon">🔍</span>
+                <span className="callout-icon">i</span>
                 <div className="callout-text text-xs">
-                  <strong>Evaluasi Kuantitatif Terbuka:</strong> Skor komposit saat ini (36.1%) mencerminkan penalti ketat terhadap overconfidence pada sesi awal dan divergensi foreign flow di tengah crash pasar global. Sistem tidak me-markup data; setiap sesi dievaluasi secara deterministik tanpa intervensi manual.
+                  <strong>Evaluasi Kuantitatif Terbuka:</strong> Skor komposit saat ini ({dashboard.avgAccuracy}%) menggunakan normalisasi dinamis hanya pada komponen yang terverifikasi (tanpa mengarang data jika Foreign Flow tidak tersedia). Setiap sesi dievaluasi secara deterministik pada pukul 20:00 WIB tanpa intervensi manual.
                 </div>
               </div>
             </div>
@@ -510,29 +501,29 @@ export default function KpiDetailModal({
               {/* Primary Stats */}
               <div className="kpi-modal-kpi-grid">
                 <div className="kpi-modal-card">
-                  <div className="modal-metric-label font-mono">ACTIVE HEURISTIC RULES</div>
+                  <div className="modal-metric-label font-mono">VALIDATED RULES STORED</div>
                   <div className="modal-metric-val font-mono">{dashboard.totalLessons} Rules</div>
-                  <div className="modal-metric-sub font-mono">Closed-loop RCA generated</div>
+                  <div className="modal-metric-sub font-mono">Passed 5-stage quality gate</div>
                 </div>
                 <div className="kpi-modal-card">
-                  <div className="modal-metric-label font-mono">MEMORY STORAGE TARGET</div>
-                  <div className="modal-metric-val font-mono" style={{ fontSize: "15px" }}>
-                    Obsidian:27124
+                  <div className="modal-metric-label font-mono">QUARANTINED LESSONS</div>
+                  <div className="modal-metric-val font-mono text-warning" style={{ fontSize: "18px" }}>
+                    {quarantinedCount} Rejected
                   </div>
-                  <div className="modal-metric-sub font-mono">vault/nexus/learning_store.md</div>
+                  <div className="modal-metric-sub font-mono">Blocked sign/numeric/boilerplate errors</div>
                 </div>
                 <div className="kpi-modal-card">
                   <div className="modal-metric-label font-mono">EXECUTION INJECTION</div>
                   <div className="modal-metric-val font-mono text-matched" style={{ fontSize: "15px" }}>
-                    07:00 WIB Daily
+                    06:55 WIB Daily
                   </div>
-                  <div className="modal-metric-sub font-mono">Pre-market brief system prompt</div>
+                  <div className="modal-metric-sub font-mono">agents/market_agent.py prompt</div>
                 </div>
               </div>
 
               {/* Dynamic Heuristic Rules List */}
               <div className="kpi-modal-section">
-                <div className="modal-section-title font-mono">{"// "}LIVE INJECTED HEURISTIC RULES (OBSIDIAN SYNC)</div>
+                <div className="modal-section-title font-mono">{"// "}SAMPLE VALIDATED CAUSAL RULES (ARTIFACT VAULT)</div>
                 <div className="memory-rules-feed">
                   {dynamicRules.length > 0 ? (
                     dynamicRules.map((ruleText, idx) => (

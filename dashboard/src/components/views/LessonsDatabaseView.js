@@ -107,11 +107,13 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
 
   const stats = data?.stats || {};
   const heuristics = useMemo(() => data?.heuristics || [], [data?.heuristics]);
+  const quarantinedLessons = useMemo(() => data?.quarantinedLessons || [], [data?.quarantinedLessons]);
   const blindSpots = useMemo(() => data?.blindSpots || [], [data?.blindSpots]);
 
   const filteredHeuristics = useMemo(() => {
     if (filter === 'active') return heuristics.filter((h) => h.status === 'ACTIVE');
-    if (filter === 'superseded') return heuristics.filter((h) => h.status !== 'ACTIVE');
+    if (filter === 'hypothesis') return heuristics.filter((h) => h.status === 'HYPOTHESIS');
+    if (filter === 'superseded') return heuristics.filter((h) => h.status === 'SUPERSEDED');
     return heuristics;
   }, [heuristics, filter]);
 
@@ -129,7 +131,9 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
 
   const maxBlindSpotCount = Math.max(...blindSpots.map((b) => b.count), 1);
   const activeCount = heuristics.filter((h) => h.status === 'ACTIVE').length;
-  const supersededCount = heuristics.filter((h) => h.status !== 'ACTIVE').length;
+  const hypothesisCount = heuristics.filter((h) => h.status === 'HYPOTHESIS').length;
+  const supersededCount = heuristics.filter((h) => h.status === 'SUPERSEDED').length;
+  const quarantinedCount = quarantinedLessons.length;
   const displayValRate = stats.avgValidationRate != null ? `${stats.avgValidationRate}%` : (heuristics.length > 0 ? "Tracking" : "—");
 
   return (
@@ -236,13 +240,13 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         {/* Card 2: Empirical Validation Rate */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Validation Hit Rate</span>
+            <span className="kpi-label font-mono">Forward Validation Rate</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono">{displayValRate}</div>
           </div>
           <div className="kpi-context">
-            <span>{stats.validatedHeuristicsCount || 0} rules formulated from post-market reviews (n=1 hindsight)</span>
+            <span>{stats.validatedHeuristicsCount || 0} rules forward-validated on subsequent sessions</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: `${Math.min(100, Math.max(0, Number(stats.avgValidationRate) || 0))}%` }} />
             </div>
@@ -265,18 +269,24 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           </div>
         </div>
 
-        {/* Card 4: Knowledge Base Sync */}
-        <div className="kpi-card">
+        {/* Card 4: Hygiene Quarantine Gate */}
+        <div
+          className="kpi-card interactive"
+          onClick={() => setFilter('quarantined')}
+          style={{ cursor: 'pointer' }}
+          title="Click to inspect lessons blocked by the 5-stage deterministic hygiene filter"
+        >
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Knowledge Base Sync</span>
+            <span className="kpi-label font-mono">Hygiene Quarantine Gate</span>
+            <span className="kpi-click-hint font-mono">Inspect ↗</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-matched" style={{ fontSize: '24px', paddingTop: '4px' }}>
-              SYNCHRONIZED
+            <div className="kpi-value font-mono text-warning">
+              {quarantinedCount} Quarantined
             </div>
           </div>
           <div className="kpi-context">
-            <span>Persistent Knowledge Base · Evaluated Heuristics</span>
+            <span>Blocked faulty/contradictory LLM rules ? {heuristics.length} passed</span>
             <div className="kpi-mini-bar">
               <div className="kpi-mini-fill" style={{ width: '100%' }} />
             </div>
@@ -304,7 +314,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               className={`filter-tab-btn font-mono ${filter === 'all' ? 'active' : ''}`}
               onClick={() => setFilter('all')}
             >
-              All Rules ({heuristics.length})
+              Validated ({heuristics.length})
             </button>
             <button
               className={`filter-tab-btn font-mono ${filter === 'active' ? 'active' : ''}`}
@@ -313,76 +323,122 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               Active ({activeCount})
             </button>
             <button
+              className={`filter-tab-btn font-mono ${filter === 'hypothesis' ? 'active' : ''}`}
+              onClick={() => setFilter('hypothesis')}
+            >
+              Hypothesis ({hypothesisCount})
+            </button>
+            <button
               className={`filter-tab-btn font-mono ${filter === 'superseded' ? 'active' : ''}`}
               onClick={() => setFilter('superseded')}
             >
               Superseded ({supersededCount})
             </button>
+            <button
+              className={`filter-tab-btn font-mono ${filter === 'quarantined' ? 'active' : ''}`}
+              onClick={() => setFilter('quarantined')}
+            >
+              Quarantined ({quarantinedCount})
+            </button>
           </div>
         </header>
 
-        {/* Mobile Responsive Cards (visible <= 768px) */}
-        <div className="mobile-cards-list">
-          {filteredHeuristics.map((item) => (
-            <div
-              key={item.id}
-              className="mobile-heuristic-card"
-              onClick={() => setSelectedHeuristic(item)}
-            >
-              <div className="mobile-card-top">
-                <span className="font-mono font-bold text-xs text-primary">{item.id}</span>
-                <span className="font-mono text-xs text-secondary">{item.category}</span>
-                <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : 'status-missed'} status-sm font-mono`}>
-                  {item.status}
-                </span>
-              </div>
-              <p className="mobile-card-rule">“{item.rule}”</p>
-              <div className="mobile-card-meta font-mono text-xs">
-                <span>Observed: {item.observed} runs</span>
-                <span className="text-matched">Val: {item.validated ?? 0}</span>
-                <span className="text-missed">Contr: {item.contradicted ?? 0}</span>
-                <span className="font-bold text-primary">
-                  {item.validationRate !== null ? `${item.validationRate}%` : 'Hypothesis'}
-                </span>
-              </div>
+        {filter === 'quarantined' ? (
+          <div className="table-wrapper">
+            <div style={{ padding: '12px 16px', background: 'var(--warning-bg)', borderBottom: '1px solid var(--warning-border)', fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <strong style={{ color: 'var(--warning-text)' }}>5-Stage Deterministic Quarantine Audit:</strong> These {quarantinedCount} LLM-generated lessons were automatically rejected by <code>memory/learning_store.py ? validate_lesson()</code> and prevented from entering the morning prompt due to sign confusion, numeric contradiction against closing tape, unverified foreign flow dates, generic boilerplate, or per-session cap limits.
             </div>
-          ))}
-        </div>
-
-        {/* Desktop Quantitative Table (visible > 768px) */}
-        <div className="table-wrapper desktop-table-wrapper">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th style={{ width: '90px' }}>Rule ID</th>
-                <th style={{ width: '150px' }}>Macro Domain</th>
-                <th>Formulated Heuristic Rule</th>
-                <th style={{ width: '80px' }}>Observed</th>
-                <th style={{ width: '70px' }}>Validated</th>
-                <th style={{ width: '70px' }}>Contradicted</th>
-                <th style={{ width: '100px' }}>Validation Rate</th>
-                <th style={{ width: '90px' }}>Status</th>
-                <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredHeuristics.map((item) => (
-                <CompactHeuristicRow
-                  key={item.id}
-                  item={item}
-                  onInspect={(h) => setSelectedHeuristic(h)}
-                />
-              ))}
-              {filteredHeuristics.length === 0 && (
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
-                    No heuristic rules match the selected filter.
-                  </td>
+                  <th style={{ width: '110px' }}>Session Date</th>
+                  <th style={{ width: '260px' }}>Quarantine Gate Reason</th>
+                  <th>Rejected Lesson Content</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {quarantinedLessons.map((q, idx) => (
+                  <tr key={idx} className="table-row">
+                    <td className="font-mono text-xs font-bold text-primary">{q.date}</td>
+                    <td>
+                      <span className="font-mono text-xs text-warning" style={{ background: 'var(--warning-bg)', border: '1px solid var(--warning-border)', padding: '2px 6px', borderRadius: '4px', display: 'inline-block' }}>
+                        {q.reason}
+                      </span>
+                    </td>
+                    <td className="text-xs text-secondary" style={{ padding: '10px 14px', lineHeight: 1.5 }}>
+                      &ldquo;{q.lesson}&rdquo;
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <>
+            {/* Mobile Responsive Cards (visible <= 768px) */}
+            <div className="mobile-cards-list">
+              {filteredHeuristics.map((item) => (
+                <div
+                  key={item.id}
+                  className="mobile-heuristic-card"
+                  onClick={() => setSelectedHeuristic(item)}
+                >
+                  <div className="mobile-card-top">
+                    <span className="font-mono font-bold text-xs text-primary">{item.id}</span>
+                    <span className="font-mono text-xs text-secondary">{item.category}</span>
+                    <span className={`status-pill ${item.status === 'ACTIVE' ? 'status-matched' : (item.status === 'SUPERSEDED' ? 'status-missed' : 'status-pending')} status-sm font-mono`}>
+                      {item.status}
+                    </span>
+                  </div>
+                  <p className="mobile-card-rule">&ldquo;{item.rule}&rdquo;</p>
+                  <div className="mobile-card-meta font-mono text-xs">
+                    <span>Observed: {item.observed} runs</span>
+                    <span className="text-matched">Val: {item.validated ?? 0}</span>
+                    <span className="text-missed">Contr: {item.contradicted ?? 0}</span>
+                    <span className="font-bold text-primary">
+                      {item.validationRate !== null ? `${item.validationRate}%` : 'Hypothesis'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Quantitative Table (visible > 768px) */}
+            <div className="table-wrapper desktop-table-wrapper">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: '90px' }}>Rule ID</th>
+                    <th style={{ width: '150px' }}>Macro Domain</th>
+                    <th>Formulated Heuristic Rule</th>
+                    <th style={{ width: '80px' }}>Observed</th>
+                    <th style={{ width: '70px' }}>Validated</th>
+                    <th style={{ width: '70px' }}>Contradicted</th>
+                    <th style={{ width: '100px' }}>Validation Rate</th>
+                    <th style={{ width: '90px' }}>Status</th>
+                    <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredHeuristics.map((item) => (
+                    <CompactHeuristicRow
+                      key={item.id}
+                      item={item}
+                      onInspect={(h) => setSelectedHeuristic(h)}
+                    />
+                  ))}
+                  {filteredHeuristics.length === 0 && (
+                    <tr>
+                      <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
+                        No heuristic rules match the selected filter.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </section>
 
       {/* 03 · Secondary Supporting Information: Factor Attribution & Prompt Ingestion Cadence */}
@@ -503,7 +559,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                     </span>
                   </div>
                   <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45, wordBreak: 'break-word' }}>
-                    Validated rules from post-market reviews are injected as prompt constraints into the 07:00 WIB brief to prevent recurring forecasting biases.
+                    Validated rules from post-market reviews are injected as prompt constraints into the 06:55 WIB brief to prevent recurring forecasting biases.
                   </p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
                     <span className="font-mono text-xs text-tertiary" style={{ wordBreak: 'break-all' }}>
@@ -536,7 +592,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         isOpen={showPromptDrawer}
         onClose={() => setShowPromptDrawer(false)}
         title="Prompt Constraint Injection Audit"
-        subtitle="Ingested dynamically into 07:00 WIB Morning Brief"
+        subtitle="Ingested dynamically into 06:55 WIB Morning Brief"
         tag="Active Injection"
         maxWidth="680px"
       >

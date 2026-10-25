@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { getRunsDirectory } from '@/lib/nexusData';
+import { getRunsDirectory, checkRunDirProvenance, isMockProvenance } from '@/lib/nexusData';
 
 export async function GET(request) {
   try {
@@ -11,6 +11,7 @@ export async function GET(request) {
     const runsDir = getRunsDirectory(isDemo);
 
     let allLessons = [];
+    let rejectedLessons = [];
     let missedFactorCounts = {};
     let lastUpdated = '';
 
@@ -20,6 +21,7 @@ export async function GET(request) {
       try {
         const globalData = JSON.parse(fs.readFileSync(globalStatsPath, 'utf8'));
         allLessons = globalData.all_lessons || [];
+        rejectedLessons = globalData.rejected_lessons || [];
         missedFactorCounts = globalData.missed_factor_counts || {};
         lastUpdated = globalData.last_updated || '';
       } catch (e) {
@@ -35,10 +37,13 @@ export async function GET(request) {
       dates.sort((a, b) => b.localeCompare(a)); // Newest first
 
       for (const date of dates) {
-        const reviewFile = path.join(runsDir, date, 'evening_review.json');
+        const runDirPath = path.join(runsDir, date);
+        if (checkRunDirProvenance(runDirPath).isMock) continue;
+        const reviewFile = path.join(runDirPath, 'evening_review.json');
         if (fs.existsSync(reviewFile)) {
           try {
             const data = JSON.parse(fs.readFileSync(reviewFile, 'utf8'));
+            if (isMockProvenance(data).isMock) continue;
             dailyReviews.push({ date, ...data });
 
             // If global stats was empty, accumulate lessons directly
@@ -249,12 +254,15 @@ export async function GET(request) {
         totalLessons: allLessons.length,
         activeHeuristics: activeRulesCount,
         unprovenHeuristics: unprovenRulesCount,
+        supersededHeuristics: heuristics.filter(h => h.status === 'SUPERSEDED').length,
+        quarantinedCount: rejectedLessons.length,
         blindSpotsCount: blindSpots.length,
         avgValidationRate,
         validatedHeuristicsCount: heuristics.filter(h => h.validated > 0).length,
         lastCycle: lastUpdated
       },
       blindSpots,
+      quarantinedLessons: rejectedLessons,
       heuristics
     });
     response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');

@@ -134,7 +134,7 @@ $$\text{Brier} = \frac{1}{n} \sum_{t=1}^{n} \left(\frac{C_{\text{stated}, t}}{10
 ## 8. Tabel Evaluasi Kuantitatif Kanonikal (`scripts/evaluate.py`)
 
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-15`, Verified Runs: **24**, Scored Reviews: **n=24**, Unreviewed Pending: **0**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-23`, Verified Runs: **24**, Scored Reviews: **n=24**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |

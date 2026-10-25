@@ -186,7 +186,7 @@ def _run_market_brief_internal(start: float, target_date: str = None) -> str:
 
     # Inject learning context AFTER context is assembled
     print("  [market_agent] Loading past learnings...")
-    recent_learnings = load_recent_learnings(days=14)
+    recent_learnings = load_recent_learnings(days=30)
     learning_context = build_learning_context(recent_learnings)
     if learning_context:
         context = learning_context + "\n\n" + context
@@ -309,7 +309,7 @@ Categorize sectors dynamically based on available data:
         raise RuntimeError("LLM generated empty market brief content.")
 
     print("  [market_agent] Validating output rules...")
-    final_output = validate(final_output)
+    final_output = validate(final_output, reference_data=commodity_changes)
 
     try:
         from dataclasses import asdict
@@ -324,7 +324,7 @@ Categorize sectors dynamically based on available data:
         save_json_artifact(date_key, "morning_prediction.json", pred_dict)
         save_json_artifact(date_key, "sources.json", get_source_registry())
         from agents.validator import check_numeric_consistency
-        val_flags = check_numeric_consistency(final_output)
+        val_flags = check_numeric_consistency(final_output, reference_data=commodity_changes)
         save_json_artifact(date_key, "validator_flags.json", {
             "date": date_key,
             "flags": val_flags,

@@ -576,7 +576,7 @@ function HeuristicRuleItem({ lesson, index }) {
         >
           {showRaw ? "◄ Algorithmic View" : "► Inspect Full Source String"}
         </button>
-        <span>vault/nexus/learning_store.md</span>
+        <span>runs/global/nexus_stats.json</span>
       </div>
     </div>
   );
@@ -672,7 +672,7 @@ function RCAPanel({ review }) {
         {!hasDiagnostics && lessons.length === 0 && (
           <p className="rca-content-muted">
             {review?.isPendingReview
-              ? "Trading session currently underway. Automated post-market attribution and root-cause analysis will execute at 18:55 WIB."
+              ? "Trading session currently underway. Automated post-market attribution and root-cause analysis will execute at 20:00 WIB."
               : "Model parameters converged within target error bands. No active parameter revisions injected."}
           </p>
         )}
@@ -934,7 +934,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
             <span className="cadence-desc">IDX Settle · Official Closing Tapes</span>
           </div>
           <div className="cadence-step active">
-            <span className="cadence-time font-mono">18:55 WIB</span>
+            <span className="cadence-time font-mono">20:00 WIB</span>
             <span className="cadence-desc">Evening Review · Attribution &amp; RCA</span>
           </div>
         </div>
@@ -945,15 +945,15 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
         <div className="telemetry-box-title">System Telemetry</div>
         <div className="telemetry-box-row">
           <span className="telemetry-box-label">Cadence</span>
-          <span className="telemetry-box-val font-mono">07:00 / 19:00</span>
+          <span className="telemetry-box-val font-mono">06:55 / 20:00</span>
         </div>
         <div className="telemetry-box-row">
           <span className="telemetry-box-label">LLM Core</span>
           <span className="telemetry-box-val font-mono">gpt-oss-120b</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">Vault API</span>
-          <span className="telemetry-box-val font-mono text-matched">:27124 Live</span>
+          <span className="telemetry-box-label">Artifact Store</span>
+          <span className="telemetry-box-val font-mono text-matched">Git Vault</span>
         </div>
         <div className="telemetry-box-row">
           <span className="telemetry-box-label">Feedback Loop</span>
@@ -964,9 +964,9 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
       <div className="sidebar-footer">
         <div className="vault-status">
           <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-          <span>Obsidian Live</span>
+          <span>Artifact Vault Synced</span>
         </div>
-        <span className="system-tag font-mono">v2.4-PRO</span>
+        <span className="system-tag font-mono">v2.5-PRO</span>
       </div>
     </aside>
   );
@@ -1069,8 +1069,10 @@ export default function Dashboard() {
         }
       });
     });
-    const sectorHitRate = totalSectorChecks > 0 ? ((totalSectorHits / totalSectorChecks) * 100).toFixed(1) : "50.0";
-    const totalLessons = data.recentLessons?.length || reviews.reduce((acc, r) => acc + (r.lessons?.length || 0), 0);
+    const computedSectorRate = totalSectorChecks > 0 ? ((totalSectorHits / totalSectorChecks) * 100).toFixed(1) : "0.0";
+    const sectorHitRate = data.stats?.sectorAccuracy != null ? Number(data.stats.sectorAccuracy).toFixed(1) : computedSectorRate;
+    const totalLessons = data.stats?.totalLessonsCount ?? data.nexusStats?.all_lessons?.length ?? reviews.reduce((acc, r) => acc + (r.lessons?.length || 0), 0);
+    const quarantinedLessonsCount = data.stats?.quarantinedLessonsCount ?? data.nexusStats?.rejected_lessons?.length ?? 0;
 
     return {
       stats: data.stats || {},
@@ -1078,13 +1080,14 @@ export default function Dashboard() {
       evaluatedReviews,
       latest,
       avgAccuracy,
-      winRate,
-      wins,
-      evaluatedCount: evaluatedReviews.length,
-      totalSectorChecks,
-      totalSectorHits,
+      winRate: data.stats?.directionAccuracy != null ? Number(data.stats.directionAccuracy).toFixed(1) : winRate,
+      wins: data.stats?.directionCorrectCount ?? wins,
+      evaluatedCount: data.stats?.directionScorableSessions ?? evaluatedReviews.length,
+      totalSectorChecks: data.stats?.sectorVerifiableCount ?? totalSectorChecks,
+      totalSectorHits: data.stats?.sectorCorrectCount ?? totalSectorHits,
       sectorHitRate,
       totalLessons,
+      quarantinedLessonsCount,
       isDemo: Boolean(data.isDemo),
     };
   }, [data]);
@@ -1099,14 +1102,14 @@ export default function Dashboard() {
 
   const benchmarkValue = useMemo(() => {
     const lat = dashboard?.latest;
-    if (!lat) return "6,298.61";
+    if (!lat) return "—";
     if (lat.ihsg_close && Number.isFinite(Number(lat.ihsg_close))) return formatNumber(lat.ihsg_close);
     if (lat.previous_close && Number.isFinite(Number(lat.previous_close))) return formatNumber(lat.previous_close);
     const lastEvaluated = dashboard?.reviews?.find((r) => !r.isPendingReview && r.ihsg_close);
     if (lastEvaluated?.ihsg_close) return formatNumber(lastEvaluated.ihsg_close);
     const summaryMatch = (lat.summary || "").match(/(?:JCI|IHSG)\s+(?:closed at\s+)?([0-9,.]+)/i);
     if (summaryMatch && summaryMatch[1]) return summaryMatch[1];
-    return "6,298.61";
+    return "—";
   }, [dashboard]);
 
   const filteredReviews = useMemo(() => {
@@ -1248,8 +1251,45 @@ export default function Dashboard() {
             <div className="context-item">
               <span className="context-label font-mono">HEURISTIC SYNC</span>
               <div className="context-value font-mono text-matched">
-                Obsidian:27124
+                Git Artifact Vault
               </div>
+            </div>
+          </div>
+
+          {/* Beginner-Friendly 4-Step Closed-Loop Architecture Strip */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+            gap: "10px",
+            marginBottom: "20px",
+            padding: "12px 14px",
+            background: "var(--surface-subtle)",
+            border: "1px solid var(--border-subtle)",
+            borderRadius: "var(--radius-md)"
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>01 · 06:55 WIB PRE-MARKET CALL</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                Synthesizes global macro, commodities, FX &amp; past rules into a SHA-256 locked forecast before the 09:00 IDX bell.
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>02 · 09:00–16:00 IDX SESSION</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                Bursa Efek Indonesia trades live. Morning calls remain immutable; deterministic sector rules map commodity shocks.
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>03 · 20:00 WIB OBJECTIVE AUDIT</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                Grades predictions against official closes (50% Index · 30% Sector · 20% Flow) and diagnoses misses via RCA.
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>04 · 5-STAGE MEMORY GATE</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                Quarantines faulty LLM lessons ({dashboard.quarantinedLessonsCount} blocked) and injects {dashboard.totalLessons} validated rules into tomorrow&apos;s prompt.
+              </span>
             </div>
           </div>
 
@@ -1384,9 +1424,9 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="kpi-context">
-                <span>Closed-loop feedback → 07:00 brief</span>
+                <span>Closed-loop → 06:55 brief · {dashboard.quarantinedLessonsCount} quarantined</span>
                 <div className="kpi-sync-status font-mono">
-                  <span>vault/nexus/learning_store.md</span>
+                  <span>runs/global/nexus_stats.json</span>
                 </div>
               </div>
             </div>
@@ -1396,7 +1436,7 @@ export default function Dashboard() {
           <div className="bench-drawer-header">
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <span className="bench-ci-label font-mono text-xs">
-                  Sessions: <strong>{dashboard.evaluatedCount}</strong> · 95% CI: [{data?.performance?.hit_rate_ci?.lower_pct ?? 25.8}%, {data?.performance?.hit_rate_ci?.upper_pct ?? 65.8}%]
+                  Sessions: <strong>{dashboard.evaluatedCount}</strong> · 95% Wilson CI: [{data?.stats?.directionCi95?.lower_pct ?? data?.nexusStats?.direction_ci_95?.lower_pct ?? "—"}%, {data?.stats?.directionCi95?.upper_pct ?? data?.nexusStats?.direction_ci_95?.upper_pct ?? "—"}%]
                 </span>
               </div>
               <button
@@ -1404,7 +1444,9 @@ export default function Dashboard() {
                 onClick={() => setShowInstitutionalBench(!showInstitutionalBench)}
                 className="bench-toggle-btn font-mono text-xs"
               >
-                <span>{showInstitutionalBench ? "▲ Hide" : "▼ Show"} Performance Trajectory &amp; Baselines (+16.77% L/S)</span>
+                <span>
+                  {showInstitutionalBench ? "▲ Hide" : "▼ Show"} Performance Trajectory, Baselines &amp; Calibration ({data?.stats?.payoff?.long_short_total_bps != null ? `${data.stats.payoff.long_short_total_bps >= 0 ? "+" : ""}${(Number(data.stats.payoff.long_short_total_bps) / 100).toFixed(2)}% L/S` : "Audit"})
+                </span>
               </button>
           </div>
 
@@ -1464,7 +1506,7 @@ export default function Dashboard() {
                 <header className="eval-header">
                   <div className="eval-header-title">
                     {activeReview.isPendingReview
-                      ? "Active Trading Session — Pending 18:55 Review"
+                      ? "Active Trading Session — Pending 20:00 Review"
                       : (isHistorical ? "Historical Session Audit" : "Post-Market Evaluation")}
                   </div>
                   <div className="eval-header-right">
@@ -1483,7 +1525,7 @@ export default function Dashboard() {
                 {/* 4-Column Execution Variance Bridge */}
                 <div className="variance-bridge-grid">
                   <div className="bridge-cell">
-                    <div className="bridge-cell-header font-mono">PRE-MARKET THESIS (07:00)</div>
+                    <div className="bridge-cell-header font-mono">PRE-MARKET THESIS (06:55)</div>
                     <div className="bridge-cell-body">
                       <DirectionBadge direction={activeReview.ihsg_predicted} />
                       {activeReview.ihsg_confidence && (
@@ -1546,7 +1588,7 @@ export default function Dashboard() {
                     </div>
                     <div className="bridge-cell-sub">
                       Accuracy Score: <span className="text-primary font-bold font-mono">
-                        {activeReview.isPendingReview ? "Awaiting 18:55 Review" : `${formatNumber(activeReview.accuracy_score)}%`}
+                        {activeReview.isPendingReview ? "Awaiting 20:00 Review" : `${formatNumber(activeReview.accuracy_score)}%`}
                       </span>
                     </div>
                   </div>
@@ -1559,7 +1601,7 @@ export default function Dashboard() {
                     <div className="eval-pane-header">
                       <div className="eval-pane-header-left">
                         <span className="eval-pane-title">Market Synthesis &amp; Signals</span>
-                        <span className="eval-section-tag font-mono">07:00 → 19:00</span>
+                        <span className="eval-section-tag font-mono">06:55 → 20:00 WIB</span>
                       </div>
                       <span className="eval-section-tag font-mono">
                         {isHistorical ? `Audit · ${activeReview.date}` : `Session #${activeReview.date.replace(/-/g, "")}`}
@@ -1591,6 +1633,19 @@ export default function Dashboard() {
                             )}
                             <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
                           </div>
+                        </div>
+                        {activeReview.premarket_summary && !activeReview.isPendingReview && (
+                          <div style={{ marginBottom: "10px", padding: "8px 12px", background: "var(--surface-subtle)", borderRadius: "4px", borderLeft: "3px solid var(--accent-cyan)" }}>
+                            <div className="font-mono text-xs" style={{ color: "var(--accent-cyan)", fontWeight: 600, marginBottom: "2px" }}>
+                              PRE-MARKET MORNING THESIS (06:55 WIB)
+                            </div>
+                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                              <RenderWithSources text={cleanNarrative(activeReview.premarket_summary)} sources={activeReview.sources} />
+                            </div>
+                          </div>
+                        )}
+                        <div className="font-mono text-xs" style={{ color: "var(--text-tertiary)", fontWeight: 600, marginBottom: "4px" }}>
+                          {activeReview.isPendingReview ? "PRE-MARKET THESIS SUMMARY (06:55 WIB)" : "POST-MARKET OUTCOME & EVALUATION (20:00 WIB)"}
                         </div>
                         <p className="eval-summary-text">
                           <RenderWithSources text={cleanNarrative(activeReview.summary)} sources={activeReview.sources} />
@@ -1756,6 +1811,52 @@ export default function Dashboard() {
             <RenderWithSources text={briefMarkdown} sources={briefSources} />
           </article>
         )}
+      </SideSheet>
+
+      <SideSheet
+        isOpen={pipelineStatusOpen}
+        onClose={() => setPipelineStatusOpen(false)}
+        title="Pipeline Execution & Schedule Status"
+        subtitle="Automated Cloud Cron Cadence & Provenance Health"
+        tag="System Status"
+        maxWidth="720px"
+      >
+        <PipelineStatusView
+          onClose={() => setPipelineStatusOpen(false)}
+          stats={data?.stats}
+          pipelineHealth={data?.pipelineHealth}
+          reviews={dashboard.reviews}
+        />
+      </SideSheet>
+
+      <SideSheet
+        isOpen={lineageOpen}
+        onClose={() => setLineageOpen(false)}
+        title="Quantitative Data Lineage & Provenance"
+        subtitle="Cryptographic Lock Verification, OHLC Geometry & Source Audit"
+        tag="Data Lineage"
+        maxWidth="780px"
+      >
+        <DataLineageView
+          onClose={() => setLineageOpen(false)}
+          activeReview={activeReview}
+          stats={data?.stats}
+        />
+      </SideSheet>
+
+      <SideSheet
+        isOpen={methodologyOpen}
+        onClose={() => setMethodologyOpen(false)}
+        title="System Methodology & Audit Guide"
+        subtitle="50/30/20 Scoring Engine, Shrinkage Calibration & 5-Stage Hygiene Gate"
+        tag="Methodology"
+        maxWidth="780px"
+      >
+        <MethodologyView
+          onClose={() => setMethodologyOpen(false)}
+          historyRescoredAt={data?.stats?.historyRescoredAt}
+          nexusStats={data?.nexusStats}
+        />
       </SideSheet>
 
       <KpiDetailModal

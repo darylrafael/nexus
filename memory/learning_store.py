@@ -776,8 +776,13 @@ def build_learning_context(learnings: list, current_regime: str = None) -> str:
         for bs in recurring:
             lines.append(f"  - {bs} (missed {blind_spots[bs]}x)")
 
-    # Heuristic lifecycle evaluation across genuine learnings only
+    # Heuristic lifecycle evaluation across genuine learnings (enriched with full-history stats if available)
     heuristics_meta = {h["rule"]: h for h in evaluate_heuristic_lifecycle(genuine_learnings)}
+    for h in stats.get("heuristics", []):
+        if isinstance(h, dict) and h.get("rule"):
+            existing = heuristics_meta.get(h["rule"])
+            if not existing or int(h.get("observed", 0)) > int(existing.get("observed", 0)):
+                heuristics_meta[h["rule"]] = h
 
     # Determine regime (inferred from latest learning if not specified)
     inferred_regime = current_regime
@@ -815,19 +820,16 @@ def build_learning_context(learnings: list, current_regime: str = None) -> str:
                 continue
 
             meta = heuristics_meta.get(lesson, {})
-            # Phase C3 rule: Inject ONLY lessons validated by at least one later session
-            if meta.get("validated", 0) < 1:
-                continue
-
             status = meta.get("status", "HYPOTHESIS")
-            val_rate = meta.get("validation_rate") or 50.0
+            val_rate = meta.get("validation_rate") if meta.get("validation_rate") is not None else 50.0
 
             if status == "ACTIVE":
                 status_mult = 1.3
             elif status == "SUPERSEDED":
                 status_mult = 0.15
             else:
-                status_mult = 1.0
+                # HYPOTHESIS: corrective lesson from a genuine missed session that passed all 5 quality gates
+                status_mult = 0.95
 
             regime_mult = 1.35 if (inferred_regime and (inferred_regime in meta.get("regimes", []) or inferred_regime == rev_regime)) else 1.0
 
