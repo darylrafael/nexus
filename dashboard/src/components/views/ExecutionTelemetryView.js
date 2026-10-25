@@ -32,7 +32,7 @@ function CompactSessionRow({ session, expanded, onToggle, onDeepInspect }) {
 
   return (
     <>
-      <tr 
+      <tr
         className={`table-row ${expanded ? 'expanded' : ''}`}
         onClick={onToggle}
         style={{ cursor: 'pointer' }}
@@ -96,13 +96,13 @@ function CompactSessionRow({ session, expanded, onToggle, onDeepInspect }) {
                 </div>
                 <button
                   className="brief-read-btn font-mono"
-                  style={{ padding: '6px 12px', fontSize: '12px', minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
+                  style={{ padding: '6px 12px', fontSize: '12px', minHeight: '36px', display: 'inline-flex', alignItems: 'center' }}
                   onClick={(e) => {
                     e.stopPropagation();
                     onDeepInspect(session);
                   }}
                 >
-                  Deep Inspection (Payload &amp; Trace) ↗
+                  Inspect Trace ↗
                 </button>
               </div>
             </div>
@@ -113,61 +113,60 @@ function CompactSessionRow({ session, expanded, onToggle, onDeepInspect }) {
   );
 }
 
-// Multi-Agent Architecture Directory Data
 const AGENT_CATALOG = [
   {
     name: 'market_agent',
-    role: 'Executive Market Synthesis',
-    layer: 'Orchestration & LLM Synthesis',
+    role: 'Pre-Market Synthesis',
+    layer: '06:55 WIB Orchestrator',
     model: 'OpenRouter (gpt-oss-120b)',
-    latency: '115.8s',
+    latency: '~115s',
     status: 'HEALTHY',
-    desc: 'Coordinates morning brief flow, aggregates inputs, formulates directional IHSG thesis.'
+    desc: 'Synthesizes macro, commodities, and past heuristics into the pre-market forecast.'
   },
   {
     name: 'commodity_agent',
-    role: 'Global Commodity Tapes',
-    layer: 'Real-time Contract Ingestion',
+    role: 'Commodity Tapes',
+    layer: 'Market Data Feed',
     model: 'yfinance + Web Fallback',
     latency: '~1.2s',
     status: 'ACTIVE',
-    desc: 'Ingests quotes for Brent Oil, Coal, CPO, Gold, Nickel, Tin, Copper, and Natural Gas.'
+    desc: 'Fetches Brent, Coal, CPO, Gold, Nickel, Tin, Copper, and USD/IDR.'
   },
   {
     name: 'web_agent',
-    role: 'Macroeconomic News Radar',
-    layer: 'Live News Discovery',
+    role: 'Macro & IDX News',
+    layer: 'Search Discovery',
     model: 'Tavily Search API',
     latency: '~2.4s',
     status: 'ACTIVE',
-    desc: 'Crawls Bank Indonesia announcements, Fed outlooks, and domestic financial news wires.'
+    desc: 'Crawls BI policy, global macro catalysts, and IDX sector closing reports.'
   },
   {
     name: 'economics_engine',
-    role: 'Deterministic Sector Impact',
-    layer: 'Pure Rule-Based Logic',
-    model: 'Zero-LLM Hardcoded Engine',
+    role: 'Sector Transmission',
+    layer: 'Deterministic Logic',
+    model: 'Rule-Based Engine',
     latency: '<1ms',
     status: 'ACTIVE',
-    desc: 'Determines sector directions purely from commodity moves to guarantee zero hallucination.'
+    desc: 'Maps commodity moves to IDX-IC sectors without LLM hallucination.'
   },
   {
     name: 'validator',
-    role: 'Output Integrity & Sanity',
-    layer: 'Post-LLM Cross-Check',
-    model: 'Deterministic AST & Regex',
+    role: 'Sanity & Ticker Gate',
+    layer: 'Post-LLM Verification',
+    model: 'Deterministic Regex',
     latency: '~5ms',
     status: 'ACTIVE',
-    desc: 'Enforces directional language consistency and verifies valid Indonesian stock tickers.'
+    desc: 'Enforces directional consistency and validates IDX stock tickers.'
   },
   {
     name: 'evening_reviewer',
-    role: 'Closed-Loop RCA & Reflection',
-    layer: 'Post-Market Evaluation',
-    model: 'OpenRouter + Obsidian API',
+    role: 'Post-Market Audit & RCA',
+    layer: '20:00 WIB Evaluation',
+    model: 'OpenRouter + Hygiene Gate',
     latency: '~85s',
     status: 'STANDBY',
-    desc: 'Evaluates closing prices at 20:00 WIB, attributes errors, and injects lessons into memory.'
+    desc: 'Grades calls against IDX closes, diagnoses variance, and filters lessons.'
   }
 ];
 
@@ -207,13 +206,13 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
   }, [sessions, filter]);
 
   if (loading) {
-    return <main className="center-state">Loading telemetry ledger...</main>;
+    return <main className="center-state">Loading execution telemetry...</main>;
   }
 
   if (error) {
     return (
       <main className="center-state">
-        <span className="text-missed font-medium">Failed to load telemetry store: {error}</span>
+        <span className="text-missed font-medium">Failed to load telemetry: {error}</span>
       </main>
     );
   }
@@ -223,19 +222,16 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
       <div className="content-container">
         <header className="page-header">
           <div>
-            <div className="breadcrumb">NEXUS / Execution Telemetry</div>
+            <div className="breadcrumb">NEXUS · Execution Telemetry</div>
             <h1 className="page-title">Execution Telemetry</h1>
           </div>
         </header>
         <div className="eval-pane" style={{ padding: '36px 24px', textAlign: 'center', margin: '40px 0' }}>
           <span className="status-pill status-missed status-sm font-mono" style={{ margin: '0 auto 12px' }}>
-            <span>NO DATABASE FOUND</span>
+            <span>NO TELEMETRY FOUND</span>
           </span>
-          <h3 style={{ fontSize: '15px', color: 'var(--text-primary)', marginBottom: '8px' }}>
-            nexus_sessions.db Unavailable
-          </h3>
           <p className="text-secondary" style={{ fontSize: '13px', maxWidth: '480px', margin: '0 auto' }}>
-            The SQLite database file has not been initialized yet. Run a brief or review locally via Python to generate initial session logs.
+            No telemetry records available yet.
           </p>
         </div>
       </div>
@@ -247,19 +243,14 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
 
   return (
     <div className="content-container">
-      {/* Page Header */}
       <header className="page-header">
         <div>
-          <div className="breadcrumb">NEXUS / Execution Telemetry</div>
-          <h1 className="page-title">Execution Telemetry &amp; Agent Health</h1>
+          <div className="breadcrumb">NEXUS · Pipeline Telemetry</div>
+          <h1 className="page-title">Agent Health &amp; Execution Log</h1>
         </div>
         <div className="header-actions">
           <div className="market-status-chip">
-            <span>CADENCE: 06:55 / 20:00 WIB</span>
-          </div>
-          <div className="live-badge">
-            <span className="live-dot" />
-            <span>Pipeline Telemetry</span>
+            <span>CRON: 06:55 / 20:00 WIB</span>
           </div>
           <button
             className="theme-toggle-btn"
@@ -288,157 +279,72 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
       </header>
 
-      {/* Structured System Context Bar */}
-      <div className="system-context-strip">
-        <div className="context-item">
-          <span className="context-label font-mono">PIPELINE STATUS</span>
-          <div className="context-value">
-            <span className="live-dot" style={{ width: 6, height: 6 }} />
-            <span>Autonomous Engine Active</span>
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">SUCCESS RATE</span>
-          <div className="context-value font-mono font-semibold text-matched">
-            {stats.successRate}%
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">TOTAL INVOCATIONS</span>
-          <div className="context-value font-mono font-medium">
-            {stats.totalRuns} Recorded
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">AVG PIPELINE LATENCY</span>
-          <div className="context-value font-mono font-medium">
-            {formatDuration(stats.avgDurationMs)}
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">STORAGE REPLICA</span>
-          <div className="context-value font-mono text-matched">
-            nexus_sessions.db (WAL)
-          </div>
-        </div>
-      </div>
-
-      {/* 01 · KPI Header */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 01 · PIPELINE RELIABILITY &amp; RUNTIME PERFORMANCE
-      </div>
       <section className="kpi-row">
-        {/* Card 1: Pipeline Success Rate */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Pipeline Success Rate</span>
+            <span className="kpi-label font-mono">Success Rate</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono text-matched">{stats.successRate}%</div>
-            <div className="outcome-pips font-mono">
-              {sessions.slice(0, 8).map((s) => (
-                <span
-                  key={s.id}
-                  className={`outcome-pip ${Number(s.success) === 1 ? 'pip-hit' : 'pip-miss'}`}
-                  title={`Run #${s.id}: ${Number(s.success) === 1 ? 'Completed' : 'Error'}`}
-                >
-                  {Number(s.success) === 1 ? '● Pass' : '▲ Fail'}
-                </span>
-              ))}
-            </div>
           </div>
           <div className="kpi-context">
-            <span>{stats.successfulRuns} of {stats.totalRuns} runs completed without crash</span>
-            <div className="kpi-mini-bar">
-              <div
-                className="kpi-mini-fill"
-                style={{ width: `${Math.min(100, Math.max(0, Number(stats.successRate) || 0))}%` }}
-              />
-            </div>
+            <span>{stats.successfulRuns} / {stats.totalRuns} runs completed</span>
           </div>
         </div>
 
-        {/* Card 2: Total Orchestrations */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Total Invocations</span>
+            <span className="kpi-label font-mono">Total Runs</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono">{stats.totalRuns} Runs</div>
+            <div className="kpi-value font-mono">{stats.totalRuns}</div>
           </div>
           <div className="kpi-context">
-            <span>{stats.runsToday} executed today · indexed in SQLite session database</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '100%' }} />
-            </div>
+            <span>{stats.runsToday} executed today</span>
           </div>
         </div>
 
-        {/* Card 3: Mean Pipeline Latency */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Mean Pipeline Latency</span>
+            <span className="kpi-label font-mono">Mean Latency</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono">{formatDuration(stats.avgDurationMs)}</div>
           </div>
           <div className="kpi-context">
-            <span>End-to-end multi-agent synthesis &amp; web crawl overhead</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '75%' }} />
-            </div>
+            <span>End-to-end synthesis &amp; crawl</span>
           </div>
         </div>
 
-        {/* Card 4: Database Storage Engine */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Storage Engine</span>
+            <span className="kpi-label font-mono">Artifact Store</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-matched" style={{ fontSize: '24px', paddingTop: '4px' }}>
-              ONLINE
+            <div className="kpi-value font-mono text-matched" style={{ fontSize: '22px' }}>
+              SYNCED
             </div>
           </div>
           <div className="kpi-context">
-            <span>nexus_sessions.db · WAL mode read-only replica</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '100%' }} />
-            </div>
+            <span>Canonical JSON + SQLite WAL</span>
           </div>
         </div>
       </section>
 
-      {/* 02 · Twin Panes: Agent Breakdown & Execution Flow */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 02 · MULTI-AGENT ARCHITECTURE &amp; EXECUTION STATE MACHINE
-      </div>
       <section className="eval-section">
         <header className="eval-header">
-          <div className="eval-header-title">
-            Multi-Agent Topology &amp; Runtime State Machine
-          </div>
-          <div className="eval-header-right">
-            <div className="eval-date-badge font-mono">Runtime State</div>
-          </div>
+          <div className="eval-header-title">Multi-Agent Pipeline Modules</div>
         </header>
 
         <div className="eval-body">
-          {/* Left Column: Full Multi-Agent Directory Table */}
           <div className="eval-pane">
             <div className="eval-pane-header">
               <div className="eval-pane-header-left">
-                <span className="eval-pane-title">Sub-Agent Operational Matrix</span>
-                <span className="eval-section-tag font-mono">6 Pipeline Modules</span>
+                <span className="eval-pane-title">Agent Directory</span>
               </div>
-              <span className="eval-section-tag font-mono">Orchestrator Pipeline</span>
+              <span className="eval-section-tag font-mono">6 Modules</span>
             </div>
             <div className="eval-pane-body" style={{ padding: 0 }}>
-              {/* Mobile Card List for Sub-Agents (visible <= 768px) */}
               <div className="mobile-cards-list">
                 {AGENT_CATALOG.map((ag) => (
                   <div key={ag.name} className="mobile-agent-card">
@@ -454,22 +360,17 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                     <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
                       {ag.desc}
                     </p>
-                    <div className="mobile-card-meta font-mono text-xs">
-                      <span className="text-secondary">{ag.model}</span>
-                      <span className="font-bold text-primary">{ag.latency}</span>
-                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* Desktop Quantitative Table (visible > 768px) */}
               <div className="table-wrapper desktop-table-wrapper">
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th>Module / Agent</th>
-                      <th>Operational Role</th>
-                      <th>Architecture Layer</th>
+                      <th>Module</th>
+                      <th>Role</th>
+                      <th>Layer</th>
                       <th>Latency</th>
                       <th>Status</th>
                     </tr>
@@ -479,27 +380,17 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                       <tr key={ag.name} className="table-row">
                         <td>
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span className="font-mono text-xs font-bold text-primary">
-                              {ag.name}
-                            </span>
-                            <span className="font-mono text-tertiary" style={{ fontSize: "12px" }}>
-                              {ag.model}
-                            </span>
+                            <span className="font-mono text-xs font-bold text-primary">{ag.name}</span>
+                            <span className="font-mono text-tertiary" style={{ fontSize: '11px' }}>{ag.model}</span>
                           </div>
                         </td>
                         <td>
-                          <span className="font-medium text-xs text-primary">
-                            {ag.role}
-                          </span>
+                          <span className="font-medium text-xs text-primary">{ag.role}</span>
                         </td>
                         <td>
-                          <span className="font-mono text-xs text-secondary">
-                            {ag.layer}
-                          </span>
+                          <span className="font-mono text-xs text-secondary">{ag.layer}</span>
                         </td>
-                        <td className="font-mono text-xs font-semibold">
-                          {ag.latency}
-                        </td>
+                        <td className="font-mono text-xs font-semibold">{ag.latency}</td>
                         <td>
                           <span className={`status-pill ${ag.status === 'HEALTHY' || ag.status === 'ACTIVE' ? 'status-matched' : 'status-pending'} status-sm font-mono`}>
                             <span className="status-indicator-dot" />
@@ -514,67 +405,55 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
             </div>
           </div>
 
-          {/* Right Column: Execution Topology & Cadence */}
           <div className="eval-column-right">
             <div className="eval-pane">
               <div className="eval-pane-header">
                 <div className="eval-pane-header-left">
-                  <span className="eval-pane-title">Automated Pipeline Cadence &amp; Resilience</span>
-                  <span className="eval-section-tag font-mono">Autonomous Daemon</span>
+                  <span className="eval-pane-title">Schedule &amp; Failover Topology</span>
                 </div>
                 <div className="loop-active-tag font-mono">
                   <span className="live-dot" style={{ width: 6, height: 6 }} />
-                  Cron Active
+                  Active
                 </div>
               </div>
 
               <div className="eval-pane-body" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {/* Stage 1: Morning Brief */}
                 <div className="telemetry-cadence-grid">
                   <div className="macro-strip-cell" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)' }}>
-                    <div className="macro-cell-head font-mono">06:55 WIB CRON</div>
+                    <div className="macro-cell-head font-mono">06:55 WIB</div>
                     <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>Morning Brief</div>
-                    <div className="macro-cell-sub font-mono text-matched">● Automated Ingest</div>
+                    <div className="macro-cell-sub font-mono text-matched">● Pre-Market Lock</div>
                   </div>
                   <div className="macro-strip-cell" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)' }}>
-                    <div className="macro-cell-head font-mono">16:00 WIB SETTLE</div>
+                    <div className="macro-cell-head font-mono">16:00 WIB</div>
                     <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>IDX Close</div>
-                    <div className="macro-cell-sub font-mono text-secondary">Exchange Official</div>
+                    <div className="macro-cell-sub font-mono text-secondary">Official Tape</div>
                   </div>
                   <div className="macro-strip-cell" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)' }}>
-                    <div className="macro-cell-head font-mono">20:00 WIB CRON</div>
-                    <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>Evening Review</div>
-                    <div className="macro-cell-sub font-mono text-matched">● Closed-Loop RCA</div>
+                    <div className="macro-cell-head font-mono">20:00 WIB</div>
+                    <div className="macro-cell-val font-mono" style={{ fontSize: '13px' }}>Evening Audit</div>
+                    <div className="macro-cell-sub font-mono text-matched">● Score &amp; RCA</div>
                   </div>
                 </div>
 
-                {/* Infrastructure Terminal Block */}
                 <div className="rca-memory-terminal-block">
-                  <div className="memory-prefix font-mono">
-                    <span className="memory-title">INFRASTRUCTURE &amp; RUNTIME TOPOLOGY</span>
-                    <span className="memory-injected-pill font-mono">STANDALONE / CRON</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', marginTop: '6px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
-                      <span className="font-mono text-tertiary">PRIMARY LLM ENGINE:</span>
+                      <span className="font-mono text-tertiary">PRIMARY LLM:</span>
                       <span className="font-mono font-bold text-primary">OpenRouter (gpt-oss-120b)</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
-                      <span className="font-mono text-tertiary">FAILOVER ENGINE:</span>
+                      <span className="font-mono text-tertiary">FAILOVER:</span>
                       <span className="font-mono font-bold text-matched">Gemini Fallback</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-subtle)', paddingBottom: '4px' }}>
-                      <span className="font-mono text-tertiary">PERSISTENT KNOWLEDGE:</span>
-                      <span className="font-mono font-bold text-primary">Persistent Knowledge Store</span>
+                      <span className="font-mono text-tertiary">MEMORY STORE:</span>
+                      <span className="font-mono font-bold text-primary">Git Artifact Vault</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span className="font-mono text-tertiary">DELIVERY DISPATCH:</span>
-                      <span className="font-mono font-bold text-primary">Telegram Bot API (Broadcaster)</span>
+                      <span className="font-mono text-tertiary">DISPATCH:</span>
+                      <span className="font-mono font-bold text-primary">Telegram Bot + Web Dashboard</span>
                     </div>
-                  </div>
-                  <div className="rca-lesson-meta font-mono">
-                    <span>HOST: Local Daemon / GitHub Actions Workflow</span>
-                    <span>PORT: 3002 (Web Telemetry)</span>
                   </div>
                 </div>
               </div>
@@ -583,17 +462,10 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* 03 · Compact Historical Execution Ledger */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 03 · HISTORICAL EXECUTION LEDGER
-      </div>
       <section className="history-section">
         <header className="history-header">
           <div>
-            <h2 className="history-title">Historical Execution Ledger</h2>
-            <div className="history-subtitle font-mono text-xs">
-              Chronological SQLite transaction log of autonomous pipeline runs (click row to inspect compact summary)
-            </div>
+            <h2 className="history-title">Execution Log ({sessions.length})</h2>
           </div>
           <div className="filter-tabs">
             <button
@@ -617,7 +489,6 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           </div>
         </header>
 
-        {/* Mobile Responsive Cards for Execution Sessions (visible <= 768px) */}
         <div className="mobile-cards-list">
           {filteredSessions.map((session) => {
             const isSuccess = Number(session.success) === 1;
@@ -639,26 +510,17 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
                   <span className="font-mono font-bold text-xs text-primary">{session.agent}</span>
                   <span className="font-mono text-xs text-secondary font-semibold">{formatDuration(session.duration_ms)}</span>
                 </div>
-                {session.query && (
-                  <div className="font-mono text-xs text-tertiary" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {session.query}
-                  </div>
-                )}
                 {isExpanded && (
-                  <div style={{ borderTop: '1px dashed var(--border-subtle)', paddingTop: '8px', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    <div style={{ fontSize: '12px' }}>
-                      <span className="font-mono text-tertiary">MODEL: </span>
-                      <span className="font-mono text-secondary">{session.model || 'llm_client'}</span>
-                    </div>
+                  <div style={{ borderTop: '1px dashed var(--border-subtle)', paddingTop: '8px', marginTop: '4px' }}>
                     <button
                       className="brief-read-btn font-mono"
-                      style={{ padding: '6px 12px', fontSize: '12px', minHeight: '44px', marginTop: '4px', width: '100%', justifyContent: 'center', display: 'inline-flex', alignItems: 'center' }}
+                      style={{ padding: '6px 12px', fontSize: '12px', minHeight: '36px', width: '100%', justifyContent: 'center', display: 'inline-flex', alignItems: 'center' }}
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedRun(session);
                       }}
                     >
-                      Deep Inspection (Payload &amp; Trace) ↗
+                      Inspect Trace ↗
                     </button>
                   </div>
                 )}
@@ -672,14 +534,13 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
           )}
         </div>
 
-        {/* Desktop Quantitative Table (visible > 768px) */}
         <div className="table-wrapper desktop-table-wrapper">
           <table className="data-table">
             <thead>
               <tr>
                 <th style={{ width: '100px' }}>Run ID</th>
                 <th style={{ width: '180px' }}>Timestamp</th>
-                <th>Agent Name</th>
+                <th>Agent</th>
                 <th style={{ width: '130px' }}>Duration</th>
                 <th style={{ width: '130px' }}>Status</th>
               </tr>
@@ -706,7 +567,6 @@ export default function ExecutionTelemetryView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* Level 3: Deep Inspection SideSheet for Run Audit */}
       <RunDetailDrawer
         isOpen={!!selectedRun}
         onClose={() => setSelectedRun(null)}

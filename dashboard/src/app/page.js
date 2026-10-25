@@ -58,12 +58,10 @@ const getIdxMarketStatus = () => {
     const min = wib.getMinutes();
     const totalMin = hour * 60 + min;
 
-    // Weekend
     if (day === 0 || day === 6) {
       return { isOpen: false, status: "closed", label: "IDX: CLOSED (WEEKEND)" };
     }
 
-    // Monday - Thursday
     if (day >= 1 && day <= 4) {
       if (totalMin >= 540 && totalMin < 720) {
         return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
@@ -77,7 +75,6 @@ const getIdxMarketStatus = () => {
       return { isOpen: false, status: "closed", label: "IDX: CLOSED" };
     }
 
-    // Friday
     if (day === 5) {
       if (totalMin >= 540 && totalMin < 690) {
         return { isOpen: true, status: "open", label: "IDX: OPEN (SESI 1)" };
@@ -131,7 +128,6 @@ function formatSourceLabel(url) {
 function RenderWithSources({ text, sources = {} }) {
   if (!text || typeof text !== "string") return null;
 
-  // Universally match (src_xxx), [src_xxx], (Source: src_xxx), [Source ID: src_xxx], or standalone src_xxx
   const citationRegex = /([\(\[]?\s*(?:Source(?:\s*ID)?:?\s*)?(src_[a-zA-Z0-9_-]+)\s*[\)\]]?)/gi;
   const parts = [];
   let lastIndex = 0;
@@ -168,7 +164,6 @@ function RenderWithSources({ text, sources = {} }) {
         </a>
       );
     }
-    // If no URL available, gracefully omit the raw hash code to keep the presentation clean and executive-ready
 
     lastIndex = matchEnd;
   }
@@ -292,37 +287,52 @@ function SectorAttribution({ review }) {
 
   if (entries.length === 0) return null;
 
-  const isPending = review?.isPendingReview;
+  const isPending = Boolean(review?.isPendingReview);
+  const verifiableEntries = entries.filter(([_, val]) => isPending || val === true || val === false);
+  const unverifiedNames = entries.filter(([_, val]) => !isPending && val === null).map(([sec]) => sec);
+  const matchCount = verifiableEntries.filter(([_, val]) => val === true).length;
 
   return (
     <div className="eval-pane-section">
       <div className="eval-pane-section-header">
-        <span className="eval-section-heading">Deterministic Sector Engine</span>
+        <span className="eval-section-heading">Sector Attribution</span>
         <span className="eval-section-tag font-mono">
-          {isPending ? "Today's Sector Bias" : "Rule-Based Impact"}
+          {isPending
+            ? "Predicted Bias"
+            : (verifiableEntries.length > 0 ? `${matchCount}/${verifiableEntries.length} Scorable Matched` : "No Verifiable Closing %")}
         </span>
       </div>
-      <div className="sector-matrix-grid">
-        {entries.map(([sector, statusOrHit]) => {
-          let label = "● Miss";
-          let badgeCls = "badge-missed";
-          if (isPending) {
-            badgeCls = statusOrHit === 'BULLISH' ? "badge-matched" : (statusOrHit === 'BEARISH' ? "badge-missed" : "badge-neutral");
-            label = statusOrHit;
-          } else if (statusOrHit) {
-            badgeCls = "badge-matched";
-            label = "● Match";
-          }
-          return (
-            <div className="sector-grid-cell" key={sector}>
-              <span className="sector-cell-name" title={sector}>{sector}</span>
-              <span className={`sector-cell-badge font-mono ${badgeCls}`}>
-                {label}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+
+      {verifiableEntries.length > 0 && (
+        <div className="sector-matrix-grid">
+          {verifiableEntries.map(([sector, statusOrHit]) => {
+            let label = "✗ Miss";
+            let badgeCls = "badge-missed";
+            if (isPending) {
+              badgeCls = statusOrHit === "BULLISH" ? "badge-matched" : (statusOrHit === "BEARISH" ? "badge-missed" : "badge-neutral");
+              label = String(statusOrHit);
+            } else if (statusOrHit === true) {
+              badgeCls = "badge-matched";
+              label = "✓ Match";
+            }
+            return (
+              <div className="sector-grid-cell" key={sector}>
+                <span className="sector-cell-name" title={sector}>{sector}</span>
+                <span className={`sector-cell-badge font-mono ${badgeCls}`}>
+                  {label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {unverifiedNames.length > 0 && (
+        <div style={{ marginTop: verifiableEntries.length > 0 ? "8px" : "0", fontSize: "11px", color: "var(--text-tertiary)", lineHeight: 1.4 }}>
+          <span className="font-mono" style={{ fontWeight: 600 }}>Unverified (excluded from score):</span>{" "}
+          {unverifiedNames.join(" · ")}
+        </div>
+      )}
     </div>
   );
 }
@@ -335,8 +345,8 @@ function MacroPulse({ review }) {
   const rawPred = review?.foreign_flow_predicted;
   const rawAct = review?.foreign_flow_actual;
   const foreignPredicted = rawPred ? rawPred.replace("/", " / ") : "N/A";
-  const foreignActual = rawAct 
-    ? rawAct.replace("/", " / ") 
+  const foreignActual = rawAct
+    ? rawAct.replace("/", " / ")
     : (review?.isPendingReview ? "Market Open" : "N/A");
   const foreignCorrect = review?.foreign_flow_correct;
   const usdidr = review?.actual_usdidr;
@@ -345,13 +355,11 @@ function MacroPulse({ review }) {
   return (
     <div className="eval-pane-section">
       <div className="eval-pane-section-header">
-        <span className="eval-section-heading">Cross-Asset Feeds & Liquidity</span>
-        <span className="eval-section-tag font-mono">Market Telemetry</span>
+        <span className="eval-section-heading">Cross-Asset &amp; Liquidity</span>
+        <span className="eval-section-tag font-mono">Close Snapshot</span>
       </div>
       <div className="macro-tape-strip">
-        {/* Tier 1: Macro Liquidity & Institutional Flow (2 equal columns) */}
         <div className="macro-tape-row liquidity-row">
-          {/* Foreign Flow Tape */}
           <div className="macro-strip-cell">
             <div className="macro-cell-head">Foreign Flow (IDX)</div>
             <div className="macro-cell-val font-mono">{foreignActual}</div>
@@ -369,19 +377,17 @@ function MacroPulse({ review }) {
             </div>
           </div>
 
-          {/* USD / IDR Rate */}
           <div className="macro-strip-cell">
             <div className="macro-cell-head">USD / IDR</div>
             <div className="macro-cell-val font-mono">
               {isUsdNumeric ? `Rp ${formatNumber(usdidr)}` : (usdidr && usdidr !== "Illustrative" ? String(usdidr) : "Unavailable")}
             </div>
             <div className="macro-cell-sub">
-              {review?.isPendingReview ? "Yesterday Close Ref" : "Bank Indonesia Ref"}
+              {review?.isPendingReview ? "Prev Close Ref" : "Session Close"}
             </div>
           </div>
         </div>
 
-        {/* Tier 2: Commodities (Equal balanced columns) */}
         {commodities.length > 0 && (
           <div
             className="macro-tape-row commodities-row"
@@ -424,108 +430,101 @@ function cleanWatchlistNote(ticker, note) {
 }
 
 function ActionableMarketSetup({ review }) {
-  const [showAllWatchlist, setShowAllWatchlist] = useState(false);
-  const closeNum = Number(review?.ihsg_close) || Number(review?.previous_close) || 6298.61;
-  const pivot = Math.round(closeNum);
-  const s1 = Math.round(closeNum * 0.993);
-  const r1 = Math.round(closeNum * 1.007);
+  const pivot = Number(review?.premarket_pivot || review?.ihsg_prev || review?.ihsg_close || 0);
+  const s1 = Number(review?.premarket_s1 || review?.dynamic_s1 || (pivot ? Math.round(pivot * 0.993) : 0));
+  const r1 = Number(review?.premarket_r1 || review?.dynamic_r1 || (pivot ? Math.round(pivot * 1.007) : 0));
 
-  const focusWatchlist = (review?.actionable_watchlist && review.actionable_watchlist.length > 0)
-    ? review.actionable_watchlist
-    : [
-        {
-          ticker: "ICBP",
-          sector: "Consumer Non-Cyclical",
-          bias: "BULLISH",
-          note: "Terjaga daya beli domestik & inflasi stabil, defensif terhadap volatilitas suku bunga global."
-        },
-        {
-          ticker: "BUMI",
-          sector: "Energy & Mining",
-          bias: "BULLISH",
-          note: "Batu bara Newcastle solid ($145.50/t); minat beli bersih asing mencapai 59jt lembar."
-        },
-        {
-          ticker: "BBRI",
-          sector: "Banking",
-          bias: "DEFENSIVE",
-          note: "BI Rate bertahan di 5.75% menopang margin bunga bersih; pantau support S1 (6,255) untuk rebound."
-        },
-        {
-          ticker: "TLKM",
-          sector: "Technology & Infrastructure",
-          bias: "WATCH",
-          note: "Yield US Treasury 10Y (5.135%) membebani valuasi; pantau stabilisasi arus dana institusi asing."
-        }
-      ];
+  const focusWatchlist = Array.isArray(review?.actionable_watchlist) ? review.actionable_watchlist : [];
 
-  const displayedWatchlist = showAllWatchlist ? focusWatchlist : focusWatchlist.slice(0, 4);
+  if (!pivot && focusWatchlist.length === 0) return null;
+
+  // Separate tickers with specific catalyst notes vs generic ticker mentions
+  const detailedTickers = [];
+  const compactTickers = [];
+  focusWatchlist.forEach((item) => {
+    const cleaned = cleanWatchlistNote(item.ticker, item.note);
+    const isGeneric = !cleaned || /Sector catalyst from morning brief/i.test(cleaned);
+    if (isGeneric) {
+      compactTickers.push(item.ticker);
+    } else {
+      detailedTickers.push({ ...item, cleanedNote: cleaned });
+    }
+  });
 
   return (
     <div className="eval-pane-section" style={{ borderBottom: "none" }}>
       <div className="eval-pane-section-header">
-        <span className="eval-section-heading">Pre-Market Actionable Setup</span>
-        <span className="eval-section-tag font-mono">Levels &amp; Focus Watchlist</span>
+        <span className="eval-section-heading">Pre-Market Levels &amp; Watchlist</span>
+        <span className="eval-section-tag font-mono">
+          {review?.premarket_s1 ? "Morning Brief Levels" : "14D ATR Band"}
+        </span>
       </div>
 
-      {/* Support / Pivot / Resistance Tape */}
-      <div className="actionable-levels-strip">
-        <div className="level-box">
-          <span className="level-label font-mono">S1 SUPPORT</span>
-          <span className="level-val font-mono text-missed">{formatNumber(s1)}</span>
+      {pivot > 0 && (
+        <div className="actionable-levels-strip">
+          <div className="level-box">
+            <span className="level-label font-mono">S1 SUPPORT</span>
+            <span className="level-val font-mono text-missed">{formatNumber(Math.round(s1))}</span>
+          </div>
+          <div className="level-box pivot-box">
+            <span className="level-label font-mono">PIVOT</span>
+            <span className="level-val font-mono text-primary">{formatNumber(Math.round(pivot))}</span>
+          </div>
+          <div className="level-box">
+            <span className="level-label font-mono">R1 RESISTANCE</span>
+            <span className="level-val font-mono text-matched">{formatNumber(Math.round(r1))}</span>
+          </div>
         </div>
-        <div className="level-box pivot-box">
-          <span className="level-label font-mono">PIVOT AXIS</span>
-          <span className="level-val font-mono text-primary">{formatNumber(pivot)}</span>
-        </div>
-        <div className="level-box">
-          <span className="level-label font-mono">R1 RESISTANCE</span>
-          <span className="level-val font-mono text-matched">{formatNumber(r1)}</span>
-        </div>
-      </div>
+      )}
 
-      {/* Focus Catalyst Tickers */}
-      <div className="focus-ticker-grid">
-        {displayedWatchlist.map((item) => {
-          const noteText = cleanWatchlistNote(item.ticker, item.note);
-          return (
+      {detailedTickers.length > 0 && (
+        <div className="focus-ticker-grid" style={{ marginTop: "8px" }}>
+          {detailedTickers.slice(0, 4).map((item) => (
             <div className="focus-ticker-cell" key={item.ticker}>
               <div className="ticker-cell-top">
                 <span className="ticker-symbol font-mono">{item.ticker}</span>
                 <span className={`ticker-bias font-mono ${item.bias === "BULLISH" ? "text-matched" : (item.bias === "DEFENSIVE" ? "text-warning" : "text-muted")}`}>
-                  {item.bias === "BULLISH" ? "▲ BUY ON WEAK" : (item.bias === "DEFENSIVE" ? "▼ DEFENSIVE" : "● OBSERVE")}
+                  {item.bias}
                 </span>
               </div>
               <div className="ticker-cell-note">
-                <RenderWithSources text={noteText} sources={review?.sources} />
+                <RenderWithSources text={item.cleanedNote} sources={review?.sources} />
               </div>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {focusWatchlist.length > 4 && (
-        <button
-          type="button"
-          onClick={() => setShowAllWatchlist(!showAllWatchlist)}
-          className="watchlist-toggle-btn font-mono"
-        >
-          {showAllWatchlist
-            ? "Show Top 4 Priority Focus Tickers ▴"
-            : `+ Show ${focusWatchlist.length - 4} More Focus Tickers (${focusWatchlist.slice(4).map((w) => w.ticker).join(", ")}) ▾`}
-        </button>
+      {compactTickers.length > 0 && (
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", marginTop: "10px" }}>
+          <span className="font-mono text-xs text-muted">Mentioned Tickers:</span>
+          {compactTickers.map((t) => (
+            <span
+              key={t}
+              className="font-mono text-xs"
+              style={{
+                padding: "2px 8px",
+                borderRadius: "4px",
+                background: "var(--surface-subtle)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-primary)",
+                fontWeight: 600,
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
       )}
     </div>
   );
 }
 
 function HeuristicRuleItem({ lesson, index }) {
-  const [showRaw, setShowRaw] = useState(false);
   const text = cleanNarrative(lesson);
 
   let trigger = "";
   let impact = "";
-  let action = "Injected constraint → 07:00 Pre-Market Briefing prompt";
 
   if (text.includes("Ketika") && text.includes("maka")) {
     const withoutKetika = text.replace(/^Ketika\s+/i, "");
@@ -536,48 +535,29 @@ function HeuristicRuleItem({ lesson, index }) {
     const parts = text.split(/[-–]/);
     trigger = parts[0]?.trim() || text;
     impact = parts.slice(1).join(" ")?.trim() || "";
-  } else {
-    trigger = text;
   }
 
   return (
     <div className="rca-memory-card">
       <div className="memory-card-label">
-        <span className="memory-title font-mono">HEURISTIC RULE #{index + 1}</span>
-        <span className="memory-injected-pill font-mono">Injected → 07:00 Brief</span>
+        <span className="memory-title font-mono">LESSON #{index + 1}</span>
+        <span className="memory-injected-pill font-mono">→ Next 06:55 Brief</span>
       </div>
 
-      {!showRaw && trigger ? (
+      {trigger && impact ? (
         <div className="rca-rule-breakdown">
           <div className="rule-part">
             <span className="rule-part-tag tag-trigger font-mono">TRIGGER</span>
             <span className="rule-part-text font-medium">{trigger.replace(/,\s*tetapi\s+/i, " + ")}</span>
           </div>
-          {impact && (
-            <div className="rule-part">
-              <span className="rule-part-tag tag-impact font-mono">DIVERGENCE</span>
-              <span className="rule-part-text">{impact}</span>
-            </div>
-          )}
           <div className="rule-part">
-            <span className="rule-part-tag tag-action font-mono">CONSTRAINT</span>
-            <span className="rule-part-text text-secondary">{action}</span>
+            <span className="rule-part-tag tag-impact font-mono">RULE</span>
+            <span className="rule-part-text">{impact}</span>
           </div>
         </div>
       ) : (
-        <p className="rca-lesson-text">&ldquo;{text}&rdquo;</p>
+        <p className="rca-lesson-text" style={{ margin: 0 }}>{text}</p>
       )}
-
-      <div className="rca-lesson-meta font-mono">
-        <button
-          type="button"
-          className="raw-rule-toggle"
-          onClick={() => setShowRaw(!showRaw)}
-        >
-          {showRaw ? "◄ Algorithmic View" : "► Inspect Full Source String"}
-        </button>
-        <span>runs/global/nexus_stats.json</span>
-      </div>
     </div>
   );
 }
@@ -594,19 +574,17 @@ function RCAPanel({ review }) {
     <div className="eval-pane">
       <div className="eval-pane-header">
         <div className="eval-pane-header-left">
-          <span className="eval-pane-title">Attribution &amp; Root Cause Analysis</span>
-          <span className="eval-section-tag font-mono">Diagnostic Engine</span>
+          <span className="eval-pane-title">Root Cause &amp; Learned Rules</span>
         </div>
         <div className="loop-active-tag font-mono">
           <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-          Feedback Loop Active
+          Self-Learning Loop
         </div>
       </div>
 
       <div className="eval-pane-body">
-        {/* Causal Flow Chain: Prediction → Cause/Divergence → Result */}
         {!review?.isPendingReview && (
-          <div style={{ padding: "14px 22px 0 22px" }}>
+          <div style={{ padding: "12px 20px 0 20px" }}>
             <div className="rca-causal-flow">
               <span className="causal-node text-secondary font-mono">
                 CALL: <strong className="text-primary">{review?.ihsg_predicted || "Neutral"}</strong> {review?.ihsg_confidence ? `(${review.ihsg_confidence}%)` : ""}
@@ -614,16 +592,16 @@ function RCAPanel({ review }) {
               <span className="causal-arrow">──►</span>
               <span className="causal-node font-mono" style={{ borderColor: review?.ihsg_correct ? "var(--matched-border)" : "var(--warning-border)" }}>
                 {review?.ihsg_correct ? (
-                  <span className="text-matched">ALIGNED: Factor Thesis Confirmed</span>
+                  <span className="text-matched">Thesis Confirmed</span>
                 ) : (
                   <span className="text-warning">
-                    DIVERGENCE: {cleanNarrative(unanticipated[0] || underestimated[0] || "Macro Variance")?.slice(0, 42)}
+                    {cleanNarrative(unanticipated[0] || underestimated[0] || "Macro Variance")?.slice(0, 42)}
                   </span>
                 )}
               </span>
               <span className="causal-arrow">──►</span>
               <span className="causal-node font-mono">
-                RESULT: <strong className={Number(review?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}>{formatPct(review?.ihsg_actual_pct)}</strong>
+                <strong className={Number(review?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}>{formatPct(review?.ihsg_actual_pct)}</strong>
                 <span className={review?.ihsg_correct ? "text-matched font-bold" : "text-missed font-bold"} style={{ marginLeft: "4px" }}>
                   [{review?.ihsg_correct ? "HIT" : "MISS"}]
                 </span>
@@ -632,10 +610,9 @@ function RCAPanel({ review }) {
           </div>
         )}
 
-        {/* Structured Diagnostic Drivers */}
         {hasDiagnostics && (
           <div className="rca-diagnostic-section">
-            <div className="rca-subheading">Attribution Breakdown</div>
+            <div className="rca-subheading">Variance Drivers</div>
             <div className="rca-diagnostic-list">
               {unanticipated.map((item, idx) => (
                 <div key={`unant-${idx}`} className="rca-diagnostic-item">
@@ -659,10 +636,9 @@ function RCAPanel({ review }) {
           </div>
         )}
 
-        {/* Memory Injection / Lesson Learned */}
         {lessons.length > 0 && (
           <div className="rca-lesson-section">
-            <div className="rca-subheading">Identified Market Dynamic</div>
+            <div className="rca-subheading">Extracted Lessons ({lessons.length})</div>
             {lessons.map((lesson, idx) => (
               <HeuristicRuleItem key={idx} lesson={lesson} index={idx} />
             ))}
@@ -672,8 +648,8 @@ function RCAPanel({ review }) {
         {!hasDiagnostics && lessons.length === 0 && (
           <p className="rca-content-muted">
             {review?.isPendingReview
-              ? "Trading session currently underway. Automated post-market attribution and root-cause analysis will execute at 20:00 WIB."
-              : "Model parameters converged within target error bands. No active parameter revisions injected."}
+              ? "Session in progress. Post-market evaluation runs at 20:00 WIB."
+              : "No parameter revisions extracted for this session."}
           </p>
         )}
       </div>
@@ -688,12 +664,13 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
   const bpsNum = Math.round(Number(review.ihsg_actual_pct || 0) * 100);
 
   const secEntries = Object.entries(review.sector_accuracy || {});
-  const secMatches = secEntries.filter(([_, hit]) => hit === true).length;
-  const secTotal = secEntries.length;
+  const secVerifiable = secEntries.filter(([_, hit]) => hit === true || hit === false);
+  const secMatches = secVerifiable.filter(([_, hit]) => hit === true).length;
+  const secTotal = secVerifiable.length;
 
   const rowUsdIdr = Number.isFinite(Number(review.actual_usdidr))
     ? `Rp ${formatNumber(review.actual_usdidr)}`
-    : "—"; // no verified FX close for this session — never show a placeholder rate
+    : "—";
 
   return (
     <>
@@ -754,7 +731,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
         <td>
           <span className="font-mono text-xs text-muted">
             {review.isPendingReview
-              ? `${secTotal} Tracked`
+              ? `${secEntries.length} Tracked`
               : (secTotal > 0 ? `${secMatches}/${secTotal} (${Math.round((secMatches / secTotal) * 100)}%)` : "—")}
           </span>
         </td>
@@ -780,10 +757,10 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
             <div className="expanded-panel">
               <div className="expanded-grid">
                 <div className="detail-item">
-                  <div className="detail-label">Liquidity & Foreign Flow</div>
+                  <div className="detail-label">Foreign Flow</div>
                   <div className="detail-value">{review.foreign_flow_actual || "N/A"}</div>
                   <div className="detail-sub font-mono">
-                    Predicted: {review.foreign_flow_predicted || "N/A"}{" "}
+                    Exp: {review.foreign_flow_predicted || "N/A"}{" "}
                     {review.isPendingReview ? (
                       <span className="text-secondary" style={{ fontSize: "10px", marginLeft: "4px" }}>
                         (● Active)
@@ -796,44 +773,30 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
                   </div>
                 </div>
                 <div className="detail-item">
-                  <div className="detail-label">USD / IDR & Macro</div>
-                  <div className="detail-value font-mono">
-                    {rowUsdIdr}
-                  </div>
-                  <div className="detail-sub">Session closing exchange rate</div>
+                  <div className="detail-label">USD / IDR</div>
+                  <div className="detail-value font-mono">{rowUsdIdr}</div>
+                  <div className="detail-sub">Session close</div>
                 </div>
                 <div className="detail-item">
-                  <div className="detail-label">Deterministic Sector Checks</div>
+                  <div className="detail-label">Verifiable Sector Checks</div>
                   <div className="detail-sub">
-                    {review.sector_accuracy && Object.keys(review.sector_accuracy).length > 0 ? (
+                    {secVerifiable.length > 0 ? (
                       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "4px" }}>
-                        {Object.entries(review.sector_accuracy).map(([sec, hit]) => {
-                          const isPending = review.isPendingReview;
-                          let textCls = "text-muted";
-                          let label = String(hit);
-                          if (isPending) {
-                            textCls = hit === "BULLISH" ? "text-matched" : (hit === "BEARISH" ? "text-missed" : "text-secondary");
-                            label = String(hit);
-                          } else {
-                            textCls = hit ? "text-matched" : "text-missed";
-                            label = hit ? "● MATCH" : "▲ MISS";
-                          }
-                          return (
-                            <span key={sec} className="sector-tile" style={{ fontSize: "10px", padding: "2px 6px" }}>
-                              {sec}: <span className={textCls}>{label}</span>
-                            </span>
-                          );
-                        })}
+                        {secVerifiable.map(([sec, hit]) => (
+                          <span key={sec} className="sector-tile" style={{ fontSize: "10px", padding: "2px 6px" }}>
+                            {sec}: <span className={hit ? "text-matched" : "text-missed"}>{hit ? "✓ MATCH" : "✗ MISS"}</span>
+                          </span>
+                        ))}
                       </div>
                     ) : (
-                      "No sector breakdown captured"
+                      "No scorable sector closing % in feed"
                     )}
                   </div>
                 </div>
               </div>
               {review.lessons && review.lessons.length > 0 && (
                 <div className="expanded-lesson">
-                  <div className="detail-label" style={{ marginBottom: "4px" }}>Captured Learning Point</div>
+                  <div className="detail-label" style={{ marginBottom: "4px" }}>Extracted Lesson</div>
                   <p className="expanded-lesson-text">“{cleanNarrative(review.lessons[0])}”</p>
                 </div>
               )}
@@ -845,7 +808,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
   );
 }
 
-function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'market', onSelectView }) {
+function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = "market", onSelectView }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -857,10 +820,10 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
       </div>
       <nav className="sidebar-nav">
         <div className="nav-group">
-          <div className="nav-section-title">Core Intelligence</div>
-          <a 
-            className={`nav-item ${currentView === 'market' ? 'active' : ''}`}
-            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('market'); }}
+          <div className="nav-section-title">Views</div>
+          <a
+            className={`nav-item ${currentView === "market" ? "active" : ""}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView("market"); }}
             href="#market"
           >
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -870,9 +833,9 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
             </svg>
             Market Intelligence
           </a>
-          <a 
-            className={`nav-item ${currentView === 'lessons' ? 'active' : ''}`}
-            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('lessons'); }}
+          <a
+            className={`nav-item ${currentView === "lessons" ? "active" : ""}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView("lessons"); }}
             href="#lessons"
           >
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -880,9 +843,9 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
             </svg>
             Memory &amp; Heuristics
           </a>
-          <a 
-            className={`nav-item ${currentView === 'telemetry' ? 'active' : ''}`}
-            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView('telemetry'); }}
+          <a
+            className={`nav-item ${currentView === "telemetry" ? "active" : ""}`}
+            onClick={(e) => { e.preventDefault(); onSelectView && onSelectView("telemetry"); }}
             href="#telemetry"
           >
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -893,10 +856,9 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
         </div>
       </nav>
 
-      {/* Interactive Quick Session Switcher */}
       {reviews.length > 0 && (
         <div className="sidebar-sessions">
-          <div className="sidebar-session-title">Recent Evaluations</div>
+          <div className="sidebar-session-title">Sessions ({reviews.length})</div>
           {reviews.map((r) => {
             const isSel = (!selectedDate && r.date === reviews[0]?.date) || selectedDate === r.date;
             return (
@@ -904,13 +866,13 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
                 key={r.date}
                 className={`sidebar-session-item ${isSel ? "active" : ""}`}
                 onClick={() => {
-                  if (onSelectView) onSelectView('market');
+                  if (onSelectView) onSelectView("market");
                   if (onSelectDate) onSelectDate(r.date);
                 }}
               >
                 <span className="font-mono">{formatHeaderDate(r.date)}</span>
                 <span className={`font-mono ${r.isPendingReview ? "text-warning" : (r.ihsg_correct ? "text-matched" : "text-missed")}`}>
-                  {r.isPendingReview ? "⏳ Live" : (r.ihsg_correct ? "● Hit" : "▲ Miss")}
+                  {r.isPendingReview ? "⏳ Live" : (r.ihsg_correct ? "✓ Hit" : "✗ Miss")}
                 </span>
               </button>
             );
@@ -918,55 +880,28 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = 'mark
         </div>
       )}
 
-      {/* Pipeline Automation Cadence Monitor */}
-      <div className="sidebar-cadence-card">
-        <div className="cadence-card-head">
-          <span className="cadence-head-title font-mono">CADENCE DISPATCH</span>
-          <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-        </div>
-        <div className="cadence-timeline">
-          <div className="cadence-step active">
-            <span className="cadence-time font-mono">06:55 WIB</span>
-            <span className="cadence-desc">Morning Briefing · OpenRouter 120b</span>
-          </div>
-          <div className="cadence-step">
-            <span className="cadence-time font-mono">16:00 WIB</span>
-            <span className="cadence-desc">IDX Settle · Official Closing Tapes</span>
-          </div>
-          <div className="cadence-step active">
-            <span className="cadence-time font-mono">20:00 WIB</span>
-            <span className="cadence-desc">Evening Review · Attribution &amp; RCA</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Structured System Telemetry */}
       <div className="sidebar-telemetry">
-        <div className="telemetry-box-title">System Telemetry</div>
+        <div className="telemetry-box-title">Daily Schedule (WIB)</div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">Cadence</span>
-          <span className="telemetry-box-val font-mono">06:55 / 20:00</span>
+          <span className="telemetry-box-label">06:55</span>
+          <span className="telemetry-box-val font-mono">Morning Brief</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">LLM Core</span>
-          <span className="telemetry-box-val font-mono">gpt-oss-120b</span>
+          <span className="telemetry-box-label">16:00</span>
+          <span className="telemetry-box-val font-mono">IDX Market Close</span>
         </div>
         <div className="telemetry-box-row">
-          <span className="telemetry-box-label">Artifact Store</span>
-          <span className="telemetry-box-val font-mono text-matched">Git Vault</span>
-        </div>
-        <div className="telemetry-box-row">
-          <span className="telemetry-box-label">Feedback Loop</span>
-          <span className="telemetry-box-val font-mono text-matched">Active</span>
+          <span className="telemetry-box-label">20:00</span>
+          <span className="telemetry-box-val font-mono">Audit &amp; RCA</span>
         </div>
       </div>
 
       <div className="sidebar-footer">
         <div className="vault-status">
           <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-          <span>Artifact Vault Synced</span>
+          <span>Vault Synced</span>
         </div>
-        <span className="system-tag font-mono">v2.5-PRO</span>
+        <span className="system-tag font-mono">v2.5</span>
       </div>
     </aside>
   );
@@ -1120,7 +1055,7 @@ export default function Dashboard() {
   }, [dashboard, filter]);
 
   if (loading) {
-    return <main className="center-state">Initializing intelligence feeds...</main>;
+    return <main className="center-state">Loading market intelligence...</main>;
   }
 
   if (error || !dashboard) {
@@ -1149,17 +1084,13 @@ export default function Dashboard() {
         <div className="content-container">
           <header className="page-header">
             <div>
-              <div className="breadcrumb">NEXUS / Market Intelligence</div>
-              <h1 className="page-title">Daily Intelligence Report</h1>
+              <div className="breadcrumb">NEXUS · IDX Quantitative Intelligence</div>
+              <h1 className="page-title">Daily Market Evaluation</h1>
             </div>
             <div className="header-actions">
               <div className={`market-status-chip is-${marketStatus.status}`}>
                 <span className={`live-dot ${marketStatus.isOpen ? "dot-open" : (marketStatus.status === "recess" ? "dot-amber" : "dot-closed")}`}></span>
                 <span>{marketStatus.label}</span>
-              </div>
-              <div className="live-badge">
-                <span className="live-dot"></span>
-                {dashboard.isDemo ? "Demo Dataset" : "Live Automation"}
               </div>
               <button
                 type="button"
@@ -1183,7 +1114,7 @@ export default function Dashboard() {
                 onClick={() => setMethodologyOpen(true)}
                 title="View Scoring Methodology & Guide"
               >
-                Guide
+                Methodology
               </button>
               <button
                 className="theme-toggle-btn"
@@ -1192,7 +1123,6 @@ export default function Dashboard() {
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? (
-                  /* Sun Icon */
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="5" />
                     <line x1="12" y1="1" x2="12" y2="3" />
@@ -1205,7 +1135,6 @@ export default function Dashboard() {
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                   </svg>
                 ) : (
-                  /* Moon Icon */
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                   </svg>
@@ -1214,23 +1143,10 @@ export default function Dashboard() {
             </div>
           </header>
 
-          {/* Structured System Context Bar */}
+          {/* Compact Context Strip */}
           <div className="system-context-strip">
             <div className="context-item">
-              <span className="context-label font-mono">STATUS</span>
-              <div className="context-value">
-                <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-                <span>Engine Active</span>
-              </div>
-            </div>
-            <div className="context-divider" />
-            <div className="context-item">
-              <span className="context-label font-mono">REGIME</span>
-              <div className="context-value font-medium">IDX Composite</div>
-            </div>
-            <div className="context-divider" />
-            <div className="context-item">
-              <span className="context-label font-mono">BENCHMARK</span>
+              <span className="context-label font-mono">IHSG CLOSE</span>
               <div className={`context-value font-mono font-semibold ${dashboard.latest?.isPendingReview ? "text-secondary" : (Number(dashboard.latest?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed")}`}>
                 {benchmarkValue}{" "}
                 <span className="context-sub font-mono">
@@ -1240,7 +1156,7 @@ export default function Dashboard() {
             </div>
             <div className="context-divider" />
             <div className="context-item">
-              <span className="context-label font-mono">FOREIGN BIAS</span>
+              <span className="context-label font-mono">FOREIGN FLOW</span>
               <div className="context-value font-medium">
                 {dashboard.latest?.isPendingReview
                   ? (dashboard.latest?.foreign_flow_predicted ? `Exp: ${dashboard.latest.foreign_flow_predicted.replace("/", " / ")}` : "Pending Close")
@@ -1249,57 +1165,15 @@ export default function Dashboard() {
             </div>
             <div className="context-divider" />
             <div className="context-item">
-              <span className="context-label font-mono">HEURISTIC SYNC</span>
-              <div className="context-value font-mono text-matched">
-                Git Artifact Vault
+              <span className="context-label font-mono">CLOSED-LOOP PIPELINE</span>
+              <div className="context-value font-mono text-xs" style={{ color: "var(--text-secondary)" }}>
+                06:55 Forecast Lock → 16:00 IDX Close → 20:00 Audit &amp; Memory Gate
               </div>
             </div>
           </div>
 
-          {/* Beginner-Friendly 4-Step Closed-Loop Architecture Strip */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
-            gap: "10px",
-            marginBottom: "20px",
-            padding: "12px 14px",
-            background: "var(--surface-subtle)",
-            border: "1px solid var(--border-subtle)",
-            borderRadius: "var(--radius-md)"
-          }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>01 · 06:55 WIB PRE-MARKET CALL</span>
-              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
-                Synthesizes global macro, commodities, FX &amp; past rules into a SHA-256 locked forecast before the 09:00 IDX bell.
-              </span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>02 · 09:00–16:00 IDX SESSION</span>
-              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
-                Bursa Efek Indonesia trades live. Morning calls remain immutable; deterministic sector rules map commodity shocks.
-              </span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>03 · 20:00 WIB OBJECTIVE AUDIT</span>
-              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
-                Grades predictions against official closes (50% Index · 30% Sector · 20% Flow) and diagnoses misses via RCA.
-              </span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-              <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>04 · 5-STAGE MEMORY GATE</span>
-              <span style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
-                Quarantines faulty LLM lessons ({dashboard.quarantinedLessonsCount} blocked) and injects {dashboard.totalLessons} validated rules into tomorrow&apos;s prompt.
-              </span>
-            </div>
-          </div>
-
-          <div className="section-eyebrow font-mono">
-            <span className="console-prompt">{"//"}</span> 01 · QUANTITATIVE MODEL PERFORMANCE
-          </div>
-
-          {/* Metric KPIs */}
+          {/* 4 Core KPI Cards */}
           <section className="kpi-row">
-            {/* Card 1: Directional IHSG Hit Rate */}
             <div
               className="kpi-card interactive"
               onClick={() => setActiveKpiModal("hit_rate")}
@@ -1307,7 +1181,7 @@ export default function Dashboard() {
             >
               <div className="kpi-top">
                 <span className="kpi-label font-mono">IHSG Hit Rate</span>
-                <span className="kpi-click-hint font-mono">Breakdown ↗</span>
+                <span className="kpi-click-hint font-mono">Details ↗</span>
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">{dashboard.winRate}%</div>
@@ -1328,11 +1202,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="kpi-context">
-                <span>
-                  {dashboard.evaluatedCount <= 1
-                    ? `${dashboard.wins} of ${dashboard.evaluatedCount} run evaluated · Cold-start sample expands daily`
-                    : `${dashboard.wins} of ${dashboard.evaluatedCount} evaluated sessions matched call`}
-                </span>
+                <span>{dashboard.wins} / {dashboard.evaluatedCount} sessions matched direction</span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -1342,14 +1212,13 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Card 2: Composite Accuracy Trajectory */}
             <div
               className="kpi-card interactive"
               onClick={() => setActiveKpiModal("accuracy")}
-              title="Click to view 4-Pillar Attribution Formula & Calibration Model"
+              title="Click to view 50/30/20 Attribution Formula & Calibration"
             >
               <div className="kpi-top">
-                <span className="kpi-label font-mono">Overall Accuracy</span>
+                <span className="kpi-label font-mono">Composite Score</span>
                 <span className="kpi-click-hint font-mono">Formula ↗</span>
               </div>
               <div className="kpi-val-row">
@@ -1357,11 +1226,7 @@ export default function Dashboard() {
                 <PerformanceSparkline reviews={dashboard.reviews} />
               </div>
               <div className="kpi-context">
-                <span>
-                  {dashboard.evaluatedCount <= 1
-                    ? `Initial baseline run · Parameter convergence active`
-                    : `Trailing multi-factor attribution score (Target ≥60%)`}
-                </span>
+                <span>50% Direction · 30% Sector · 20% Flow</span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -1371,29 +1236,24 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Card 3: Deterministic Sector Engine */}
             <div
               className="kpi-card interactive"
               onClick={() => setActiveKpiModal("sector")}
-              title="Click to view Sector-by-Sector Win Rate Matrix & Transmission Rules"
+              title="Click to view Sector Win Rate Matrix"
             >
               <div className="kpi-top">
-                <span className="kpi-label font-mono">Sector Engine</span>
+                <span className="kpi-label font-mono">Sector Accuracy</span>
                 <span className="kpi-click-hint font-mono">Matrix ↗</span>
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">{dashboard.sectorHitRate}%</div>
                 <div className="kpi-tag-visual font-mono">
-                  <span className="text-matched font-semibold">{dashboard.totalSectorHits} Hits</span>
-                  <span className="text-muted"> / {dashboard.totalSectorChecks} Calls</span>
+                  <span className="text-matched font-semibold">{dashboard.totalSectorHits}</span>
+                  <span className="text-muted"> / {dashboard.totalSectorChecks} Scorable</span>
                 </div>
               </div>
               <div className="kpi-context">
-                <span>
-                  {dashboard.totalSectorChecks <= 4
-                    ? `Early sector tracking (${dashboard.totalSectorChecks} calls logged)`
-                    : `Deterministic commodity→sector mapping`}
-                </span>
+                <span>Deterministic commodity → sector rules</span>
                 <div className="kpi-mini-bar">
                   <div
                     className="kpi-mini-fill"
@@ -1403,76 +1263,70 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Card 4: Closed-Loop Heuristic Memory */}
             <div
               className="kpi-card interactive"
               onClick={() => setActiveKpiModal("memory")}
-              title="Click to view Active Injected Heuristic Rules from Obsidian"
+              title="Click to view Validated & Quarantined Heuristic Rules"
             >
               <div className="kpi-top">
-                <span className="kpi-label font-mono">Heuristic Memory</span>
-                <span className="kpi-click-hint font-mono">Rules ↗</span>
+                <span className="kpi-label font-mono">Learned Rules</span>
+                <span className="kpi-click-hint font-mono">Audit ↗</span>
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">
                   {dashboard.totalLessons}{" "}
-                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--text-secondary)" }}>Rules</span>
+                  <span style={{ fontSize: "14px", fontWeight: 500, color: "var(--text-secondary)" }}>Valid</span>
                 </div>
                 <span className="memory-active-pill font-mono">
                   <span className="live-dot" style={{ width: 6, height: 6 }}></span>
-                  Active Injected
+                  {dashboard.quarantinedLessonsCount} Blocked
                 </span>
               </div>
               <div className="kpi-context">
-                <span>Closed-loop → 06:55 brief · {dashboard.quarantinedLessonsCount} quarantined</span>
-                <div className="kpi-sync-status font-mono">
-                  <span>runs/global/nexus_stats.json</span>
-                </div>
+                <span>5-stage hygiene gate → 06:55 prompt</span>
               </div>
             </div>
           </section>
 
-          {/* Institutional Benchmark Drawer (Expands Cleanly on Demand) */}
+          {/* Quantitative Benchmarks Drawer */}
           <div className="bench-drawer-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span className="bench-ci-label font-mono text-xs">
-                  Sessions: <strong>{dashboard.evaluatedCount}</strong> · 95% Wilson CI: [{data?.stats?.directionCi95?.lower_pct ?? data?.nexusStats?.direction_ci_95?.lower_pct ?? "—"}%, {data?.stats?.directionCi95?.upper_pct ?? data?.nexusStats?.direction_ci_95?.upper_pct ?? "—"}%]
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowInstitutionalBench(!showInstitutionalBench)}
-                className="bench-toggle-btn font-mono text-xs"
-              >
-                <span>
-                  {showInstitutionalBench ? "▲ Hide" : "▼ Show"} Performance Trajectory, Baselines &amp; Calibration ({data?.stats?.payoff?.long_short_total_bps != null ? `${data.stats.payoff.long_short_total_bps >= 0 ? "+" : ""}${(Number(data.stats.payoff.long_short_total_bps) / 100).toFixed(2)}% L/S` : "Audit"})
-                </span>
-              </button>
+            <span className="bench-ci-label font-mono text-xs">
+              Sample: <strong>n={dashboard.evaluatedCount}</strong> · 95% Wilson CI: [{data?.stats?.directionCi95?.lower_pct ?? data?.nexusStats?.direction_ci_95?.lower_pct ?? "—"}%, {data?.stats?.directionCi95?.upper_pct ?? data?.nexusStats?.direction_ci_95?.upper_pct ?? "—"}%]
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowInstitutionalBench(!showInstitutionalBench)}
+              className="bench-toggle-btn font-mono text-xs"
+            >
+              <span>
+                {showInstitutionalBench ? "▲ Hide" : "▼ Show"} Equity Curve, Baselines &amp; Calibration ({data?.stats?.payoff?.long_short_total_bps != null ? `${data.stats.payoff.long_short_total_bps >= 0 ? "+" : ""}${(Number(data.stats.payoff.long_short_total_bps) / 100).toFixed(2)}% L/S` : "Charts"})
+              </span>
+            </button>
           </div>
 
           {showInstitutionalBench && (
-            <div className="bench-panel" style={{ marginTop: "-14px", marginBottom: "28px" }}>
+            <div className="bench-panel" style={{ marginTop: "-14px", marginBottom: "24px" }}>
               <div className="bench-tab-bar">
                 <button
                   type="button"
                   onClick={() => setBenchTab("trajectory")}
                   className={`bench-tab-btn font-mono text-xs ${benchTab === "trajectory" ? "active" : ""}`}
                 >
-                  📈 Equity Curve Trajectory
+                  📈 Equity Curve
                 </button>
                 <button
                   type="button"
                   onClick={() => setBenchTab("baselines")}
                   className={`bench-tab-btn font-mono text-xs ${benchTab === "baselines" ? "active" : ""}`}
                 >
-                  📊 Naive Baselines Comparison
+                  📊 Naive Baselines
                 </button>
                 <button
                   type="button"
                   onClick={() => setBenchTab("calibration")}
                   className={`bench-tab-btn font-mono text-xs ${benchTab === "calibration" ? "active" : ""}`}
                 >
-                  🎯 Confidence Calibration
+                  🎯 Calibration &amp; Brier
                 </button>
               </div>
 
@@ -1496,194 +1350,174 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Hero: Active Post-Market Evaluation (Interactive Inspection) */}
+          {/* Active Session Evaluation */}
           {activeReview && (
-            <>
-              <div className="section-eyebrow font-mono">
-                <span className="console-prompt">{"//"}</span> 02 · {isHistorical ? "HISTORICAL AUDIT INSPECTION" : "POST-MARKET EVALUATION & SELF-LEARNING LOOP"}
-              </div>
-              <section className="eval-section">
-                <header className="eval-header">
-                  <div className="eval-header-title">
-                    {activeReview.isPendingReview
-                      ? "Active Trading Session — Pending 20:00 Review"
-                      : (isHistorical ? "Historical Session Audit" : "Post-Market Evaluation")}
+            <section className="eval-section">
+              <header className="eval-header">
+                <div className="eval-header-title">
+                  {activeReview.isPendingReview
+                    ? "Active Session — Pending 20:00 WIB Review"
+                    : (isHistorical ? "Historical Session Audit" : "Latest Session Verdict")}
+                </div>
+                <div className="eval-header-right">
+                  {isHistorical && (
+                    <button
+                      className="jump-latest-btn font-mono"
+                      onClick={() => setSelectedDate(null)}
+                    >
+                      ← Latest ({formatHeaderDate(dashboard.latest?.date)})
+                    </button>
+                  )}
+                  <div className="eval-date-badge font-mono">{formatHeaderDate(activeReview.date)}</div>
+                </div>
+              </header>
+
+              {/* 4-Column Variance Bridge */}
+              <div className="variance-bridge-grid">
+                <div className="bridge-cell">
+                  <div className="bridge-cell-header font-mono">06:55 PRE-MARKET CALL</div>
+                  <div className="bridge-cell-body">
+                    <DirectionBadge direction={activeReview.ihsg_predicted} />
+                    {activeReview.ihsg_confidence && (
+                      <span className="confidence-pill font-mono">{activeReview.ihsg_confidence}% Conf</span>
+                    )}
                   </div>
-                  <div className="eval-header-right">
-                    {isHistorical && (
+                  <div className="bridge-cell-sub">
+                    Exp. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_predicted || "Neutral"}</span>
+                  </div>
+                </div>
+
+                <div className="bridge-cell">
+                  <div className="bridge-cell-header font-mono">16:00 IDX CLOSE</div>
+                  <div className="bridge-cell-body">
+                    {activeReview.isPendingReview ? (
+                      <span className="font-mono text-xs text-warning">Trading In Progress</span>
+                    ) : (
+                      <>
+                        <DirectionBadge direction={activeReview.ihsg_actual} />
+                        <span className={`font-mono text-sm font-semibold ${isUp ? "text-matched" : "text-missed"}`}>
+                          ({formatPct(activeReview.ihsg_actual_pct)})
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <div className="bridge-cell-sub">
+                    Act. Flow: <span className="text-secondary font-medium font-mono">
+                      {activeReview.isPendingReview ? "Pending Close" : (activeReview.foreign_flow_actual || "N/A")}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bridge-cell">
+                  <div className="bridge-cell-header font-mono">SESSION RETURN</div>
+                  <div className="bridge-cell-body">
+                    {activeReview.isPendingReview ? (
+                      <span className="font-mono text-xs text-muted">Awaiting Close</span>
+                    ) : (
+                      <>
+                        <span className={`font-mono text-base font-bold ${isUp ? "text-matched" : "text-missed"}`}>
+                          {formatPct(activeReview.ihsg_actual_pct)}
+                        </span>
+                        <span className="font-mono text-xs text-muted">
+                          ({Math.round(Number(activeReview.ihsg_actual_pct || 0) * 100)} bps)
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <div className="bridge-cell-sub">
+                    <span className={`font-mono ${activeReview.isPendingReview ? "text-muted" : (isMatched ? "text-matched font-medium" : "text-missed font-medium")}`}>
+                      {activeReview.isPendingReview ? "Session Active" : (isMatched ? "Direction Aligned" : "Direction Diverged")}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bridge-cell" style={{ borderRight: "none" }}>
+                  <div className="bridge-cell-header font-mono">VERDICT</div>
+                  <div className="bridge-cell-body">
+                    <StatusBadge correct={isMatched} isPending={activeReview.isPendingReview} />
+                  </div>
+                  <div className="bridge-cell-sub">
+                    Score: <span className="text-primary font-bold font-mono">
+                      {activeReview.isPendingReview ? "Pending" : `${formatNumber(activeReview.accuracy_score)}%`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Twin Workbench Panes */}
+              <div className="eval-body">
+                <div className="eval-pane">
+                  <div className="eval-pane-header">
+                    <div className="eval-pane-header-left">
+                      <span className="eval-pane-title">Session Summary &amp; Signals</span>
+                    </div>
+                    {activeReview.date && (
                       <button
-                        className="jump-latest-btn font-mono"
-                        onClick={() => setSelectedDate(null)}
+                        type="button"
+                        className="font-mono"
+                        style={{
+                          background: "var(--surface-hover)",
+                          border: "1px solid var(--border-strong)",
+                          padding: "3px 8px",
+                          borderRadius: "4px",
+                          color: "var(--accent-cyan)",
+                          cursor: "pointer",
+                          fontSize: "11px"
+                        }}
+                        onClick={() => handleOpenBriefModal(activeReview.date)}
                       >
-                        ← Jump to Latest ({formatHeaderDate(dashboard.latest?.date)})
+                        Full Morning Brief →
                       </button>
                     )}
-                    <div className="eval-date-badge font-mono">{formatHeaderDate(activeReview.date)}</div>
                   </div>
-                </header>
 
-                {/* 4-Column Execution Variance Bridge */}
-                <div className="variance-bridge-grid">
-                  <div className="bridge-cell">
-                    <div className="bridge-cell-header font-mono">PRE-MARKET THESIS (06:55)</div>
-                    <div className="bridge-cell-body">
-                      <DirectionBadge direction={activeReview.ihsg_predicted} />
-                      {activeReview.ihsg_confidence && (
-                        <span className="confidence-pill font-mono">{activeReview.ihsg_confidence}% Conf</span>
+                  <div className="eval-pane-body" style={{ padding: 0 }}>
+                    <div className="eval-pane-section">
+                      {activeReview.premarket_summary && !activeReview.isPendingReview && (
+                        <div style={{ marginBottom: "10px", padding: "8px 12px", background: "var(--surface-subtle)", borderRadius: "4px", borderLeft: "3px solid var(--accent-cyan)" }}>
+                          <div className="font-mono text-xs" style={{ color: "var(--accent-cyan)", fontWeight: 600, marginBottom: "2px" }}>
+                            06:55 PRE-MARKET THESIS
+                          </div>
+                          <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
+                            <RenderWithSources text={cleanNarrative(activeReview.premarket_summary)} sources={activeReview.sources} />
+                          </div>
+                        </div>
+                      )}
+                      <div className="font-mono text-xs" style={{ color: "var(--text-tertiary)", fontWeight: 600, marginBottom: "4px" }}>
+                        {activeReview.isPendingReview ? "06:55 PRE-MARKET THESIS" : "20:00 POST-MARKET AUDIT"}
+                      </div>
+                      <p className="eval-summary-text">
+                        <RenderWithSources text={cleanNarrative(activeReview.summary)} sources={activeReview.sources} />
+                        {!activeReview.summary && "No summary logged."}
+                      </p>
+                      {activeReview.key_risk && (
+                        <div style={{ marginTop: "10px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
+                          <div className="font-mono text-xs" style={{ color: "var(--missed-text)", fontWeight: 600, marginBottom: "2px" }}>KEY RISK</div>
+                          <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
+                            <RenderWithSources text={cleanNarrative(activeReview.key_risk)} sources={activeReview.sources} />
+                          </div>
+                        </div>
                       )}
                     </div>
-                    <div className="bridge-cell-sub">
-                      Exp. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_predicted || "Neutral"}</span>
-                    </div>
-                  </div>
 
-                  <div className="bridge-cell">
-                    <div className="bridge-cell-header font-mono">SESSION CLOSE (16:00)</div>
-                    <div className="bridge-cell-body">
-                      {activeReview.isPendingReview ? (
-                        <span className="font-mono text-xs text-warning">Trading In Progress</span>
-                      ) : (
-                        <>
-                          <DirectionBadge direction={activeReview.ihsg_actual} />
-                          <span className={`font-mono text-sm font-semibold ${isUp ? "text-matched" : "text-missed"}`}>
-                            ({formatPct(activeReview.ihsg_actual_pct)})
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    <div className="bridge-cell-sub">
-                      Act. Flow: <span className="text-secondary font-medium font-mono">
-                        {activeReview.isPendingReview ? "Pending Close" : (activeReview.foreign_flow_actual || "N/A")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="bridge-cell">
-                    <div className="bridge-cell-header font-mono">SPREAD &amp; DELTA</div>
-                    <div className="bridge-cell-body">
-                      {activeReview.isPendingReview ? (
-                        <span className="font-mono text-xs text-muted">Awaiting Market Close</span>
-                      ) : (
-                        <>
-                          <span className={`font-mono text-base font-bold ${isUp ? "text-matched" : "text-missed"}`}>
-                            {formatPct(activeReview.ihsg_actual_pct)}
-                          </span>
-                          <span className="font-mono text-xs text-muted">
-                            ({Math.round(Number(activeReview.ihsg_actual_pct || 0) * 100)} bps)
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    <div className="bridge-cell-sub">
-                      Variance: <span className={`font-mono ${activeReview.isPendingReview ? "text-muted" : (isMatched ? "text-matched font-medium" : "text-missed font-medium")}`}>
-                        {activeReview.isPendingReview ? "Session Active" : (isMatched ? "Direction Aligned" : "Direction Divergence")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="bridge-cell" style={{ borderRight: "none" }}>
-                    <div className="bridge-cell-header font-mono">ATTRIBUTION VERDICT</div>
-                    <div className="bridge-cell-body">
-                      <StatusBadge correct={isMatched} isPending={activeReview.isPendingReview} />
-                    </div>
-                    <div className="bridge-cell-sub">
-                      Accuracy Score: <span className="text-primary font-bold font-mono">
-                        {activeReview.isPendingReview ? "Awaiting 20:00 Review" : `${formatNumber(activeReview.accuracy_score)}%`}
-                      </span>
-                    </div>
+                    <SectorAttribution review={activeReview} />
+                    <MacroPulse review={activeReview} />
+                    <ActionableMarketSetup review={activeReview} />
                   </div>
                 </div>
 
-                {/* Evaluation Body - Balanced Twin Workbench Panes */}
-                <div className="eval-body">
-                  {/* Left Column: Signals & Market Synthesis */}
-                  <div className="eval-pane">
-                    <div className="eval-pane-header">
-                      <div className="eval-pane-header-left">
-                        <span className="eval-pane-title">Market Synthesis &amp; Signals</span>
-                        <span className="eval-section-tag font-mono">06:55 → 20:00 WIB</span>
-                      </div>
-                      <span className="eval-section-tag font-mono">
-                        {isHistorical ? `Audit · ${activeReview.date}` : `Session #${activeReview.date.replace(/-/g, "")}`}
-                      </span>
-                    </div>
-
-                    <div className="eval-pane-body" style={{ padding: 0 }}>
-                      <div className="eval-pane-section">
-                        <div className="eval-pane-section-header">
-                          <span className="eval-section-heading">Session Briefing</span>
-                          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                            {activeReview.date && (
-                              <button
-                                type="button"
-                                className="font-mono"
-                                style={{
-                                  background: "var(--surface-hover)",
-                                  border: "1px solid var(--border-strong)",
-                                  padding: "3px 8px",
-                                  borderRadius: "4px",
-                                  color: "var(--accent-cyan)",
-                                  cursor: "pointer",
-                                  fontSize: "11px"
-                                }}
-                                onClick={() => handleOpenBriefModal(activeReview.date)}
-                              >
-                                Read Full Telegram Brief →
-                              </button>
-                            )}
-                            <span className="eval-section-tag font-mono">OpenRouter / 120b</span>
-                          </div>
-                        </div>
-                        {activeReview.premarket_summary && !activeReview.isPendingReview && (
-                          <div style={{ marginBottom: "10px", padding: "8px 12px", background: "var(--surface-subtle)", borderRadius: "4px", borderLeft: "3px solid var(--accent-cyan)" }}>
-                            <div className="font-mono text-xs" style={{ color: "var(--accent-cyan)", fontWeight: 600, marginBottom: "2px" }}>
-                              PRE-MARKET MORNING THESIS (06:55 WIB)
-                            </div>
-                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.45 }}>
-                              <RenderWithSources text={cleanNarrative(activeReview.premarket_summary)} sources={activeReview.sources} />
-                            </div>
-                          </div>
-                        )}
-                        <div className="font-mono text-xs" style={{ color: "var(--text-tertiary)", fontWeight: 600, marginBottom: "4px" }}>
-                          {activeReview.isPendingReview ? "PRE-MARKET THESIS SUMMARY (06:55 WIB)" : "POST-MARKET OUTCOME & EVALUATION (20:00 WIB)"}
-                        </div>
-                        <p className="eval-summary-text">
-                          <RenderWithSources text={cleanNarrative(activeReview.summary)} sources={activeReview.sources} />
-                          {!activeReview.summary && "No executive summary logged."}
-                        </p>
-                        {activeReview.key_risk && (
-                          <div style={{ marginTop: "10px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
-                            <div className="font-mono text-xs" style={{ color: "var(--missed-text)", fontWeight: 600, marginBottom: "2px" }}>KEY RISK FACTOR</div>
-                            <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
-                              <RenderWithSources text={cleanNarrative(activeReview.key_risk)} sources={activeReview.sources} />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      <SectorAttribution review={activeReview} />
-                      <MacroPulse review={activeReview} />
-                      <ActionableMarketSetup review={activeReview} />
-                    </div>
-                  </div>
-
-                  {/* Right Column: Closed-Loop RCA & Memory */}
-                  <div className="eval-column-right">
-                    <RCAPanel review={activeReview} />
-                  </div>
+                <div className="eval-column-right">
+                  <RCAPanel review={activeReview} />
                 </div>
-              </section>
-            </>
+              </div>
+            </section>
           )}
 
-          <div className="section-eyebrow font-mono">
-            <span className="console-prompt">{"//"}</span> 03 · AUDITABLE EXECUTION ARCHIVE
-          </div>
+          {/* Historical Ledger */}
           <section className="history-section">
             <header className="history-header">
               <div>
-                <h2 className="history-title">Historical Evaluation Archive</h2>
-                <div className="history-subtitle">Chronological ledger of autonomous post-market evaluations (click row to inspect)</div>
+                <h2 className="history-title">Session History ({dashboard.reviews.length})</h2>
               </div>
               <div className="filter-tabs">
                 <button
@@ -1696,13 +1530,13 @@ export default function Dashboard() {
                   className={`filter-tab-btn ${filter === "matched" ? "active" : ""}`}
                   onClick={() => setFilter("matched")}
                 >
-                  Matched ({dashboard.wins})
+                  Hit ({dashboard.wins})
                 </button>
                 <button
                   className={`filter-tab-btn ${filter === "missed" ? "active" : ""}`}
                   onClick={() => setFilter("missed")}
                 >
-                  Missed ({dashboard.evaluatedCount - dashboard.wins})
+                  Miss ({dashboard.evaluatedCount - dashboard.wins})
                 </button>
               </div>
             </header>
@@ -1710,13 +1544,13 @@ export default function Dashboard() {
               <table className="data-table">
                 <thead>
                   <tr>
-                    <th>Session Date</th>
-                    <th>Pre-Market Call</th>
-                    <th>Session Close</th>
-                    <th>Spread (Bps)</th>
+                    <th>Date</th>
+                    <th>Call (06:55)</th>
+                    <th>Close (16:00)</th>
+                    <th>Return</th>
                     <th>Foreign Flow</th>
-                    <th>Sector Hit</th>
-                    <th>Accuracy</th>
+                    <th>Sectors (Scorable)</th>
+                    <th>Score</th>
                     <th>Verdict</th>
                   </tr>
                 </thead>
@@ -1732,7 +1566,7 @@ export default function Dashboard() {
                   {filteredReviews.length === 0 && (
                     <tr>
                       <td colSpan="8" className="text-muted" style={{ textAlign: "center", padding: "24px 0" }}>
-                        No records match the selected filter.
+                        No sessions match the selected filter.
                       </td>
                     </tr>
                   )}
@@ -1740,7 +1574,6 @@ export default function Dashboard() {
               </table>
             </div>
 
-            {/* Mobile Touch Cards */}
             <div className="mobile-cards-list">
               {filteredReviews.map((review) => (
                 <div
@@ -1771,13 +1604,13 @@ export default function Dashboard() {
                   </div>
                   <div className="mobile-card-bottom font-mono text-xs">
                     <span>Flow: {review.foreign_flow_actual || "Unknown"}</span>
-                    <span>Accuracy: {formatNumber(review.accuracy_score)}%</span>
+                    <span>Score: {formatNumber(review.accuracy_score)}%</span>
                   </div>
                 </div>
               ))}
               {filteredReviews.length === 0 && (
                 <div className="font-mono text-xs text-muted text-center py-4">
-                  No records match the selected filter.
+                  No sessions match the selected filter.
                 </div>
               )}
             </div>
@@ -1798,13 +1631,13 @@ export default function Dashboard() {
         isOpen={briefModalOpen}
         onClose={() => setBriefModalOpen(false)}
         title={`Morning Brief — ${activeReview?.date}`}
-        subtitle="Institutional Pre-Market Intelligence Document (Telegram Sync)"
-        tag="Markdown Reader"
+        subtitle="Pre-Market Intelligence Document (06:55 WIB)"
+        tag="Markdown"
         maxWidth="760px"
       >
         {briefLoading ? (
           <div style={{ padding: "32px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "monospace" }}>
-            Retrieving morning intelligence document...
+            Loading morning brief...
           </div>
         ) : (
           <article className="markdown-document-body" style={{ whiteSpace: "pre-wrap", lineHeight: 1.6, fontSize: "13px", padding: "16px 20px" }}>
@@ -1816,9 +1649,9 @@ export default function Dashboard() {
       <SideSheet
         isOpen={pipelineStatusOpen}
         onClose={() => setPipelineStatusOpen(false)}
-        title="Pipeline Execution & Schedule Status"
+        title="Pipeline Status"
         subtitle="Automated Cloud Cron Cadence & Provenance Health"
-        tag="System Status"
+        tag="Status"
         maxWidth="720px"
       >
         <PipelineStatusView
@@ -1832,9 +1665,9 @@ export default function Dashboard() {
       <SideSheet
         isOpen={lineageOpen}
         onClose={() => setLineageOpen(false)}
-        title="Quantitative Data Lineage & Provenance"
+        title="Data Lineage & Provenance"
         subtitle="Cryptographic Lock Verification, OHLC Geometry & Source Audit"
-        tag="Data Lineage"
+        tag="Lineage"
         maxWidth="780px"
       >
         <DataLineageView
@@ -1847,9 +1680,9 @@ export default function Dashboard() {
       <SideSheet
         isOpen={methodologyOpen}
         onClose={() => setMethodologyOpen(false)}
-        title="System Methodology & Audit Guide"
+        title="Methodology & Scoring Guide"
         subtitle="50/30/20 Scoring Engine, Shrinkage Calibration & 5-Stage Hygiene Gate"
-        tag="Methodology"
+        tag="Guide"
         maxWidth="780px"
       >
         <MethodologyView

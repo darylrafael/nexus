@@ -8,7 +8,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
 
   // Compute chronological cumulative trajectories
   const trajectoryData = useMemo(() => {
-    // Sort reviews chronologically (oldest to newest)
     const chronological = [...reviews]
       .filter((r) => !r.isPendingReview && r.ihsg_actual_pct !== null && r.ihsg_actual_pct !== undefined)
       .sort((a, b) => a.date.localeCompare(b.date));
@@ -34,7 +33,7 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
         cumCombined += dailyBps;
       } else if (pred.includes('bearish') || pred.includes('down')) {
         tradeType = 'short';
-        dailyBps = -returnBps; // Short profits from downward moves
+        dailyBps = -returnBps;
         cumShort += dailyBps;
         cumCombined += dailyBps;
       }
@@ -62,7 +61,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
     return null;
   }
 
-  // Dimensions & bounds
   const width = 760;
   const height = 180;
   const padding = { top: 18, right: 26, bottom: 30, left: 54 };
@@ -87,7 +85,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
 
   const zeroY = getY(0);
 
-  // SVG Path definition
   const pointsString = trajectoryData
     .map((d, i) => `${getX(i).toFixed(1)},${getY(d[activeKey]).toFixed(1)}`)
     .join(' ');
@@ -97,96 +94,91 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
   const latestVal = values[values.length - 1] || 0;
   const isPositive = latestVal >= 0;
 
-  // Horizontal grid ticks
   const yTicks = [yMin, yMin + (yMax - yMin) * 0.33, yMin + (yMax - yMin) * 0.66, yMax];
 
+  const lastPt = trajectoryData[trajectoryData.length - 1] || {};
+  const combinedBps = Number(payoffStats?.long_short_total_bps ?? lastPt.cumCombined ?? 0);
+  const shortBps = Number(payoffStats?.short_only_total_bps ?? lastPt.cumShort ?? 0);
+  const longBps = Number(payoffStats?.long_only_total_bps ?? lastPt.cumLong ?? 0);
+  const fmtPct = (bps) => `${bps >= 0 ? '+' : ''}${(bps / 100).toFixed(1)}%`;
+  const fmtBps = (bps) => `${bps >= 0 ? '+' : ''}${bps} bps`;
+
   return (
-    <div className="payoff-trajectory-module" style={{
-      padding: '10px 0 0',
-      marginTop: '6px',
-    }}>
-      {/* Chart Header with Strategy Switcher */}
+    <div className="payoff-trajectory-module" style={{ padding: '8px 0 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '10px' }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="font-mono text-xs font-bold" style={{ color: 'var(--accent-cyan)', letterSpacing: '0.04em' }}>
-              SIMULASI AKUMULASI RETURN (EQUITY CURVE)
-            </span>
-            <span className="font-mono text-xs" style={{ background: 'var(--surface-well)', padding: '2px 6px', borderRadius: '3px' }}>
-              20 Sessions
-            </span>
-          </div>
-          <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-            Pertumbuhan modal jika mengikuti sinyal arah IHSG Nexus (<strong>100 bps = 1.00% return</strong>).
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="font-mono text-xs font-bold" style={{ color: 'var(--accent-cyan)', letterSpacing: '0.04em' }}>
+            CUMULATIVE PAYOFF CURVE
+          </span>
+          <span className="font-mono text-xs" style={{ background: 'var(--surface-well)', padding: '2px 6px', borderRadius: '3px' }}>
+            {trajectoryData.length} Sessions · 100 bps = 1%
+          </span>
         </div>
 
-        {/* Strategy Switcher Tabs */}
         <div style={{ display: 'flex', gap: '4px', background: 'var(--surface-well)', padding: '3px', borderRadius: '6px', flexWrap: 'wrap' }}>
           <button
             type="button"
             className="font-mono text-xs"
             onClick={() => setSelectedStrategy('combined')}
-            title={`Semua sinyal: +${payoffStats?.long_short_total_bps ?? '1677'} bps (+16.77%)`}
+            title={`Combined Long/Short: ${fmtBps(combinedBps)} (${fmtPct(combinedBps)})`}
             style={{
               padding: '6px 10px',
               borderRadius: '4px',
               border: 'none',
               cursor: 'pointer',
               fontWeight: 600,
-              minHeight: '44px',
+              minHeight: '36px',
               background: selectedStrategy === 'combined' ? 'var(--surface)' : 'transparent',
               color: selectedStrategy === 'combined' ? 'var(--text-primary)' : 'var(--text-tertiary)',
               boxShadow: selectedStrategy === 'combined' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
               transition: 'all 0.15s ease'
             }}
           >
-            Semua (+{((payoffStats?.long_short_total_bps ?? 1677) / 100).toFixed(1)}%)
+            Combined ({fmtPct(combinedBps)})
           </button>
           <button
             type="button"
             className="font-mono text-xs"
             onClick={() => setSelectedStrategy('short')}
-            title={`Khusus sinyal short: +${payoffStats?.short_only_total_bps ?? '2041'} bps (+20.41%)`}
+            title={`Theoretical Short-Only: ${fmtBps(shortBps)} (${fmtPct(shortBps)})`}
             style={{
               padding: '6px 10px',
               borderRadius: '4px',
               border: 'none',
               cursor: 'pointer',
               fontWeight: 600,
-              minHeight: '44px',
+              minHeight: '36px',
               background: selectedStrategy === 'short' ? 'var(--surface)' : 'transparent',
               color: selectedStrategy === 'short' ? 'var(--text-primary)' : 'var(--text-tertiary)',
               boxShadow: selectedStrategy === 'short' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
               transition: 'all 0.15s ease'
             }}
           >
-            Short (+{((payoffStats?.short_only_total_bps ?? 2041) / 100).toFixed(1)}%)
+            Short ({fmtPct(shortBps)})
           </button>
           <button
             type="button"
             className="font-mono text-xs"
             onClick={() => setSelectedStrategy('long')}
-            title={`Khusus sinyal long: ${payoffStats?.long_only_total_bps ?? '-364'} bps (-3.64%)`}
+            title={`Long-Only: ${fmtBps(longBps)} (${fmtPct(longBps)})`}
             style={{
               padding: '6px 10px',
               borderRadius: '4px',
               border: 'none',
               cursor: 'pointer',
               fontWeight: 600,
-              minHeight: '44px',
+              minHeight: '36px',
               background: selectedStrategy === 'long' ? 'var(--surface)' : 'transparent',
               color: selectedStrategy === 'long' ? 'var(--text-primary)' : 'var(--text-tertiary)',
               boxShadow: selectedStrategy === 'long' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
               transition: 'all 0.15s ease'
             }}
           >
-            Long ({((payoffStats?.long_only_total_bps ?? -364) / 100).toFixed(1)}%)
+            Long ({fmtPct(longBps)})
           </button>
         </div>
       </div>
 
-      {/* SVG Chart Container */}
       <div
         tabIndex={0}
         role="region"
@@ -208,7 +200,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
             </linearGradient>
           </defs>
 
-          {/* Horizontal Grid lines */}
           {yTicks.map((tickVal, i) => {
             const yPos = getY(tickVal);
             return (
@@ -236,7 +227,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
             );
           })}
 
-          {/* Zero baseline */}
           <line
             x1={padding.left}
             y1={zeroY}
@@ -247,13 +237,11 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
             strokeDasharray="4 2"
           />
 
-          {/* Gradient Area Fill */}
           <polygon
             points={areaString}
             fill={isPositive ? 'url(#payoffPositiveGrad)' : 'url(#payoffNegativeGrad)'}
           />
 
-          {/* Trajectory Polyline */}
           <polyline
             fill="none"
             stroke={isPositive ? 'var(--matched-text)' : 'var(--missed-text)'}
@@ -263,7 +251,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
             points={pointsString}
           />
 
-          {/* Data Points */}
           {trajectoryData.map((d, i) => {
             const cx = getX(i);
             const cy = getY(d[activeKey]);
@@ -284,7 +271,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
                   strokeWidth="1.5"
                   style={{ transition: 'r 0.15s ease' }}
                 />
-                {/* X-axis date labels every 4 items or last */}
                 {(i % 4 === 0 || i === trajectoryData.length - 1) && (
                   <text
                     x={cx}
@@ -302,7 +288,6 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
           })}
         </svg>
 
-        {/* Hover Tooltip Overlay */}
         {hoveredPoint && (
           <div
             style={{
@@ -337,17 +322,13 @@ export default function PayoffTrajectoryChart({ reviews = [], payoffStats = {}, 
                 {hoveredPoint[activeKey] >= 0 ? `+${(hoveredPoint[activeKey] / 100).toFixed(2)}%` : `${(hoveredPoint[activeKey] / 100).toFixed(2)}%`} ({hoveredPoint[activeKey] >= 0 ? `+${hoveredPoint[activeKey]}` : hoveredPoint[activeKey]} bps)
               </strong>
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--accent-cyan)', marginTop: '2px' }}>
-              Detail sesi dapat dilihat pada pita waktu di bawah ↘
-            </div>
           </div>
         )}
       </div>
 
-      {/* Trajectory Footnote */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: 'var(--text-tertiary)', marginTop: '10px', flexWrap: 'wrap', gap: '6px' }}>
-        <span>● Hijau = Prediksi Tepat · ▲ Merah = Meleset · <strong>100 bps = 1.00% return</strong></span>
-        <span>* Simulasi akumulasi modal (cash index) tanpa leverage &amp; biaya broker</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: 'var(--text-tertiary)', marginTop: '8px', flexWrap: 'wrap', gap: '6px' }}>
+        <span>● Hijau = Hit · ● Merah = Miss · <strong>100 bps = 1.00%</strong></span>
+        <span>* Cash index simulation sebelum biaya transaksi</span>
       </div>
     </div>
   );

@@ -149,7 +149,7 @@ $$\text{Brier} = \frac{1}{n} \sum_{t=1}^{n} \left(\frac{C_{\text{stated}, t}}{10
 | **Nexus Multi-Agent Model** | **37.5%** (9/24) | 0.0% | Active directional thesis |
 | Always-Bearish (Down Only) | **54.2%** (13/24) | +16.7% | Outperforms model due to prevailing market downtrend |
 | Persistence (Repeat T-1) | **56.5%** (13/23) | +19.0% | Exploits directional momentum across consecutive sessions |
-| Always-Bullish (Up Only) | **41.7%** (10/24) | +4.2% | Model outperforms permanent long bias |
+| Always-Bullish (Up Only) | **41.7%** (10/24) | +4.2% | Passive long bias leads model in current sample |
 
 ### TABLE 3: PIPELINE SUB-COMPONENT SCORING BREAKDOWN
 | Component | Nominal Weight | Scorable (n) | Realized Hit Rate | Institutional Interpretation |

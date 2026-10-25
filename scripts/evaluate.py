@@ -121,10 +121,15 @@ def build_metrics_markdown(stats: dict, raw_index: dict | list | None = None) ->
         f"({persistence_h}/{persistence_n}) | {persistence - model_dir:+.1f}% | "
         f"Exploits directional momentum across consecutive sessions |"
     )
+    bullish_assessment = (
+        "Model outperforms permanent long bias"
+        if model_dir >= always_bullish
+        else "Passive long bias leads model in current sample"
+    )
     lines.append(
         f"| Always-Bullish (Up Only) | **{format_pct(always_bullish)}** "
         f"({always_bullish_h}/{always_bullish_n}) | {always_bullish - model_dir:+.1f}% | "
-        f"Model outperforms permanent long bias |"
+        f"{bullish_assessment} |"
     )
     lines.append("")
 

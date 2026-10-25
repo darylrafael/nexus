@@ -3,18 +3,11 @@ import { useState, useEffect, useMemo } from 'react';
 import SideSheet from '../common/SideSheet';
 import EvidenceDrawer from '../memory-heuristics/EvidenceDrawer';
 
-function formatPct(val) {
-  if (val === null || val === undefined || val === '') return '—';
-  const num = Number(val);
-  if (Number.isNaN(num)) return String(val);
-  return `${num > 0 ? '+' : ''}${num.toFixed(2)}%`;
-}
-
 function CompactHeuristicRow({ item, onInspect }) {
   const isUp = item.validationRate >= 50;
 
   return (
-    <tr 
+    <tr
       className="table-row"
       onClick={() => onInspect(item)}
       style={{ cursor: 'pointer' }}
@@ -28,7 +21,7 @@ function CompactHeuristicRow({ item, onInspect }) {
         </span>
       </td>
       <td style={{ maxWidth: '460px', padding: '12px 14px' }}>
-        <span 
+        <span
           className="font-medium text-xs leading-normal text-primary"
           style={{
             display: '-webkit-box',
@@ -64,16 +57,16 @@ function CompactHeuristicRow({ item, onInspect }) {
           <span>{item.status}</span>
         </span>
       </td>
-      <td style={{ width: '130px', textAlign: 'right' }}>
+      <td style={{ width: '120px', textAlign: 'right' }}>
         <button
           className="brief-read-btn font-mono"
-          style={{ padding: '6px 12px', fontSize: "12px", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
+          style={{ padding: '6px 10px', fontSize: '12px', minHeight: '36px', display: 'inline-flex', alignItems: 'center' }}
           onClick={(e) => {
             e.stopPropagation();
             onInspect(item);
           }}
         >
-          Deep Inspect ↗
+          Inspect ↗
         </button>
       </td>
     </tr>
@@ -118,7 +111,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   }, [heuristics, filter]);
 
   if (loading) {
-    return <main className="center-state">Loading lessons &amp; heuristics database...</main>;
+    return <main className="center-state">Loading memory &amp; heuristics...</main>;
   }
 
   if (error) {
@@ -134,23 +127,19 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
   const hypothesisCount = heuristics.filter((h) => h.status === 'HYPOTHESIS').length;
   const supersededCount = heuristics.filter((h) => h.status === 'SUPERSEDED').length;
   const quarantinedCount = quarantinedLessons.length;
-  const displayValRate = stats.avgValidationRate != null ? `${stats.avgValidationRate}%` : (heuristics.length > 0 ? "Tracking" : "—");
+  const displayValRate = stats.avgValidationRate != null ? `${stats.avgValidationRate}%` : (heuristics.length > 0 ? 'Tracking' : '—');
 
   return (
     <div className="content-container">
-      {/* Page Header */}
       <header className="page-header">
         <div>
-          <div className="breadcrumb">NEXUS / Memory &amp; Heuristics</div>
-          <h1 className="page-title">Heuristics &amp; Memory Vault</h1>
+          <div className="breadcrumb">NEXUS · Self-Learning Memory</div>
+          <h1 className="page-title">Heuristics &amp; Hygiene Vault</h1>
         </div>
         <div className="header-actions">
-          <div className="market-status-chip">
-            <span>SYNCED VAULT</span>
-          </div>
           <div className="live-badge">
             <span className="live-dot" />
-            <span>Memory Synced</span>
+            <span>5-Stage Gate Active</span>
           </div>
           <button
             className="theme-toggle-btn"
@@ -179,81 +168,31 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
       </header>
 
-      {/* Structured System Context Bar */}
-      <div className="system-context-strip">
-        <div className="context-item">
-          <span className="context-label font-mono">MEMORY STATUS</span>
-          <div className="context-value">
-            <span className="live-dot" style={{ width: 6, height: 6 }} />
-            <span>Closed-Loop Active</span>
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">TOTAL RULES</span>
-          <div className="context-value font-mono font-medium">{stats.totalLessons || heuristics.length || 0} Formulated</div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">ACTIVE IN PROMPT</span>
-          <div className="context-value font-mono font-semibold text-matched">
-            {stats.activeHeuristics || activeCount} Active (n≥1)
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">MACRO BLIND SPOTS</span>
-          <div className="context-value font-mono font-medium text-warning">
-            {stats.blindSpotsCount || 0} Factors Tracked
-          </div>
-        </div>
-        <div className="context-divider" />
-        <div className="context-item">
-          <span className="context-label font-mono">KNOWLEDGE STORE</span>
-          <div className="context-value font-mono text-matched">
-            Local Vault Active
-          </div>
-        </div>
-      </div>
-
-      {/* 01 · Primary Empirical Metrics */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 01 · EMPIRICAL HEALTH &amp; KNOWLEDGE BASE METRICS
-      </div>
       <section className="kpi-row">
-        {/* Card 1: Active Heuristics */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Active Heuristics</span>
+            <span className="kpi-label font-mono">Active In Prompt</span>
           </div>
           <div className="kpi-val-row">
-            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || activeCount} In Prompt</div>
+            <div className="kpi-value font-mono text-matched">{stats.activeHeuristics || activeCount} Rules</div>
           </div>
           <div className="kpi-context">
-            <span>Causal rules constraining 06:55 pre-market briefs</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '100%' }} />
-            </div>
+            <span>Injected into 06:55 WIB morning brief</span>
           </div>
         </div>
 
-        {/* Card 2: Empirical Validation Rate */}
         <div className="kpi-card">
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Forward Validation Rate</span>
+            <span className="kpi-label font-mono">Forward Validation</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono">{displayValRate}</div>
           </div>
           <div className="kpi-context">
-            <span>{stats.validatedHeuristicsCount || 0} rules forward-validated on subsequent sessions</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: `${Math.min(100, Math.max(0, Number(stats.avgValidationRate) || 0))}%` }} />
-            </div>
+            <span>{stats.validatedHeuristicsCount || 0} rules tested on subsequent sessions</span>
           </div>
         </div>
 
-        {/* Card 3: Macro Blind Spots */}
         <div className="kpi-card">
           <div className="kpi-top">
             <span className="kpi-label font-mono">Macro Blind Spots</span>
@@ -262,52 +201,35 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
             <div className="kpi-value font-mono text-warning">{stats.blindSpotsCount || 0} Factors</div>
           </div>
           <div className="kpi-context">
-            <span>Underestimated variables flagged by RCA engine</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '70%' }} />
-            </div>
+            <span>Recurring variance drivers flagged by RCA</span>
           </div>
         </div>
 
-        {/* Card 4: Hygiene Quarantine Gate */}
         <div
           className="kpi-card interactive"
           onClick={() => setFilter('quarantined')}
           style={{ cursor: 'pointer' }}
-          title="Click to inspect lessons blocked by the 5-stage deterministic hygiene filter"
+          title="Click to inspect lessons blocked by the 5-stage hygiene filter"
         >
           <div className="kpi-top">
-            <span className="kpi-label font-mono">Hygiene Quarantine Gate</span>
+            <span className="kpi-label font-mono">Quarantine Gate</span>
             <span className="kpi-click-hint font-mono">Inspect ↗</span>
           </div>
           <div className="kpi-val-row">
             <div className="kpi-value font-mono text-warning">
-              {quarantinedCount} Quarantined
+              {quarantinedCount} Blocked
             </div>
           </div>
           <div className="kpi-context">
-            <span>Blocked faulty/contradictory LLM rules ? {heuristics.length} passed</span>
-            <div className="kpi-mini-bar">
-              <div className="kpi-mini-fill" style={{ width: '100%' }} />
-            </div>
+            <span>{heuristics.length} validated · {quarantinedCount} rejected</span>
           </div>
         </div>
       </section>
 
-      {/* 02 · Primary Subject: Heuristics & Provenance Ledger */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 02 · HEURISTIC RULES &amp; PROVENANCE LEDGER
-      </div>
       <section className="history-section">
         <header className="history-header">
           <div>
-            <h2 className="history-title">Heuristic Rules &amp; Provenance Ledger</h2>
-            <div className="history-subtitle font-mono text-xs">
-              Autonomous causal market rules and verifiable evidence traces (click row for deep inspection)
-            </div>
-            <div className="table-scroll-hint font-mono text-xs">
-              ← Scroll table horizontally to view full audit columns →
-            </div>
+            <h2 className="history-title">Heuristic Rules Ledger</h2>
           </div>
           <div className="filter-tabs">
             <button
@@ -345,15 +267,15 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
 
         {filter === 'quarantined' ? (
           <div className="table-wrapper">
-            <div style={{ padding: '12px 16px', background: 'var(--warning-bg)', borderBottom: '1px solid var(--warning-border)', fontSize: '12px', color: 'var(--text-secondary)' }}>
-              <strong style={{ color: 'var(--warning-text)' }}>5-Stage Deterministic Quarantine Audit:</strong> These {quarantinedCount} LLM-generated lessons were automatically rejected by <code>memory/learning_store.py ? validate_lesson()</code> and prevented from entering the morning prompt due to sign confusion, numeric contradiction against closing tape, unverified foreign flow dates, generic boilerplate, or per-session cap limits.
+            <div style={{ padding: '10px 16px', background: 'var(--warning-bg)', borderBottom: '1px solid var(--warning-border)', fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <strong style={{ color: 'var(--warning-text)' }}>5-Stage Hygiene Audit:</strong> {quarantinedCount} LLM-generated lessons were rejected by <code>validate_lesson()</code> (sign confusion, closing tape contradiction, unverified flow, boilerplate, or session cap).
             </div>
             <table className="data-table">
               <thead>
                 <tr>
-                  <th style={{ width: '110px' }}>Session Date</th>
-                  <th style={{ width: '260px' }}>Quarantine Gate Reason</th>
-                  <th>Rejected Lesson Content</th>
+                  <th style={{ width: '110px' }}>Date</th>
+                  <th style={{ width: '260px' }}>Rejection Reason</th>
+                  <th>Quarantined Lesson</th>
                 </tr>
               </thead>
               <tbody>
@@ -375,7 +297,6 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
           </div>
         ) : (
           <>
-            {/* Mobile Responsive Cards (visible <= 768px) */}
             <div className="mobile-cards-list">
               {filteredHeuristics.map((item) => (
                 <div
@@ -403,20 +324,19 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
               ))}
             </div>
 
-            {/* Desktop Quantitative Table (visible > 768px) */}
             <div className="table-wrapper desktop-table-wrapper">
               <table className="data-table">
                 <thead>
                   <tr>
-                    <th style={{ width: '90px' }}>Rule ID</th>
-                    <th style={{ width: '150px' }}>Macro Domain</th>
-                    <th>Formulated Heuristic Rule</th>
+                    <th style={{ width: '90px' }}>ID</th>
+                    <th style={{ width: '150px' }}>Domain</th>
+                    <th>Heuristic Rule</th>
                     <th style={{ width: '80px' }}>Observed</th>
-                    <th style={{ width: '70px' }}>Validated</th>
-                    <th style={{ width: '70px' }}>Contradicted</th>
-                    <th style={{ width: '100px' }}>Validation Rate</th>
+                    <th style={{ width: '70px' }}>Val</th>
+                    <th style={{ width: '70px' }}>Contr</th>
+                    <th style={{ width: '100px' }}>Win Rate</th>
                     <th style={{ width: '90px' }}>Status</th>
-                    <th style={{ width: '130px', textAlign: 'right' }}>Audit</th>
+                    <th style={{ width: '120px', textAlign: 'right' }}>Evidence</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -430,7 +350,7 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                   {filteredHeuristics.length === 0 && (
                     <tr>
                       <td colSpan="9" className="text-muted font-mono text-xs" style={{ textAlign: 'center', padding: '24px 0' }}>
-                        No heuristic rules match the selected filter.
+                        No rules match the selected filter.
                       </td>
                     </tr>
                   )}
@@ -441,26 +361,17 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         )}
       </section>
 
-      {/* 03 · Secondary Supporting Information: Factor Attribution & Prompt Ingestion Cadence */}
-      <div className="section-eyebrow font-mono">
-        <span className="console-prompt">{"//"}</span> 03 · MACRO FACTOR ATTRIBUTION &amp; INGESTION CADENCE
-      </div>
       <section className="eval-section">
         <header className="eval-header">
-          <div className="eval-header-title">Macro Risk Factor Attribution &amp; Prompt Ingestion</div>
-          <div className="eval-header-right">
-            <div className="eval-date-badge font-mono">Secondary Diagnostics</div>
-          </div>
+          <div className="eval-header-title">Macro Blind Spots &amp; Prompt Injection</div>
         </header>
 
         <div className="eval-body">
-          {/* Left Column: Recurring Blind Spots Frequency Bar */}
           <div className="eval-column-left">
             <div className="eval-pane">
               <div className="eval-pane-header">
                 <div className="eval-pane-header-left">
-                  <span className="eval-pane-title">Recurring Macro Blind Spots</span>
-                  <span className="eval-section-tag font-mono">Attribution Frequency</span>
+                  <span className="eval-pane-title">Top Recurring Blind Spots</span>
                 </div>
                 <span className="eval-section-tag font-mono">{blindSpots.length} Factors</span>
               </div>
@@ -469,55 +380,33 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                   {blindSpots.map((item, idx) => {
                     const pct = Math.min(100, Math.max(12, (item.count / maxBlindSpotCount) * 100));
                     return (
-                      <div 
-                        key={idx} 
-                        style={{ 
-                          display: 'flex', 
-                          flexDirection: 'column', 
-                          gap: '8px', 
-                          padding: '10px 12px', 
-                          background: 'var(--surface-subtle)', 
-                          borderRadius: 'var(--radius-sm)', 
+                      <div
+                        key={idx}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '6px',
+                          padding: '9px 12px',
+                          background: 'var(--surface-subtle)',
+                          borderRadius: 'var(--radius-sm)',
                           border: '1px solid var(--border-subtle)',
-                          width: '100%',
-                          boxSizing: 'border-box'
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', width: '100%' }}>
-                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', flex: 1, minWidth: 0 }}>
-                            <span 
-                              className="font-mono text-tertiary" 
-                              style={{ fontSize: "12px", fontWeight: 700, flexShrink: 0, marginTop: '2px', lineHeight: 1.4 }}
-                            >
-                              #{String(idx + 1).padStart(2, '0')}
-                            </span>
-                            <span 
-                              className="font-mono text-primary font-semibold"
-                              style={{ 
-                                fontSize: '12px', 
-                                lineHeight: '1.45', 
-                                wordBreak: 'break-word', 
-                                overflowWrap: 'anywhere',
-                                flex: 1,
-                                minWidth: 0 
-                              }}
-                            >
-                              {item.name}
-                            </span>
-                          </div>
-                          <span 
-                            className="font-mono text-warning font-semibold text-xs" 
-                            style={{ 
-                              background: 'var(--warning-bg)', 
-                              border: '1px solid var(--warning-border)', 
-                              padding: '2px 7px', 
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
+                          <span className="font-mono text-primary font-semibold" style={{ fontSize: '12px', lineHeight: '1.4' }}>
+                            #{String(idx + 1).padStart(2, '0')} · {item.name}
+                          </span>
+                          <span
+                            className="font-mono text-warning font-semibold text-xs"
+                            style={{
+                              background: 'var(--warning-bg)',
+                              border: '1px solid var(--warning-border)',
+                              padding: '1px 6px',
                               borderRadius: '3px',
                               flexShrink: 0,
-                              whiteSpace: 'nowrap',
-                              marginTop: '1px'
                             }}
                           >
-                            {item.count} {item.count === 1 ? 'hit' : 'hits'}
+                            {item.count}x
                           </span>
                         </div>
                         <div style={{ height: '4px', width: '100%', background: 'var(--surface-well)', borderRadius: '2px', overflow: 'hidden' }}>
@@ -527,50 +416,43 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                     );
                   })}
                   {blindSpots.length === 0 && (
-                    <p className="rca-content-muted font-mono text-xs">No recurring blind spots identified yet.</p>
+                    <p className="rca-content-muted font-mono text-xs">No recurring blind spots identified.</p>
                   )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Minimized Prompt Constraint Injection Section */}
           <div className="eval-column-right">
             <div className="eval-pane">
               <div className="eval-pane-header">
                 <div className="eval-pane-header-left">
-                  <span className="eval-pane-title">Closed-Loop Prompt Constraint Injection</span>
-                  <span className="eval-section-tag font-mono">Dynamic Prompt</span>
+                  <span className="eval-pane-title">06:55 Prompt Constraint Injection</span>
                 </div>
                 <div className="loop-active-tag font-mono">
                   <span className="live-dot" style={{ width: 6, height: 6 }} />
-                  Loop Active
+                  Active
                 </div>
               </div>
               <div className="eval-pane-body" style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {/* Minimized Compact Summary Card */}
-                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', boxSizing: 'border-box' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+                <div style={{ background: 'var(--surface-subtle)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span className="font-mono text-xs font-bold text-primary">
-                      {activeCount} Active Constraints Injected
+                      {activeCount} Active Constraints
                     </span>
                     <span className="font-mono text-xs text-matched font-semibold">
-                      Cap: Top 5 Rules
+                      Top 5 Injected Daily
                     </span>
                   </div>
-                  <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45, wordBreak: 'break-word' }}>
-                    Validated rules from post-market reviews are injected as prompt constraints into the 06:55 WIB brief to prevent recurring forecasting biases.
+                  <p className="text-secondary text-xs" style={{ margin: 0, lineHeight: 1.45 }}>
+                    Forward-validated lessons are injected into the 06:55 WIB pre-market prompt via <code>build_learning_context()</code>.
                   </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', paddingTop: '6px', borderTop: '1px dashed var(--border-subtle)' }}>
-                    <span className="font-mono text-xs text-tertiary" style={{ wordBreak: 'break-all' }}>
-                      SOURCE: Adaptive Memory Store
-                    </span>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '6px' }}>
                     <button
                       className="brief-read-btn font-mono"
                       onClick={() => setShowPromptDrawer(true)}
-                      style={{ flexShrink: 0 }}
                     >
-                      Deep Inspect Injected Prompt ↗
+                      Inspect Injected Prompt ↗
                     </button>
                   </div>
                 </div>
@@ -580,39 +462,23 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
         </div>
       </section>
 
-      {/* Level 3: Deep Inspection SideSheet for Rule Evidence */}
       <EvidenceDrawer
         isOpen={!!selectedHeuristic}
         onClose={() => setSelectedHeuristic(null)}
         heuristic={selectedHeuristic}
       />
 
-      {/* Level 3: Deep Inspection SideSheet for Full Prompt Injection */}
       <SideSheet
         isOpen={showPromptDrawer}
         onClose={() => setShowPromptDrawer(false)}
-        title="Prompt Constraint Injection Audit"
-        subtitle="Ingested dynamically into 06:55 WIB Morning Brief"
-        tag="Active Injection"
+        title="Prompt Constraint Injection"
+        subtitle="Ingested into 06:55 WIB Morning Brief"
+        tag="Prompt"
         maxWidth="680px"
       >
         <div className="evidence-panel-root">
-          <div className="evidence-rule-card">
-            <div className="evidence-rule-header">
-              <span className="detail-label font-mono">System Prompt Constraint Preamble</span>
-              <span className="status-pill status-matched status-sm font-mono">
-                <span className="status-indicator-dot" />
-                <span>INJECTED</span>
-              </span>
-            </div>
-            <p className="evidence-rule-text font-mono" style={{ fontSize: '12px', lineHeight: 1.6 }}>
-              “Prior session reflection has formulated the following empirical constraints. When analyzing pre-market catalysts, prioritize these causal conditions over raw narrative bias:”
-            </p>
-          </div>
-
           <div className="evidence-ledger-header">
-            <span className="eval-section-heading">Active Injected Constraints</span>
-            <span className="eval-section-tag font-mono">{activeCount} Rules Active</span>
+            <span className="eval-section-heading">Active Injected Rules ({activeCount})</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -627,18 +493,6 @@ export default function LessonsDatabaseView({ theme, toggleTheme }) {
                 </p>
               </div>
             ))}
-          </div>
-
-          <div className="rca-memory-terminal-block" style={{ marginTop: '16px' }}>
-            <div className="memory-prefix font-mono">
-              <span className="memory-title">KNOWLEDGE STORE PROVENANCE</span>
-              <span className="memory-injected-pill font-mono">READ-ONLY SYNC</span>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '12px', marginTop: '6px' }}>
-              <div><span className="font-mono text-tertiary">PERSISTENT REPO:</span> <span className="font-mono text-primary">Adaptive Learning Store</span></div>
-              <div><span className="font-mono text-tertiary">STORAGE MODE:</span> <span className="font-mono text-matched">Append-Only Hindsight Log</span></div>
-              <div><span className="font-mono text-tertiary">INJECTION POINT:</span> <span className="font-mono text-primary">orchestrator/gemini.py · build_prompt()</span></div>
-            </div>
           </div>
         </div>
       </SideSheet>
