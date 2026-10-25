@@ -532,7 +532,7 @@ export default function KpiDetailModal({
                           <span className="rule-badge font-mono">RULE #{idx + 1}</span>
                           <span className="rule-status font-mono">Active Injected</span>
                         </div>
-                        <p className="rule-body-text">{ruleText}</p>
+                        <p className="rule-body-text">{String(ruleText || "").replace(/\[|\]/g, "")}</p>
                       </div>
                     ))
                   ) : (

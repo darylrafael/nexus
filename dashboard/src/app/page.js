@@ -40,6 +40,7 @@ const formatHeaderDate = (dateStr) => {
 const cleanNarrative = (str) => {
   if (!str || typeof str !== "string") return "";
   return str
+    .replace(/\[([^\]]+)\]/g, "$1")
     .replace(/^Illustrative lesson:\s*/i, "")
     .replace(/^Illustrative:\s*/i, "")
     .replace(/^Demo fixture:\s*/i, "")
@@ -48,12 +49,17 @@ const cleanNarrative = (str) => {
     .trim();
 };
 
+const formatFlowLabel = (raw) => {
+  if (!raw || raw === "Unknown" || raw === "N/A") return "Unverified";
+  return String(raw).replace("/", " / ");
+};
+
 const getIdxMarketStatus = () => {
   try {
     const now = new Date();
     const wibStr = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
     const wib = new Date(wibStr);
-    const day = wib.getDay(); // 0 = Sun, 6 = Sat
+    const day = wib.getDay();
     const hour = wib.getHours();
     const min = wib.getMinutes();
     const totalMin = hour * 60 + min;
@@ -184,11 +190,11 @@ function PerformanceSparkline({ reviews = [] }) {
     idx: i,
   }));
 
-  const w = 150;
-  const h = 34;
+  const w = 136;
+  const h = 32;
   const padX = 6;
   const padY = 5;
-  const minVal = 30;
+  const minVal = 10;
   const maxVal = 100;
 
   const getX = (i) => padX + (i / Math.max(1, chronPoints.length - 1)) * (w - 2 * padX);
@@ -231,10 +237,10 @@ function PerformanceSparkline({ reviews = [] }) {
             key={i}
             cx={getX(i)}
             cy={getY(p.acc)}
-            r={3}
+            r={2.5}
             fill={p.hit ? "var(--matched-text)" : "var(--missed-text)"}
             stroke="var(--surface)"
-            strokeWidth="1.5"
+            strokeWidth="1"
           />
         ))}
       </svg>
@@ -328,7 +334,7 @@ function SectorAttribution({ review }) {
       )}
 
       {unverifiedNames.length > 0 && (
-        <div style={{ marginTop: verifiableEntries.length > 0 ? "8px" : "0", fontSize: "11px", color: "var(--text-tertiary)", lineHeight: 1.4 }}>
+        <div style={{ marginTop: verifiableEntries.length > 0 ? "6px" : "0", fontSize: "11px", color: "var(--text-tertiary)", lineHeight: 1.4 }}>
           <span className="font-mono" style={{ fontWeight: 600 }}>Unverified (excluded from score):</span>{" "}
           {unverifiedNames.join(" · ")}
         </div>
@@ -339,15 +345,11 @@ function SectorAttribution({ review }) {
 
 function MacroPulse({ review }) {
   const commodities = Object.values(review?.actual_commodities || {}).filter(
-    (item) => item && item.name && (Number.isFinite(Number(item.price)) || Number.isFinite(Number(item.change_pct)))
+    (item) => item && item.name && ((item.price !== null && Number.isFinite(Number(item.price))) || (item.change_pct !== null && Number.isFinite(Number(item.change_pct))))
   );
 
-  const rawPred = review?.foreign_flow_predicted;
-  const rawAct = review?.foreign_flow_actual;
-  const foreignPredicted = rawPred ? rawPred.replace("/", " / ") : "N/A";
-  const foreignActual = rawAct
-    ? rawAct.replace("/", " / ")
-    : (review?.isPendingReview ? "Market Open" : "N/A");
+  const foreignPredicted = formatFlowLabel(review?.foreign_flow_predicted);
+  const foreignActual = review?.isPendingReview ? "Market Open" : formatFlowLabel(review?.foreign_flow_actual);
   const foreignCorrect = review?.foreign_flow_correct;
   const usdidr = review?.actual_usdidr;
   const isUsdNumeric = Number.isFinite(Number(usdidr)) && Number(usdidr) > 0;
@@ -362,7 +364,9 @@ function MacroPulse({ review }) {
         <div className="macro-tape-row liquidity-row">
           <div className="macro-strip-cell">
             <div className="macro-cell-head">Foreign Flow (IDX)</div>
-            <div className="macro-cell-val font-mono">{foreignActual}</div>
+            <div className="macro-cell-val font-mono" style={{ color: foreignActual === "Unverified" ? "var(--text-tertiary)" : "var(--text-primary)" }}>
+              {foreignActual}
+            </div>
             <div className="macro-cell-sub font-mono">
               <span className="macro-sub-label">Exp: {foreignPredicted}</span>
               {review?.isPendingReview ? (
@@ -391,18 +395,33 @@ function MacroPulse({ review }) {
         {commodities.length > 0 && (
           <div
             className="macro-tape-row commodities-row"
-            style={{ gridTemplateColumns: `repeat(${commodities.length}, minmax(0, 1fr))` }}
+            style={{ gridTemplateColumns: `repeat(${Math.min(4, commodities.length)}, minmax(0, 1fr))` }}
           >
             {commodities.map((item) => {
-              const change = Number(item.change_pct);
+              const hasPrice = item.price !== null && item.price !== undefined && Number.isFinite(Number(item.price)) && Number(item.price) > 0;
+              const hasChange = item.change_pct !== null && item.change_pct !== undefined && Number.isFinite(Number(item.change_pct));
+              const change = Number(item.change_pct || 0);
               const isUp = change >= 0;
               return (
                 <div className="macro-strip-cell" key={item.ticker || item.name}>
-                  <div className="macro-cell-head">{item.name}</div>
-                  <div className="macro-cell-val font-mono">${formatNumber(item.price)}</div>
-                  <div className={`macro-cell-sub font-mono ${isUp ? "text-matched" : "text-missed"}`}>
-                    {formatPct(item.change_pct)} 1D
-                  </div>
+                  <div className="macro-cell-head" title={item.name}>{item.name}</div>
+                  {hasPrice ? (
+                    <>
+                      <div className="macro-cell-val font-mono">${formatNumber(item.price)}</div>
+                      {hasChange && (
+                        <div className={`macro-cell-sub font-mono ${isUp ? "text-matched" : "text-missed"}`}>
+                          {formatPct(item.change_pct)} 1D
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <div className={`macro-cell-val font-mono ${isUp ? "text-matched" : "text-missed"}`}>
+                        {formatPct(item.change_pct)}
+                      </div>
+                      <div className="macro-cell-sub font-mono">1D Change</div>
+                    </>
+                  )}
                 </div>
               );
             })}
@@ -438,7 +457,6 @@ function ActionableMarketSetup({ review }) {
 
   if (!pivot && focusWatchlist.length === 0) return null;
 
-  // Separate tickers with specific catalyst notes vs generic ticker mentions
   const detailedTickers = [];
   const compactTickers = [];
   focusWatchlist.forEach((item) => {
@@ -496,8 +514,8 @@ function ActionableMarketSetup({ review }) {
       )}
 
       {compactTickers.length > 0 && (
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", marginTop: "10px" }}>
-          <span className="font-mono text-xs text-muted">Mentioned Tickers:</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", marginTop: "8px" }}>
+          <span className="font-mono text-xs text-muted">Focus Tickers:</span>
           {compactTickers.map((t) => (
             <span
               key={t}
@@ -526,49 +544,66 @@ function HeuristicRuleItem({ lesson, index }) {
   let trigger = "";
   let impact = "";
 
-  if (text.includes("Ketika") && text.includes("maka")) {
+  if (/^Ketika\s+/i.test(text) && /\bmaka\s+/i.test(text)) {
     const withoutKetika = text.replace(/^Ketika\s+/i, "");
     const parts = withoutKetika.split(/\bmaka\s+/i);
-    trigger = parts[0]?.replace(/\s*terjadi\s*$/i, "").trim() || "";
-    impact = parts[1]?.trim() || "";
-  } else if (text.includes("–") || text.includes("-")) {
-    const parts = text.split(/[-–]/);
-    trigger = parts[0]?.trim() || text;
+    trigger = parts[0]?.replace(/,?\s*terjadi\s*$/i, "").trim() || "";
     impact = parts.slice(1).join(" ")?.trim() || "";
+  } else if (text.includes("–") || text.includes(" - ")) {
+    const parts = text.split(/\s+[-–]\s+/);
+    trigger = parts[0]?.trim() || text;
+    impact = parts.slice(1).join(" - ")?.trim() || "";
   }
 
   return (
-    <div className="rca-memory-card">
-      <div className="memory-card-label">
-        <span className="memory-title font-mono">LESSON #{index + 1}</span>
+    <div
+      style={{
+        padding: "10px 12px",
+        background: "var(--surface-subtle)",
+        border: "1px solid var(--border-subtle)",
+        borderLeft: "3px solid var(--accent-cyan)",
+        borderRadius: "var(--radius-sm)",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px" }}>
+        <span className="font-mono text-xs font-bold" style={{ color: "var(--accent-cyan)" }}>
+          RULE #{index + 1}
+        </span>
         <span className="memory-injected-pill font-mono">→ Next 06:55 Brief</span>
       </div>
 
       {trigger && impact ? (
-        <div className="rca-rule-breakdown">
-          <div className="rule-part">
-            <span className="rule-part-tag tag-trigger font-mono">TRIGGER</span>
-            <span className="rule-part-text font-medium">{trigger.replace(/,\s*tetapi\s+/i, " + ")}</span>
-          </div>
-          <div className="rule-part">
-            <span className="rule-part-tag tag-impact font-mono">RULE</span>
-            <span className="rule-part-text">{impact}</span>
-          </div>
+        <div style={{ fontSize: "12px", lineHeight: 1.45, color: "var(--text-secondary)" }}>
+          <strong style={{ color: "var(--text-primary)" }}>WHEN:</strong> {trigger}{" "}
+          <strong style={{ color: "var(--matched-text)" }}>→ THEN:</strong> {impact}
         </div>
       ) : (
-        <p className="rca-lesson-text" style={{ margin: 0 }}>{text}</p>
+        <p style={{ fontSize: "12px", lineHeight: 1.45, color: "var(--text-primary)", margin: 0 }}>{text}</p>
       )}
     </div>
   );
 }
 
 function RCAPanel({ review }) {
-  const lessons = review?.lessons || [];
-  const unanticipated = review?.rca_unanticipated || [];
-  const underestimated = review?.rca_underestimated || [];
-  const overestimated = review?.rca_overestimated || [];
+  const [showAllDrivers, setShowAllDrivers] = useState(false);
 
-  const hasDiagnostics = unanticipated.length > 0 || underestimated.length > 0 || overestimated.length > 0;
+  const lessons = (review?.lessons || []).slice(0, 2);
+  const rawDrivers = [
+    ...(review?.rca_unanticipated || []).map((text) => ({ type: "UNANTICIPATED", cls: "type-unanticipated", text: cleanNarrative(text) })),
+    ...(review?.rca_underestimated || []).map((text) => ({ type: "UNDERESTIMATED", cls: "type-underestimated", text: cleanNarrative(text) })),
+    ...(review?.rca_overestimated || []).map((text) => ({ type: "OVERWEIGHTED", cls: "type-overestimated", text: cleanNarrative(text) })),
+  ].filter((d) => d.text);
+
+  // Deduplicate drivers that repeat the same opening phrase
+  const seenKeys = new Set();
+  const uniqueDrivers = rawDrivers.filter((d) => {
+    const norm = d.text.toLowerCase().slice(0, 36);
+    if (seenKeys.has(norm)) return false;
+    seenKeys.add(norm);
+    return true;
+  });
+
+  const visibleDrivers = showAllDrivers ? uniqueDrivers : uniqueDrivers.slice(0, 4);
 
   return (
     <div className="eval-pane">
@@ -583,69 +618,49 @@ function RCAPanel({ review }) {
       </div>
 
       <div className="eval-pane-body">
-        {!review?.isPendingReview && (
-          <div style={{ padding: "12px 20px 0 20px" }}>
-            <div className="rca-causal-flow">
-              <span className="causal-node text-secondary font-mono">
-                CALL: <strong className="text-primary">{review?.ihsg_predicted || "Neutral"}</strong> {review?.ihsg_confidence ? `(${review.ihsg_confidence}%)` : ""}
-              </span>
-              <span className="causal-arrow">──►</span>
-              <span className="causal-node font-mono" style={{ borderColor: review?.ihsg_correct ? "var(--matched-border)" : "var(--warning-border)" }}>
-                {review?.ihsg_correct ? (
-                  <span className="text-matched">Thesis Confirmed</span>
-                ) : (
-                  <span className="text-warning">
-                    {cleanNarrative(unanticipated[0] || underestimated[0] || "Macro Variance")?.slice(0, 42)}
-                  </span>
-                )}
-              </span>
-              <span className="causal-arrow">──►</span>
-              <span className="causal-node font-mono">
-                <strong className={Number(review?.ihsg_actual_pct) >= 0 ? "text-matched" : "text-missed"}>{formatPct(review?.ihsg_actual_pct)}</strong>
-                <span className={review?.ihsg_correct ? "text-matched font-bold" : "text-missed font-bold"} style={{ marginLeft: "4px" }}>
-                  [{review?.ihsg_correct ? "HIT" : "MISS"}]
-                </span>
-              </span>
-            </div>
-          </div>
-        )}
-
-        {hasDiagnostics && (
+        {uniqueDrivers.length > 0 && (
           <div className="rca-diagnostic-section">
-            <div className="rca-subheading">Variance Drivers</div>
+            <div className="rca-subheading">
+              <span>Variance Attribution ({uniqueDrivers.length})</span>
+            </div>
             <div className="rca-diagnostic-list">
-              {unanticipated.map((item, idx) => (
-                <div key={`unant-${idx}`} className="rca-diagnostic-item">
-                  <span className="rca-diagnostic-type type-unanticipated font-mono">UNANTICIPATED</span>
-                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
-                </div>
-              ))}
-              {underestimated.map((item, idx) => (
-                <div key={`under-${idx}`} className="rca-diagnostic-item">
-                  <span className="rca-diagnostic-type type-underestimated font-mono">UNDERESTIMATED</span>
-                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
-                </div>
-              ))}
-              {overestimated.map((item, idx) => (
-                <div key={`over-${idx}`} className="rca-diagnostic-item">
-                  <span className="rca-diagnostic-type type-overestimated font-mono">OVERWEIGHTED</span>
-                  <span className="rca-diagnostic-text"><RenderWithSources text={cleanNarrative(item)} sources={review?.sources} /></span>
+              {visibleDrivers.map((item, idx) => (
+                <div key={idx} className="rca-diagnostic-item">
+                  <span className={`rca-diagnostic-type ${item.cls} font-mono`}>{item.type}</span>
+                  <span className="rca-diagnostic-text">
+                    <RenderWithSources text={item.text} sources={review?.sources} />
+                  </span>
                 </div>
               ))}
             </div>
+            {uniqueDrivers.length > 4 && (
+              <button
+                type="button"
+                onClick={() => setShowAllDrivers(!showAllDrivers)}
+                className="watchlist-toggle-btn font-mono"
+                style={{ marginTop: "4px" }}
+              >
+                {showAllDrivers
+                  ? "Show Top 4 Variance Drivers ▴"
+                  : `+ Show ${uniqueDrivers.length - 4} More Variance Drivers ▾`}
+              </button>
+            )}
           </div>
         )}
 
         {lessons.length > 0 && (
           <div className="rca-lesson-section">
-            <div className="rca-subheading">Extracted Lessons ({lessons.length})</div>
+            <div className="rca-subheading">
+              <span>Extracted Session Rules ({lessons.length})</span>
+              <span className="font-mono text-xs text-muted">Cap: Max 2/Session</span>
+            </div>
             {lessons.map((lesson, idx) => (
               <HeuristicRuleItem key={idx} lesson={lesson} index={idx} />
             ))}
           </div>
         )}
 
-        {!hasDiagnostics && lessons.length === 0 && (
+        {uniqueDrivers.length === 0 && lessons.length === 0 && (
           <p className="rca-content-muted">
             {review?.isPendingReview
               ? "Session in progress. Post-market evaluation runs at 20:00 WIB."
@@ -671,6 +686,8 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
   const rowUsdIdr = Number.isFinite(Number(review.actual_usdidr))
     ? `Rp ${formatNumber(review.actual_usdidr)}`
     : "—";
+
+  const flowLabel = formatFlowLabel(review.foreign_flow_actual);
 
   return (
     <>
@@ -720,7 +737,7 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
         </td>
         <td>
           <div className="font-mono text-xs flow-cell">
-            <span>{review.foreign_flow_actual || "N/A"}</span>
+            <span className={flowLabel === "Unverified" ? "text-muted" : ""}>{flowLabel}</span>
             {review.foreign_flow_correct !== undefined && review.foreign_flow_correct !== null && (
               <span className={`font-semibold ${review.foreign_flow_correct ? "text-matched" : "text-missed"}`}>
                 ({review.foreign_flow_correct ? "✓" : "✗"})
@@ -758,9 +775,9 @@ function HistoryRow({ review, isSelected, onSelectSession }) {
               <div className="expanded-grid">
                 <div className="detail-item">
                   <div className="detail-label">Foreign Flow</div>
-                  <div className="detail-value">{review.foreign_flow_actual || "N/A"}</div>
+                  <div className="detail-value">{flowLabel}</div>
                   <div className="detail-sub font-mono">
-                    Exp: {review.foreign_flow_predicted || "N/A"}{" "}
+                    Exp: {formatFlowLabel(review.foreign_flow_predicted)}{" "}
                     {review.isPendingReview ? (
                       <span className="text-secondary" style={{ fontSize: "10px", marginLeft: "4px" }}>
                         (● Active)
@@ -857,7 +874,7 @@ function Sidebar({ reviews = [], selectedDate, onSelectDate, currentView = "mark
       </nav>
 
       {reviews.length > 0 && (
-        <div className="sidebar-sessions">
+        <div className="sidebar-sessions" style={{ maxHeight: "240px", overflowY: "auto" }}>
           <div className="sidebar-session-title">Sessions ({reviews.length})</div>
           {reviews.map((r) => {
             const isSel = (!selectedDate && r.date === reviews[0]?.date) || selectedDate === r.date;
@@ -913,6 +930,7 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
   const [theme, setTheme] = useState("dark");
   const [filter, setFilter] = useState("all");
+  const [historyPage, setHistoryPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentView, setCurrentView] = useState("market");
   const [marketStatus, setMarketStatus] = useState({ isOpen: false, status: "closed", label: "IDX: CLOSED" });
@@ -923,9 +941,10 @@ export default function Dashboard() {
   const [methodologyOpen, setMethodologyOpen] = useState(false);
   const [lineageOpen, setLineageOpen] = useState(false);
   const [pipelineStatusOpen, setPipelineStatusOpen] = useState(false);
-  const [showInstitutionalBench, setShowInstitutionalBench] = useState(false);
-  const [benchTab, setBenchTab] = useState("trajectory");
+  const [activeBenchTab, setActiveBenchTab] = useState(null); // null | 'trajectory' | 'baselines' | 'calibration'
   const [activeKpiModal, setActiveKpiModal] = useState(null);
+
+  const HISTORY_PAGE_SIZE = 8;
 
   const handleOpenBriefModal = async (date) => {
     if (!date) return;
@@ -1054,6 +1073,13 @@ export default function Dashboard() {
     return dashboard.reviews;
   }, [dashboard, filter]);
 
+  const totalHistoryPages = Math.max(1, Math.ceil(filteredReviews.length / HISTORY_PAGE_SIZE));
+  const safeHistoryPage = Math.min(historyPage, totalHistoryPages);
+  const paginatedReviews = useMemo(() => {
+    const start = (safeHistoryPage - 1) * HISTORY_PAGE_SIZE;
+    return filteredReviews.slice(start, start + HISTORY_PAGE_SIZE);
+  }, [filteredReviews, safeHistoryPage]);
+
   if (loading) {
     return <main className="center-state">Loading market intelligence...</main>;
   }
@@ -1068,6 +1094,9 @@ export default function Dashboard() {
 
   const isMatched = activeReview?.ihsg_correct;
   const isUp = Number(activeReview?.ihsg_actual_pct) >= 0;
+  const toggleBenchTab = (tab) => {
+    setActiveBenchTab((prev) => (prev === tab ? null : tab));
+  };
 
   return (
     <div className="layout-root">
@@ -1159,8 +1188,8 @@ export default function Dashboard() {
               <span className="context-label font-mono">FOREIGN FLOW</span>
               <div className="context-value font-medium">
                 {dashboard.latest?.isPendingReview
-                  ? (dashboard.latest?.foreign_flow_predicted ? `Exp: ${dashboard.latest.foreign_flow_predicted.replace("/", " / ")}` : "Pending Close")
-                  : (dashboard.latest?.foreign_flow_actual ? dashboard.latest.foreign_flow_actual.replace("/", " / ") : "Neutral")}
+                  ? `Exp: ${formatFlowLabel(dashboard.latest?.foreign_flow_predicted)}`
+                  : formatFlowLabel(dashboard.latest?.foreign_flow_actual)}
               </div>
             </div>
             <div className="context-divider" />
@@ -1172,8 +1201,8 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 4 Core KPI Cards */}
-          <section className="kpi-row">
+          {/* 4 Core KPI Cards (Equal Height) */}
+          <section className="kpi-row" style={{ marginBottom: "16px" }}>
             <div
               className="kpi-card interactive"
               onClick={() => setActiveKpiModal("hit_rate")}
@@ -1185,8 +1214,8 @@ export default function Dashboard() {
               </div>
               <div className="kpi-val-row">
                 <div className="kpi-value font-mono">{dashboard.winRate}%</div>
-                <div className="outcome-pips font-mono">
-                  {dashboard.reviews.map((r) => (
+                <div className="outcome-pips font-mono" style={{ flexWrap: "nowrap" }} title="Last 6 evaluated sessions (newest first)">
+                  {dashboard.reviews.slice(0, 6).map((r) => (
                     <span
                       key={r.date}
                       className={`outcome-pip ${r.isPendingReview ? "pip-pending" : (r.ihsg_correct ? "pip-hit" : "pip-miss")}`}
@@ -1284,65 +1313,76 @@ export default function Dashboard() {
               </div>
               <div className="kpi-context">
                 <span>5-stage hygiene gate → 06:55 prompt</span>
+                <div className="kpi-mini-bar">
+                  <div className="kpi-mini-fill" style={{ width: "100%" }} />
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Quantitative Benchmarks Drawer */}
-          <div className="bench-drawer-header">
-            <span className="bench-ci-label font-mono text-xs">
-              Sample: <strong>n={dashboard.evaluatedCount}</strong> · 95% Wilson CI: [{data?.stats?.directionCi95?.lower_pct ?? data?.nexusStats?.direction_ci_95?.lower_pct ?? "—"}%, {data?.stats?.directionCi95?.upper_pct ?? data?.nexusStats?.direction_ci_95?.upper_pct ?? "—"}%]
+          {/* 1-Click Quantitative Benchmark Bar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "10px",
+              padding: "8px 14px",
+              marginBottom: activeBenchTab ? "12px" : "24px",
+              background: "var(--surface)",
+              border: "1px solid var(--border-default)",
+              borderRadius: "var(--radius-md)",
+              boxShadow: "var(--shadow-card)",
+            }}
+          >
+            <span className="font-mono text-xs text-secondary">
+              Sample: <strong className="text-primary">n={dashboard.evaluatedCount}</strong> · 95% Wilson CI:{" "}
+              <strong className="text-primary">
+                [{data?.stats?.directionCi95?.lower_pct ?? data?.nexusStats?.direction_ci_95?.lower_pct ?? "—"}%,{" "}
+                {data?.stats?.directionCi95?.upper_pct ?? data?.nexusStats?.direction_ci_95?.upper_pct ?? "—"}%]
+              </strong>
             </span>
-            <button
-              type="button"
-              onClick={() => setShowInstitutionalBench(!showInstitutionalBench)}
-              className="bench-toggle-btn font-mono text-xs"
-            >
-              <span>
-                {showInstitutionalBench ? "▲ Hide" : "▼ Show"} Equity Curve, Baselines &amp; Calibration ({data?.stats?.payoff?.long_short_total_bps != null ? `${data.stats.payoff.long_short_total_bps >= 0 ? "+" : ""}${(Number(data.stats.payoff.long_short_total_bps) / 100).toFixed(2)}% L/S` : "Charts"})
-              </span>
-            </button>
+            <div className="filter-tabs">
+              <button
+                type="button"
+                onClick={() => toggleBenchTab("trajectory")}
+                className={`filter-tab-btn font-mono text-xs ${activeBenchTab === "trajectory" ? "active" : ""}`}
+              >
+                📈 Equity Curve ({data?.stats?.payoff?.long_short_total_bps != null ? `${data.stats.payoff.long_short_total_bps >= 0 ? "+" : ""}${(Number(data.stats.payoff.long_short_total_bps) / 100).toFixed(2)}% L/S` : "View"})
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleBenchTab("baselines")}
+                className={`filter-tab-btn font-mono text-xs ${activeBenchTab === "baselines" ? "active" : ""}`}
+              >
+                📊 Naive Baselines
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleBenchTab("calibration")}
+                className={`filter-tab-btn font-mono text-xs ${activeBenchTab === "calibration" ? "active" : ""}`}
+              >
+                🎯 Calibration &amp; Brier
+              </button>
+            </div>
           </div>
 
-          {showInstitutionalBench && (
-            <div className="bench-panel" style={{ marginTop: "-14px", marginBottom: "24px" }}>
-              <div className="bench-tab-bar">
-                <button
-                  type="button"
-                  onClick={() => setBenchTab("trajectory")}
-                  className={`bench-tab-btn font-mono text-xs ${benchTab === "trajectory" ? "active" : ""}`}
-                >
-                  📈 Equity Curve
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setBenchTab("baselines")}
-                  className={`bench-tab-btn font-mono text-xs ${benchTab === "baselines" ? "active" : ""}`}
-                >
-                  📊 Naive Baselines
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setBenchTab("calibration")}
-                  className={`bench-tab-btn font-mono text-xs ${benchTab === "calibration" ? "active" : ""}`}
-                >
-                  🎯 Calibration &amp; Brier
-                </button>
-              </div>
-
-              {benchTab === "trajectory" && (
+          {activeBenchTab && (
+            <div className="bench-panel" style={{ marginTop: "0", marginBottom: "24px" }}>
+              {activeBenchTab === "trajectory" && (
                 <PayoffTrajectoryChart
                   reviews={dashboard?.reviews || data?.reviews || []}
                   payoffStats={data?.nexusStats?.payoff || data?.stats?.payoff || {}}
                   onSelectDate={(d) => setSelectedDate(d)}
                 />
               )}
-              {benchTab === "baselines" && (
+              {activeBenchTab === "baselines" && (
                 <BenchmarkComparisonBars
                   nStats={data?.nexusStats || data?.stats || {}}
                 />
               )}
-              {benchTab === "calibration" && (
+              {activeBenchTab === "calibration" && (
                 <ConfidenceCalibrationVisual
                   calibration={data?.nexusStats?.calibration || data?.stats?.calibration || {}}
                 />
@@ -1352,7 +1392,7 @@ export default function Dashboard() {
 
           {/* Active Session Evaluation */}
           {activeReview && (
-            <section className="eval-section">
+            <section className="eval-section" style={{ marginBottom: "24px" }}>
               <header className="eval-header">
                 <div className="eval-header-title">
                   {activeReview.isPendingReview
@@ -1383,7 +1423,7 @@ export default function Dashboard() {
                     )}
                   </div>
                   <div className="bridge-cell-sub">
-                    Exp. Flow: <span className="text-secondary font-medium font-mono">{activeReview.foreign_flow_predicted || "Neutral"}</span>
+                    Exp. Flow: <span className="text-secondary font-medium font-mono">{formatFlowLabel(activeReview.foreign_flow_predicted)}</span>
                   </div>
                 </div>
 
@@ -1403,7 +1443,7 @@ export default function Dashboard() {
                   </div>
                   <div className="bridge-cell-sub">
                     Act. Flow: <span className="text-secondary font-medium font-mono">
-                      {activeReview.isPendingReview ? "Pending Close" : (activeReview.foreign_flow_actual || "N/A")}
+                      {activeReview.isPendingReview ? "Pending Close" : formatFlowLabel(activeReview.foreign_flow_actual)}
                     </span>
                   </div>
                 </div>
@@ -1474,7 +1514,7 @@ export default function Dashboard() {
                   <div className="eval-pane-body" style={{ padding: 0 }}>
                     <div className="eval-pane-section">
                       {activeReview.premarket_summary && !activeReview.isPendingReview && (
-                        <div style={{ marginBottom: "10px", padding: "8px 12px", background: "var(--surface-subtle)", borderRadius: "4px", borderLeft: "3px solid var(--accent-cyan)" }}>
+                        <div style={{ marginBottom: "8px", padding: "8px 12px", background: "var(--surface-subtle)", borderRadius: "4px", borderLeft: "3px solid var(--accent-cyan)" }}>
                           <div className="font-mono text-xs" style={{ color: "var(--accent-cyan)", fontWeight: 600, marginBottom: "2px" }}>
                             06:55 PRE-MARKET THESIS
                           </div>
@@ -1486,12 +1526,12 @@ export default function Dashboard() {
                       <div className="font-mono text-xs" style={{ color: "var(--text-tertiary)", fontWeight: 600, marginBottom: "4px" }}>
                         {activeReview.isPendingReview ? "06:55 PRE-MARKET THESIS" : "20:00 POST-MARKET AUDIT"}
                       </div>
-                      <p className="eval-summary-text">
+                      <p className="eval-summary-text" style={{ margin: 0 }}>
                         <RenderWithSources text={cleanNarrative(activeReview.summary)} sources={activeReview.sources} />
                         {!activeReview.summary && "No summary logged."}
                       </p>
                       {activeReview.key_risk && (
-                        <div style={{ marginTop: "10px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
+                        <div style={{ marginTop: "8px", padding: "8px 12px", background: "var(--surface-hover)", borderRadius: "4px", borderLeft: "3px solid var(--missed-text)" }}>
                           <div className="font-mono text-xs" style={{ color: "var(--missed-text)", fontWeight: 600, marginBottom: "2px" }}>KEY RISK</div>
                           <div style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.4 }}>
                             <RenderWithSources text={cleanNarrative(activeReview.key_risk)} sources={activeReview.sources} />
@@ -1513,7 +1553,7 @@ export default function Dashboard() {
             </section>
           )}
 
-          {/* Historical Ledger */}
+          {/* Paginated Historical Ledger */}
           <section className="history-section">
             <header className="history-header">
               <div>
@@ -1521,20 +1561,20 @@ export default function Dashboard() {
               </div>
               <div className="filter-tabs">
                 <button
-                  className={`filter-tab-btn ${filter === "all" ? "active" : ""}`}
-                  onClick={() => setFilter("all")}
+                  className={`filter-tab-btn font-mono ${filter === "all" ? "active" : ""}`}
+                  onClick={() => { setFilter("all"); setHistoryPage(1); }}
                 >
                   All ({dashboard.reviews.length})
                 </button>
                 <button
-                  className={`filter-tab-btn ${filter === "matched" ? "active" : ""}`}
-                  onClick={() => setFilter("matched")}
+                  className={`filter-tab-btn font-mono ${filter === "matched" ? "active" : ""}`}
+                  onClick={() => { setFilter("matched"); setHistoryPage(1); }}
                 >
                   Hit ({dashboard.wins})
                 </button>
                 <button
-                  className={`filter-tab-btn ${filter === "missed" ? "active" : ""}`}
-                  onClick={() => setFilter("missed")}
+                  className={`filter-tab-btn font-mono ${filter === "missed" ? "active" : ""}`}
+                  onClick={() => { setFilter("missed"); setHistoryPage(1); }}
                 >
                   Miss ({dashboard.evaluatedCount - dashboard.wins})
                 </button>
@@ -1555,7 +1595,7 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredReviews.map((review) => (
+                  {paginatedReviews.map((review) => (
                     <HistoryRow
                       key={review.date}
                       review={review}
@@ -1563,7 +1603,7 @@ export default function Dashboard() {
                       onSelectSession={(d) => setSelectedDate(d)}
                     />
                   ))}
-                  {filteredReviews.length === 0 && (
+                  {paginatedReviews.length === 0 && (
                     <tr>
                       <td colSpan="8" className="text-muted" style={{ textAlign: "center", padding: "24px 0" }}>
                         No sessions match the selected filter.
@@ -1575,7 +1615,7 @@ export default function Dashboard() {
             </div>
 
             <div className="mobile-cards-list">
-              {filteredReviews.map((review) => (
+              {paginatedReviews.map((review) => (
                 <div
                   key={review.date}
                   className={`mobile-history-card ${activeReview?.date === review.date ? "selected-session" : ""}`}
@@ -1603,17 +1643,59 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="mobile-card-bottom font-mono text-xs">
-                    <span>Flow: {review.foreign_flow_actual || "Unknown"}</span>
+                    <span>Flow: {formatFlowLabel(review.foreign_flow_actual)}</span>
                     <span>Score: {formatNumber(review.accuracy_score)}%</span>
                   </div>
                 </div>
               ))}
-              {filteredReviews.length === 0 && (
+              {paginatedReviews.length === 0 && (
                 <div className="font-mono text-xs text-muted text-center py-4">
                   No sessions match the selected filter.
                 </div>
               )}
             </div>
+
+            {filteredReviews.length > HISTORY_PAGE_SIZE && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "12px 16px",
+                  borderTop: "1px solid var(--border-subtle)",
+                  background: "var(--surface-subtle)",
+                  flexWrap: "wrap",
+                  gap: "10px",
+                }}
+              >
+                <span className="font-mono text-xs text-secondary">
+                  Showing {(safeHistoryPage - 1) * HISTORY_PAGE_SIZE + 1}–{Math.min(safeHistoryPage * HISTORY_PAGE_SIZE, filteredReviews.length)} of {filteredReviews.length} sessions
+                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <button
+                    type="button"
+                    className="filter-tab-btn font-mono"
+                    disabled={safeHistoryPage <= 1}
+                    onClick={() => setHistoryPage((p) => Math.max(1, p - 1))}
+                    style={{ opacity: safeHistoryPage <= 1 ? 0.45 : 1, cursor: safeHistoryPage <= 1 ? "default" : "pointer" }}
+                  >
+                    ← Prev
+                  </button>
+                  <span className="font-mono text-xs text-primary" style={{ padding: "0 8px" }}>
+                    Page {safeHistoryPage} of {totalHistoryPages}
+                  </span>
+                  <button
+                    type="button"
+                    className="filter-tab-btn font-mono"
+                    disabled={safeHistoryPage >= totalHistoryPages}
+                    onClick={() => setHistoryPage((p) => Math.min(totalHistoryPages, p + 1))}
+                    style={{ opacity: safeHistoryPage >= totalHistoryPages ? 0.45 : 1, cursor: safeHistoryPage >= totalHistoryPages ? "default" : "pointer" }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
           </section>
         </div>
         )}
