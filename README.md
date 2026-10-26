@@ -75,47 +75,47 @@ Designed with buy-side quantitative rigor: deterministic economic rules prevent 
 All performance figures, baselines, confidence intervals, calibration metrics, payoff structures, and self-learning hygiene counts are generated deterministically from `runs/global/nexus_stats.json` and `runs/index.json` via `python scripts/evaluate.py`:
 
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-23`, Verified Runs: **24**, Scored Reviews: **n=24**, Unreviewed Pending: **0**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-26`, Verified Runs: **25**, Scored Reviews: **n=25**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |
 | :--- | :--- | :--- |
-| Scored Sessions (n) | **24** | ⚠️ Sample too small to conclude skill (n < 30) |
-| Direction Hit Rate | **37.5%** (9/24) | 95% Wilson CI: [21.2%, 57.3%] |
-| Rolling Accuracy | **31.4%** | Trailing dynamic 50/30/20 attribution average |
+| Scored Sessions (n) | **25** | ⚠️ Sample too small to conclude skill (n < 30) |
+| Direction Hit Rate | **40.0%** (10/25) | 95% Wilson CI: [23.4%, 59.3%] |
+| Rolling Accuracy | **34.1%** | Trailing dynamic 50/30/20 attribution average |
 
 ### TABLE 2: EMPIRICAL NAIVE BASELINES COMPARISON
 | Strategy / Baseline | Accuracy (Hits/n) | Delta vs Nexus Model | Buy-Side Assessment |
 | :--- | :--- | :--- | :--- |
-| **Nexus Multi-Agent Model** | **37.5%** (9/24) | 0.0% | Active directional thesis |
-| Always-Bearish (Down Only) | **54.2%** (13/24) | +16.7% | Outperforms model due to prevailing market downtrend |
-| Persistence (Repeat T-1) | **56.5%** (13/23) | +19.0% | Exploits directional momentum across consecutive sessions |
-| Always-Bullish (Up Only) | **41.7%** (10/24) | +4.2% | Passive long bias leads model in current sample |
+| **Nexus Multi-Agent Model** | **40.0%** (10/25) | 0.0% | Active directional thesis |
+| Always-Bearish (Down Only) | **56.0%** (14/25) | +16.0% | Outperforms model due to prevailing market downtrend |
+| Persistence (Repeat T-1) | **54.2%** (13/24) | +14.2% | Exploits directional momentum across consecutive sessions |
+| Always-Bullish (Up Only) | **40.0%** (10/25) | +0.0% | Model outperforms permanent long bias |
 
 ### TABLE 3: PIPELINE SUB-COMPONENT SCORING BREAKDOWN
 | Component | Nominal Weight | Scorable (n) | Realized Hit Rate | Institutional Interpretation |
 | :--- | :--- | :--- | :--- | :--- |
-| IHSG Direction | 50% | n = 24 | 37.5% (9/24) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
-| Sector Breakdown | 30% | n = 62 | 33.9% (21/62) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
+| IHSG Direction | 50% | n = 25 | 40.0% (10/25) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
+| Sector Breakdown | 30% | n = 63 | 34.9% (22/63) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
 | Foreign Flow | 20% | n = 3 | Insufficient data | Suppressed from scoring when scorable n < 5; treated as institutional context |
 
 ### TABLE 4: PROBABILISTIC CONFIDENCE CALIBRATION & BRIER SCORE
 | Calibration Metric | Measured Value | Plain Language Buy-Side Interpretation |
 | :--- | :--- | :--- |
-| Model Stated Confidence (Uncalibrated) | **79.8%** | Raw uncalibrated LLM confidence output across n=24 scored sessions |
-| Realized Direction Hit Rate | **37.5%** | Actual empirical accuracy (9/24 scored sessions) |
-| Calibrated Confidence (Shrinkage) | **41.0%** (n=24, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
-| Brier Score | **0.4146** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
+| Model Stated Confidence (Uncalibrated) | **79.2%** | Raw uncalibrated LLM confidence output across n=25 scored sessions |
+| Realized Direction Hit Rate | **40.0%** | Actual empirical accuracy (10/25 scored sessions) |
+| Calibrated Confidence (Shrinkage) | **42.5%** (n=25, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
+| Brier Score | **0.4027** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
 
 ### TABLE 5: ECONOMIC PAYOFF STRUCTURE (BASIS POINTS)
 | Strategy Portfolio | Realized Payoff (bps) | Trade Count | Tradability / Practical Feasibility |
 | :--- | :--- | :--- | :--- |
 | **Long-Only (Headline Payoff)** | **-364.0 bps** | 5 calls | Realizable long exposure on retail Indonesian brokerage accounts |
-| Short-Side Payoff | **+1175.0 bps** | 17 calls | **Theoretical only; not retail-tradable on IDX cash index** |
-| Combined Theoretical Long/Short | **+811.0 bps** | 22 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
+| Short-Side Payoff | **+1297.0 bps** | 18 calls | **Theoretical only; not retail-tradable on IDX cash index** |
+| Combined Theoretical Long/Short | **+933.0 bps** | 23 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
 
 ### TABLE 6: SELF-LEARNING LOOP HYGIENE & QUARANTINE AUDIT
-- Valid Injected Lessons: **38** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
+- Valid Injected Lessons: **40** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
 - Quarantined / Rejected Lessons: **19** (prevented from corrupting future pre-market intelligence)
 
 | Session Date | Quarantine Reason | Sample Quarantined Content |

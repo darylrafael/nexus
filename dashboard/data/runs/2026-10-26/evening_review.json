@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-26",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 66,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.22,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energy": null,
+    "Consumer Non-Primer": null,
+    "Financials (Banking)": true,
+    "Basic Materials (Petrochemicals)": null,
+    "Consumer Goods": null
+  },
+  "error_rate_pct": 0,
+  "accuracy_score": 100,
+  "rca_unanticipated": [
+    "Global market shock regarding US Dollar strength and increased odds of a Fed rate hike in December.",
+    "Widespread decline across all sectors, including those predicted bullish, indicating a broader bearish sentiment than anticipated."
+  ],
+  "rca_overestimated": [
+    "The bullish outlook for the Energy sector, which actually declined by 2.36%.",
+    "The bullish outlook for the Consumer Non-Primer sector, which actually declined by 1.53%."
+  ],
+  "rca_underestimated": [
+    "The extent of Rupiah weakening, reaching Rp18.115/USD, which was weaker than the Rp18.080 mentioned in the brief's summary.",
+    "The overall bearish sentiment affecting all sectors, not just the specific ones predicted to be bearish."
+  ],
+  "rca_info_delay": [
+    "News regarding Brent and WTI oil weakening due to geopolitical risks (published 11:00 GMT).",
+    "News about Rupiah weakening to Rp18.110/US$ (published 09:00 GMT).",
+    "News on US Dollar strength and Fed rate hike odds (published 09:00 GMT)."
+  ],
+  "rca_inverse_correlation": [
+    "The morning brief predicted Oil to be bullish, and actual Crude Oil (WTI) rose by +4.15% and Brent Crude by +1.24%. However, a news headline published later (11:00 GMT) stated 'Minyak Brent dan WTI Melemah di Tengah Risiko Geopolitik', implying a bearish outlook for oil despite actual price increases."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan beberapa sektor (Energy, Consumer Non-Primer) diprediksi Bullish, tetapi sentimen bearish meluas ke semua sektor, maka IHSG turun 1.22%, dengan sektor energi terjun 2,36% dan sektor barang konsumsi nonprimer tergerus 1,53%.",
+    "Ketika Rupiah diprediksi melemah ke Rp18.080/USD, tetapi faktor global (Fed rate hike odds) dan sentimen pasar menyebabkan pelemahan lebih lanjut, maka Rupiah melemah 0.343% ke Rp18.115 per USD, menjadi yang terlemah dalam 4 bulan terakhir."
+  ],
+  "summary": "The morning brief correctly predicted a bearish IHSG and foreign distribution, but underestimated the broad market weakness affecting all sectors and the extent of Rupiah depreciation.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18115.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 101.18,
+      "previous_close": 97.15,
+      "change_pct": 4.15,
+      "signal": "Up",
+      "retrieved_at": "2026-10-26T20:01:08+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 110.17,
+      "previous_close": 108.82,
+      "change_pct": 1.24,
+      "signal": "Up",
+      "retrieved_at": "2026-10-26T20:01:08+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.0,
+      "previous_close": 2.79,
+      "change_pct": 7.53,
+      "signal": "Up",
+      "retrieved_at": "2026-10-26T20:01:08+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 26 Oct 2026 04:13:34 GMT | freshness: unknown] Gold prices this morning, October 26, 2026: Gold ring prices are starting to fall. - Vietnam.vn\n# Gold prices this morning, October 26, 2026: Gold ring prices are starting to fall. (CLO) Gold prices this morning, October 26, 2026, remained largely unchanged compared to the closing price of last weekend; however, the market is showing signs of correction as the price of gold rings is beginning to decline. According to gold businesses, gold prices this morning, October 26, 2026, remained largely unchanged compared to the closing price of last\nSource IDs: src_f44b3c0ad8, src_ddfee54a6d, src_fd4e624fd5, src_3aa6951852, src_373dab5422, src_5df68c8e97, src_29ef50141d",
+      "source_ids": [
+        "src_f44b3c0ad8",
+        "src_ddfee54a6d",
+        "src_fd4e624fd5",
+        "src_3aa6951852",
+        "src_373dab5422",
+        "src_5df68c8e97",
+        "src_29ef50141d"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-26T20:01:12+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 26 Oct 2026 12:00:00 GMT | freshness: unknown] Harga CPO Dekati Rp22 Juta per Ton, Minyak Dunia Jadi Penentu\nMedan, MISTAR.ID - Harga minyak kelapa sawit mentah (Crude Palm Oil/CPO) kembali menguat ke level 4.818 ringgit Malaysia per ton atau sekitar Rp21,31 juta\nSource: https://mistar.id/news/ekonomi/harga-cpo-dekati-rp22-juta-per-ton-minyak-dunia-jadi-penentu\nSource ID: src_b3fccf852d\n\n[Mon, 26 Oct 2026 03:00:00 GMT | freshness: unknown] Gandeng Petani Sawit Rakyat, PTPN IV PalmCo Galang Kekuatan Industri Sawit Nasional\nInisiatif tersebut menjadi salah satu fokus dalam Gathering Petani\nSource IDs: src_b3fccf852d, src_efcf7b8b5e",
+      "source_ids": [
+        "src_b3fccf852d",
+        "src_efcf7b8b5e"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-26T20:01:13+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Sun, 25 Oct 2026 18:10:49 GMT | freshness: unknown] Metals traders reap bonanza with another year of record profits - Mining.com\nBrent Crude Oil $ 116.72 / bbl  3.51%. Palladium $ 1051.5 / ozt  -0.05%. Crude Oil $ 103.27 / bbl  4.21%. Natural Gas $ 3.05 / Btu  9.44%. Silver Futures $ 53.949 / ozt  -1.36%. Aluminum Futures $ 3136.75 / ton  1.93%. Micro Gold Futures $ 4007.9 / ozt  -0.86%. Micro Silver Futures $ 53.949 / ozt  -1.24%. Platinum $ 1562.4 / ozt  -0.64%. Gold Futures $ 4007.9 / ozt  -0.85%. # Metals traders reap bonanza with another year of record profits. Bloomberg News | October 2\nSource IDs: src_ddfee54a6d, src_f44b3c0ad8, src_cf991a3bf5, src_ca093684ab, src_373dab5422, src_5df68c8e97, src_7661d7ab07",
+      "source_ids": [
+        "src_ddfee54a6d",
+        "src_f44b3c0ad8",
+        "src_cf991a3bf5",
+        "src_ca093684ab",
+        "src_373dab5422",
+        "src_5df68c8e97",
+        "src_7661d7ab07"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-26T20:01:19+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.36,
+    "stored_usdidr_change_pct": 0.343,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.343,
+  "rupiah_signal": "Weakened"
+}
