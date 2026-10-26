@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-26",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 66,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp1.29 Triliun (all markets); Net Sell Rp1.62 Triliun (Pasar Reguler).",
+  "sector_bullish": [
+    "Energy",
+    "Consumer Non-Primer"
+  ],
+  "sector_bearish": [
+    "Financials (Banking)",
+    "Basic Materials (Petrochemicals)",
+    "Consumer Goods"
+  ],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "ENRG",
+    "BBCA",
+    "BBNI",
+    "BBRI",
+    "BMRI",
+    "TOBA",
+    "TPIA",
+    "NATO",
+    "PTBA",
+    "PTSP"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "CPO": "bullish"
+  },
+  "evidence_ids": [
+    "src_20f602ad21",
+    "src_212a54ee37",
+    "src_5424f20764",
+    "src_5450e3b79b",
+    "src_66b8eba599",
+    "src_7d8a852fdb",
+    "src_8f983717ad",
+    "src_9006bdee94",
+    "src_9bbde6e3d2",
+    "src_a29e8d7f41",
+    "src_add44ca546",
+    "src_b3db12d09f",
+    "src_efb0b04432"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 41.0,
+  "lock_hash": "9e56c4691ab385e9",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-10-26",
+  "created_at": "2026-10-26T07:32:27+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-10-26T07:32:27+07:00",
+  "schema_version": 1
+}

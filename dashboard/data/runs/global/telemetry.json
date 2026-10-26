@@ -1,47 +1,31 @@
 {
   "stats": {
-    "totalRuns": 2,
-    "successfulRuns": 2,
+    "totalRuns": 1,
+    "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 48402,
-    "runsToday": 2
+    "avgDurationMs": 95796,
+    "runsToday": 1
   },
   "agentBreakdown": [
     {
       "agent": "market_agent",
       "total_calls": 1,
-      "avg_duration_ms": 58379.0,
-      "success_rate_pct": 100.0,
-      "error_count": 0
-    },
-    {
-      "agent": "evening_reviewer",
-      "total_calls": 1,
-      "avg_duration_ms": 38424.0,
+      "avg_duration_ms": 95796.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
   ],
   "sessions": [
     {
-      "id": 2,
-      "timestamp": "2026-10-24T16:51:39.728158+07:00",
-      "agent": "evening_reviewer",
-      "model": "llm_client",
-      "success": 1,
-      "error_msg": null,
-      "duration_ms": 38424
-    },
-    {
       "id": 1,
-      "timestamp": "2026-10-24T16:51:01.286970+07:00",
+      "timestamp": "2026-10-26T07:32:27.776733+07:00",
       "agent": "market_agent",
       "model": "llm_client",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 58379
+      "duration_ms": 95796
     }
   ],
-  "exported_at": "2026-10-24T16:51:39.739530+07:00"
+  "exported_at": "2026-10-26T07:32:27.778220+07:00"
 }
