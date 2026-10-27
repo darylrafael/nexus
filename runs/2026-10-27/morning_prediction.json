@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-27",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 66,
+  "foreign_flow_signal": "Accumulation",
+  "foreign_flow_net": "Investor asing mencatatkan Net Sell sebesar Rp1.29 triliun di seluruh pasar pada Jumat, 23 Oktober 2026 (src_c90cfa9b70, src_add44ca546). Di pasar reguler, nilai Net Sell asing mencapai Rp1.62 triliun, sementara di pasar negosiasi dan tunai tercatat Net Buy sebesar Rp330.57 miliar (src_c90cfa9b70, src_e8011eaca3, src_add44ca546).",
+  "sector_bullish": [
+    "Energy"
+  ],
+  "sector_bearish": [
+    "Banking",
+    "Consumer Goods & Consumer Non-Primer",
+    "Petrochemical",
+    "Airlines & Shipping"
+  ],
+  "sector_neutral": [],
+  "recommended_tickers": [
+    "BBCA",
+    "BBNI",
+    "BBRI",
+    "BMRI",
+    "TPIA",
+    "ENRG",
+    "PTBA",
+    "TOBA",
+    "NATO",
+    "PTSP"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "CPO": "bullish"
+  },
+  "evidence_ids": [
+    "src_0c4ed54390",
+    "src_13b4f6cca0",
+    "src_1ca92d39e7",
+    "src_1f77ffd38f",
+    "src_30988d47d1",
+    "src_38ef929566",
+    "src_3daf447e49",
+    "src_3dfe30f505",
+    "src_4c23a0bfee",
+    "src_5547d5e77d",
+    "src_6bae9550a5",
+    "src_76e4cc8c2c",
+    "src_7ce76598e7",
+    "src_8f983717ad",
+    "src_908d12c290",
+    "src_910c4495d4",
+    "src_94b2f9fb39",
+    "src_a7365db018",
+    "src_add44ca546",
+    "src_b15ef35caa",
+    "src_b8c0700135",
+    "src_c90cfa9b70",
+    "src_e8011eaca3",
+    "src_eae9d862e7",
+    "src_fdf6891658"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 42.5,
+  "lock_hash": "47733713e94bbe00",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-10-27",
+  "created_at": "2026-10-27T07:32:29+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-10-27T07:32:29+07:00",
+  "schema_version": 1
+}
