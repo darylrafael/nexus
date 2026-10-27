@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-27",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 66,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.99,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Accumulation",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energy": false,
+    "Banking": null,
+    "Consumer Goods & Consumer Non-Primer": null,
+    "Petrochemical": null,
+    "Airlines & Shipping": null
+  },
+  "error_rate_pct": 38,
+  "accuracy_score": 62,
+  "rca_unanticipated": [
+    "Unjuk Rasa Aliansi Lampung Melawan"
+  ],
+  "rca_overestimated": [
+    "Kekhawatiran pelemahan Rupiah dan outflow asing",
+    "Prediksi Foreign Flow Accumulation"
+  ],
+  "rca_underestimated": [
+    "Penurunan signifikan sektor Energi",
+    "Dampak aksi unjuk rasa"
+  ],
+  "rca_info_delay": [
+    "Berita mengenai strategi pemanfaatan PALN oleh Bank Indonesia"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi lonjakan harga minyak dunia akan menekan Rupiah, namun Rupiah justru menguat 0,31% meskipun Crude Oil (WTI) naik 1.54%."
+  ],
+  "lessons": [
+    "Ketika prediksi sektor Energi adalah bullish, tetapi sektor Energi justru turun 3,33%, maka perlu evaluasi ulang faktor-faktor pendorong sektor komoditas.",
+    "Ketika prediksi Rupiah melemah karena kekhawatiran fiskal dan outflow asing, tetapi Rupiah justru menguat 0,31%, maka sentimen pasar terhadap mata uang mungkin dipengaruhi faktor lain yang lebih kuat.",
+    "Ketika tidak ada prediksi mengenai aksi unjuk rasa, tetapi unjuk rasa Aliansi Lampung Melawan terjadi, maka potensi dampak sosial-politik perlu dipertimbangkan dalam analisis pasar."
+  ],
+  "summary": "IHSG bergerak sesuai prediksi bearish, namun sektor Energi yang diprediksi bullish justru mengalami penurunan signifikan, sementara Rupiah menguat berlawanan dengan prediksi pelemahan.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18025.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 101.0,
+      "previous_close": 99.47,
+      "change_pct": 1.54,
+      "signal": "Up",
+      "retrieved_at": "2026-10-27T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 110.11,
+      "previous_close": 113.17,
+      "change_pct": -2.7,
+      "signal": "Down",
+      "retrieved_at": "2026-10-27T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.03,
+      "previous_close": 2.8,
+      "change_pct": 8.3,
+      "signal": "Up",
+      "retrieved_at": "2026-10-27T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 150.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 27 Oct 2026 01:00:00 GMT | freshness: unknown] IHSG Tertahan Usai Rebound, Saham Batu Bara Mujur Efek USD | Potensi PGEO & JSMR\nDengan rupiah di atas Rp. 18,000/US$, saham berpendapatan USD relatif lebih defensif, terutama batu bara: harga Newcastle bertahan sekitar US$150 per ton dan permintaan global diperkirakan dipengaruhi gangguan pasokan gas. AADI.IJ (Rp. 11,375; PER 5.2x; laba bersih 1H26 US$474 juta, naik 11% yoy) berpotensi membagikan dividen spesial dari divestasi Kestrel, disusul PTBA.IJ (laba bersih 1H26 naik 218% yoy) dan ITMG.IJ (laba bersih 1H26 naik 16% yoy), dengan risik\nSource IDs: src_e454836321, src_f238c5d5dd",
+      "source_ids": [
+        "src_e454836321",
+        "src_f238c5d5dd"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-10-27T20:00:58+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 27 Oct 2026 11:53:20 GMT | freshness: unknown] Mapping the Market: Oil may be in for a slide - Kitco\n# Mapping the Market: Oil may be in for a slide. Oct 27 (Reuters) - US crude oil prices are holding near the top of this year's range. Trading during the Iran war suggests lasting gains from here will be hard to come by, and technical analysis points to possible losses. Gaps form when prices jump or drop so fast that they skip over a range of price levels, leaving an empty space ​on the chart. Volatile trading during the Iran war left several gaps on the chart of the US oil price, which i\nSource IDs: src_b53443a5b2, src_4a68982d0b, src_0f0163289d, src_e59d634f72, src_ba497408fd, src_30ad70f6a5, src_c81385a7e5",
+      "source_ids": [
+        "src_b53443a5b2",
+        "src_4a68982d0b",
+        "src_0f0163289d",
+        "src_e59d634f72",
+        "src_ba497408fd",
+        "src_30ad70f6a5",
+        "src_c81385a7e5"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-27T20:01:03+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 27 Oct 2026 06:53:39 GMT | freshness: unknown] Top Gainers and Losers Today, 27 October 2026 at 12:00 PM - HDFC Sky\n# Top Gainers and Losers Today, 27 October 2026 at 12:00 PM IST: Tata Consumer Products Leads Gainers. Tata Consumer Products Ltd led the visible gainers list on 27 October 2026, rising 5.14% to ₹984.65. **Mumbai, October 27:** The market snapshot at 12:00 PM IST showed gains in stocks such as Tata Consumer Products Ltd, Bajaj Auto Ltd and Bharat Electronics Ltd. Tata Consumer Products Ltd rose 5.14%, while Bajaj Auto Ltd advanced 2.77%. In contrast, Hindalco Industries Ltd\nSource IDs: src_ba497408fd, src_db8e9cd56c, src_2e97dfa51a, src_376393c4b9, src_bb1a918c56, src_f9821150ab, src_9fae945a2e",
+      "source_ids": [
+        "src_ba497408fd",
+        "src_db8e9cd56c",
+        "src_2e97dfa51a",
+        "src_376393c4b9",
+        "src_bb1a918c56",
+        "src_f9821150ab",
+        "src_9fae945a2e"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-27T20:01:07+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.497,
+    "stored_usdidr_change_pct": -0.31,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.31,
+  "rupiah_signal": "Strengthened"
+}
