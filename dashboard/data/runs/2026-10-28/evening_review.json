@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-28",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 64,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.31,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "None": null,
+    "Infrastruktur": true,
+    "Teknologi": null,
+    "Barang Konsumen Primer": null,
+    "Barang Konsumen Non-Primer": null,
+    "Kesehatan": false,
+    "Properti": null,
+    "Barang Baku": null,
+    "Transportasi dan Logistik": null,
+    "Industri": null,
+    "Banking": false,
+    "Energy": null
+  },
+  "error_rate_pct": 88,
+  "accuracy_score": 12,
+  "rca_unanticipated": [
+    "Mass demonstration (labor & student) in Jakarta",
+    "BI Policy Surprise (Rupiah correction to Rp18,174)",
+    "Global market shock with bank shares rally",
+    "Unexpected strong performance in Kesehatan sector (+1.71%)"
+  ],
+  "rca_overestimated": [
+    "Rupiah weakness beyond Rp18.200",
+    "Foreign flow distribution (net sell Rp1.85 triliun)"
+  ],
+  "rca_underestimated": [
+    "Positive sentiment from RUPSLB BEI shareholder meeting",
+    "Strong buying in top gainers and health sector",
+    "Positive global commodity price movements (Natural Gas +16.44%)",
+    "Bank shares rally due to budget tax relief"
+  ],
+  "rca_info_delay": [
+    "RUPSLB BEI positive response (11:00 GMT)",
+    "Mass demonstration (labor & student) (22:29 GMT)",
+    "BI Policy Surprise (09:00 GMT)",
+    "Global market shock with bank shares (07:00 GMT)"
+  ],
+  "rca_inverse_correlation": [
+    "Rupiah weakening (X) expected to cause bearish IHSG (Y), but IHSG rose 0.31% (Z) due to positive market sentiment from RUPSLB BEI and strong sector performance."
+  ],
+  "lessons": [
+    "Ketika prediksi pagi menandakan IHSG Signal Bearish (confidence 64%), tetapi RUPSLB BEI mengeluarkan sentimen positif pada 11:00 GMT, maka IHSG naik 0,31% (16,2 poin) menjadi 5.282,31.",
+    "Ketika perkiraan foreign flow distribution (net sell Rp1.85 triliun) dianggap menjadi faktor utama, tetapi adanya peningkatan IHSG 0,31% (16,2 poin) menjadi 5.282,31 terjadi, maka dampak pasar menjadi bullish meski ada tekanan asing."
+  ],
+  "summary": "Prediksi pagi menandakan IHSG bearish, tetapi IHSG actually naik 0,31% (16,2 poin) menjadi 5.282,31, dengan sentimen positif dari RUPSLB BEI dan kenaikan sektor kesehatan mengalahkan tekanan asing.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18175.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 102.05,
+      "previous_close": 103.27,
+      "change_pct": -1.18,
+      "signal": "Down",
+      "retrieved_at": "2026-10-28T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 111.41,
+      "previous_close": 116.72,
+      "change_pct": -4.55,
+      "signal": "Down",
+      "retrieved_at": "2026-10-28T20:00:58+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.07,
+      "previous_close": 2.64,
+      "change_pct": 16.44,
+      "signal": "Up",
+      "retrieved_at": "2026-10-28T20:00:58+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 27 Oct 2026 14:44:00 GMT | freshness: unknown] Op-Ed: How foreign miners can unlock ASX listings - Mining.com\nSilver Futures $ 54.075 / ozt  -0.41%. Micro Gold Futures $ 4029.2 / ozt  0.43%. Micro Silver Futures $ 54.07 / ozt  -0.41%. Gold Futures $ 4030.2 / ozt  0.45%. Robert Speed | October 27, 2026 | 7:44 am  Critical Minerals Exploration Markets Australia Canada Latin America USA Coal Copper Gold Iron Ore. Australia is becoming an increasingly attractive destination for foreign mining companies seeking fresh capital, but choosing the right listing pathway can determine whether the mo\nSource IDs: src_1fb96d70fd, src_d413434d52, src_8c3bf77583, src_9be71ef1bd, src_daab76081e, src_167aaac540, src_08d043929f",
+      "source_ids": [
+        "src_1fb96d70fd",
+        "src_d413434d52",
+        "src_8c3bf77583",
+        "src_9be71ef1bd",
+        "src_daab76081e",
+        "src_167aaac540",
+        "src_08d043929f"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-28T20:01:02+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 28 Oct 2026 11:15:00 GMT | freshness: unknown] Oil rises on supply disruption concerns; Houthis claim attack on Saudi Ras Tanura complex - ICIS\n# Oil rises on supply disruption concerns; Houthis claim attack on Saudi Ras Tanura complex. on Saudi Ras Tanura complex. Oil rises on supply disruption concerns; Houthis claim attack. SINGAPORE (ICIS)–Crude oil prices rebounded on. Wednesday, rising by more $1/barrel after two. sessions of declines, amid heightened supply. disruption concerns in the Middle East and amid. $1.58/barrel at $115.46/barrel; while US crude. gained $1.44/barrel to $101\nSource IDs: src_72b9672683, src_1cd931d903, src_d413434d52, src_78df8d5119, src_93221cae8e, src_daab76081e, src_da8da9d6ec",
+      "source_ids": [
+        "src_72b9672683",
+        "src_1cd931d903",
+        "src_d413434d52",
+        "src_78df8d5119",
+        "src_93221cae8e",
+        "src_daab76081e",
+        "src_da8da9d6ec"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-28T20:01:07+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 27 Oct 2026 15:00:00 GMT | freshness: unknown] LME Zinc | London Metal Exchange\nImage 14: Zinc\n\n Summary  Intraday data  Volume & OI  Price graphs  Five-day look-back  Averages  Live prices \n\n Trading SUMMARY  Prices in US$  Data valid for 27 Oct 2026 28 Oct 2026 \n\n### LME Zinc Official Prices\n\nfalse\n\n Select price unit   US$/t\n\n| Contract | Bid | Offer |\n --- \n| Cash | 3926.00 | 3927.00 |\n| 3-month | 3828.00 | 3830.00 |\n| Dec-27 | 3705.00 | 3710.00 |\n| Dec-28 | 3535.00 | 3540.00 |\n| Dec-29 | 3325.00 | 3330.00 |\n\n### LME Zinc Closing Prices\n\nfalse [...] false \n\n Price graphs  Shown in US\nSource IDs: src_e14f829573, src_c551ee4f41",
+      "source_ids": [
+        "src_e14f829573",
+        "src_c551ee4f41"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-28T20:01:11+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.832,
+    "stored_usdidr_change_pct": 0.171,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.171,
+  "rupiah_signal": "Weakened"
+}
