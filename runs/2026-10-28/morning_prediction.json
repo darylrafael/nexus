@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-28",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 64,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp1.85 Triliun (all market), Net Sell Rp2.03 Triliun (pasar reguler).",
+  "sector_bullish": [
+    "None"
+  ],
+  "sector_bearish": [
+    "Infrastruktur",
+    "Teknologi",
+    "Barang Konsumen Primer",
+    "Barang Konsumen Non-Primer",
+    "Kesehatan",
+    "Properti",
+    "Barang Baku",
+    "Transportasi dan Logistik",
+    "Industri"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Energy"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BMRI",
+    "BRIS",
+    "BBRI",
+    "TLKM"
+  ],
+  "key_risk": "The continued weakening of the Rupiah beyond Rp18.200 per USD and persistent foreign outflows could exacerbate selling pressure on the IHSG.",
+  "commodities_predicted": {
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_0e8d0562b2",
+    "src_11d75e1f8e",
+    "src_1b78b31c01",
+    "src_1f55ac251a",
+    "src_27ae3f17c2",
+    "src_27e9541806",
+    "src_296bf0d181",
+    "src_31ab6d1bae",
+    "src_36047509d9",
+    "src_872055e000",
+    "src_88ec00a794",
+    "src_8dd1d9bf93",
+    "src_908d12c290",
+    "src_a7363db018",
+    "src_b0b3b3f786",
+    "src_b967f11e11",
+    "src_b97d35afa3",
+    "src_d389fba2b3",
+    "src_d9d60e3f4a",
+    "src_fff7f3867b"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 44.0,
+  "lock_hash": "fb8ca6c4a6bad37e",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-10-28",
+  "created_at": "2026-10-28T07:33:31+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-10-28T07:33:31+07:00",
+  "schema_version": 1
+}

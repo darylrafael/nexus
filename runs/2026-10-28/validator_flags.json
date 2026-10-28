@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-28",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Crude Oil",
+      "reference_value": 0.98,
+      "line_number": 19,
+      "line": "- **Summary**: Natural Gas prices surged by 9.62% to $3.06. Crude Oil (WTI) saw a modest increase of 0.98% to $100.44, while Brent Crude declined by 2.87% to $109.92. No fresh price data was available for Coal, CPO, or Nickel during the observation window.",
+      "issue": "Crude Oil is positive (+0.98%) in data, but line uses negative term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": 9.62,
+      "line_number": 19,
+      "line": "- **Summary**: Natural Gas prices surged by 9.62% to $3.06. Crude Oil (WTI) saw a modest increase of 0.98% to $100.44, while Brent Crude declined by 2.87% to $109.92. No fresh price data was available for Coal, CPO, or Nickel during the observation window.",
+      "issue": "Natural Gas is positive (+9.62%) in data, but line uses negative term"
+    }
+  ],
+  "count": 2,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 19,
+      "issue": "Crude Oil is positive (+0.98%) in data, but line uses negative term",
+      "line": "- **Summary**: Natural Gas prices surged by 9.62% to $3.06. Crude Oil (WTI) saw a modest increase of 0.98% to $100.44, while Brent Crude declined by 2.87% to $109.92. No fresh price data was available for Coal, CPO, or Nickel during the observation window.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 19,
+      "issue": "Natural Gas is positive (+9.62%) in data, but line uses negative term",
+      "line": "- **Summary**: Natural Gas prices surged by 9.62% to $3.06. Crude Oil (WTI) saw a modest increase of 0.98% to $100.44, while Brent Crude declined by 2.87% to $109.92. No fresh price data was available for Coal, CPO, or Nickel during the observation window.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
