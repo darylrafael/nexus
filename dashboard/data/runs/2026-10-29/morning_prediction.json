@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-29",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 62,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Sell Rp708,88 miliar di pasar reguler (src_fadeb1e550, src_b09af67d69). Net Sell Rp668,26 miliar di seluruh pasar (src_fadeb1e550). Terdapat net buy Rp40,62 miliar di pasar tunai dan negosiasi (src_95a74d7184).",
+  "sector_bullish": [
+    "Industrial",
+    "Consumer Non-Primer",
+    "Property"
+  ],
+  "sector_bearish": [
+    "Financial",
+    "Technology",
+    "Transportation dan Logistik",
+    "Infrastruktur",
+    "Kesehatan",
+    "Barang Konsumen Primer"
+  ],
+  "sector_neutral": [
+    "Basic Materials",
+    "Energy"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BBNI",
+    "BMRI",
+    "BRIS",
+    "TLKM",
+    "ARII",
+    "MDKA",
+    "ASII",
+    "BOGA",
+    "CPIN"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_212a54ee37",
+    "src_5402921a38",
+    "src_5a24107a77",
+    "src_5f9f702f5e",
+    "src_6931f340b8",
+    "src_7797fdf179",
+    "src_88ec00a794",
+    "src_95a74d7184",
+    "src_b09af67d69",
+    "src_bd9e32cb25",
+    "src_e7e917a8ae",
+    "src_f2f2c1e466",
+    "src_fadeb1e550"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 42.2,
+  "lock_hash": "02d9abad06aaf57b",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-10-29",
+  "created_at": "2026-10-29T07:32:24+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-10-29T07:32:24+07:00",
+  "schema_version": 1
+}

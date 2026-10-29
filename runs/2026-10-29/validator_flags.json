@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-29",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": 14.24,
+      "line_number": 17,
+      "line": "- **Summary**: Harga Crude Oil (WTI) turun 1.07% menjadi 102.16 dan Brent Crude turun 5.04% menjadi 110.84. Sebaliknya, harga Natural Gas melonjak 14.24% menjadi 3.02. Tidak ada data harga terbaru yang tersedia untuk Batu Bara, CPO, dan Nikel selama periode observasi.",
+      "issue": "Natural Gas is positive (+14.24%) in data, but line uses negative term"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 41,
+      "line": "- **Consumer Non-Primer**: Meskipun sektor secara keseluruhan melemah (-1.36% pada 27 Oktober), beberapa saham di sektor ini menjadi top gainer (TGUK +23.46%, BOGA +22.88%, TMPO +20.63%, MKNT +14.29%, ERAL +13.67%), menunjukkan adanya minat beli selektif (src_5402921a38).",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 42,
+      "line": "- **Property**: Sektor ini mencatat salah satu top gainer tertinggi (DADA +33.33% pada 27 Oktober) meskipun sektor properti secara keseluruhan melemah (-1.55%) (src_5402921a38, src_f2f2c1e466).",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 46,
+      "line": "- **Energy**: Sektor ini merupakan yang paling tertekan pada 27 Oktober (-3.33%). Meskipun harga minyak mentah turun, harga gas alam melonjak, menciptakan dampak yang beragam. Saham ARII (+12.29%) menjadi top gainer, dan AADI diproyeksikan menawarkan dividen menarik (src_5402921a38, src_f2f2c1e466, src_6931f340b8).",
+      "issue": "Negative direction term used with positive percentage"
+    }
+  ],
+  "count": 4,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 17,
+      "issue": "Natural Gas is positive (+14.24%) in data, but line uses negative term",
+      "line": "- **Summary**: Harga Crude Oil (WTI) turun 1.07% menjadi 102.16 dan Brent Crude turun 5.04% menjadi 110.84. Sebaliknya, harga Natural Gas melonjak 14.24% menjadi 3.02. Tidak ada data harga terbaru yang tersedia untuk Batu Bara, CPO, dan Nikel selama periode observasi.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 41,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Consumer Non-Primer**: Meskipun sektor secara keseluruhan melemah (-1.36% pada 27 Oktober), beberapa saham di sektor ini menjadi top gainer (TGUK +23.46%, BOGA +22.88%, TMPO +20.63%, MKNT +14.29%, ERAL +13.67%), menunjukkan adanya minat beli selektif (src_5402921a38).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 42,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Property**: Sektor ini mencatat salah satu top gainer tertinggi (DADA +33.33% pada 27 Oktober) meskipun sektor properti secara keseluruhan melemah (-1.55%) (src_5402921a38, src_f2f2c1e466).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 46,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Energy**: Sektor ini merupakan yang paling tertekan pada 27 Oktober (-3.33%). Meskipun harga minyak mentah turun, harga gas alam melonjak, menciptakan dampak yang beragam. Saham ARII (+12.29%) menjadi top gainer, dan AADI diproyeksikan menawarkan dividen menarik (src_5402921a38, src_f2f2c1e466, src_6931f340b8).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
