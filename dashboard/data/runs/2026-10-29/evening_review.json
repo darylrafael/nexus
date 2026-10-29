@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-29",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 62,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -3.49,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Industrial": false,
+    "Consumer Non-Primer": false,
+    "Property": false,
+    "Financial": true,
+    "Technology": true,
+    "Transportation dan Logistik": true,
+    "Infrastruktur": true,
+    "Kesehatan": true,
+    "Barang Konsumen Primer": true,
+    "Basic Materials": false,
+    "Energy": false
+  },
+  "error_rate_pct": 14,
+  "accuracy_score": 86,
+  "rca_unanticipated": [
+    "61 titik unjuk rasa dan 17 kegiatan masyarakat di Jakarta",
+    "Geopolitical concerns leading to market decline"
+  ],
+  "rca_overestimated": [
+    "Antisipasi sinyal kebijakan ketat dari The Fed sebagai pemicu pelemahan Rupiah"
+  ],
+  "rca_underestimated": [
+    "Severity of market decline and widespread bearishness across all sectors",
+    "Impact of global sentiment on IHSG"
+  ],
+  "rca_info_delay": [
+    "IHSG Turun 1%: Tekanan Sektor dan Sentimen Global (09:51:42 GMT+7)",
+    "IHSG Mendadak Ambles 2% Lebih, Ada Apa? (11:00:00 GMT+7)",
+    "Kejutan Lagi IHSG Mendadak Anjlok hingga 2,17 Persen di Level 5.167 Kamis 29 Oktober 2026 (11:00:00 GMT+7)",
+    "Termasuk Demo Universitas Trisaksi, 61 Titik Demo 29 Oktober Tersebar di Jakarta (15:00:00 GMT+7)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed Rupiah would weaken due to anticipation of tight Fed policy, but the Fed maintained rates, leading to Rupiah strengthening by 0.083%."
+  ],
+  "lessons": [
+    "Ketika Rupiah terus melemah di tengah antisipasi kebijakan ketat dari The Fed, tetapi The Fed mempertahankan suku bunga acuannya, maka Rupiah menguat 0.083% menjadi Rp18.125.",
+    "Ketika IHSG diprediksi Bearish dengan confidence 62%, tetapi 61 titik unjuk rasa dan 17 kegiatan masyarakat terjadi di Jakarta, maka IHSG anjlok 3.49% ke level 5.098,06."
+  ],
+  "summary": "The morning brief correctly predicted a bearish IHSG and stagnant foreign flow, but underestimated the severity of the market decline (-3.49%) and the widespread bearishness across all sectors, influenced by unexpected geopolitical concerns and local demonstrations, while the Rupiah strengthened contrary to expectations regarding Fed policy.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18125.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 101.25,
+      "previous_close": 101.76,
+      "change_pct": -0.5,
+      "signal": "Down",
+      "retrieved_at": "2026-10-29T20:01:03+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 110.3,
+      "previous_close": 115.81,
+      "change_pct": -4.76,
+      "signal": "Down",
+      "retrieved_at": "2026-10-29T20:01:03+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.94,
+      "previous_close": 2.6,
+      "change_pct": 12.95,
+      "signal": "Up",
+      "retrieved_at": "2026-10-29T20:01:03+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 150.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 29 Oct 2026 07:00:00 GMT | freshness: unknown] Harga Batu Bara Hari Ini 29 Oktober 2026: Bertahan di US$150 per Ton\nJakarta, Pintu News – Harga batu bara acuan Newcastle masih bertahan di kisaran US$150 per ton. Berdasarkan data yang dihimpun Investor.id,\nSource: https://pintu.co.id/news/296755-harga-batu-bara-hari-ini-29-oktober-2026-bertahan-di-us150-per-ton/amp\nSource ID: src_0db1a5fa2e\n\n[Wed, 28 Oct 2026 23:32:17 GMT | freshness: unknown] Saham Batu Bara Tawarkan Dividen 9 Persen pada 2026 hingga 2028\nFaktor-faktor tersebut akan memengaruhi kapasitas emiten untuk mempertahankan pemba\nSource IDs: src_0db1a5fa2e, src_6931f340b8, src_233ffd63e2, src_8913195a4b, src_7a50de73f3, src_f65b818982, src_66f2567b53",
+      "source_ids": [
+        "src_0db1a5fa2e",
+        "src_6931f340b8",
+        "src_233ffd63e2",
+        "src_8913195a4b",
+        "src_7a50de73f3",
+        "src_f65b818982",
+        "src_66f2567b53"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-10-29T20:01:05+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 29 Oct 2026 05:00:00 GMT | freshness: unknown] Harga TBS Sawit Jambi Meroket Jadi Rp3.717/Kg, Ini Rincian Harga TBS 30 Oktober-5 November 2026 - https://jambiekspres.disway.id/\nPasalnya, harga Tandan Buah Segar (TBS) meroket menjadi Rp3.717,77 per kilogram untuk kelompok umur 10 sampai 20 tahun pada periode 30 Oktober hingga 05\nSource: https://jambiekspres.disway.id/kelapa-sawit/read/725274/harga-tbs-sawit-jambi-meroket-jadi-rp3717kg-ini-rincian-harga-tbs-30-oktober-5-november-2026\nSource ID: src_d071133d5b\n\n[Thu, 29 Oct 2026 03:00:00 GMT | freshness: unknown] Menkop Dorong Koperasi Masu\nSource IDs: src_d071133d5b, src_25083ba251, src_1ba1aac67a, src_1a9c9f846f",
+      "source_ids": [
+        "src_d071133d5b",
+        "src_25083ba251",
+        "src_1ba1aac67a",
+        "src_1a9c9f846f"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-29T20:01:06+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 15.5,
+      "change_pct": 0.44,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Thu, 29 Oct 2026 07:00:00 GMT | freshness: unknown] Harga Nikel Hari Ini 29 Oktober 2026: Tertahan di Kisaran US$15.500 - Pintu News\nMenurut kumparan, harga nikel di London Metal Exchange (LME) naik 0,44% ke US$15.629 per ton pada penutupan Selasa (27/10). Kontan mencatat harga nikel di kisaran US$15.600 per ton pada Rabu, sekitar 20% di bawah level tertinggi 2026 di US$19.448 per ton yang tercapai pada 5 Mei 2026. [...] ## Kelebihan Pasokan Masih Membayangi\n\nInternational Nickel Study Group (INSG) memproyeksikan surplus nikel global sebesar 19.000 ton pada 2026 dan melebar menjadi 70.000 ton\nSource IDs: src_1863808419, src_54b8710fcd, src_d1ffc0457d",
+      "source_ids": [
+        "src_1863808419",
+        "src_54b8710fcd",
+        "src_d1ffc0457d"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-10-29T20:01:07+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.275,
+    "stored_usdidr_change_pct": -0.083,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.083,
+  "rupiah_signal": "Strengthened"
+}

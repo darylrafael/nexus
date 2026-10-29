@@ -1,5 +1,5 @@
 {
-  "total_sessions": 27,
+  "total_sessions": 28,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -27,50 +27,51 @@
     "2026-10-23",
     "2026-10-26",
     "2026-10-27",
-    "2026-10-28"
+    "2026-10-28",
+    "2026-10-29"
   ],
   "is_sample_sufficient": false,
-  "sample_size_n": 27,
-  "sample_warning": "Insufficient sample size (n = 27 < 30) for statistical significance.",
-  "direction_accuracy_pct": 40.7,
-  "direction_correct_count": 11,
-  "direction_scorable_sessions": 27,
+  "sample_size_n": 28,
+  "sample_warning": "Insufficient sample size (n = 28 < 30) for statistical significance.",
+  "direction_accuracy_pct": 42.9,
+  "direction_correct_count": 12,
+  "direction_scorable_sessions": 28,
   "direction_info": {
-    "pct": 40.7,
-    "n": 27,
-    "correct": 11,
-    "label": "n = 27, sample too small",
+    "pct": 42.9,
+    "n": 28,
+    "correct": 12,
+    "label": "n = 28, sample too small",
     "is_sufficient": false
   },
   "direction_ci_95": {
-    "lower_pct": 24.5,
-    "upper_pct": 59.3,
+    "lower_pct": 26.5,
+    "upper_pct": 60.9,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 55.6,
-    "always_bearish_count": 15,
-    "always_bearish_total": 27,
-    "always_bullish_pct": 40.7,
+    "always_bearish_pct": 57.1,
+    "always_bearish_count": 16,
+    "always_bearish_total": 28,
+    "always_bullish_pct": 39.3,
     "always_bullish_count": 11,
-    "always_bullish_total": 27,
-    "majority_class_pct": 55.6,
-    "persistence_pct": 53.8,
+    "always_bullish_total": 28,
+    "majority_class_pct": 57.1,
+    "persistence_pct": 51.9,
     "persistence_correct_count": 14,
-    "persistence_scorable_sessions": 26
+    "persistence_scorable_sessions": 27
   },
   "calibration": {
-    "average_stated_confidence_pct": 78.2,
-    "calibrated_confidence_pct": 42.2,
-    "sample_size_n": 27,
+    "average_stated_confidence_pct": 77.6,
+    "calibrated_confidence_pct": 43.7,
+    "sample_size_n": 28,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
-    "empirical_weight": 0.9,
-    "realized_hit_rate_pct": 40.7,
+    "empirical_weight": 0.9333,
+    "realized_hit_rate_pct": 42.9,
     "status_label": "illustrative shrinkage estimate",
-    "brier_score": 0.3923,
+    "brier_score": 0.3834,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Illustrative shrinkage estimate (42.2%, n = 27 < 30)",
+    "confidence_label": "Illustrative shrinkage estimate (43.7%, n = 28 < 30)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -78,35 +79,35 @@
     "long_only_total_bps": -364.0,
     "long_only_avg_bps": null,
     "long_only_trades": 5,
-    "short_only_total_bps": 1465.0,
+    "short_only_total_bps": 1814.0,
     "short_only_avg_bps": null,
-    "short_only_trades": 20,
+    "short_only_trades": 21,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1101.0,
+    "long_short_total_bps": 1450.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
   "flow_accuracy_pct": null,
-  "flow_correct_count": 1,
-  "flow_scorable_sessions": 3,
+  "flow_correct_count": 2,
+  "flow_scorable_sessions": 4,
   "flow_info": {
     "pct": null,
-    "n": 3,
-    "correct": 1,
+    "n": 4,
+    "correct": 2,
     "label": "Insufficient data",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 34.3,
-  "sector_correct_count": 23,
-  "sector_verifiable_count": 67,
+  "sector_accuracy_pct": 37.2,
+  "sector_correct_count": 29,
+  "sector_verifiable_count": 78,
   "sector_info": {
-    "pct": 34.3,
-    "n": 67,
-    "correct": 23,
-    "label": "n = 67",
+    "pct": 37.2,
+    "n": 78,
+    "correct": 29,
+    "label": "n = 78",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 34.3,
-  "rolling_20_accuracy": 30.6,
+  "rolling_avg_accuracy": 36.2,
+  "rolling_20_accuracy": 35.0,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -151,7 +152,8 @@
     "Ketika prediksi sektor Energi adalah bullish, tetapi sektor Energi justru turun 3,33%, maka perlu evaluasi ulang faktor-faktor pendorong sektor komoditas.",
     "Ketika prediksi Rupiah melemah karena kekhawatiran fiskal dan outflow asing, tetapi Rupiah justru menguat 0,31%, maka sentimen pasar terhadap mata uang mungkin dipengaruhi faktor lain yang lebih kuat.",
     "Ketika prediksi pagi menandakan IHSG Signal Bearish (confidence 64%), tetapi RUPSLB BEI mengeluarkan sentimen positif pada 11:00 GMT, maka IHSG naik 0,31% (16,2 poin) menjadi 5.282,31.",
-    "Ketika perkiraan foreign flow distribution (net sell Rp1.85 triliun) dianggap menjadi faktor utama, tetapi adanya peningkatan IHSG 0,31% (16,2 poin) menjadi 5.282,31 terjadi, maka dampak pasar menjadi bullish meski ada tekanan asing."
+    "Ketika perkiraan foreign flow distribution (net sell Rp1.85 triliun) dianggap menjadi faktor utama, tetapi adanya peningkatan IHSG 0,31% (16,2 poin) menjadi 5.282,31 terjadi, maka dampak pasar menjadi bullish meski ada tekanan asing.",
+    "Ketika Rupiah terus melemah di tengah antisipasi kebijakan ketat dari The Fed, tetapi The Fed mempertahankan suku bunga acuannya, maka Rupiah menguat 0.083% menjadi Rp18.125."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -274,12 +276,16 @@
     "Positive sentiment from RUPSLB BEI shareholder meeting": 1,
     "Strong buying in top gainers and health sector": 1,
     "Positive global commodity price movements (Natural Gas +16.44%)": 1,
-    "Bank shares rally due to budget tax relief": 1
+    "Bank shares rally due to budget tax relief": 1,
+    "61 titik unjuk rasa dan 17 kegiatan masyarakat di Jakarta": 1,
+    "Geopolitical concerns leading to market decline": 1,
+    "Severity of market decline and widespread bearishness across all sectors": 1,
+    "Impact of global sentiment on IHSG": 1
   },
-  "last_updated": "2026-10-28",
+  "last_updated": "2026-10-29",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-10-28",
-  "history_rescore_note": "Rescored across 27 genuine sessions (2026-09-22 to 2026-10-28) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-10-29",
+  "history_rescore_note": "Rescored across 28 genuine sessions (2026-09-22 to 2026-10-29) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -380,6 +386,11 @@
       "date": "2026-10-27",
       "lesson": "Ketika tidak ada prediksi mengenai aksi unjuk rasa, tetapi unjuk rasa Aliansi Lampung Melawan terjadi, maka potensi dampak sosial-politik perlu dipertimbangkan dalam analisis pasar.",
       "reason": "session_limit_exceeded: max 2 lessons per session"
+    },
+    {
+      "date": "2026-10-29",
+      "lesson": "Ketika IHSG diprediksi Bearish dengan confidence 62%, tetapi 61 titik unjuk rasa dan 17 kegiatan masyarakat terjadi di Jakarta, maka IHSG anjlok 3.49% ke level 5.098,06.",
+      "reason": "numeric_contradiction: stated IHSG 62.0% vs actual -3.49%"
     }
   ],
   "heuristics": [
@@ -954,14 +965,27 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-10-28"
+    },
+    {
+      "id": "rule-45",
+      "rule": "Ketika Rupiah terus melemah di tengah antisipasi kebijakan ketat dari The Fed, tetapi The Fed mempertahankan suku bunga acuannya, maka Rupiah menguat 0.083% menjadi Rp18.125.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-10-29"
     }
   ],
-  "active_heuristics_count": 19,
+  "active_heuristics_count": 20,
   "superseded_heuristics_count": 0,
   "hypothesis_heuristics_count": 25,
-  "ihsg_accuracy_pct": 40.7,
-  "ihsg_correct_count": 11,
+  "ihsg_accuracy_pct": 42.9,
+  "ihsg_correct_count": 12,
   "ff_accuracy_pct": 0.0,
-  "ff_correct_count": 1,
-  "total_accuracy_sum": 927.0
+  "ff_correct_count": 2,
+  "total_accuracy_sum": 1013.0
 }
