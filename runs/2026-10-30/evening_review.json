@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-30",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 64,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.8,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Distribution",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Kesehatan": null,
+    "Keuangan": false,
+    "Transportasi dan Logistik": false,
+    "Energi (Upstream Gas)": null,
+    "Barang Konsumen Primer": null,
+    "Infrastruktur": true,
+    "Energi (Overall)": true,
+    "Barang Baku": true,
+    "Teknologi": null,
+    "Properti": false,
+    "Industri": null
+  },
+  "error_rate_pct": 35,
+  "accuracy_score": 65,
+  "rca_unanticipated": [
+    "Aksi demonstrasi organisasi masyarakat (ormas) di kawasan pabrik mobil listrik BYD Subang"
+  ],
+  "rca_overestimated": [
+    "Efektivitas kebijakan Bank Indonesia (BI) dalam menjaga stabilitas Rupiah dan menarik modal asing"
+  ],
+  "rca_underestimated": [
+    "Tekanan jual investor asing yang masif (net sell Rp1,52 triliun)",
+    "Pelemahan Rupiah sebesar 0.404%",
+    "Pelemahan sektor yang meluas di hampir seluruh sektor"
+  ],
+  "rca_info_delay": [
+    "Data net sell investor asing sebesar Rp1,52 triliun yang baru tersedia pada 08:43 WIB"
+  ],
+  "rca_inverse_correlation": [
+    "Brief berasumsi kebijakan BI untuk menjaga stabilitas rupiah dan menarik modal asing akan efektif, tetapi Rupiah melemah 0.404% dan investor asing mencatatkan net sell Rp1,52 triliun."
+  ],
+  "lessons": [
+    "Ketika foreign flow diprediksi stagnan dengan net buy Rp664.24 miliar, tetapi data aktual menunjukkan net sell Rp1,52 triliun terjadi, maka IHSG ditutup melemah 0.80%.",
+    "Ketika Rupiah diprediksi menguat terbatas, tetapi Rupiah melemah 0.404% terjadi, maka IHSG ditutup melemah 0.80%.",
+    "Ketika outlook sektor diprediksi bervariasi dengan beberapa sektor bullish, tetapi hampir seluruh sektor mencatatkan pelemahan terjadi, maka IHSG ditutup melemah 0.80%."
+  ],
+  "summary": "Meskipun prediksi IHSG bearish tepat, proyeksi foreign flow stagnan dan penguatan Rupiah meleset jauh dari kenyataan distribusi asing dan pelemahan Rupiah, ditambah dengan pelemahan sektor yang lebih luas dari perkiraan.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18138.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 104.13,
+      "previous_close": 101.76,
+      "change_pct": 2.33,
+      "signal": "Up",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 113.31,
+      "previous_close": 115.81,
+      "change_pct": -2.16,
+      "signal": "Down",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.88,
+      "previous_close": 2.6,
+      "change_pct": 10.57,
+      "signal": "Up",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 06:00:00 GMT | freshness: unknown] Harga Saham BUMI Hari Ini 30 Oktober 2026: Melemah ke Rp118\nJakarta, Pintu News – Saham PT Bumi Resources Tbk (BUMI) melemah 2,48% ke level Rp118 per saham hingga akhir Sesi I perdagangan Jumat, 30 Oktober 2026.\nSource: https://pintu.co.id/news/296999-harga-saham-bumi-hari-ini-30-oktober-2026\nSource ID: src_3c63418271\n\n[Thu, 29 Oct 2026 20:00:00 GMT | freshness: unknown] Laba Bersih PTBA Capai Rp 4,41 T hingga Kuartal III 2026 - kumparan.com\nPTBA kantongi laba bersih Rp 4,41 triliun hingga kuartal III 2026 berkat kenaikan harga jual batu bar\nSource IDs: src_3c63418271, src_48fdf353e5, src_bfba656e26",
+      "source_ids": [
+        "src_3c63418271",
+        "src_48fdf353e5",
+        "src_bfba656e26"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:01+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 00:00:00 GMT | freshness: unknown] Maintaining Mining Competitiveness Amidst Policy Dynamics\nrising crude oil prices … around US$140 per ton then reaching US$153 per ton in September 2026. crude palm oil (CPO)\nSource: https://www.kompas.id/artikel/maintaining-mining-competitiveness-amidst-the-dynamics-of-policy-changes?open_from=English_Page\nSource ID: src_189d35c77a\n\n[Fri, 30 Oct 2026 11:00:00 GMT | freshness: unknown] MALAYSIA PRICES OF CRUDE PALM OIL\n|  |\n\n| MALAYSIA PRICES OF CRUDE PALM OIL  |  |  |  --- | | MYR 4,591.50 | Latest Price: 19 August 2026 |     6M  3M  1M  1W\nSource IDs: src_189d35c77a, src_56b4172631",
+      "source_ids": [
+        "src_189d35c77a",
+        "src_56b4172631"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:05+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 12:37:53 GMT | freshness: unknown] Current price of silver as of Friday, Oct. 30, 2026 - Fortune\nWe may earn affiliate revenue from links in the content. # Current price of silver as of Friday, October 30, 2026. That’s a $1.95 downtick from 24 hours ago and a $1.63 gain over the past year. | Silver price per ounce | % Change |. | Price of silver 1 year ago | $48.91 | +3.33% |. Silver’s strength lies in preservation of value—shielding you from inflation, in other words. * Discover the highest high-yield savings rates for October 29, 2026. * Discover the highest CD rates for Oc\nSource IDs: src_ea88c03640, src_4978a26eee, src_7be40e19d2, src_ba1d6b37ee, src_0db08ea984, src_463088a916, src_fa680ab5b1",
+      "source_ids": [
+        "src_ea88c03640",
+        "src_4978a26eee",
+        "src_7be40e19d2",
+        "src_ba1d6b37ee",
+        "src_0db08ea984",
+        "src_463088a916",
+        "src_fa680ab5b1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:09+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.072,
+    "stored_usdidr_change_pct": 0.404,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.404,
+  "rupiah_signal": "Weakened"
+}

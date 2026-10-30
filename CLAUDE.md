@@ -95,48 +95,48 @@ TELEGRAM_CHAT_ID=
 
 ## Generated Evaluation Metrics (`scripts/evaluate.py`)
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-29`, Verified Runs: **28**, Scored Reviews: **n=28**, Unreviewed Pending: **0**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-10-30`, Verified Runs: **29**, Scored Reviews: **n=29**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |
 | :--- | :--- | :--- |
-| Scored Sessions (n) | **28** | ⚠️ Sample too small to conclude skill (n < 30) |
-| Direction Hit Rate | **42.9%** (12/28) | 95% Wilson CI: [26.5%, 60.9%] |
-| Rolling Accuracy | **36.2%** | Trailing dynamic 50/30/20 attribution average |
+| Scored Sessions (n) | **29** | ⚠️ Sample too small to conclude skill (n < 30) |
+| Direction Hit Rate | **44.8%** (13/29) | 95% Wilson CI: [28.4%, 62.5%] |
+| Rolling Accuracy | **37.2%** | Trailing dynamic 50/30/20 attribution average |
 
 ### TABLE 2: EMPIRICAL NAIVE BASELINES COMPARISON
 | Strategy / Baseline | Accuracy (Hits/n) | Delta vs Nexus Model | Buy-Side Assessment |
 | :--- | :--- | :--- | :--- |
-| **Nexus Multi-Agent Model** | **42.9%** (12/28) | 0.0% | Active directional thesis |
-| Always-Bearish (Down Only) | **57.1%** (16/28) | +14.2% | Outperforms model due to prevailing market downtrend |
-| Persistence (Repeat T-1) | **51.9%** (14/27) | +9.0% | Exploits directional momentum across consecutive sessions |
-| Always-Bullish (Up Only) | **39.3%** (11/28) | -3.6% | Model outperforms permanent long bias |
+| **Nexus Multi-Agent Model** | **44.8%** (13/29) | 0.0% | Active directional thesis |
+| Always-Bearish (Down Only) | **58.6%** (17/29) | +13.8% | Outperforms model due to prevailing market downtrend |
+| Persistence (Repeat T-1) | **53.6%** (15/28) | +8.8% | Exploits directional momentum across consecutive sessions |
+| Always-Bullish (Up Only) | **37.9%** (11/29) | -6.9% | Model outperforms permanent long bias |
 
 ### TABLE 3: PIPELINE SUB-COMPONENT SCORING BREAKDOWN
 | Component | Nominal Weight | Scorable (n) | Realized Hit Rate | Institutional Interpretation |
 | :--- | :--- | :--- | :--- | :--- |
-| IHSG Direction | 50% | n = 28 | 42.9% (12/28) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
-| Sector Breakdown | 30% | n = 78 | 37.2% (29/78) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
-| Foreign Flow | 20% | n = 4 | Insufficient data | Suppressed from scoring when scorable n < 5; treated as institutional context |
+| IHSG Direction | 50% | n = 29 | 44.8% (13/29) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
+| Sector Breakdown | 30% | n = 84 | 38.1% (32/84) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
+| Foreign Flow | 20% | n = 5 | n = 5, sample too small | Suppressed from scoring when scorable n < 5; treated as institutional context |
 
 ### TABLE 4: PROBABILISTIC CONFIDENCE CALIBRATION & BRIER SCORE
 | Calibration Metric | Measured Value | Plain Language Buy-Side Interpretation |
 | :--- | :--- | :--- |
-| Model Stated Confidence (Uncalibrated) | **77.6%** | Raw uncalibrated LLM confidence output across n=28 scored sessions |
-| Realized Direction Hit Rate | **42.9%** | Actual empirical accuracy (12/28 scored sessions) |
-| Calibrated Confidence (Shrinkage) | **43.7%** (n=28, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
-| Brier Score | **0.3834** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
+| Model Stated Confidence (Uncalibrated) | **77.1%** | Raw uncalibrated LLM confidence output across n=29 scored sessions |
+| Realized Direction Hit Rate | **44.8%** | Actual empirical accuracy (13/29 scored sessions) |
+| Calibrated Confidence (Shrinkage) | **45.2%** (n=29, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
+| Brier Score | **0.3747** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
 
 ### TABLE 5: ECONOMIC PAYOFF STRUCTURE (BASIS POINTS)
 | Strategy Portfolio | Realized Payoff (bps) | Trade Count | Tradability / Practical Feasibility |
 | :--- | :--- | :--- | :--- |
 | **Long-Only (Headline Payoff)** | **-364.0 bps** | 5 calls | Realizable long exposure on retail Indonesian brokerage accounts |
-| Short-Side Payoff | **+1814.0 bps** | 21 calls | **Theoretical only; not retail-tradable on IDX cash index** |
-| Combined Theoretical Long/Short | **+1450.0 bps** | 26 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
+| Short-Side Payoff | **+1894.0 bps** | 22 calls | **Theoretical only; not retail-tradable on IDX cash index** |
+| Combined Theoretical Long/Short | **+1530.0 bps** | 27 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
 
 ### TABLE 6: SELF-LEARNING LOOP HYGIENE & QUARANTINE AUDIT
-- Valid Injected Lessons: **45** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
-- Quarantined / Rejected Lessons: **21** (prevented from corrupting future pre-market intelligence)
+- Valid Injected Lessons: **46** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
+- Quarantined / Rejected Lessons: **23** (prevented from corrupting future pre-market intelligence)
 
 | Session Date | Quarantine Reason | Sample Quarantined Content |
 | :--- | :--- | :--- |
@@ -161,5 +161,7 @@ TELEGRAM_CHAT_ID=
 | 2026-10-23 | `session_limit_exceeded: max 2 lessons per session` | Ketika Foreign Flow diprediksi Distribusi (Net Sell), dan memang ... |
 | 2026-10-27 | `session_limit_exceeded: max 2 lessons per session` | Ketika tidak ada prediksi mengenai aksi unjuk rasa, tetapi unjuk ... |
 | 2026-10-29 | `numeric_contradiction: stated IHSG 62.0% vs actual -3.49%` | Ketika IHSG diprediksi Bearish dengan confidence 62%, tetapi 61 t... |
+| 2026-10-30 | `duplicate_tail: maka ihsg ditutup melemah 0` | Ketika Rupiah diprediksi menguat terbatas, tetapi Rupiah melemah ... |
+| 2026-10-30 | `duplicate_tail: maka ihsg ditutup melemah 0` | Ketika outlook sektor diprediksi bervariasi dengan beberapa sekto... |
 <!-- METRICS:END -->
 

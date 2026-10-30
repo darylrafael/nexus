@@ -1,0 +1,207 @@
+{
+  "date": "2026-10-30",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_3c63418271",
+    "src_48fdf353e5",
+    "src_bfba656e26",
+    "src_189d35c77a",
+    "src_56b4172631",
+    "src_ea88c03640",
+    "src_4978a26eee",
+    "src_7be40e19d2",
+    "src_ba1d6b37ee",
+    "src_0db08ea984",
+    "src_463088a916",
+    "src_fa680ab5b1",
+    "src_5f5d70d0a8",
+    "src_c67f6a34f3",
+    "src_f0c23427f6",
+    "src_c67f6a34f3",
+    "src_c1b908fb05",
+    "src_e6020c1214",
+    "src_c813b481ee"
+  ],
+  "target_date": "2026-10-30",
+  "ihsg": {
+    "status": "ok",
+    "close": 5057.05,
+    "prev": 5098.06,
+    "change_pct": -0.8,
+    "change_pts": -41.01,
+    "signal": "Bearish",
+    "open": 5066.94,
+    "high": 5116.01,
+    "low": 4979.34,
+    "volume": 0,
+    "candle_date": "2026-10-30",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-10-30T20:01:00+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18138.0,
+    "prev": 18065.0,
+    "change_pct": 0.404,
+    "signal": "Weakened",
+    "candle_date": "2026-10-30",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-10-30T20:01:00+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5057.05,
+  "ihsg_prev": 5098.06,
+  "ihsg_change_pct": -0.8,
+  "ihsg_change_pts": -41.01,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-10-30T20:01:00+07:00",
+  "usdidr_rate": 18138.0,
+  "usdidr_prev": 18065.0,
+  "usdidr_change_pct": 0.404,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-10-30T20:01:00+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 104.13,
+      "previous_close": 101.76,
+      "change_pct": 2.33,
+      "signal": "Up",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 113.31,
+      "previous_close": 115.81,
+      "change_pct": -2.16,
+      "signal": "Down",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.88,
+      "previous_close": 2.6,
+      "change_pct": 10.57,
+      "signal": "Up",
+      "retrieved_at": "2026-10-30T20:01:00+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 06:00:00 GMT | freshness: unknown] Harga Saham BUMI Hari Ini 30 Oktober 2026: Melemah ke Rp118\nJakarta, Pintu News – Saham PT Bumi Resources Tbk (BUMI) melemah 2,48% ke level Rp118 per saham hingga akhir Sesi I perdagangan Jumat, 30 Oktober 2026.\nSource: https://pintu.co.id/news/296999-harga-saham-bumi-hari-ini-30-oktober-2026\nSource ID: src_3c63418271\n\n[Thu, 29 Oct 2026 20:00:00 GMT | freshness: unknown] Laba Bersih PTBA Capai Rp 4,41 T hingga Kuartal III 2026 - kumparan.com\nPTBA kantongi laba bersih Rp 4,41 triliun hingga kuartal III 2026 berkat kenaikan harga jual batu bar\nSource IDs: src_3c63418271, src_48fdf353e5, src_bfba656e26",
+      "source_ids": [
+        "src_3c63418271",
+        "src_48fdf353e5",
+        "src_bfba656e26"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:01+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 00:00:00 GMT | freshness: unknown] Maintaining Mining Competitiveness Amidst Policy Dynamics\nrising crude oil prices … around US$140 per ton then reaching US$153 per ton in September 2026. crude palm oil (CPO)\nSource: https://www.kompas.id/artikel/maintaining-mining-competitiveness-amidst-the-dynamics-of-policy-changes?open_from=English_Page\nSource ID: src_189d35c77a\n\n[Fri, 30 Oct 2026 11:00:00 GMT | freshness: unknown] MALAYSIA PRICES OF CRUDE PALM OIL\n|  |\n\n| MALAYSIA PRICES OF CRUDE PALM OIL  |  |  |  --- | | MYR 4,591.50 | Latest Price: 19 August 2026 |     6M  3M  1M  1W\nSource IDs: src_189d35c77a, src_56b4172631",
+      "source_ids": [
+        "src_189d35c77a",
+        "src_56b4172631"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:05+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 30 Oct 2026 12:37:53 GMT | freshness: unknown] Current price of silver as of Friday, Oct. 30, 2026 - Fortune\nWe may earn affiliate revenue from links in the content. # Current price of silver as of Friday, October 30, 2026. That’s a $1.95 downtick from 24 hours ago and a $1.63 gain over the past year. | Silver price per ounce | % Change |. | Price of silver 1 year ago | $48.91 | +3.33% |. Silver’s strength lies in preservation of value—shielding you from inflation, in other words. * Discover the highest high-yield savings rates for October 29, 2026. * Discover the highest CD rates for Oc\nSource IDs: src_ea88c03640, src_4978a26eee, src_7be40e19d2, src_ba1d6b37ee, src_0db08ea984, src_463088a916, src_fa680ab5b1",
+      "source_ids": [
+        "src_ea88c03640",
+        "src_4978a26eee",
+        "src_7be40e19d2",
+        "src_ba1d6b37ee",
+        "src_0db08ea984",
+        "src_463088a916",
+        "src_fa680ab5b1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-10-30T20:01:09+07:00"
+    }
+  },
+  "top_movers": "[Fri, 30 Oct 2026 09:00:00 GMT | freshness: unknown] 10 Saham Top Gainer Perdagangan Jumat 30 Oktober 2026, ALKA Kembali Posisi Teratas\nSaham PT Alakasa Industrindo Tbk (ALKA) masih menempati urutan teratas top gainer hari ini dengan kenaikan harga sebesar 25 persen di Rp5.525 per unit. 10\nSource: https://www.idxchannel.com/amp/market-news/10-saham-top-gainer-perdagangan-jumat-30-oktober-2026-alka-kembali-posisi-teratas\nSource ID: src_5f5d70d0a8\n\n[Fri, 30 Oct 2026 10:00:00 GMT | freshness: unknown] 9 Sektor Saham Turun, Transportasi Paling Bawah (Jumat, 30 Oktober 2026)\nMenurut data Bursa Efek Indonesia (BEI), Indeks Harga Saham Gabungan (IHSG) turun 0,80% ke level 5.057,05 pada penutupan perdagangan Jumat (30/10/2026).\nSource: https://databoks.katadata.co.id/pasar/statistik/6ae468dcb3ec6/9-sektor-saham-turun-transportasi-paling-bawah-jumat-30-oktober-2026\nSource ID: src_c67f6a34f3\n\n[Fri, 30 Oct 2026 05:00:00 GMT | freshness: unknown] IHSG Drop 1,29% ke 5.032, Nyaris Seluruh Sektor Merah!\nEmitenNews.com - Indeks Harga Saham Gabungan (IHSG) ditutup melemah cukup dalam pada sesi I perdagangan Jumat (30/10/2026). Berdasarkan data RTI Business,\nSource: https://emitennews.com/news/ihsg-drop-129-ke-5032-nyaris-seluruh-sektor-merah\nSource ID: src_f0c23427f6\n\nSource IDs: src_5f5d70d0a8, src_c67f6a34f3, src_f0c23427f6",
+  "sector_performance": "[Fri, 30 Oct 2026 10:00:00 GMT | freshness: unknown] 9 Sektor Saham Turun, Transportasi Paling Bawah (Jumat, 30 Oktober 2026)\nMenurut data Bursa Efek Indonesia (BEI), Indeks Harga Saham Gabungan (IHSG) turun 0,80% ke level 5.057,05 pada penutupan perdagangan Jumat (30/10/2026).\nSource: https://databoks.katadata.co.id/pasar/statistik/6ae468dcb3ec6/9-sektor-saham-turun-transportasi-paling-bawah-jumat-30-oktober-2026\nSource ID: src_c67f6a34f3\n\n[Fri, 30 Oct 2026 06:00:00 GMT | freshness: unknown] Harga Saham BMRI Hari Ini 30 Oktober 2026: Melemah ke Rp3.700 - Pintu News\nIHSG dibuka melemah 0,61% ke level 5.066,94 pada Jumat pagi. Sekitar pukul 09.45 WIB, indeks sempat turun 2,16% ke level 4.987, dengan hampir seluruh sektor berada di zona merah. Sektor infrastruktur, bahan baku, energi, dan properti mencatat pelemahan terdalam, sementara sektor keuangan turun lebih terbatas. [...] Bank Mandiri Persero Tbk PT (BMRI) Historical Data – Investing.com, diakses pada 30 Oktober 2026\n PT Bank Mandiri (Persero) Tbk (IDX:BMRI) Stock Price – StockAnalysis, diakses pada 30 Oktober 2026\n IHSG Intraday Sesi I Anjlok Sentuh 4.987, Semua Sektor Saham Tersungkur – Investortrust, diakses pada 30 Oktober 2026\n IHSG Bergerak Fluktuatif, Sempat Dibuka Melemah 0,61% – Investortrust, diakses pada 30 Oktober 2026 [...] Pada Kamis (29/10), BMRI turun 3,13%, bersamaan dengan BBCA yang turun 6,35% dan BBRI yang turun 3,77%. Ketiga saham bank berkapitalisasi besar ini menjadi penekan utama IHSG pada hari tersebut.\n\nInvestor asing juga tercatat melepas BMRI dengan penjualan bersih sekitar Rp155,9 miliar pada Kamis (29/10), di bawah BBCA (sekitar Rp503,5 miliar) dan BBRI (sekitar Rp164,5 miliar).\n\nSebagai gambaran, rentang harga BMRI dalam 52 minggu terakhir berada di Rp3.200 hingga Rp5.375.\nSource: https://pintu.co.id/news/296998-harga-saham-bmri-hari-ini-30-oktober-2026\nSource ID: src_c1b908fb05\n\n[Fri, 30 Oct 2026 12:00:00 GMT | freshness: unknown] IHSG Turun 16,70% Sepanjang Oktober 2026, Ditutup 5.057 Pada Jumat (30/10)\nJumat (30/10), IHSG turun 41,01 poin atau 0,80% menjadi 5.057,05 pada perdagangan di Bursa Efek Indonesia (BEI).\nSource: https://pusatdata.kontan.co.id/news/ihsg-turun-1670-sepanjang-oktober-2026-ditutup-5057-pada-jumat-3010\nSource ID: src_e6020c1214\n\nSource IDs: src_c67f6a34f3, src_c1b908fb05, src_e6020c1214",
+  "foreign_flow_raw": "[Fri, 30 Oct 2026 02:00:00 GMT | freshness: unknown] IHSG Anjlok 3,4%, Ini 5 Rekomendasi Saham Pilihan Hari Ini\nnet sell Rp1,52 triliun. 30 October 2026 08:43. Gabungan (IHSG) Investor asing mencatatkan net sell sebesar Rp1,52. Meski IHSG Anjlok 3,4%,\nSource: https://www.cnbcindonesia.com/market/20261030083349-17-780809/ihsg-anjlok-34-ini-5-rekomendasi-saham-pilihan-hari-ini\nSource ID: src_c813b481ee\n\nSource IDs: src_c813b481ee",
+  "foreign_flow": {
+    "signal": "Distribution",
+    "net_trillion": -1.52,
+    "raw_figure": "1.52 triliun",
+    "direction": "Sell",
+    "market_scope": "regular",
+    "is_all_market": false,
+    "regular_net_trillion": -1.52,
+    "all_market_net_trillion": null,
+    "divergence_alert": null,
+    "reason": "classified_successfully",
+    "matched_date": "2026-10-30",
+    "target_date": "2026-10-30",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Distribution",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-10-30, target=2026-10-30",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-10-30, target=2026-10-30",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-10-30",
+        "retrieved_at": "2026-10-30T20:01:00+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-10-30",
+        "retrieved_at": "2026-10-30T20:01:00+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-10-30",
+        "retrieved_at": "2026-10-30T20:01:15+07:00",
+        "valid": true,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-10-30",
+        "retrieved_at": "2026-10-30T20:01:15+07:00",
+        "valid": true
+      }
+    }
+  }
+}
