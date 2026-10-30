@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-30",
+  "flags": [
+    {
+      "type": "sign_contradiction",
+      "line_number": 3,
+      "line": "- **Summary**: Rupiah menunjukkan penguatan terbatas pada Kamis (29/10), ditutup pada level Rp18.137 per dolar AS (naik 0.26% menurut Bloomberg) dan kurs referensi JISDOR terapresiasi 0.30% ke Rp18.128 per dolar AS dari Rp18.183 pada perdagangan sebelumnya (src_9342f5dcc6). Bank Indonesia (BI) mempertahankan BI-Rate sebesar 5.75% pada Rapat Dewan Gubernur (RDG) 20-21 Oktober 2026, namun menaikkan suku bunga Deposit Facility menjadi 5.00% dan memperkuat insentif Domestic Non-Deliverable Forward (DNDF) untuk menjaga stabilitas rupiah dan menarik modal asing (src_1dcd4680c6). Proyeksi awal pertumbuhan ekonomi Indonesia untuk Kuartal III 2026 diperkirakan antara 5.0-5.3% secara tahunan (src_612c71a471).",
+      "issue": "Positive direction term used with negative percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 7,
+      "line": "*   HEAL (+11.68%): Sektor kesehatan, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 8,
+      "line": "*   VICI (+11.88%): Sektor barang konsumen non-primer, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 9,
+      "line": "*   KLBF (+3.52%): Sektor barang konsumen primer, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 55,
+      "line": "- **Barang Konsumen Primer**: Meskipun sektor ini turun 0.52% pada sesi terakhir, penguatan Rupiah dapat mengurangi biaya bahan baku impor, memberikan potensi rebound. — KLBF (+3.52%), BOGA (Top Accumulated)",
+      "issue": "Negative direction term used with positive percentage"
+    }
+  ],
+  "count": 5,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 3,
+      "issue": "Positive direction term used with negative percentage",
+      "line": "- **Summary**: Rupiah menunjukkan penguatan terbatas pada Kamis (29/10), ditutup pada level Rp18.137 per dolar AS (naik 0.26% menurut Bloomberg) dan kurs referensi JISDOR terapresiasi 0.30% ke Rp18.128 per dolar AS dari Rp18.183 pada perdagangan sebelumnya (src_9342f5dcc6). Bank Indonesia (BI) mempertahankan BI-Rate sebesar 5.75% pada Rapat Dewan Gubernur (RDG) 20-21 Oktober 2026, namun menaikkan suku bunga Deposit Facility menjadi 5.00% dan memperkuat insentif Domestic Non-Deliverable Forward (DNDF) untuk menjaga stabilitas rupiah dan menarik modal asing (src_1dcd4680c6). Proyeksi awal pertumbuhan ekonomi Indonesia untuk Kuartal III 2026 diperkirakan antara 5.0-5.3% secara tahunan (src_612c71a471).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 7,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "*   HEAL (+11.68%): Sektor kesehatan, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 8,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "*   VICI (+11.88%): Sektor barang konsumen non-primer, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 9,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "*   KLBF (+3.52%): Sektor barang konsumen primer, diuntungkan dari potensi penurunan biaya bahan baku impor akibat penguatan Rupiah.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 55,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Barang Konsumen Primer**: Meskipun sektor ini turun 0.52% pada sesi terakhir, penguatan Rupiah dapat mengurangi biaya bahan baku impor, memberikan potensi rebound. — KLBF (+3.52%), BOGA (Top Accumulated)",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}

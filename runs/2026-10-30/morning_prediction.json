@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-30",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 64,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Investor asing mencatatkan net buy sebesar Rp664.24 miliar di seluruh pasar, dengan net buy Rp257.74 miliar di pasar reguler dan net buy Rp406.50 miliar di pasar tunai dan negosiasi (src_c090a1ac8a, src_be237c18f4).",
+  "sector_bullish": [
+    "Kesehatan",
+    "Keuangan",
+    "Transportasi dan Logistik",
+    "Energi (Upstream Gas)",
+    "Barang Konsumen Primer"
+  ],
+  "sector_bearish": [
+    "Infrastruktur",
+    "Energi (Overall)",
+    "Barang Baku"
+  ],
+  "sector_neutral": [
+    "Teknologi",
+    "Properti",
+    "Industri"
+  ],
+  "recommended_tickers": [
+    "ASII",
+    "BRMS",
+    "ENRG",
+    "KLBF",
+    "ADRO",
+    "BBCA",
+    "BBRI",
+    "BMRI",
+    "BOGA",
+    "GOTO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_0af0e9353c",
+    "src_15bc557e7a",
+    "src_1dcd4680c6",
+    "src_612c71a471",
+    "src_70b51b26d0",
+    "src_7e3f55e985",
+    "src_89a2749aec",
+    "src_9342f5dcc6",
+    "src_be237c18f4",
+    "src_c090a1ac8a",
+    "src_d2b95b9134"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 43.7,
+  "lock_hash": "6a754c586744d11a",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-10-30",
+  "created_at": "2026-10-30T07:31:54+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-10-30T07:31:54+07:00",
+  "schema_version": 1
+}
