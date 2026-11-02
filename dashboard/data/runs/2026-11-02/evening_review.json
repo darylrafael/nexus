@@ -1,0 +1,151 @@
+{
+  "date": "2026-11-02",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 69,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.79,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energi": true,
+    "Kesehatan": false,
+    "Keuangan": true,
+    "Transportasi dan Logistik": true,
+    "Barang Baku": false,
+    "Properti": true,
+    "Industri": false,
+    "Infrastruktur": false,
+    "Barang Konsumen Primer": false,
+    "Teknologi": true,
+    "Barang Konsumen Non-Primer": false,
+    "Perbankan": false
+  },
+  "error_rate_pct": 84,
+  "accuracy_score": 16,
+  "rca_unanticipated": [
+    "Rencana perluasan pemungutan pajak digital yang menyasar aktivitas keuangan elektronik",
+    "Pemerintah Bangladesh membentuk dewan pengupahan usai demo buruh garmen berujung bentrok"
+  ],
+  "rca_overestimated": [
+    "IHSG Bearish signal (confidence 69%)",
+    "Commodity Oil bullish signal (Crude Oil WTI fell -3.26%, Brent Crude fell -5.84%)"
+  ],
+  "rca_underestimated": [
+    "Inflasi Indonesia yang melandai pada Oktober 2026",
+    "Broad positive sentiment leading to significant gains in multiple sectors (Barang Baku +2.12%, Industri +0.76%, Infrastruktur +1.4%, Barang Konsumen Primer +0.04%, Barang Konsumen Non-Primer +0.3%)"
+  ],
+  "rca_info_delay": [
+    "Berita 'Transfer Bank Kena Pajak Digital' yang dirilis pada 12:00 PM WIB",
+    "Berita 'Pemerintah Bangladesh Bentuk Dewan Pengupahan Usai Demo Buruh Garmen Berujung Bentrok' yang dirilis pada 3:00 PM WIB"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi IHSG Bearish karena tekanan Rupiah, namun meskipun Rupiah melemah 0.415%, IHSG justru menguat 0.79%, menunjukkan faktor domestik positif (seperti inflasi melandai) lebih dominan.",
+    "Brief memprediksi harga Oil bullish, namun Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 69% karena ketidakpastian global dan tekanan Rupiah, tetapi faktor domestik seperti inflasi melandai terjadi, maka IHSG justru menguat 0.79%.",
+    "Ketika komoditas Oil diprediksi bullish, tetapi sentimen pasar global berubah, maka Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%."
+  ],
+  "summary": "Morning brief memprediksi IHSG Bearish dan beberapa sektor akan melemah, namun IHSG justru menguat 0.79% didorong oleh penguatan mayoritas sektor dan faktor domestik positif, sementara prediksi komoditas Oil terbalik.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18145.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 99.43,
+      "previous_close": 102.78,
+      "change_pct": -3.26,
+      "signal": "Down",
+      "retrieved_at": "2026-11-02T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 108.59,
+      "previous_close": 115.32,
+      "change_pct": -5.84,
+      "signal": "Down",
+      "retrieved_at": "2026-11-02T20:00:58+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.97,
+      "previous_close": 2.82,
+      "change_pct": 5.5,
+      "signal": "Up",
+      "retrieved_at": "2026-11-02T20:00:58+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 12:00:00 GMT | freshness: unknown] Harga Saham ADRO Hari Ini 2 November 2026: Menguat ke Rp2.430\nHarga saham ADRO hari ini, 2 November 2026, menguat 1,25% ke Rp2.430 di Sesi I, saat IHSG bergerak di zona merah. Simak data harga dan konteks pasarnya.\nSource: https://pintu.co.id/news/297278-harga-saham-adro-hari-ini-2-november-2026\nSource ID: src_10dd63cff0\n\nSource IDs: src_10dd63cff0",
+      "source_ids": [
+        "src_10dd63cff0"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-02T20:01:00+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 02:54:25 GMT | freshness: unknown] 2026 MiLB Gold Glove Awards - MLB.com\n# 2026 MiLB Gold Glove Awards. November 2, 2026 | 00:02:01. Take a look at the 2026 Minor League Gold Glove Awards Winners including Carson Roccaforte and Max Anderson.\nSource: https://www.mlb.com/video/2026-milb-gold-glove-awards\nSource ID: src_c885bc601b\n\n[Mon, 02 Nov 2026 10:00:00 GMT | freshness: unknown] Canada’s used vehicle inventory rises as sales slow, CARFAX data shows - Automotive News\n# Canada’s used vehicle inventory rises as sales slow, CARFAX data shows. November 02, 2026 05:00 AM EST.\nSou\nSource IDs: src_c885bc601b, src_acf59b3af2, src_44d54d693d, src_6b357a76cd, src_3a411fb8ef, src_282f934e87, src_657e5ca8df",
+      "source_ids": [
+        "src_c885bc601b",
+        "src_acf59b3af2",
+        "src_44d54d693d",
+        "src_6b357a76cd",
+        "src_3a411fb8ef",
+        "src_282f934e87",
+        "src_657e5ca8df"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-02T20:01:05+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 08:00:00 GMT | freshness: unknown] Bahlil Sinyalir Bakal Pangkas Kuota Produksi Nikel Lagi pada 2027 - Energi\nHome\n Energi\n\n#### PERSETUJUAN RKAB\n\n# Bahlil Sinyalir Bakal Pangkas Kuota Produksi Nikel Lagi pada 2027\n\n##### Azura Yumna Ramadani Purnama\n\n##### 02 November 2026 14:40\n\n  \n\nCover Bahlil di Balik Tambang Nikel Meta Mineral Pradana, Ini Profilnya (Arie Pratama/Bloomberg Technoz)\n\n Bahlil Lahadalia memberikan sinyal bakal kembali memangkas kuota produksi bijih nikel dalam Rencana Kerja dan Anggaran Biaya (RKAB) 2027. [...] Bahlil mengungkapkan harga logam nikel dunia\nSource IDs: src_6d1e228ff8, src_a0e0c44104",
+      "source_ids": [
+        "src_6d1e228ff8",
+        "src_a0e0c44104"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-02T20:01:06+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.039,
+    "stored_usdidr_change_pct": 0.415,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.415,
+  "rupiah_signal": "Weakened"
+}

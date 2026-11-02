@@ -1,5 +1,5 @@
 {
-  "total_sessions": 29,
+  "total_sessions": 30,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -29,62 +29,63 @@
     "2026-10-27",
     "2026-10-28",
     "2026-10-29",
-    "2026-10-30"
+    "2026-10-30",
+    "2026-11-02"
   ],
-  "is_sample_sufficient": false,
-  "sample_size_n": 29,
-  "sample_warning": "Insufficient sample size (n = 29 < 30) for statistical significance.",
-  "direction_accuracy_pct": 44.8,
+  "is_sample_sufficient": true,
+  "sample_size_n": 30,
+  "sample_warning": null,
+  "direction_accuracy_pct": 43.3,
   "direction_correct_count": 13,
-  "direction_scorable_sessions": 29,
+  "direction_scorable_sessions": 30,
   "direction_info": {
-    "pct": 44.8,
-    "n": 29,
+    "pct": 43.3,
+    "n": 30,
     "correct": 13,
-    "label": "n = 29, sample too small",
-    "is_sufficient": false
+    "label": "n = 30",
+    "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 28.4,
-    "upper_pct": 62.5,
+    "lower_pct": 27.4,
+    "upper_pct": 60.8,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 58.6,
+    "always_bearish_pct": 56.7,
     "always_bearish_count": 17,
-    "always_bearish_total": 29,
-    "always_bullish_pct": 37.9,
-    "always_bullish_count": 11,
-    "always_bullish_total": 29,
-    "majority_class_pct": 58.6,
-    "persistence_pct": 53.6,
+    "always_bearish_total": 30,
+    "always_bullish_pct": 40.0,
+    "always_bullish_count": 12,
+    "always_bullish_total": 30,
+    "majority_class_pct": 56.7,
+    "persistence_pct": 51.7,
     "persistence_correct_count": 15,
-    "persistence_scorable_sessions": 28
+    "persistence_scorable_sessions": 29
   },
   "calibration": {
-    "average_stated_confidence_pct": 77.1,
-    "calibrated_confidence_pct": 45.2,
-    "sample_size_n": 29,
+    "average_stated_confidence_pct": 76.9,
+    "calibrated_confidence_pct": 43.3,
+    "sample_size_n": 30,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
-    "empirical_weight": 0.9667,
-    "realized_hit_rate_pct": 44.8,
-    "status_label": "illustrative shrinkage estimate",
-    "brier_score": 0.3747,
+    "empirical_weight": 1.0,
+    "realized_hit_rate_pct": 43.3,
+    "status_label": "calibrated",
+    "brier_score": 0.3781,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Illustrative shrinkage estimate (45.2%, n = 29 < 30)",
+    "confidence_label": "Calibrated confidence (43.3%, n = 30)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
     "headline_payoff_bps": -364.0,
     "long_only_total_bps": -364.0,
-    "long_only_avg_bps": null,
+    "long_only_avg_bps": -72.8,
     "long_only_trades": 5,
-    "short_only_total_bps": 1894.0,
-    "short_only_avg_bps": null,
-    "short_only_trades": 22,
+    "short_only_total_bps": 1815.0,
+    "short_only_avg_bps": 78.9,
+    "short_only_trades": 23,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1530.0,
+    "long_short_total_bps": 1451.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
   "flow_accuracy_pct": 40.0,
@@ -97,18 +98,18 @@
     "label": "n = 5, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 38.1,
-  "sector_correct_count": 32,
-  "sector_verifiable_count": 84,
+  "sector_accuracy_pct": 38.5,
+  "sector_correct_count": 37,
+  "sector_verifiable_count": 96,
   "sector_info": {
-    "pct": 38.1,
-    "n": 84,
-    "correct": 32,
-    "label": "n = 84",
+    "pct": 38.5,
+    "n": 96,
+    "correct": 37,
+    "label": "n = 96",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 37.2,
-  "rolling_20_accuracy": 37.8,
+  "rolling_avg_accuracy": 36.5,
+  "rolling_20_accuracy": 38.6,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -155,7 +156,9 @@
     "Ketika prediksi pagi menandakan IHSG Signal Bearish (confidence 64%), tetapi RUPSLB BEI mengeluarkan sentimen positif pada 11:00 GMT, maka IHSG naik 0,31% (16,2 poin) menjadi 5.282,31.",
     "Ketika perkiraan foreign flow distribution (net sell Rp1.85 triliun) dianggap menjadi faktor utama, tetapi adanya peningkatan IHSG 0,31% (16,2 poin) menjadi 5.282,31 terjadi, maka dampak pasar menjadi bullish meski ada tekanan asing.",
     "Ketika Rupiah terus melemah di tengah antisipasi kebijakan ketat dari The Fed, tetapi The Fed mempertahankan suku bunga acuannya, maka Rupiah menguat 0.083% menjadi Rp18.125.",
-    "Ketika foreign flow diprediksi stagnan dengan net buy Rp664.24 miliar, tetapi data aktual menunjukkan net sell Rp1,52 triliun terjadi, maka IHSG ditutup melemah 0.80%."
+    "Ketika foreign flow diprediksi stagnan dengan net buy Rp664.24 miliar, tetapi data aktual menunjukkan net sell Rp1,52 triliun terjadi, maka IHSG ditutup melemah 0.80%.",
+    "Ketika IHSG diprediksi Bearish dengan confidence 69% karena ketidakpastian global dan tekanan Rupiah, tetapi faktor domestik seperti inflasi melandai terjadi, maka IHSG justru menguat 0.79%.",
+    "Ketika komoditas Oil diprediksi bullish, tetapi sentimen pasar global berubah, maka Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -286,12 +289,16 @@
     "Aksi demonstrasi organisasi masyarakat (ormas) di kawasan pabrik mobil listrik BYD Subang": 1,
     "Tekanan jual investor asing yang masif (net sell Rp1,52 triliun)": 1,
     "Pelemahan Rupiah sebesar 0.404%": 1,
-    "Pelemahan sektor yang meluas di hampir seluruh sektor": 1
+    "Pelemahan sektor yang meluas di hampir seluruh sektor": 1,
+    "Rencana perluasan pemungutan pajak digital yang menyasar aktivitas keuangan elektronik": 1,
+    "Pemerintah Bangladesh membentuk dewan pengupahan usai demo buruh garmen berujung bentrok": 1,
+    "Inflasi Indonesia yang melandai pada Oktober 2026": 1,
+    "Broad positive sentiment leading to significant gains in multiple sectors (Barang Baku +2.12%, Industri +0.76%, Infrastruktur +1.4%, Barang Konsumen Primer +0.04%, Barang Konsumen Non-Primer +0.3%)": 1
   },
-  "last_updated": "2026-10-30",
+  "last_updated": "2026-11-02",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-10-30",
-  "history_rescore_note": "Rescored across 29 genuine sessions (2026-09-22 to 2026-10-30) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-02",
+  "history_rescore_note": "Rescored across 30 genuine sessions (2026-09-22 to 2026-11-02) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -1007,14 +1014,40 @@
         "BEARISH_TREND"
       ],
       "last_observed": "2026-10-30"
+    },
+    {
+      "id": "rule-47",
+      "rule": "Ketika IHSG diprediksi Bearish dengan confidence 69% karena ketidakpastian global dan tekanan Rupiah, tetapi faktor domestik seperti inflasi melandai terjadi, maka IHSG justru menguat 0.79%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-02"
+    },
+    {
+      "id": "rule-48",
+      "rule": "Ketika komoditas Oil diprediksi bullish, tetapi sentimen pasar global berubah, maka Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-02"
     }
   ],
   "active_heuristics_count": 21,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 25,
-  "ihsg_accuracy_pct": 44.8,
+  "hypothesis_heuristics_count": 27,
+  "ihsg_accuracy_pct": 43.3,
   "ihsg_correct_count": 13,
   "ff_accuracy_pct": 40.0,
   "ff_correct_count": 2,
-  "total_accuracy_sum": 1078.0
+  "total_accuracy_sum": 1094.0
 }
