@@ -1,0 +1,209 @@
+{
+  "date": "2026-11-03",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_be06ed8e5e",
+    "src_a6ae481bd4",
+    "src_2e1539fb67",
+    "src_4e94b71401",
+    "src_8a9c87802c",
+    "src_8909398103",
+    "src_b9e17ff2df",
+    "src_92c740cda1",
+    "src_b48be3065e",
+    "src_75fad80ee1",
+    "src_56d71a86b4",
+    "src_949f9c66d0",
+    "src_15dae784dd",
+    "src_ac90ff1544",
+    "src_ee0af4721f",
+    "src_76e8fe73c5",
+    "src_d6447a98df",
+    "src_7a245d0d06",
+    "src_9d92e653bb",
+    "src_ae8b3ec023",
+    "src_39b13afb32",
+    "src_9b632c02c4",
+    "src_9926effab7",
+    "src_76e8fe73c5",
+    "src_0a21b76d44",
+    "src_3fa51fceb2"
+  ],
+  "target_date": "2026-11-03",
+  "ihsg": {
+    "status": "ok",
+    "close": 4904.29,
+    "prev": 5096.83,
+    "change_pct": -3.78,
+    "change_pts": -192.54,
+    "signal": "Bearish",
+    "open": 5126.53,
+    "high": 5143.58,
+    "low": 4895.6,
+    "volume": 0,
+    "candle_date": "2026-11-03",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-03T20:01:02+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18140.0,
+    "prev": 18114.0,
+    "change_pct": 0.144,
+    "signal": "Weakened",
+    "candle_date": "2026-11-03",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-03T20:01:02+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 4904.29,
+  "ihsg_prev": 5096.83,
+  "ihsg_change_pct": -3.78,
+  "ihsg_change_pts": -192.54,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-03T20:01:02+07:00",
+  "usdidr_rate": 18140.0,
+  "usdidr_prev": 18114.0,
+  "usdidr_change_pct": 0.144,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-03T20:01:02+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 97.04,
+      "previous_close": 102.0,
+      "change_pct": -4.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 104.78,
+      "previous_close": 114.88,
+      "change_pct": -8.79,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.89,
+      "previous_close": 2.95,
+      "change_pct": -2.24,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 150.0,
+      "change_pct": 40.0,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Tue, 03 Nov 2026 08:00:00 GMT | freshness: unknown] Harga Batu Bara per Kg dan Harga Batu Bara Hari Ini, Selasa 3 November 2026 - Pintu News\n## Sumber\n\n Coal – Price – Chart – Historical Data – News – Trading Economics, diakses pada 3 November 2026\n Newcastle Coal Futures Price Today – Investing.com, diakses pada 3 November 2026\n Newcastle Coal Price 2026: Up 40% This Year at US$150 a Tonne as the Hormuz Gas Shock Revives Coal – Kalkine, diakses pada 3 November 2026\n IHSG Rebound tapi Asing Masih Jual Rp375,54 Miliar, Rupiah di Rp18.156 – Wartafinansial, diakses pada 3 November 2026\n\nCornelia\nSource IDs: src_be06ed8e5e",
+      "source_ids": [
+        "src_be06ed8e5e"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-03T20:01:03+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 16:30:43 GMT | freshness: unknown] Brent falls below $107 as Iran signals willingness to negotiate - Oil & Gas 360\n* Brent crude, Iran negotiations, oil prices, WTI. (Oil & Gas 360) – Oil prices fell approximately 6% Monday, November 2, as signs of renewed diplomatic engagement between Iran and international mediators raised expectations that the conflict affecting Middle Eastern petroleum supplies could move toward a negotiated resolution. The prospect of negotiations nevertheless reduced some of the geopolitical premium that has supported crude prices since the conflict beg\nSource IDs: src_a6ae481bd4, src_2e1539fb67, src_4e94b71401, src_8a9c87802c, src_8909398103, src_b9e17ff2df, src_92c740cda1",
+      "source_ids": [
+        "src_a6ae481bd4",
+        "src_2e1539fb67",
+        "src_4e94b71401",
+        "src_8a9c87802c",
+        "src_8909398103",
+        "src_b9e17ff2df",
+        "src_92c740cda1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-03T20:01:09+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 19:00:00 GMT | freshness: unknown] westmetall . market data . prices/lme stocks . copper, tin, lead, zinc, aluminium, nickel, gold, fine silver\n| LME Stocks | 30. October 2026 | Changes |\n --- \n| in tons | Chart Table Average |\n| Copper | 274,000 | 1,800 |  |\n| Tin | 4,030 | 10 |  |\n| Lead | 311,375 | -150 |  |\n| Zinc | 161,275 | -1,400 |  |\n| Aluminium | 231,200 | -475 |  |\n| Nickel | 278,238 | -552 |  |\n\n| Exchange Rates | 02. November 2026 | 30. October 2026 |\n --- \n| EUR/USD LME-FX-rate (MTLE) | 1.12120 | 1.11770 |  |\n| ECB-Fixing (14:15 Uhr) | 1.12160 | 1.11720 |  |\n| Re\nSource IDs: src_b48be3065e, src_75fad80ee1, src_56d71a86b4, src_949f9c66d0, src_15dae784dd",
+      "source_ids": [
+        "src_b48be3065e",
+        "src_75fad80ee1",
+        "src_56d71a86b4",
+        "src_949f9c66d0",
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-03T20:01:11+07:00"
+    }
+  },
+  "top_movers": "[Tue, 03 Nov 2026 10:00:00 GMT | freshness: unknown] 10 Saham Top Gainer Perdagangan Selasa 3 November 2026, TMPO-MKNT Posisi Teratas\nSaham PT Tempo Inti Media Tbk TMPO masih menempati urutan teratas top gainer hari ini dengan kenaikan harga sebesar 34,48 persen di Rp234 per unit.\nSource: https://www.idxchannel.com/amp/market-news/10-saham-top-gainer-perdagangan-selasa-3-november-2026-tmpo-mknt-posisi-teratas\nSource ID: src_ac90ff1544\n\nSource IDs: src_ac90ff1544",
+  "sector_performance": "[Mon, 02 Nov 2026 14:00:00 GMT | freshness: unknown] Surplus Dagang Tembus Ekspektasi, IHSG Melesat Manis Tembus Level 5.096!\nBerdasarkan data sektor IDX-IC, tujuh sektor sukses menguat dengan sektor barang baku memimpin barisan naik 2,12 persen, disusul sektor energi naik 1,53 persen, dan sektor industri terkerek 1,40 persen. Sebaliknya, empat sektor melempem dengan sektor kesehatan terkoreksi paling dalam 0,64 persen, disusul sektor properti turun 0,22 persen, dan sektor teknologi minus 0,16 persen. [...] Data resmi Badan Pusat Statistik (BPS) menunjukkan bahwa neraca perdagangan barang Indonesia sepanjang periode Januari hingga September 2026 membukukan akumulasi surplus sebesar 10,61 miliar dolar AS.\n\nDeputi Bidang Statistik Distribusi dan Jasa BPS, Ateng Hartono, merinci bahwa penyokong utama pundi-pundi surplus tersebut datang dari kuatnya performa sektor nonmigas. [...] Selasa, 03 November 2026| 22 Jumadil Awwal 1448\n\n Tentang Kami\n Pedoman Media Siber\n\n Pasang Iklan\n\nmain-logo\n\nmain-logo\n\ninilah.commarketbursaIHSG Ditutup Menguat ke 5.096, Efek Neraca Dagang dan Aturan Baru BEI\n\nBerita Terkini, Eksklusif di WhatsApp Inilah.com\n\n+ Gabung\n\nbursa\n\n# IHSG Ditutup Menguat ke 5.096, Efek Neraca Dagang dan Aturan Baru BEI\n\nIkhsan Medium.jpeg\n\nOlehIkhsan Suryakusumah\n\nSenin, 2 November 2026 - 20:34 WIB\n\nShare\nSource: https://www.inilah.com/ihsg-ditutup-menguat-ke-5096-efek-neraca-dagang-dan-aturan-baru-bei\nSource ID: src_ee0af4721f\n\n[Tue, 03 Nov 2026 05:57:00 GMT | freshness: unknown] IHSG Anjlok 2,62 Persen, Asing Jual Bersih Rp831,55 Miliar - KabarBursa.com\nTIRA   290   +5,84%   +16\n\nRDTX   12.750   +5,37%   +650\n\nANJT   1.340   +4,69%   +60\n\nMarket Hari Ini   03 Nov 2026   Penulis: Yunila Wati   Editor: Yunila Wati\n\n# IHSG Anjlok 2,62 Persen, Asing Jual Bersih Rp831,55 Miliar\n\n## IHSG turun 2,62 persen ke level 4.963,06 hingga jeda sesi pertama 3 November 2026. Investor asing mencatatkan jual bersih Rp831,55 miliar. [...] KABARBURSA.COM – Indeks Harga Saham Gabungan (IHSG) mengalami tekanan cukup dalam pada perdagangan Selasa, 3 November 2026. Hingga jeda sesi pertama, indeks turun 133,77 poin atau 2,62 persen ke level 4.963,06.\n\nPelemahan ini terjadi setelah IHSG dibuka di posisi 5.126,53, bahkan sempat menyentuh level tertinggi 5.143,58 sebelum bergerak turun sepanjang perdagangan. [...] Navigasi Utama\n\nMarket Hari Ini   Makro   Ekonomi Hijau   Carbon Trading   Otomotif   Syariah   B57+   Editorial   Kartunomics   Infografis   Regulasi Market   Aksi K\nSource IDs: src_ee0af4721f, src_76e8fe73c5, src_d6447a98df, src_7a245d0d06, src_9d92e653bb",
+  "foreign_flow_raw": "[Tue, 03 Nov 2026 06:48:00 GMT | freshness: unknown] Net Sell Asing Dekati Rp100 Triliun\n03/11/2026, 13.48 WIB\n #### Asing Net Sell Saham Rp 0,47 Triliun Rabu, Net Sell SBN Rp 0,11 Triliun\n\n  17/04/2024, 17.08 WIB\n #### Asing Kembali Net Sell Saham Rp 0,86 Triliun Rabu, Net Sell SBN Rp 5,28 Triliun\n\n  27/03/2024, 17.47 WIB\n #### Asing Net Buy Saham Rp 0,35 Triliun Rabu, Net Sell Rp 0,46 Triliun di SBN Kemarin\n\n  20/03/2024, 18.54 WIB\n #### Asing Lanjut Net Buy SBN Jumbo Rp 6 Triliun, Net Sell Saham Rp 0,18 Triliun\n\n  28/04/2025, 23.26 WIB\n\n## ARTIKEL POPULER [...] JAKARTA, Investortrust.id — Penjualan bersih saham oleh investor asing di Bursa Efek Indonesia (BEI) mendekati Rp100 triliun. Berdasarkan IDX Daily Statistics edisi Senin, 2 November 2026, akumulasi penjualan bersih atau net sell asing sejak awal tahun mencapai Rp98,03 triliun, setara sekitar US$5,40 miliar. Tekanan tersebut berlangsung di tengah penurunan Indeks Harga Saham Gabungan (IHSG) sebesar 41,06% sepanjang tahun berjalan. [...] > ### Baca Juga\n>\n> Saat Asing Terus Jual Saham, Mirae Ungkap Strategi Investasi untuk Hadapi IHSG Bearish\n\nNet sell Rp98,03 triliun merupakan selisih antara nilai penjualan dan pembelian saham oleh investor asing sepanjang tahun berjalan. Artinya, nilai saham yang dijual investor asing lebih besar Rp98,03 triliun dibandingkan nilai saham yang mereka beli.\nSource: https://investortrust.id/market/121376/net-sell-asing-dekati-rp100-triliun\nSource ID: src_ae8b3ec023\n\n[Tue, 03 Nov 2026 0",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2024-04-17",
+    "target_date": "2026-11-03",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2024-04-17, target=2026-11-03",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2024-04-17, target=2026-11-03",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-03",
+        "retrieved_at": "2026-11-03T20:01:02+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-03",
+        "retrieved_at": "2026-11-03T20:01:02+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-03",
+        "retrieved_at": "2026-11-03T20:01:17+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-03",
+        "retrieved_at": "2026-11-03T20:01:17+07:00",
+        "valid": true
+      }
+    }
+  }
+}

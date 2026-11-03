@@ -1,5 +1,5 @@
 {
-  "total_sessions": 30,
+  "total_sessions": 31,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -30,50 +30,51 @@
     "2026-10-28",
     "2026-10-29",
     "2026-10-30",
-    "2026-11-02"
+    "2026-11-02",
+    "2026-11-03"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 30,
+  "sample_size_n": 31,
   "sample_warning": null,
-  "direction_accuracy_pct": 43.3,
-  "direction_correct_count": 13,
-  "direction_scorable_sessions": 30,
+  "direction_accuracy_pct": 45.2,
+  "direction_correct_count": 14,
+  "direction_scorable_sessions": 31,
   "direction_info": {
-    "pct": 43.3,
-    "n": 30,
-    "correct": 13,
-    "label": "n = 30",
+    "pct": 45.2,
+    "n": 31,
+    "correct": 14,
+    "label": "n = 31",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 27.4,
-    "upper_pct": 60.8,
+    "lower_pct": 29.2,
+    "upper_pct": 62.2,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 56.7,
-    "always_bearish_count": 17,
-    "always_bearish_total": 30,
-    "always_bullish_pct": 40.0,
+    "always_bearish_pct": 58.1,
+    "always_bearish_count": 18,
+    "always_bearish_total": 31,
+    "always_bullish_pct": 38.7,
     "always_bullish_count": 12,
-    "always_bullish_total": 30,
-    "majority_class_pct": 56.7,
-    "persistence_pct": 51.7,
+    "always_bullish_total": 31,
+    "majority_class_pct": 58.1,
+    "persistence_pct": 50.0,
     "persistence_correct_count": 15,
-    "persistence_scorable_sessions": 29
+    "persistence_scorable_sessions": 30
   },
   "calibration": {
-    "average_stated_confidence_pct": 76.9,
-    "calibrated_confidence_pct": 43.3,
-    "sample_size_n": 30,
+    "average_stated_confidence_pct": 76.3,
+    "calibrated_confidence_pct": 45.2,
+    "sample_size_n": 31,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 43.3,
+    "realized_hit_rate_pct": 45.2,
     "status_label": "calibrated",
-    "brier_score": 0.3781,
+    "brier_score": 0.371,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (43.3%, n = 30)",
+    "confidence_label": "Calibrated confidence (45.2%, n = 31)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -81,11 +82,11 @@
     "long_only_total_bps": -364.0,
     "long_only_avg_bps": -72.8,
     "long_only_trades": 5,
-    "short_only_total_bps": 1815.0,
-    "short_only_avg_bps": 78.9,
-    "short_only_trades": 23,
+    "short_only_total_bps": 2193.0,
+    "short_only_avg_bps": 91.4,
+    "short_only_trades": 24,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1451.0,
+    "long_short_total_bps": 1829.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
   "flow_accuracy_pct": 40.0,
@@ -98,18 +99,18 @@
     "label": "n = 5, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 38.5,
-  "sector_correct_count": 37,
-  "sector_verifiable_count": 96,
+  "sector_accuracy_pct": 39.8,
+  "sector_correct_count": 39,
+  "sector_verifiable_count": 98,
   "sector_info": {
-    "pct": 38.5,
-    "n": 96,
-    "correct": 37,
-    "label": "n = 96",
+    "pct": 39.8,
+    "n": 98,
+    "correct": 39,
+    "label": "n = 98",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 36.5,
-  "rolling_20_accuracy": 38.6,
+  "rolling_avg_accuracy": 38.5,
+  "rolling_20_accuracy": 39.5,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -158,7 +159,9 @@
     "Ketika Rupiah terus melemah di tengah antisipasi kebijakan ketat dari The Fed, tetapi The Fed mempertahankan suku bunga acuannya, maka Rupiah menguat 0.083% menjadi Rp18.125.",
     "Ketika foreign flow diprediksi stagnan dengan net buy Rp664.24 miliar, tetapi data aktual menunjukkan net sell Rp1,52 triliun terjadi, maka IHSG ditutup melemah 0.80%.",
     "Ketika IHSG diprediksi Bearish dengan confidence 69% karena ketidakpastian global dan tekanan Rupiah, tetapi faktor domestik seperti inflasi melandai terjadi, maka IHSG justru menguat 0.79%.",
-    "Ketika komoditas Oil diprediksi bullish, tetapi sentimen pasar global berubah, maka Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%."
+    "Ketika komoditas Oil diprediksi bullish, tetapi sentimen pasar global berubah, maka Crude Oil (WTI) turun 3.26% dan Brent Crude turun 5.84%.",
+    "Ketika prediksi pagi untuk Natural Gas adalah bullish, tetapi harga Natural Gas justru turun, maka Natural Gas jatuh sebesar -2.24%.",
+    "Ketika tidak ada risiko utama yang ditandai di pagi hari, tetapi kejutan kebijakan BI mengenai penyebab tekanan Rupiah terungkap, maka Rupiah melemah sebesar +0.144% dan IHSG anjlok sebesar -3.78%."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -293,12 +296,17 @@
     "Rencana perluasan pemungutan pajak digital yang menyasar aktivitas keuangan elektronik": 1,
     "Pemerintah Bangladesh membentuk dewan pengupahan usai demo buruh garmen berujung bentrok": 1,
     "Inflasi Indonesia yang melandai pada Oktober 2026": 1,
-    "Broad positive sentiment leading to significant gains in multiple sectors (Barang Baku +2.12%, Industri +0.76%, Infrastruktur +1.4%, Barang Konsumen Primer +0.04%, Barang Konsumen Non-Primer +0.3%)": 1
+    "Broad positive sentiment leading to significant gains in multiple sectors (Barang Baku +2.12%, Industri +0.76%, Infrastruktur +1.4%, Barang Konsumen Primer +0.04%, Barang Konsumen Non-Primer +0.3%)": 1,
+    "BI Policy Surprise (BI Ungkap Penyebab Rupiah Terus Tertekan)": 1,
+    "Labor / Demo (Demo Serbu Pemerintah, Konvoi 1.000 Kendaraan Siap Kepung Ibu Kota)": 1,
+    "Geopolitics Surprise (Panglima Tentera Laut Tinjau Kemajuan Helikopter AW139 TLDM)": 1,
+    "Severity and causes of Rupiah pressure (BI Policy Surprise)": 1,
+    "Impact of domestic political unrest (Demo Serbu Pemerintah)": 1
   },
-  "last_updated": "2026-11-02",
+  "last_updated": "2026-11-03",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-02",
-  "history_rescore_note": "Rescored across 30 genuine sessions (2026-09-22 to 2026-11-02) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-03",
+  "history_rescore_note": "Rescored across 31 genuine sessions (2026-09-22 to 2026-11-03) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -414,6 +422,11 @@
       "date": "2026-10-30",
       "lesson": "Ketika outlook sektor diprediksi bervariasi dengan beberapa sektor bullish, tetapi hampir seluruh sektor mencatatkan pelemahan terjadi, maka IHSG ditutup melemah 0.80%.",
       "reason": "duplicate_tail: maka ihsg ditutup melemah 0"
+    },
+    {
+      "date": "2026-11-03",
+      "lesson": "Ketika IHSG diprediksi bearish, tetapi laporan demo besar-besaran yang mengepung ibu kota muncul, maka IHSG anjlok sebesar -3.78%.",
+      "reason": "session_limit_exceeded: max 2 lessons per session"
     }
   ],
   "heuristics": [
@@ -1040,14 +1053,40 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-02"
+    },
+    {
+      "id": "rule-49",
+      "rule": "Ketika prediksi pagi untuk Natural Gas adalah bullish, tetapi harga Natural Gas justru turun, maka Natural Gas jatuh sebesar -2.24%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-11-03"
+    },
+    {
+      "id": "rule-50",
+      "rule": "Ketika tidak ada risiko utama yang ditandai di pagi hari, tetapi kejutan kebijakan BI mengenai penyebab tekanan Rupiah terungkap, maka Rupiah melemah sebesar +0.144% dan IHSG anjlok sebesar -3.78%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-11-03"
     }
   ],
-  "active_heuristics_count": 21,
+  "active_heuristics_count": 23,
   "superseded_heuristics_count": 0,
   "hypothesis_heuristics_count": 27,
-  "ihsg_accuracy_pct": 43.3,
-  "ihsg_correct_count": 13,
+  "ihsg_accuracy_pct": 45.2,
+  "ihsg_correct_count": 14,
   "ff_accuracy_pct": 40.0,
   "ff_correct_count": 2,
-  "total_accuracy_sum": 1094.0
+  "total_accuracy_sum": 1194.0
 }

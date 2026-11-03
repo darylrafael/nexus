@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-03",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 60,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -3.78,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Plantation": null,
+    "Mining (Nickel)": true,
+    "Mining (Coal)": null,
+    "Oil & Gas Upstream": null,
+    "Airlines, Shipping, Petrochemical": null,
+    "Banking": null,
+    "Consumer Goods": null,
+    "Pharmaceutical": null,
+    "Property": true,
+    "Fertilizer and Utility": null,
+    "Infrastructure": null
+  },
+  "error_rate_pct": 0,
+  "accuracy_score": 100,
+  "rca_unanticipated": [
+    "BI Policy Surprise (BI Ungkap Penyebab Rupiah Terus Tertekan)",
+    "Labor / Demo (Demo Serbu Pemerintah, Konvoi 1.000 Kendaraan Siap Kepung Ibu Kota)",
+    "Geopolitics Surprise (Panglima Tentera Laut Tinjau Kemajuan Helikopter AW139 TLDM)"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Severity and causes of Rupiah pressure (BI Policy Surprise)",
+    "Impact of domestic political unrest (Demo Serbu Pemerintah)"
+  ],
+  "rca_info_delay": [
+    "BI Policy Surprise (news appeared at 12:00 GMT)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed Natural Gas would be bullish, but today Natural Gas fell by -2.24% instead, likely due to unforeseen market dynamics."
+  ],
+  "lessons": [
+    "Ketika prediksi pagi untuk Natural Gas adalah bullish, tetapi harga Natural Gas justru turun, maka Natural Gas jatuh sebesar -2.24%.",
+    "Ketika tidak ada risiko utama yang ditandai di pagi hari, tetapi kejutan kebijakan BI mengenai penyebab tekanan Rupiah terungkap, maka Rupiah melemah sebesar +0.144% dan IHSG anjlok sebesar -3.78%.",
+    "Ketika IHSG diprediksi bearish, tetapi laporan demo besar-besaran yang mengepung ibu kota muncul, maka IHSG anjlok sebesar -3.78%."
+  ],
+  "summary": "The morning brief accurately predicted a bearish IHSG and foreign distribution, but missed the bearish turn in Natural Gas and did not flag significant unexpected events such as a BI policy surprise, labor demonstrations, and geopolitical news.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18140.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 97.04,
+      "previous_close": 102.0,
+      "change_pct": -4.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 104.78,
+      "previous_close": 114.88,
+      "change_pct": -8.79,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.89,
+      "previous_close": 2.95,
+      "change_pct": -2.24,
+      "signal": "Down",
+      "retrieved_at": "2026-11-03T20:01:02+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 150.0,
+      "change_pct": 40.0,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Tue, 03 Nov 2026 08:00:00 GMT | freshness: unknown] Harga Batu Bara per Kg dan Harga Batu Bara Hari Ini, Selasa 3 November 2026 - Pintu News\n## Sumber\n\n Coal – Price – Chart – Historical Data – News – Trading Economics, diakses pada 3 November 2026\n Newcastle Coal Futures Price Today – Investing.com, diakses pada 3 November 2026\n Newcastle Coal Price 2026: Up 40% This Year at US$150 a Tonne as the Hormuz Gas Shock Revives Coal – Kalkine, diakses pada 3 November 2026\n IHSG Rebound tapi Asing Masih Jual Rp375,54 Miliar, Rupiah di Rp18.156 – Wartafinansial, diakses pada 3 November 2026\n\nCornelia\nSource IDs: src_be06ed8e5e",
+      "source_ids": [
+        "src_be06ed8e5e"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-03T20:01:03+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 16:30:43 GMT | freshness: unknown] Brent falls below $107 as Iran signals willingness to negotiate - Oil & Gas 360\n* Brent crude, Iran negotiations, oil prices, WTI. (Oil & Gas 360) – Oil prices fell approximately 6% Monday, November 2, as signs of renewed diplomatic engagement between Iran and international mediators raised expectations that the conflict affecting Middle Eastern petroleum supplies could move toward a negotiated resolution. The prospect of negotiations nevertheless reduced some of the geopolitical premium that has supported crude prices since the conflict beg\nSource IDs: src_a6ae481bd4, src_2e1539fb67, src_4e94b71401, src_8a9c87802c, src_8909398103, src_b9e17ff2df, src_92c740cda1",
+      "source_ids": [
+        "src_a6ae481bd4",
+        "src_2e1539fb67",
+        "src_4e94b71401",
+        "src_8a9c87802c",
+        "src_8909398103",
+        "src_b9e17ff2df",
+        "src_92c740cda1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-03T20:01:09+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 02 Nov 2026 19:00:00 GMT | freshness: unknown] westmetall . market data . prices/lme stocks . copper, tin, lead, zinc, aluminium, nickel, gold, fine silver\n| LME Stocks | 30. October 2026 | Changes |\n --- \n| in tons | Chart Table Average |\n| Copper | 274,000 | 1,800 |  |\n| Tin | 4,030 | 10 |  |\n| Lead | 311,375 | -150 |  |\n| Zinc | 161,275 | -1,400 |  |\n| Aluminium | 231,200 | -475 |  |\n| Nickel | 278,238 | -552 |  |\n\n| Exchange Rates | 02. November 2026 | 30. October 2026 |\n --- \n| EUR/USD LME-FX-rate (MTLE) | 1.12120 | 1.11770 |  |\n| ECB-Fixing (14:15 Uhr) | 1.12160 | 1.11720 |  |\n| Re\nSource IDs: src_b48be3065e, src_75fad80ee1, src_56d71a86b4, src_949f9c66d0, src_15dae784dd",
+      "source_ids": [
+        "src_b48be3065e",
+        "src_75fad80ee1",
+        "src_56d71a86b4",
+        "src_949f9c66d0",
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-03T20:01:11+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.028,
+    "stored_usdidr_change_pct": 0.144,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.144,
+  "rupiah_signal": "Weakened"
+}
