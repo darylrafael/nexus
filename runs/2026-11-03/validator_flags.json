@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-03",
+  "flags": [
+    {
+      "type": "sign_contradiction",
+      "line_number": 32,
+      "line": "- **Nickel Mining**: INCO (mampu cetak laba bersih USD147 juta meskipun produksi nikel turun, src_5edab2b404) – BULLISH (Nickel +1.66%).",
+      "issue": "Negative direction term used with positive percentage"
+    }
+  ],
+  "count": 1,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 32,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Nickel Mining**: INCO (mampu cetak laba bersih USD147 juta meskipun produksi nikel turun, src_5edab2b404) – BULLISH (Nickel +1.66%).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
