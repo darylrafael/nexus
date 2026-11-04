@@ -1,0 +1,204 @@
+{
+  "date": "2026-11-04",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_385b29d002",
+    "src_91896011a0",
+    "src_4d5bf123a3",
+    "src_41d22a6f90",
+    "src_8dcfe68923",
+    "src_a4b3889fa7",
+    "src_84bbeedb43",
+    "src_db8f52a959",
+    "src_4ad624aa5c",
+    "src_b1d93e79ca",
+    "src_067337bfaf",
+    "src_457d24d3e6",
+    "src_4094274504",
+    "src_37faad9b0b",
+    "src_930d22e167",
+    "src_5bfdb14fb8",
+    "src_83ed90ab70",
+    "src_e708381a59",
+    "src_96aade5a08",
+    "src_b0104e340b",
+    "src_3f2226d252",
+    "src_a6ce28bba9",
+    "src_02ac8a1026",
+    "src_83ed90ab70",
+    "src_26fe340de6",
+    "src_9a672e4f35"
+  ],
+  "target_date": "2026-11-04",
+  "ihsg": {
+    "status": "ok",
+    "close": 4919.77,
+    "prev": 4904.29,
+    "change_pct": 0.32,
+    "change_pts": 15.48,
+    "signal": "Bullish",
+    "open": 4856.96,
+    "high": 4921.13,
+    "low": 4824.36,
+    "volume": 0,
+    "candle_date": "2026-11-04",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-04T20:01:03+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18155.0,
+    "prev": 17472.0,
+    "change_pct": 3.909,
+    "signal": "Weakened",
+    "candle_date": "2026-11-04",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-04T20:01:03+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 4919.77,
+  "ihsg_prev": 4904.29,
+  "ihsg_change_pct": 0.32,
+  "ihsg_change_pts": 15.48,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-04T20:01:03+07:00",
+  "usdidr_rate": 18155.0,
+  "usdidr_prev": 17472.0,
+  "usdidr_change_pct": 3.909,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-04T20:01:03+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 94.96,
+      "previous_close": 104.12,
+      "change_pct": -8.8,
+      "signal": "Down",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 102.29,
+      "previous_close": 117.64,
+      "change_pct": -13.05,
+      "signal": "Down",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.93,
+      "previous_close": 2.9,
+      "change_pct": 1.07,
+      "signal": "Up",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "No fresh results found for today.",
+      "source_ids": [],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-04T20:01:09+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 03 Nov 2026 23:00:00 GMT | freshness: unknown] Emiten Sawit Catatkan Kenaikan Laba hingga September 2026\nPertumbuhan bisnis minyak kelapa sawit mentah atau crude palm oil (CPO) memberikan dorongan positif bagi sejumlah perusahaan perkebunan yang tercatat di\nSource: https://suaragarut.id/kinerja-emiten-sawit-september-2026\nSource ID: src_385b29d002\n\n[Tue, 03 Nov 2026 23:15:44 GMT | freshness: unknown] Kinerja Emiten CPO Kian Subur per Kuartal III 2026, Simak Prospek dan Rekomendasinya\nManajemen SSMS mengatakan, pertumbuhan pendapatan disokong oleh segmen komoditas utama minyak kelapa sawi\nSource IDs: src_385b29d002, src_91896011a0, src_4d5bf123a3, src_41d22a6f90, src_8dcfe68923, src_a4b3889fa7, src_84bbeedb43",
+      "source_ids": [
+        "src_385b29d002",
+        "src_91896011a0",
+        "src_4d5bf123a3",
+        "src_41d22a6f90",
+        "src_8dcfe68923",
+        "src_a4b3889fa7",
+        "src_84bbeedb43"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-04T20:01:10+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 13390.85,
+      "change_pct": -2.53,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Wed, 04 Nov 2026 08:00:00 GMT | freshness: unknown] Steel, Aluminum, Nickel, Rare Earth, New Energy, Copper Prices Charts & News-Shanghai Metals Market (SMM)\n| Industrial-Grade Lithium Carbonate | 13,390.85USD/tonne | -188.36 | 11/4/2026 |\n| Battery-Grade Lithium Carbonate  SMM-Li-LC-001 | 13,884.32USD/tonne | -190.04 | 11/4/2026 |\n| Battery-grade Nickel Sulphate  SMM-NI-NC-001 | 4,089.78USD/tonne | -21.49 | 11/4/2026 |\n| China Cobalt Metal  SMM-CO-CM-001 | 34,393.04USD/tonne | +257.46 | 11/4/2026 | [...] -2.53%\n\nLME.Tin\n\n3,940\n\n-30\n\n-0.76%\n\nLME.Nickel\n\n275,592\n\n-2,262\n\n-0.81%\n\n## Latest News\nSource IDs: src_db8f52a959, src_4ad624aa5c",
+      "source_ids": [
+        "src_db8f52a959",
+        "src_4ad624aa5c"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-04T20:01:15+07:00"
+    }
+  },
+  "top_movers": "[Wed, 04 Nov 2026 10:00:00 GMT | freshness: unknown] 10 Saham Top Gainer Rabu 4 November 2026\nIHSG menguat 0,32 persen pada 4 November 2026. BOBA memimpin daftar 10 saham top gainer dengan kenaikan harga mencapai 34,59 persen.\nSource: https://www.suaraindependentnews.id/saham-top-gainer-perdagangan-november\nSource ID: src_b1d93e79ca\n\n[Wed, 04 Nov 2026 10:00:00 GMT | freshness: unknown] Naik 0,32%, IHSG Ditutup ke Level 4.919\nSementara tiga sektor yang mengalami penurunan paling banyak ialah sektor teknologi (turun 1,53 persen), energi (turun 1,51 persen), dan cyclical (turun 1,38 persen).  \n   \n   \n   \n 6 Rekomendasi Saham Hari Ini: BBRI hingga DEWA\n\n(Ilustrasi. Foto: Dok MI)\n\nAdapun saham-saham yang mengalami penguatan terbesar (top gainers) yaitu BOBA, MKNT, AIMS, TMPO, dan YUPI. Sedangkan, saham-saham yang mengalami pelemahan terbesar (top losers), yakni MGLV, LMAX, LUCY, WGSH, dan NINE. [...] Jakarta: Gerak Indeks Harga Saham Gabungan (IHSG) terpantau mulai bangkit pelan-pelan pada penutupan perdagangan sore ini, Rabu, 4 November 2026. IHSG ditutup naik 15,480 poin, atau setara 0,32 persen, ke level 4.919,767.\n\nDikutip dari laman RTI, volume perdagangan ini tercatat sebanyak 26,350 miliar lembar saham, senilai Rp10,546 triliun. Sebanyak 190 saham menguat, 439 saham melemah, dan 88 saham stagnan. [...] home \n\nlogo mux\n\n Nasional\n Internasional\n Ekonomi\n Xinwen\n MTVN Lens\n Program\n Headline News\n + action-live-circle Streaming\n  + - Metro TV\n    - BN Channel\n    - Advertorial\n    - Xtend\n MTVN Corner\n\nhome\n\nNaik 0,32%, IHSG Ditutup ke Level 4.919\n\nIlustrasi IHSG. Dok MI\n\n# Naik 0,32%, IHSG Ditutup ke Level 4.919\n\nGervin Nathaniel Purba • 4 November 2026 16:56\n\nSHARE NOW\n\nURL Berhasil di Salin\nSource: https://www.metrotvnews.com/read/ba4Cv5Vr-naik-0-32-ihsg-ditutup-ke-level-4-919\nSource ID: src_067337bfaf\n\n[Wed, 04 Nov 2026 09:00:00 GMT | freshness: unknown] Harga Pangan Hari Ini (04/11) di Jambi: Cabai Merah Naik, Daging Ayam Turun\nBerdasarkan data SP2KP Kemendag\nSource IDs: src_b1d93e79ca, src_067337bfaf, src_457d24d3e6, src_4094274504, src_37faad9b0b, src_930d22e167, src_5bfdb14fb8",
+  "sector_performance": "[Wed, 04 Nov 2026 11:04:41 GMT | freshness: unknown] IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n# IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n Dolar AS Melemah, Kurs Rupiah Masih Tertekan Tipis pada Rabu (4/11)\n\n  Pusat Data   | 04 November 2026\n\n  # Dolar AS Melemah, Kurs Rupiah Masih Tertekan Tipis pada Rabu (4/11)\n Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n\n  Pusat Data   | 04 November 2026 [...] # Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n Harga Emas Antam (3/11) Naik, Simak Selisihnya dengan Harga Buyback\n\n  Pusat Data   | 04 November 2026\n\n  # Harga Emas Antam (3/11) Naik, Simak Selisihnya dengan Harga Buyback\n IHSG Ambruk Dekati 4.900 Hari Ini (3/11), Net Sell Asing Berlanjut\n\n  Pusat Data   | 03 November 2026\n\n  # IHSG Ambruk Dekati 4.900 Hari Ini (3/11), Net Sell Asing Berlanjut\n Tabel Harga Emas Batangan Antam (3/11), Cek Semua Ukuran [...] Reksadana Saham Obligasi SBN Crypto Crypto Crypto\n\n# IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n\nRabu, 04 November 2026 | 18:04 WIB\n\n INDEKS BERITA\n\nIHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham/2026/10/30/388041183.jpg \"IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\")\nSource: https://pusatdata.kontan.co.id/news/ihsg-naik-032-jadi-4919-hari-ini-411-sudah-ada-net-buy-asing-di-sejumlah-saham\nSource ID: src_83ed90ab70\n\n[Wed, 04 Nov 2026 10:00:00 GMT | freshness: unknown] IHSG Menguat 0,32 Persen Meski Mayoritas Saham Melemah\nIHSG naik 0,32 persen ke level 4.919,77 pada penutupan perdagangan 4 November 2026, meski 509 saham melemah dan delapan sektor terkoreksi.\nSource: https://www.limapagi.id/ihsg-menguat-mayoritas-saham-melemah\nSource ID: src_e708381a59\n\n[Wed, 04 Nov 2026 05:15:36 GMT | freshness: unknown] IHSG Anjlok ke 4.860 pada 4 November 2026\nBerikutnya, sektor barang baku mengalami penurunan 2,61%. Sektor barang konsumer primer juga tercatat melemah 2,41%, sementara sektor perindustrian terkoreksi 1,96%.\n\nTekanan berikutnya terlihat pada sektor properti dan real estate yang turun 1,85%. Sektor infrastruktur mengalami pelemahan 1,66%, sedangkan transportasi turun 1,43%. [...] [ Show ]\n\n Aktivitas perdagangan saham di BEI\n Daftar saham dengan penurunan terbesar di LQ45\n Saham dengan kenaikan terbesar di LQ45\n\nTekanan jual mendominasi\nSource IDs: src_83ed90ab70, src_e708381a59, src_96aade5a08, src_b0104e340b, src_3f2226d252, src_a6ce28bba9, src_02ac8a1026",
+  "foreign_flow_raw": "[Wed, 04 Nov 2026 11:04:41 GMT | freshness: unknown] IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n# Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n Harga Emas Antam (3/11) Naik, Simak Selisihnya dengan Harga Buyback\n\n  Pusat Data   | 04 November 2026\n\n  # Harga Emas Antam (3/11) Naik, Simak Selisihnya dengan Harga Buyback\n IHSG Ambruk Dekati 4.900 Hari Ini (3/11), Net Sell Asing Berlanjut\n\n  Pusat Data   | 03 November 2026\n\n  # IHSG Ambruk Dekati 4.900 Hari Ini (3/11), Net Sell Asing Berlanjut\n Tabel Harga Emas Batangan Antam (3/11), Cek Semua Ukuran [...] # IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n Dolar AS Melemah, Kurs Rupiah Masih Tertekan Tipis pada Rabu (4/11)\n\n  Pusat Data   | 04 November 2026\n\n  # Dolar AS Melemah, Kurs Rupiah Masih Tertekan Tipis pada Rabu (4/11)\n Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n\n  Pusat Data   | 04 November 2026 [...] Reksadana Saham Obligasi SBN Crypto Crypto Crypto\n\n# IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\n\nRabu, 04 November 2026 | 18:04 WIB\n\n INDEKS BERITA\n\nIHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham/2026/10/30/388041183.jpg \"IHSG Naik 0,32% Jadi 4.919 Hari Ini (4/11), Sudah Ada Net Buy Asing di Sejumlah Saham\")\nSource: https://pusatdata.kontan.co.id/news/ihsg-naik-032-jadi-4919-hari-ini-411-sudah-a",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-11-03",
+    "target_date": "2026-11-04",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-11-03, target=2026-11-04",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-11-03, target=2026-11-04",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-04",
+        "retrieved_at": "2026-11-04T20:01:03+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-04",
+        "retrieved_at": "2026-11-04T20:01:03+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-04",
+        "retrieved_at": "2026-11-04T20:01:24+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-04",
+        "retrieved_at": "2026-11-04T20:01:24+07:00",
+        "valid": true
+      }
+    }
+  }
+}

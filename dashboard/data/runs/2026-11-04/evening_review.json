@@ -1,0 +1,149 @@
+{
+  "date": "2026-11-04",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 65,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.32,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Accumulation",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Transportation & Logistics (Shipping)": null,
+    "Basic Materials (Petrochemicals)": null,
+    "Basic Materials (Commodity Exporters)": null,
+    "Energy (Oil & Gas Upstream, Coal)": null,
+    "Consumer Non-Cyclicals (Food & Beverages)": null,
+    "Banking": null,
+    "Technology": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Significant drop in Crude Oil (WTI -8.80%, Brent Crude -13.05%)",
+    "Labor/demo related to palm oil (RSPO meeting, karhutla)",
+    "Nickel price drop (-2.53%)"
+  ],
+  "rca_overestimated": [
+    "The bearish impact of Rupiah weakening and geopolitical conflicts on IHSG",
+    "The negative impact of foreign net sell (as indicated by prediction numbers) on IHSG"
+  ],
+  "rca_underestimated": [
+    "Positive drivers for IHSG, leading to a +0.32% gain",
+    "Foreign net buy in several stocks contributing to IHSG rise"
+  ],
+  "rca_info_delay": [
+    "The full extent of foreign flow (net buy in some stocks) was reported post-market",
+    "Significant drop in oil prices (WTI -8.80%, Brent Crude -13.05%) likely developed during or after market hours"
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed Rupiah weakening and geopolitical risks would cause IHSG to be bearish, but today Rupiah weakened (+3.909%) and IHSG closed bullish (+0.32%) instead.",
+    "Brief assumed Oil would be bullish, but today Crude Oil (WTI) dropped 8.80% and Brent Crude dropped 13.05% instead.",
+    "Brief assumed Transportation & Logistics would be bullish, but today sektor transportasi turun 1.43% instead.",
+    "Brief assumed Basic Materials would be bullish, but today sektor barang baku turun 2.61% instead.",
+    "Brief assumed Technology would be neutral, but today sektor teknologi turun 1.53% instead."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish (confidence 65%) karena Rupiah melemah dan geopolitik, tetapi IHSG justru Bullish (+0.32%), maka sentimen negatif mungkin diimbangi oleh faktor positif yang tidak teridentifikasi atau diabaikan.",
+    "Ketika sinyal komoditas Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 8.80% dan Brent Crude turun 13.05%, maka prediksi arah komoditas perlu ditinjau ulang dengan data real-time yang lebih akurat.",
+    "Ketika sektor Transportation & Logistics dan Basic Materials diprediksi Bullish, tetapi sektor transportasi turun 1.43% dan sektor barang baku turun 2.61%, maka analisis sektor perlu mempertimbangkan dampak pergerakan komoditas terkait."
+  ],
+  "summary": "The morning brief incorrectly predicted a bearish IHSG, which actually closed bullish by 0.32%, and significantly misjudged the direction of oil prices, which saw a sharp decline instead of the predicted bullish trend, while sector predictions were mixed.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18155.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 94.96,
+      "previous_close": 104.12,
+      "change_pct": -8.8,
+      "signal": "Down",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 102.29,
+      "previous_close": 117.64,
+      "change_pct": -13.05,
+      "signal": "Down",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.93,
+      "previous_close": 2.9,
+      "change_pct": 1.07,
+      "signal": "Up",
+      "retrieved_at": "2026-11-04T20:01:04+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "No fresh results found for today.",
+      "source_ids": [],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-04T20:01:09+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 03 Nov 2026 23:00:00 GMT | freshness: unknown] Emiten Sawit Catatkan Kenaikan Laba hingga September 2026\nPertumbuhan bisnis minyak kelapa sawit mentah atau crude palm oil (CPO) memberikan dorongan positif bagi sejumlah perusahaan perkebunan yang tercatat di\nSource: https://suaragarut.id/kinerja-emiten-sawit-september-2026\nSource ID: src_385b29d002\n\n[Tue, 03 Nov 2026 23:15:44 GMT | freshness: unknown] Kinerja Emiten CPO Kian Subur per Kuartal III 2026, Simak Prospek dan Rekomendasinya\nManajemen SSMS mengatakan, pertumbuhan pendapatan disokong oleh segmen komoditas utama minyak kelapa sawi\nSource IDs: src_385b29d002, src_91896011a0, src_4d5bf123a3, src_41d22a6f90, src_8dcfe68923, src_a4b3889fa7, src_84bbeedb43",
+      "source_ids": [
+        "src_385b29d002",
+        "src_91896011a0",
+        "src_4d5bf123a3",
+        "src_41d22a6f90",
+        "src_8dcfe68923",
+        "src_a4b3889fa7",
+        "src_84bbeedb43"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-04T20:01:10+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 13390.85,
+      "change_pct": -2.53,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Wed, 04 Nov 2026 08:00:00 GMT | freshness: unknown] Steel, Aluminum, Nickel, Rare Earth, New Energy, Copper Prices Charts & News-Shanghai Metals Market (SMM)\n| Industrial-Grade Lithium Carbonate | 13,390.85USD/tonne | -188.36 | 11/4/2026 |\n| Battery-Grade Lithium Carbonate  SMM-Li-LC-001 | 13,884.32USD/tonne | -190.04 | 11/4/2026 |\n| Battery-grade Nickel Sulphate  SMM-NI-NC-001 | 4,089.78USD/tonne | -21.49 | 11/4/2026 |\n| China Cobalt Metal  SMM-CO-CM-001 | 34,393.04USD/tonne | +257.46 | 11/4/2026 | [...] -2.53%\n\nLME.Tin\n\n3,940\n\n-30\n\n-0.76%\n\nLME.Nickel\n\n275,592\n\n-2,262\n\n-0.81%\n\n## Latest News\nSource IDs: src_db8f52a959, src_4ad624aa5c",
+      "source_ids": [
+        "src_db8f52a959",
+        "src_4ad624aa5c"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-04T20:01:15+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.083,
+    "stored_usdidr_change_pct": 3.909,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.909,
+  "rupiah_signal": "Weakened"
+}
