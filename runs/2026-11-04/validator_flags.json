@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-04",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "CPO",
+      "reference_value": 9.0,
+      "line_number": 18,
+      "line": "-   **Summary**: Crude Oil (WTI) fell by 5.37% to $96.52, and Brent Crude dropped by 9.30% to $104.20 (Nov 2-4). Natural Gas also decreased by 1.86% to $2.90 (Nov 2-4). Crude Palm Oil (CPO) showed a positive trend, with an implied 9.00% increase (based on pre-computed impact and strong Q3 2026 emitent performance) (src_8968a40af3). No fresh results found for Coal and Nickel prices during the observation window.",
+      "issue": "CPO is positive (+9.00%) in data, but line uses negative term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Crude Oil",
+      "reference_value": -5.37,
+      "line_number": 20,
+      "line": "-   **Rationale**: The significant decline in crude oil prices is bullish for oil-consuming sectors like shipping and petrochemicals, as input costs decrease. Conversely, it is bearish for oil and gas upstream companies. The drop in natural gas prices is bullish for fertilizer and utility companies (lower input costs) but bearish for gas upstream companies. The implied rise in CPO prices is bullish for palm oil plantation companies but bearish for consumer goods manufacturers using CPO as raw material.",
+      "issue": "Crude Oil is negative (-5.37%) in data, but line uses positive term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": -1.86,
+      "line_number": 20,
+      "line": "-   **Rationale**: The significant decline in crude oil prices is bullish for oil-consuming sectors like shipping and petrochemicals, as input costs decrease. Conversely, it is bearish for oil and gas upstream companies. The drop in natural gas prices is bullish for fertilizer and utility companies (lower input costs) but bearish for gas upstream companies. The implied rise in CPO prices is bullish for palm oil plantation companies but bearish for consumer goods manufacturers using CPO as raw material.",
+      "issue": "Natural Gas is negative (-1.86%) in data, but line uses positive term"
+    }
+  ],
+  "count": 3,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 18,
+      "issue": "CPO is positive (+9.00%) in data, but line uses negative term",
+      "line": "-   **Summary**: Crude Oil (WTI) fell by 5.37% to $96.52, and Brent Crude dropped by 9.30% to $104.20 (Nov 2-4). Natural Gas also decreased by 1.86% to $2.90 (Nov 2-4). Crude Palm Oil (CPO) showed a positive trend, with an implied 9.00% increase (based on pre-computed impact and strong Q3 2026 emitent performance) (src_8968a40af3). No fresh results found for Coal and Nickel prices during the observation window.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 20,
+      "issue": "Crude Oil is negative (-5.37%) in data, but line uses positive term",
+      "line": "-   **Rationale**: The significant decline in crude oil prices is bullish for oil-consuming sectors like shipping and petrochemicals, as input costs decrease. Conversely, it is bearish for oil and gas upstream companies. The drop in natural gas prices is bullish for fertilizer and utility companies (lower input costs) but bearish for gas upstream companies. The implied rise in CPO prices is bullish for palm oil plantation companies but bearish for consumer goods manufacturers using CPO as raw material.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 20,
+      "issue": "Natural Gas is negative (-1.86%) in data, but line uses positive term",
+      "line": "-   **Rationale**: The significant decline in crude oil prices is bullish for oil-consuming sectors like shipping and petrochemicals, as input costs decrease. Conversely, it is bearish for oil and gas upstream companies. The drop in natural gas prices is bullish for fertilizer and utility companies (lower input costs) but bearish for gas upstream companies. The implied rise in CPO prices is bullish for palm oil plantation companies but bearish for consumer goods manufacturers using CPO as raw material.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}

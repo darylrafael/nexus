@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-04",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 65,
+  "foreign_flow_signal": "Accumulation",
+  "foreign_flow_net": "Net Sell Rp112.47 miliar (entire market) (src_ae8b3ec023). Net Sell Rp375.5 miliar (Pasar Reguler) (src_ebe70b2e7b). Net Buy Rp263 miliar (Negosiasi dan Tunai) (src_ebe70b2e7b).",
+  "sector_bullish": [
+    "Transportation & Logistics (Shipping)",
+    "Basic Materials (Petrochemicals)",
+    "Basic Materials (Commodity Exporters)"
+  ],
+  "sector_bearish": [
+    "Energy (Oil & Gas Upstream, Coal)",
+    "Consumer Non-Cyclicals (Food & Beverages)"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Technology"
+  ],
+  "recommended_tickers": [
+    "CPIN",
+    "PTBA",
+    "TPIA",
+    "BBNI",
+    "BLTA",
+    "BMRI",
+    "ANTM",
+    "BRMS",
+    "DEWA",
+    "GOTO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "CPO": "bullish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_1cda5d0286",
+    "src_23196166ac",
+    "src_3306504539",
+    "src_38d0777b14",
+    "src_50162ac7be",
+    "src_53f237d760",
+    "src_61e78432e0",
+    "src_81a4893bb8",
+    "src_89624f3042",
+    "src_8968a40af3",
+    "src_ab33b9d838",
+    "src_ae7b6f513d",
+    "src_ae8b3ec023",
+    "src_e5b7ddd136",
+    "src_ebe70b2e7b",
+    "src_eed23a34fa",
+    "src_f087d3d5ce",
+    "src_f93eef2c94"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 45.2,
+  "lock_hash": "dd379a808c8ca099",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-04",
+  "created_at": "2026-11-04T07:32:35+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-04T07:32:35+07:00",
+  "schema_version": 1
+}
