@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-05",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 2.25,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Aviation, Shipping, Petrochemical": false,
+    "Coal Mining": null,
+    "Gas Upstream": null,
+    "Exporters (General)": null,
+    "Oil and Gas Upstream": null,
+    "Fertilizer and Utility": null,
+    "Electricity-intensive manufacturers": null,
+    "Importers (General)": null,
+    "Pharmaceutical": null,
+    "Poultry & Animal Feed": null,
+    "Consumer Goods": null,
+    "Banking": null,
+    "Property": false
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Pergerakan komoditas Crude Oil (WTI) (-7.17%) mempengaruhi sentimen sektoral terkait."
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +2.25%) berbanding proyeksi Bearish."
+  ],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [],
+  "lessons": [],
+  "summary": "IHSG ditutup Bullish +2.25% (prediksi Bearish); foreign flow tercatat Unknown (prediksi Stagnant).",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18075.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 89.54,
+      "previous_close": 96.46,
+      "change_pct": -7.17,
+      "signal": "Down",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.0,
+      "previous_close": 104.77,
+      "change_pct": -7.42,
+      "signal": "Down",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.95,
+      "previous_close": 2.86,
+      "change_pct": 3.26,
+      "signal": "Up",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 258.5,
+      "change_pct": 0.19,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Thu, 05 Nov 2026 07:00:00 GMT | freshness: unknown] Coking Coal - Price - Chart - Historical Data - News\n##### Members\n\n##### \n\n# Coking CoalPrice - Chart - Historical Data - News\n\n## Coking Coal rose to 258.50 USD/T on November 4, 2026, up 0.19% from the previous day. Over the past month, Coking Coal's price has fallen 1.71%, but it is still 29.25% higher than a year ago, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity. [...] ## Historically, Coking Coal reached an all time high of 635 in March of 2022. This page includes a chart wi\nSource IDs: src_6d435e12f8",
+      "source_ids": [
+        "src_6d435e12f8"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-05T20:01:01+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 04 Nov 2026 14:00:00 GMT | freshness: unknown] Mulai Desember 2026, Pengiriman CPO Bengkulu Wajib Cantumkan Label Asal Daerah\nBengkulu, HAISAWIT.CO.ID – Pemerintah Provinsi Bengkulu menargetkan seluruh pengiriman crude palm oil (CPO) dari pabrik kelapa sawit (PKS) mencantumkan\nSource: https://haisawit.co.id/news/detail/mulai-desember-2026-pengiriman-cpo-bengkulu-wajib-cantumkan-label-asal-daerah\nSource ID: src_3899aa0c0c\n\n[Thu, 05 Nov 2026 11:45:27 GMT | freshness: unknown] Mereka yang Tertawa Keras & Menangis Karena Kekalahan Trump di Pemilu\n## 2. CPO Tertekan\n\nHarga minyak sawit mentah\nSource IDs: src_3899aa0c0c, src_b8030cb71d",
+      "source_ids": [
+        "src_3899aa0c0c",
+        "src_b8030cb71d"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-05T20:01:03+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] ## Products and services\nKeywords: health care, medical device, wholesale, h\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-05T20:01:07+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.441,
+    "stored_usdidr_change_pct": 3.074,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.074,
+  "rupiah_signal": "Weakened"
+}

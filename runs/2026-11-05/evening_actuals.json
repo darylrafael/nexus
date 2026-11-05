@@ -1,0 +1,167 @@
+{
+  "date": "2026-11-05",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_6d435e12f8",
+    "src_3899aa0c0c",
+    "src_b8030cb71d",
+    "src_15dae784dd",
+    "src_eeb65fe2eb",
+    "src_1c8cb6bd31",
+    "src_551478e683",
+    "src_4052b4d915",
+    "src_d88531b6dd",
+    "src_ec1fbe9d43",
+    "src_58ba01606b",
+    "src_35d30ca975",
+    "src_30df6e575b",
+    "src_ac5edd6820",
+    "src_33141b7226",
+    "src_d54ee5ff17",
+    "src_ffaacceb00",
+    "src_1570c3d3cc",
+    "src_75ad215a3d",
+    "src_2f1fe46d6d"
+  ],
+  "target_date": "2026-11-05",
+  "ihsg": {
+    "status": "ok",
+    "close": 5030.26,
+    "prev": 4919.77,
+    "change_pct": 2.25,
+    "change_pts": 110.49,
+    "signal": "Bullish",
+    "open": 4998.34,
+    "high": 5072.05,
+    "low": 4995.46,
+    "volume": 0,
+    "candle_date": "2026-11-05",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-05T20:00:56+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18075.0,
+    "prev": 17536.0,
+    "change_pct": 3.074,
+    "signal": "Weakened",
+    "candle_date": "2026-11-05",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-05T20:00:57+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5030.26,
+  "ihsg_prev": 4919.77,
+  "ihsg_change_pct": 2.25,
+  "ihsg_change_pts": 110.49,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-05T20:00:56+07:00",
+  "usdidr_rate": 18075.0,
+  "usdidr_prev": 17536.0,
+  "usdidr_change_pct": 3.074,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-05T20:00:57+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 89.54,
+      "previous_close": 96.46,
+      "change_pct": -7.17,
+      "signal": "Down",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.0,
+      "previous_close": 104.77,
+      "change_pct": -7.42,
+      "signal": "Down",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 2.95,
+      "previous_close": 2.86,
+      "change_pct": 3.26,
+      "signal": "Up",
+      "retrieved_at": "2026-11-05T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 258.5,
+      "change_pct": 0.19,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Thu, 05 Nov 2026 07:00:00 GMT | freshness: unknown] Coking Coal - Price - Chart - Historical Data - News\n##### Members\n\n##### \n\n# Coking CoalPrice - Chart - Historical Data - News\n\n## Coking Coal rose to 258.50 USD/T on November 4, 2026, up 0.19% from the previous day. Over the past month, Coking Coal's price has fallen 1.71%, but it is still 29.25% higher than a year ago, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity. [...] ## Historically, Coking Coal reached an all time high of 635 in March of 2022. This page includes a chart wi\nSource IDs: src_6d435e12f8",
+      "source_ids": [
+        "src_6d435e12f8"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-05T20:01:01+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 04 Nov 2026 14:00:00 GMT | freshness: unknown] Mulai Desember 2026, Pengiriman CPO Bengkulu Wajib Cantumkan Label Asal Daerah\nBengkulu, HAISAWIT.CO.ID – Pemerintah Provinsi Bengkulu menargetkan seluruh pengiriman crude palm oil (CPO) dari pabrik kelapa sawit (PKS) mencantumkan\nSource: https://haisawit.co.id/news/detail/mulai-desember-2026-pengiriman-cpo-bengkulu-wajib-cantumkan-label-asal-daerah\nSource ID: src_3899aa0c0c\n\n[Thu, 05 Nov 2026 11:45:27 GMT | freshness: unknown] Mereka yang Tertawa Keras & Menangis Karena Kekalahan Trump di Pemilu\n## 2. CPO Tertekan\n\nHarga minyak sawit mentah\nSource IDs: src_3899aa0c0c, src_b8030cb71d",
+      "source_ids": [
+        "src_3899aa0c0c",
+        "src_b8030cb71d"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-05T20:01:03+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] ## Products and services\nKeywords: health care, medical device, wholesale, h\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-05T20:01:07+07:00"
+    }
+  },
+  "top_movers": "[Thu, 05 Nov 2026 02:00:00 GMT | freshness: unknown] IHSG Terus Rebound Mulai Bergerak ke Level 5.000\n![Pengunjung melihat layar pergerakan Indeks Harga Saham Gabungan (IHSG) di Bursa Efek Indonesia (BEI), Jakarta, Selasa (8/4/2025). [Suara.com/Alfian Winanto]](\n\nPengunjung melihat layar pergerakan Indeks Harga Saham Gabungan (IHSG) di Bursa Efek Indonesia (BEI), Jakarta. [Suara.com/Alfian Winanto]\n\nAdapun, berikut beberpa saham yang Top Gainer dan Loser di waktu itu:\n\nTop Gainer\n\n MKNT\n BELL\n AIMS\n YUPI\n UANG\n\nTop Loser\n\n PPRO\n AGAR\n BLTZ\n ALKA\n BSWD\n\nProyeksi IHSG [...] ### OJK Bongkar 3 Skandal Besar, Saham BOGA dan PANR Digoreng Habis-habisan\n\n#### Bisnis | Kamis, 05 November 2026 | 07:51 WIB\n\n#### Terkini\n\nPresiden Prabowo Disadap LSP, Kasus Sama Dialami Raja Edward VIII Berakhir Turun Takhta\n\n### Presiden Prabowo Disadap LSP, Kasus Sama Dialami Raja Edward VIII Berakhir Turun Takhta\n\n#### News | Kamis, 05 November 2026 | 09:38 WIB\n\nProfil Letjen Ariyo Windutomo, Sosok Kepercayaan Prabowo yang Gantikan Posisi Listyo Sigit [...] Ikuti Kuisnya ➔\n\n#### Komentar\n\n#### Terkait\n\nPenipuan Catut Nama Pialang Berizin, Dana Korban Tembus Rp811 Miliar\n\n### Penipuan Catut Nama Pialang Berizin, Dana Korban Tembus Rp811 Miliar\n\n#### Bisnis | Kamis, 05 November 2026 | 09:02 WIB\n\nDaftar Pelaku Goreng Saham dan Manipulator Laporan Keuangan\n\n### Daftar Pelaku Goreng Saham dan Manipulator Laporan Keuangan\n\n#### Bisnis | Kamis, 05 November 2026 | 08:34 WIB\n\nOJK Bongkar 3 Skandal Besar, Saham BOGA dan PANR Digoreng Habis-habisan\nSource: https://www.suara.com/bisnis/2026/11/05/091951/ihsg-terus-rebound-mulai-bergerak-ke-level-5000\nSource ID: src_eeb65fe2eb\n\n[Thu, 05 Nov 2026 10:00:00 GMT | freshness: unknown] 10 Saham Top Gainer Perdagangan Kamis 5 November 2026, BAJA-BELL Posisi Teratas\nSaham PT Saranacentral Bajatama Tbk BAJA masih menempati urutan teratas top gainer hari ini dengan kenaikan harga sebesar 34,72 persen di Rp194 per unit.\nSource: https://www.idxchannel.com/amp/marke\nSource IDs: src_eeb65fe2eb, src_1c8cb6bd31, src_551478e683, src_4052b4d915, src_d88531b6dd, src_ec1fbe9d43",
+  "sector_performance": "[Thu, 05 Nov 2026 12:01:32 GMT | freshness: unknown] IHSG Melesat ke Posisi 5.030 pada Kamis (5/11), Net Buy Asing Tercatat di Saham Ini\nPusat Data   | 05 November 2026\n\n  # Grafik Harga Emas Antam Batangan (5 November 2026), Hari Ini Turun atau Naik?\n Harga Emas Antam (4/11) Naik, Simak Selisihnya dengan Harga Buyback\n\n  Pusat Data   | 05 November 2026\n\n  # Harga Emas Antam (4/11) Naik, Simak Selisihnya dengan Harga Buyback\n Tabel Harga Emas Antam Hari Ini (4/11), Cek Semua Ukuran\n\n  Pusat Data   | 04 November 2026 [...] Sektor barang konsumsi nonprimer naik 1,06%. Sektor properti dan real estat menguat 0,72%. Sektor energi terangkat 0,38%.\n\nSektor infrastruktur menguat 0,18%. Sektor teknologi naik 0,17%. Sektor transportasi dan logistik menguat 0,05%.\n\nTotal volume transaksi bursa mencapai 22,90 miliar saham dengan transaksi Rp 9,98 triliun. sebanyak 440 saham menguat. Ada 178 saham turun harga dan 99 saham flat. [...] # Dolar AS Melemah, Kurs Rupiah Masih Tertekan Tipis pada Rabu (4/11)\n Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n\n  Pusat Data   | 04 November 2026\n\n  # Grafik Harga Emas Antam Batangan (4 November 2026), Hari Ini Turun atau Naik?\n Harga Emas Antam (3/11) Naik, Simak Selisihnya dengan Harga Buyback\n\n  Pusat Data   | 04 November 2026\nSource: https://pusatdata.kontan.co.id/news/ihsg-melesat-ke-posisi-5030-pada-kamis-511-net-buy-asing-tercatat-di-saham-ini\nSource ID: src_58ba01606b\n\n[Thu, 05 Nov 2026 11:00:00 GMT | freshness: unknown] Rupiah Menguat, IHSG Kembali ke Level 5.000, Saham Emas Melonjak\nJAKARTA, KOMPAS.com - Indeks Harga Saham Gabungan (IHSG) naik menembus level psikologis 5.000 ketika penutupan perdagangan Kamis (5/11/2026). Performa\nSource: https://money.kompas.com/read/2026/11/05/183000826/rupiah-menguat-ihsg-kembali-ke-level-5.000-saham-emas-melonjak\nSource ID: src_35d30ca975\n\n[Thu, 05 Nov 2026 05:51:00 GMT | freshness: unknown] IHSG Menguat 1,96% Didorong Sektor Basic dan Reaksi Positif Investor | Economy\nSektor saham basic menjadi motor penggerak utama dengan lonjakan terbesar sebesar 4,18%. Performa ini jauh melampaui sektor lain dan menjadi kontributor signifikan terhadap kenaikan IHSG. Di posisi kedua, sektor consumer nonsiklikal mencatatkan kenaikan 1,94%, sementara sektor industri tumbuh 1,5%. Sektor transportasi juga menunjukkan kekuatan dengan kenaikan 1,07%, diikuti oleh sektor keuangan yang bertambah 0,98% dan sektor properti yang mendaki 0,90%.\n\nAdvertisement [...] cnbcindonesia\nSource IDs: src_58ba01606b, src_35d30ca975, src_30df6e575b, src_ac5edd6820, src_33141b7226, src_d54ee5ff17, src_ffaacceb00",
+  "foreign_flow_raw": "[Thu, 05 Nov 2026 04:00:00 GMT | freshness: unknown] Update Pasar Saham Indonesia, November 2026 - Cermati\nNamun, di tengah kepanikan pada 4 November 2026, investor asing justru melakukan Foreign Buy selektif (net buy Rp268,67 miliar). Top Foreign Buy: BBCA, BBRI, TINS, BRIS, DEWA. Top Foreign Sell: BMRI, TPIA, BRPT, ITMG, AMMN.\n\n## Langkah Penyelamatan Bursa Efek Indonesia: [...] Sepanjang Kuartal IV 2026, pasar saham Indonesia didominasi oleh Foreign Sell (Net Sell) besar-besaran. Memasuki kuartal ini, tercatat outflow asing mencapai Rp105 triliun akibat kombinasi kuatnya dolar AS, tingginya yield US Treasury, dan kekhawatiran terhadap evaluasi MSCI. IHSG saat ini merupakan salah satu indeks dengan performa paling tertekan di Asia akibat sentimen domestik yang spesifik. [...] ## Artikel Terbaru\n\n ### Update Pasar Saham Indonesia, November 2026\n\n  Saham  • 5 November 2026\n ### Cermati Invest Weekly Update 2 November 2026\n\n  Investasi  • 2 November 2026\n ### Dasar Analisa Teknikal Grafik, Hal Penting yang Perlu Diketahui dan Dipahami\n\n  Saham  • 31 Oktober 2026\n ### Apa Itu Trading Halt? Kenali Penyebab dan Dampaknya bagi Investor Saham\n\n  Saham  • 26 Oktober 2026\n ### Aset Safe Haven: Jenis, Kelebihan, dan Peluangnya Sebagai Instrumen Investasi\nSource: https://invest.cermati.com/artikel/amp/update-pasar-saham-indonesia-november-2026\nSource ID: src_1570c3d3cc\n\n[Thu, 05 Nov 2026 00:00:08 GMT | freshness: unknown] Asing Masuk Bursa Saat IHSG Rebound ke 4.919, Cek Saham Net Buy\n",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-11-04",
+    "target_date": "2026-11-05",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.441,
+    "stored_usdidr_change_pct": 3.074,
+    "rescored_at": "2026-10-15"
+  }
+}
