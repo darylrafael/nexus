@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-05",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 61,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Sell Rp759.98 miliar di pasar reguler (src_f388107c07, src_3fa51fceb2). Total net sell di seluruh pasar mencapai Rp575 miliar (src_3fa51fceb2), dengan net buy Rp184.99 miliar di pasar tunai dan negosiasi (src_3fa51fceb2).",
+  "sector_bullish": [
+    "Aviation, Shipping, Petrochemical",
+    "Coal Mining",
+    "Gas Upstream",
+    "Exporters (General)"
+  ],
+  "sector_bearish": [
+    "Oil and Gas Upstream",
+    "Fertilizer and Utility",
+    "Electricity-intensive manufacturers",
+    "Importers (General)",
+    "Pharmaceutical",
+    "Poultry & Animal Feed",
+    "Consumer Goods"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Property"
+  ],
+  "recommended_tickers": [
+    "BBRI"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bullish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_08fb62dc65",
+    "src_2b4163fc4a",
+    "src_3f2226d252",
+    "src_3fa51fceb2",
+    "src_63a7fea3c4",
+    "src_68e56c178c",
+    "src_ab33b9d838",
+    "src_b60199209b",
+    "src_e1c6684c6f",
+    "src_e3a8c8fbce",
+    "src_eed23a34fa",
+    "src_f388107c07",
+    "src_f93eef2c94",
+    "src_fc41a5cf33"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 43.8,
+  "lock_hash": "29ca275fc92f0f8b",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-05",
+  "created_at": "2026-11-05T07:32:30+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-05T07:32:30+07:00",
+  "schema_version": 1
+}
