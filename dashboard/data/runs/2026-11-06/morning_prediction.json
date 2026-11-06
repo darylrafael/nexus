@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-06",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 65,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Investor asing mencatatkan net buy sebesar Rp264,64 miliar di pasar reguler pada Rabu, 4 November 2026. Di seluruh pasar, net buy mencapai Rp257,94 miliar, dengan net sell Rp6,7 miliar di pasar negosiasi dan tunai (src_7f3a21aa7b, src_d8fa72374a, src_83ed90ab70).",
+  "sector_bullish": [
+    "Banking",
+    "Consumer Goods & Food",
+    "Pharmaceutical",
+    "Airlines, Shipping, Petrochemical",
+    "Geothermal Energy"
+  ],
+  "sector_bearish": [
+    "Oil & Gas Upstream & Services",
+    "Coal Mining",
+    "Palm Oil Plantation",
+    "Fertilizer & Utility",
+    "Property"
+  ],
+  "sector_neutral": [
+    "Technology"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BMRI",
+    "BRMS",
+    "DEWA",
+    "ELSA",
+    "EPMT",
+    "PGEO",
+    "ANTM",
+    "ASII",
+    "GOTO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bullish",
+    "Coal": "bearish",
+    "CPO": "bearish",
+    "Natural Gas": "bullish"
+  },
+  "evidence_ids": [
+    "src_08fb62dc65",
+    "src_0a023e6dd2",
+    "src_21774f055c",
+    "src_5613f96b7a",
+    "src_68e56c178c",
+    "src_6fe52eb759",
+    "src_7f3a21aa7b",
+    "src_83ed90ab70",
+    "src_9f9af18e16",
+    "src_b8030cb71d",
+    "src_c2b87218ee",
+    "src_d8fa72374a",
+    "src_dd999fd554",
+    "src_f93eef2c94"
+  ],
+  "raw_ihsg_signal": "Mixed",
+  "calibrated_confidence": 42.4,
+  "lock_hash": "bee72f6f460f9c89",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-06",
+  "created_at": "2026-11-06T07:32:28+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-06T07:32:28+07:00",
+  "schema_version": 1
+}

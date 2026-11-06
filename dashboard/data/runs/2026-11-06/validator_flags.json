@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-06",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Crude Oil",
+      "reference_value": -5.75,
+      "line_number": 21,
+      "line": "- **Rationale**: The significant drop in crude oil prices is bullish for oil-consuming sectors like airlines, shipping, and petrochemicals due to lower input costs. Conversely, it is bearish for oil and gas upstream companies. The decline in coal and CPO prices is bearish for mining and palm oil plantation companies, respectively, but bullish for consumer goods and food manufacturers using CPO as raw material. The rise in natural gas prices is bullish for gas upstream companies but bearish for fertilizer and utility companies.",
+      "issue": "Crude Oil is negative (-5.75%) in data, but line uses positive term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "CPO",
+      "reference_value": -1.6,
+      "line_number": 21,
+      "line": "- **Rationale**: The significant drop in crude oil prices is bullish for oil-consuming sectors like airlines, shipping, and petrochemicals due to lower input costs. Conversely, it is bearish for oil and gas upstream companies. The decline in coal and CPO prices is bearish for mining and palm oil plantation companies, respectively, but bullish for consumer goods and food manufacturers using CPO as raw material. The rise in natural gas prices is bullish for gas upstream companies but bearish for fertilizer and utility companies.",
+      "issue": "CPO is negative (-1.60%) in data, but line uses positive term"
+    }
+  ],
+  "count": 2,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 21,
+      "issue": "Crude Oil is negative (-5.75%) in data, but line uses positive term",
+      "line": "- **Rationale**: The significant drop in crude oil prices is bullish for oil-consuming sectors like airlines, shipping, and petrochemicals due to lower input costs. Conversely, it is bearish for oil and gas upstream companies. The decline in coal and CPO prices is bearish for mining and palm oil plantation companies, respectively, but bullish for consumer goods and food manufacturers using CPO as raw material. The rise in natural gas prices is bullish for gas upstream companies but bearish for fertilizer and utility companies.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 21,
+      "issue": "CPO is negative (-1.60%) in data, but line uses positive term",
+      "line": "- **Rationale**: The significant drop in crude oil prices is bullish for oil-consuming sectors like airlines, shipping, and petrochemicals due to lower input costs. Conversely, it is bearish for oil and gas upstream companies. The decline in coal and CPO prices is bearish for mining and palm oil plantation companies, respectively, but bullish for consumer goods and food manufacturers using CPO as raw material. The rise in natural gas prices is bullish for gas upstream companies but bearish for fertilizer and utility companies.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
