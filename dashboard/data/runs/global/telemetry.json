@@ -4,14 +4,14 @@
     "successfulRuns": 1,
     "failedRuns": 0,
     "successRate": "100.0",
-    "avgDurationMs": 106879,
+    "avgDurationMs": 198300,
     "runsToday": 1
   },
   "agentBreakdown": [
     {
-      "agent": "market_agent",
+      "agent": "evening_reviewer",
       "total_calls": 1,
-      "avg_duration_ms": 106879.0,
+      "avg_duration_ms": 198300.0,
       "success_rate_pct": 100.0,
       "error_count": 0
     }
@@ -19,13 +19,13 @@
   "sessions": [
     {
       "id": 1,
-      "timestamp": "2026-11-06T07:32:28.844007+07:00",
-      "agent": "market_agent",
+      "timestamp": "2026-11-06T20:04:18.225248+07:00",
+      "agent": "evening_reviewer",
       "model": "llm_client",
       "success": 1,
       "error_msg": null,
-      "duration_ms": 106879
+      "duration_ms": 198300
     }
   ],
-  "exported_at": "2026-11-06T07:32:28.845490+07:00"
+  "exported_at": "2026-11-06T20:04:18.227029+07:00"
 }

@@ -1,0 +1,139 @@
+{
+  "date": "2026-11-06",
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 65,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.4,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {},
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "Global AI chip selloff causing risk‑off sentiment worldwide",
+    "Rupiah melemah 3.393% (USD/IDR rate rose to 18,103) contrary to brief's expectation",
+    "Sharp decline in Oil (WTI -6.55%) and Brent (-6.75%) prices",
+    "Labor protests in Bangladesh's garment industry (Protes Buruh Soal Upah Memanas)",
+    "Unexpected rise in Natural Gas price +4.90%"
+  ],
+  "rca_overestimated": [
+    "Rupiah strengthening expectation from trade surplus",
+    "Bullish sector outlook (Banking, Consumer Goods, etc.)"
+  ],
+  "rca_underestimated": [
+    "Global AI chip selloff not mentioned in brief"
+  ],
+  "rca_info_delay": [
+    "Midday IHSG rise of 0.40% (20.2 poin) reported after 08:30",
+    "USD/IDR rate weakened to 18,103 (3.393% increase) after 08:30",
+    "Crude Oil price drop of 6.55% reported after 08:30"
+  ],
+  "rca_inverse_correlation": [],
+  "lessons": [
+    "Ketika IHSG signaled neutral (65% confidence) di pagi hari, tetapi global AI chip selloff terjadi, maka IHSG naik 0.40% (20.2 poin) pada penutupan.",
+    "Ketika perkiraan foreign flow stagnant dan rupiah diperkirakan kuat, tetapi USD/IDR melemah 3.393% (rate naik menjadi 18,103) terjadi, maka investor mengalami peningkatan volatilitas dan IHSG naik 0.40% (20.2 poin)."
+  ],
+  "summary": "IHSG closed higher by 0.40% despite a neutral morning signal, while foreign flow was unknown and sector outlook was mixed.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18103.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 90.14,
+      "previous_close": 96.46,
+      "change_pct": -6.55,
+      "signal": "Down",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.7,
+      "previous_close": 104.77,
+      "change_pct": -6.75,
+      "signal": "Down",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.0,
+      "previous_close": 2.86,
+      "change_pct": 4.9,
+      "signal": "Up",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 05 Nov 2026 16:55:58 GMT | freshness: unknown] Europe must stockpile critical raw materials, Germany’s Merz says - Mining.com\nBrent Crude Oil $ 97.17 / bbl  2.73%. Crude Oil $ 90.57 / bbl  2.86%. Silver Futures $ 52.16 / ozt  4.69%. Micro Gold Futures $ 4113.6 / ozt  4.40%. Micro Silver Futures $ 52.175 / ozt  4.80%. Gold Futures $ 4114 / ozt  0.95%. Reuters | November 5, 2026 | 9:51 am  Critical Minerals China Europe Copper Nickel Rare Earth Rare Earths. Europe must build up stocks of critical raw materials to reduce its dependence on countries that dominate their extraction and process\nSource IDs: src_d98f6cb473, src_56e16fab05, src_4d49cfc931, src_ce11d434aa, src_c88876bc34, src_faac30c7b3, src_334c046b7e",
+      "source_ids": [
+        "src_d98f6cb473",
+        "src_56e16fab05",
+        "src_4d49cfc931",
+        "src_ce11d434aa",
+        "src_c88876bc34",
+        "src_faac30c7b3",
+        "src_334c046b7e"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:05+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 06 Nov 2026 10:00:00 GMT | freshness: unknown] Harga CPO KPBN 5 November 2026 Withdraw di Rp14.548/Kg, Bursa Malaysia Anjlok\nSeluruh tender CPO KPBN di Dumai, Talang Duku, dan Teluk Bayur berakhir WD. Di pasar global, kontrak Januari 2027 Bursa Malaysia turun RM119 menjadi.\nSource: https://www.agricom.id/2026/1867/harga-minyak-sawit-cpo/harga-cpo-kpbn-5-november-2026-withdraw-di-rp14-548-kg-bursa-malaysia-anjlok\nSource ID: src_dd697fabad\n\n[Fri, 06 Nov 2026 01:00:00 GMT | freshness: unknown] B50 Jadi Penentu Nasib Devisa RI, Mampukah Penghematan Impor Solar Selamatkan Rupiah?\nPasardana.id\nSource IDs: src_dd697fabad, src_6f95070681, src_45245bceea",
+      "source_ids": [
+        "src_dd697fabad",
+        "src_6f95070681",
+        "src_45245bceea"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:06+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] Phone: +97124468682, +971 4 2567676, +971 2446 8682\nDescription: Life Medica\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:10+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.155,
+    "stored_usdidr_change_pct": 3.393,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.393,
+  "rupiah_signal": "Weakened"
+}

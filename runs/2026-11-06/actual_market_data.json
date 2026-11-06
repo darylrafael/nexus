@@ -1,0 +1,202 @@
+{
+  "date": "2026-11-06",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_d98f6cb473",
+    "src_56e16fab05",
+    "src_4d49cfc931",
+    "src_ce11d434aa",
+    "src_c88876bc34",
+    "src_faac30c7b3",
+    "src_334c046b7e",
+    "src_dd697fabad",
+    "src_6f95070681",
+    "src_45245bceea",
+    "src_15dae784dd",
+    "src_6af8058051",
+    "src_041637bd91",
+    "src_2db1269db2",
+    "src_774ba36b3d",
+    "src_c81f6f7db5",
+    "src_5bc9164d45",
+    "src_ce11d434aa",
+    "src_fbea2fa859",
+    "src_6e666e9525",
+    "src_4d49cfc931",
+    "src_334c046b7e",
+    "src_544036907a"
+  ],
+  "target_date": "2026-11-06",
+  "ihsg": {
+    "status": "ok",
+    "close": 5050.43,
+    "prev": 5030.26,
+    "change_pct": 0.4,
+    "change_pts": 20.17,
+    "signal": "Bullish",
+    "open": 4955.83,
+    "high": 5050.43,
+    "low": 4925.1,
+    "volume": 0,
+    "candle_date": "2026-11-06",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-06T20:00:59+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18103.0,
+    "prev": 17509.0,
+    "change_pct": 3.393,
+    "signal": "Weakened",
+    "candle_date": "2026-11-06",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-06T20:01:00+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5050.43,
+  "ihsg_prev": 5030.26,
+  "ihsg_change_pct": 0.4,
+  "ihsg_change_pts": 20.17,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-06T20:00:59+07:00",
+  "usdidr_rate": 18103.0,
+  "usdidr_prev": 17509.0,
+  "usdidr_change_pct": 3.393,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-06T20:01:00+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 90.14,
+      "previous_close": 96.46,
+      "change_pct": -6.55,
+      "signal": "Down",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 97.7,
+      "previous_close": 104.77,
+      "change_pct": -6.75,
+      "signal": "Down",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.0,
+      "previous_close": 2.86,
+      "change_pct": 4.9,
+      "signal": "Up",
+      "retrieved_at": "2026-11-06T20:01:00+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 05 Nov 2026 16:55:58 GMT | freshness: unknown] Europe must stockpile critical raw materials, Germany’s Merz says - Mining.com\nBrent Crude Oil $ 97.17 / bbl  2.73%. Crude Oil $ 90.57 / bbl  2.86%. Silver Futures $ 52.16 / ozt  4.69%. Micro Gold Futures $ 4113.6 / ozt  4.40%. Micro Silver Futures $ 52.175 / ozt  4.80%. Gold Futures $ 4114 / ozt  0.95%. Reuters | November 5, 2026 | 9:51 am  Critical Minerals China Europe Copper Nickel Rare Earth Rare Earths. Europe must build up stocks of critical raw materials to reduce its dependence on countries that dominate their extraction and process\nSource IDs: src_d98f6cb473, src_56e16fab05, src_4d49cfc931, src_ce11d434aa, src_c88876bc34, src_faac30c7b3, src_334c046b7e",
+      "source_ids": [
+        "src_d98f6cb473",
+        "src_56e16fab05",
+        "src_4d49cfc931",
+        "src_ce11d434aa",
+        "src_c88876bc34",
+        "src_faac30c7b3",
+        "src_334c046b7e"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:05+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 06 Nov 2026 10:00:00 GMT | freshness: unknown] Harga CPO KPBN 5 November 2026 Withdraw di Rp14.548/Kg, Bursa Malaysia Anjlok\nSeluruh tender CPO KPBN di Dumai, Talang Duku, dan Teluk Bayur berakhir WD. Di pasar global, kontrak Januari 2027 Bursa Malaysia turun RM119 menjadi.\nSource: https://www.agricom.id/2026/1867/harga-minyak-sawit-cpo/harga-cpo-kpbn-5-november-2026-withdraw-di-rp14-548-kg-bursa-malaysia-anjlok\nSource ID: src_dd697fabad\n\n[Fri, 06 Nov 2026 01:00:00 GMT | freshness: unknown] B50 Jadi Penentu Nasib Devisa RI, Mampukah Penghematan Impor Solar Selamatkan Rupiah?\nPasardana.id\nSource IDs: src_dd697fabad, src_6f95070681, src_45245bceea",
+      "source_ids": [
+        "src_dd697fabad",
+        "src_6f95070681",
+        "src_45245bceea"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:06+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] Phone: +97124468682, +971 4 2567676, +971 2446 8682\nDescription: Life Medica\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-06T20:01:10+07:00"
+    }
+  },
+  "top_movers": "[Fri, 06 Nov 2026 02:13:31 GMT | freshness: unknown] IHSG Dibuka Anjlok ke 4.960 Jumat (6/11), Top Losers LQ45: JPFA, BRPT, HRTA\n## IMC Pelita Logistik (PSSI) Bagikan Saham Bonus\n Rupiah Melemah ke Rp 18.095, Dolar Taiwan dan Ringgit Tertekan\n\n  Investasi | 27 Menit lalu\n\n  ## Rupiah Melemah ke Rp 18.095, Dolar Taiwan dan Ringgit Tertekan\n Harga Buyback Emas Antam Hari Ini 6 November 2026 Semakin Tinggi, Naik Rp 13.000\n\n  Finansial | 33 Menit lalu\n\n  ## Harga Buyback Emas Antam Hari Ini 6 November 2026 Semakin Tinggi, Naik Rp 13.000\n Pasar Obligasi Menguat, Yield SUN 10 Tahun Turun ke 7,63% [...] EMAS  2.565.000   8.000    0,31%\n USD/IDR  18.147   54,00    0,30%\n IDX  4.939   -90,88    -1,81%\n KOMPAS100  636   -12,42    -1,92%\n LQ45  506   -7,62    -1,48%\n ISSI  162   -3,75    -2,26%\n IDX30  285   -3,97    -1,37%\n IDXHIDIV20  385   -4,13    -1,06%\n IDX80  73   -1,36    -1,82%\n IDXV30  107   -1,36    -1,26%\n IDXQ30  96   -1,17    -1,21%\n\n \n\nINVESTASI /\n\n# IHSG Dibuka Anjlok ke 4.960 Jumat (6/11), Top Losers LQ45: JPFA, BRPT, HRTA\n\nJumat, 06 November 2026 / 09:13 WIB\n\n INDEKS BERITA [...] KONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) dibuka di zona merah mengikuti mengekor bursa saham Amerika Serikat (AS) dan sejumlah bursa Asia yang terkoreksi pagi ini.\n\nMengutip data Bursa Efek Indonesia (BEI) via RTI Business, IHSG ambruk 1,38% ke level 4.960,73 pada perdagangan, Jumat (6/11/2026) pukul 09.02 WIB.\nSource: https://investasi.kontan.co.id/news/ihsg-dibuka-anjlok-ke-4960-jumat-611-top-losers-lq45-jpfa-brpt-hrta\nSource ID: src_6af8058051\n\n[Fri, 06 Nov 2026 11:00:00 GMT | freshness: unknown] IHSG Naik Tipis 0,40% di Tengah Pelemahan Bursa Kawasan ...\nSaham Gabungan (IHSG) 2 Januari-6 November. Adapun TAXI menjadi emiten top loser setelah turun 9,09%, diikuti NAYZ yang melemah 8,93% dan LFLO yang turun 7,46%.\nSource: https://databoks.katadata.co.id/pasar/statistik/6aed9f70ae7e8/ihsg-naik-tipis-040-di-tengah-pelemahan-bursa-kawasan-asia-jumat-6-november-2026\nS\nSource IDs: src_6af8058051, src_041637bd91",
+  "sector_performance": "[Fri, 06 Nov 2026 10:00:00 GMT | freshness: unknown] IHSG Menguat 0,4 Persen ke Level 5.050,4 pada Penutupan\nIHSG naik 20,17 poin ke level 5.050,4 pada Jumat 6 November 2026. Saham AIMS memimpin penguatan dengan kenaikan 25 persen.\nSource: https://demokratis.co.id/ihsg-menguat-penutupan-perdagangan\nSource ID: src_2db1269db2\n\n[Fri, 06 Nov 2026 12:00:00 GMT | freshness: unknown] IHSG Menguat Jelang Akhir Pekan Meski Mayoritas Indeks Sektoral Turun, Jumat (6/11)\nJumat (6/11), IHSG menguat 20,17 poin atau 0,40% menjadi 5.050,43 pada perdagangan di Bursa Efek Indonesia (BEI).\nSource: https://pusatdata.kontan.co.id/news/ihsg-menguat-jelang-akhir-pekan-meski-mayoritas-indeks-sektoral-turun-jumat-611\nSource ID: src_774ba36b3d\n\n[Fri, 06 Nov 2026 07:00:00 GMT | freshness: unknown] IHSG Anjlok 1,97 Persen Saat Bursa Asia Berguguran\nTekanan jual di pasar saham global menyeret Indeks Harga Saham Gabungan (IHSG) ke zona merah pada Jumat (6/11/2026). Indeks domestik berakhir di level 4.931\nSource: https://koridor.co.id/ihsg-anjlok-bursa-asia\nSource ID: src_c81f6f7db5\n\nSource IDs: src_2db1269db2, src_774ba36b3d, src_c81f6f7db5",
+  "foreign_flow_raw": "[Fri, 06 Nov 2026 12:00:00 GMT | freshness: unknown] Dealership buy-sell updates: 5 Chevrolet stores sold; 35 total change hands - Automotive News\n# Dealership buy-sell updates: 5 Chevrolet stores sold; 35 total change hands. November 06, 2026 07:00 AM EST. ## Featured Stories. Stellantis asks parts makers for deeper visibility into supply chain. The request for \"Tier-N\" visibility matches policies at General Motors and other competitors as the industry experiences more frequent factory disruptions. Audi considers $3 billion expansion of planned U.S. plant, adding 3,000 jobs. How GM used AI-powered virtual tools to speed up Silverado, Sierra redesigns. 2026 Best Dealerships To Work For. Best Dealerships To Work For 2026: The full list.\nSource: https://www.autonews.com/retail/mergers-acquisitions/an-dealership-buy-sell-database-updates1106/\nSource ID: src_5bc9164d45\n\n[Fri, 06 Nov 2026 11:28:15 GMT | freshness: unknown] Mitsubishi cuts sales and profit outlook on Middle East conflict, banks on new Pajero for recovery - Automotive News\n# Mitsubishi cuts sales and profit outlook on Middle East conflict, banks on new Pajero for recovery. November 06, 2026 06:28 AM EST. ## Featured Stories. Stellantis asks parts makers for deeper visibility into supply chain. The request for \"Tier-N\" visibility matches policies at General Motors and other competitors as the industry experiences more frequent factory disruptions. Audi considers $3 billion expansion of planned U.S. plant, adding 3,00",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_flow_figure_found",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=none, target=2026-11-06",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=none, target=2026-11-06",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-06",
+        "retrieved_at": "2026-11-06T20:00:59+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-06",
+        "retrieved_at": "2026-11-06T20:01:00+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-06",
+        "retrieved_at": "2026-11-06T20:01:20+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-06",
+        "retrieved_at": "2026-11-06T20:01:20+07:00",
+        "valid": true
+      }
+    }
+  }
+}

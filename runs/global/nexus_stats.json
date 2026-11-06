@@ -1,5 +1,5 @@
 {
-  "total_sessions": 33,
+  "total_sessions": 34,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -33,50 +33,51 @@
     "2026-11-02",
     "2026-11-03",
     "2026-11-04",
-    "2026-11-05"
+    "2026-11-05",
+    "2026-11-06"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 33,
+  "sample_size_n": 34,
   "sample_warning": null,
-  "direction_accuracy_pct": 42.4,
+  "direction_accuracy_pct": 41.2,
   "direction_correct_count": 14,
-  "direction_scorable_sessions": 33,
+  "direction_scorable_sessions": 34,
   "direction_info": {
-    "pct": 42.4,
-    "n": 33,
+    "pct": 41.2,
+    "n": 34,
     "correct": 14,
-    "label": "n = 33",
+    "label": "n = 34",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 27.2,
-    "upper_pct": 59.2,
+    "lower_pct": 26.4,
+    "upper_pct": 57.8,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 54.5,
+    "always_bearish_pct": 52.9,
     "always_bearish_count": 18,
-    "always_bearish_total": 33,
-    "always_bullish_pct": 42.4,
-    "always_bullish_count": 14,
-    "always_bullish_total": 33,
-    "majority_class_pct": 54.5,
-    "persistence_pct": 50.0,
-    "persistence_correct_count": 16,
-    "persistence_scorable_sessions": 32
+    "always_bearish_total": 34,
+    "always_bullish_pct": 44.1,
+    "always_bullish_count": 15,
+    "always_bullish_total": 34,
+    "majority_class_pct": 52.9,
+    "persistence_pct": 51.5,
+    "persistence_correct_count": 17,
+    "persistence_scorable_sessions": 33
   },
   "calibration": {
-    "average_stated_confidence_pct": 75.5,
-    "calibrated_confidence_pct": 42.4,
-    "sample_size_n": 33,
+    "average_stated_confidence_pct": 75.2,
+    "calibrated_confidence_pct": 41.2,
+    "sample_size_n": 34,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 42.4,
+    "realized_hit_rate_pct": 41.2,
     "status_label": "calibrated",
-    "brier_score": 0.3726,
+    "brier_score": 0.3741,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (42.4%, n = 33)",
+    "confidence_label": "Calibrated confidence (41.2%, n = 34)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -111,7 +112,7 @@
     "label": "n = 100",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 36.2,
+  "rolling_avg_accuracy": 35.1,
   "rolling_20_accuracy": 37.6,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
@@ -165,7 +166,8 @@
     "Ketika prediksi pagi untuk Natural Gas adalah bullish, tetapi harga Natural Gas justru turun, maka Natural Gas jatuh sebesar -2.24%.",
     "Ketika tidak ada risiko utama yang ditandai di pagi hari, tetapi kejutan kebijakan BI mengenai penyebab tekanan Rupiah terungkap, maka Rupiah melemah sebesar +0.144% dan IHSG anjlok sebesar -3.78%.",
     "Ketika IHSG diprediksi Bearish (confidence 65%) karena Rupiah melemah dan geopolitik, tetapi IHSG justru Bullish (+0.32%), maka sentimen negatif mungkin diimbangi oleh faktor positif yang tidak teridentifikasi atau diabaikan.",
-    "Ketika sinyal komoditas Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 8.80% dan Brent Crude turun 13.05%, maka prediksi arah komoditas perlu ditinjau ulang dengan data real-time yang lebih akurat."
+    "Ketika sinyal komoditas Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 8.80% dan Brent Crude turun 13.05%, maka prediksi arah komoditas perlu ditinjau ulang dengan data real-time yang lebih akurat.",
+    "Ketika IHSG signaled neutral (65% confidence) di pagi hari, tetapi global AI chip selloff terjadi, maka IHSG naik 0.40% (20.2 poin) pada penutupan."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -312,12 +314,18 @@
     "Positive drivers for IHSG, leading to a +0.32% gain": 1,
     "Foreign net buy in several stocks contributing to IHSG rise": 1,
     "Pergerakan komoditas Crude Oil (WTI) (-7.17%) mempengaruhi sentimen sektoral terkait.": 1,
-    "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +2.25%) berbanding proyeksi Bearish.": 1
+    "Kekuatan beli dan ketahanan IHSG melampaui estimasi (IHSG ditutup Bullish +2.25%) berbanding proyeksi Bearish.": 1,
+    "Global AI chip selloff causing risk‑off sentiment worldwide": 1,
+    "Rupiah melemah 3.393% (USD/IDR rate rose to 18,103) contrary to brief's expectation": 1,
+    "Sharp decline in Oil (WTI -6.55%) and Brent (-6.75%) prices": 1,
+    "Labor protests in Bangladesh's garment industry (Protes Buruh Soal Upah Memanas)": 1,
+    "Unexpected rise in Natural Gas price +4.90%": 1,
+    "Global AI chip selloff not mentioned in brief": 1
   },
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-05",
-  "history_rescore_note": "Rescored across 33 genuine sessions (2026-09-22 to 2026-11-05) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-06",
+  "history_rescore_note": "Rescored across 34 genuine sessions (2026-09-22 to 2026-11-06) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -443,6 +451,11 @@
       "date": "2026-11-04",
       "lesson": "Ketika sektor Transportation & Logistics dan Basic Materials diprediksi Bullish, tetapi sektor transportasi turun 1.43% dan sektor barang baku turun 2.61%, maka analisis sektor perlu mempertimbangkan dampak pergerakan komoditas terkait.",
       "reason": "boilerplate_generic: matches pattern 'analisis sektor perlu mempertimbangkan'"
+    },
+    {
+      "date": "2026-11-06",
+      "lesson": "Ketika perkiraan foreign flow stagnant dan rupiah diperkirakan kuat, tetapi USD/IDR melemah 3.393% (rate naik menjadi 18,103) terjadi, maka investor mengalami peningkatan volatilitas dan IHSG naik 0.40% (20.2 poin).",
+      "reason": "unreliable_source_data: stored usdidr_change_pct (3.393%) diverges from consecutive spot close (0.155%)"
     }
   ],
   "heuristics": [
@@ -1121,12 +1134,25 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-04"
+    },
+    {
+      "id": "rule-53",
+      "rule": "Ketika IHSG signaled neutral (65% confidence) di pagi hari, tetapi global AI chip selloff terjadi, maka IHSG naik 0.40% (20.2 poin) pada penutupan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-06"
     }
   ],
   "active_heuristics_count": 23,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 29,
-  "ihsg_accuracy_pct": 42.4,
+  "hypothesis_heuristics_count": 30,
+  "ihsg_accuracy_pct": 41.2,
   "ihsg_correct_count": 14,
   "ff_accuracy_pct": 40.0,
   "ff_correct_count": 2,
