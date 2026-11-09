@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-09",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 62,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.46,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Accumulation",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Airlines, Shipping, Petrochemicals": true,
+    "Importers": null,
+    "Pharmaceuticals": null,
+    "Consumer Goods": null,
+    "Oil & Gas Upstream": null,
+    "Fertilizer & Utility": null,
+    "Exporters (General)": null,
+    "Technology": null,
+    "Banking": null,
+    "Gas Upstream": null
+  },
+  "error_rate_pct": 63,
+  "accuracy_score": 37,
+  "rca_unanticipated": [
+    "Indeks Keyakinan Konsumen (IKK) Indonesia naik signifikan ke 119,9 pada Oktober 2026, tertinggi dalam lima bulan, yang menjadi sentimen positif pendorong IHSG.",
+    "Pertumbuhan ekonomi Indonesia pada kuartal III 2026 tercatat solid di level 5,47% yoy, melampaui ekspektasi pasar.",
+    "Kinerja manufaktur menunjukkan ekspansi dengan PMI Oktober naik ke level 54,0.",
+    "Tingkat inflasi Oktober melandai di angka 3,23% yoy, serta posisi cadangan devisa akhir Oktober meningkat menjadi USD146,8 miliar."
+  ],
+  "rca_overestimated": [
+    "Prediksi sinyal IHSG Bearish dengan kepercayaan 62% ternyata tidak terwujud, karena IHSG justru menguat."
+  ],
+  "rca_underestimated": [
+    "Dampak positif dari data ekonomi domestik yang solid (IKK, PDB, PMI, inflasi, cadangan devisa) terhadap sentimen pasar dan penguatan IHSG.",
+    "Pelemahan Rupiah yang signifikan sebesar 3.438% terhadap USD, jauh melebihi proyeksi fluktuatif atau penguatan tipis."
+  ],
+  "rca_info_delay": [
+    "Laporan Indeks Keyakinan Konsumen (IKK) BI yang dirilis pada 04:00 GMT (11:00 WIB) setelah pasar dibuka, menjadi pendorong utama penguatan IHSG.",
+    "Data aktual USD/IDR yang melemah 3.438% ke Rp 18.080 per dolar AS tidak dapat ditangkap oleh brief pagi yang mengacu pada data akhir pekan sebelumnya (Jumat, 6 November 2026)."
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi IHSG Bearish, namun IHSG justru menguat 0.46% menjadi Bullish, didorong oleh data ekonomi domestik yang kuat yang tidak sepenuhnya diantisipasi.",
+    "Brief memproyeksikan Rupiah fluktuatif atau menguat tipis, namun Rupiah justru melemah signifikan sebesar 3.438% terhadap USD, menunjukkan bahwa sentimen mata uang dapat bergerak berlawanan atau memiliki pendorong yang berbeda dari pasar ekuitas pada hari tersebut."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish, tetapi Indeks Keyakinan Konsumen (IKK) dan data ekonomi domestik lainnya (PDB, PMI, inflasi, cadangan devisa) menunjukkan penguatan yang signifikan, maka IHSG dapat berbalik menjadi Bullish dan menguat 0.46%.",
+    "Ketika Rupiah diproyeksikan fluktuatif atau menguat tipis, tetapi terjadi pelemahan signifikan sebesar 3.438% terhadap USD, maka sentimen mata uang dapat berbeda dari pergerakan IHSG yang menguat 0.46%."
+  ],
+  "summary": "Prediksi IHSG Bearish tidak tepat karena pasar justru menguat 0.46% menjadi Bullish, didorong oleh data ekonomi domestik yang solid dan Indeks Keyakinan Konsumen yang tinggi, sementara Rupiah melemah signifikan 3.438%.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18080.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 87.28,
+      "previous_close": 88.12,
+      "change_pct": -0.95,
+      "signal": "Down",
+      "retrieved_at": "2026-11-09T20:00:53+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 93.88,
+      "previous_close": 94.62,
+      "change_pct": -0.78,
+      "signal": "Down",
+      "retrieved_at": "2026-11-09T20:00:53+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.06,
+      "previous_close": 2.96,
+      "change_pct": 3.58,
+      "signal": "Up",
+      "retrieved_at": "2026-11-09T20:00:54+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 09 Nov 2026 09:20:15 GMT | freshness: unknown] World markets bounce back after a recovery for AI stocks on Wall Street - The Sun Chronicle\nA trader works on the floor of the New York Stock Exchange, Friday, Nov. 6, 2026, in New York. People look at an electronic display board showing Japan's Nikkei index at a securities firm, Monday, Nov. 9, 2026, in Tokyo. A person walks past an electronic display board showing Japan's Nikkei index at a securities firm, Monday, Nov. 9, 2026, in Tokyo. A person looks at an electronic display board showing Japan's Nikkei index at a securities firm, Monday\nSource IDs: src_29fc54ca8c, src_38485c0f1e, src_ada027de31, src_24a27a0d68, src_6a3adb1f24, src_5d538e8c23, src_598f6ce890",
+      "source_ids": [
+        "src_29fc54ca8c",
+        "src_38485c0f1e",
+        "src_ada027de31",
+        "src_24a27a0d68",
+        "src_6a3adb1f24",
+        "src_5d538e8c23",
+        "src_598f6ce890"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-09T20:00:59+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": -9.04,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Sun, 08 Nov 2026 22:00:00 GMT | freshness: unknown] Pemerintah Turunkan Beban Ekspor CPO 20 Persen pada November\nPenurunan beban ekspor minyak sawit mentah atau crude palm oil (CPO) belum tentu memberikan keuntungan langsung bagi nilai tukar rupiah.\nSource: https://centralbatam.co.id/penurunan-beban-ekspor-cpo-november\nSource ID: src_016a7fee11\n\n[Sun, 08 Nov 2026 14:01:00 GMT | freshness: unknown] Harga CPO Anjlok 9,04% Sepekan di Bursa Malaysia, KPBN Turun Rp294 Jadi Rp14.254 per Kg - agricom.id\nAGRICOM, JAKARTA – Harga minyak sawit mentah atau crude palm oil (CPO) di Bursa Malaysia Derivati\nSource IDs: src_016a7fee11, src_f9a995df42, src_2b24db39f0, src_67b9c37e07, src_230536c29d, src_520b7d35fc",
+      "source_ids": [
+        "src_016a7fee11",
+        "src_f9a995df42",
+        "src_2b24db39f0",
+        "src_67b9c37e07",
+        "src_230536c29d",
+        "src_520b7d35fc"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-09T20:01:00+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 09 Nov 2026 08:00:00 GMT | freshness: unknown] INPI 9 November 2026: Harga Bijih Nikel Bervariasi, Produk Hilir Kompak Menguat\nNIKEL.CO.ID, JAKARTA – Harga nikel Indonesia menunjukkan pergerakan positif pada sejumlah produk hilir dalam rilis Indonesia Nickel Price Index (INPI) 9.\nSource: https://nikel.co.id/2026/11/09/inpi-9-november-2026-harga-bijih-nikel-bervariasi-produk-hilir-kompak-menguat\nSource ID: src_2fb2e2a5ee\n\n[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dha\nSource IDs: src_2fb2e2a5ee, src_15dae784dd",
+      "source_ids": [
+        "src_2fb2e2a5ee",
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-09T20:01:02+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.127,
+    "stored_usdidr_change_pct": 3.438,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.438,
+  "rupiah_signal": "Weakened"
+}
