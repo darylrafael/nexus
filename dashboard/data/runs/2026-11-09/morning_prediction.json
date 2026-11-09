@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-09",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 62,
+  "foreign_flow_signal": "Accumulation",
+  "foreign_flow_net": "Net Buy Rp 329,34 miliar di seluruh pasar. Net Buy di pasar reguler sebesar Rp 109,30 miliar (src_774ba36b3d). Secara akumulasi sepekan, investor asing membukukan net sell sebesar Rp 1,07 triliun di pasar reguler (src_f1bf3c524d).",
+  "sector_bullish": [
+    "Airlines, Shipping, Petrochemicals",
+    "Importers",
+    "Pharmaceuticals",
+    "Consumer Goods"
+  ],
+  "sector_bearish": [
+    "Oil & Gas Upstream",
+    "Fertilizer & Utility",
+    "Exporters (General)",
+    "Technology"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Gas Upstream"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BBRI",
+    "BMRI",
+    "NATO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_0b34d9dd33",
+    "src_24a320f81b",
+    "src_29b431c0a8",
+    "src_37e76f5d43",
+    "src_42ffef0863",
+    "src_72ae983073",
+    "src_774ba36b3d",
+    "src_83ac0e16c4",
+    "src_8ed3829981",
+    "src_9f9af18e16",
+    "src_f1bf3c524d"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 41.2,
+  "lock_hash": "6a91e73f301eb81a",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-09",
+  "created_at": "2026-11-09T07:31:59+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-09T07:31:59+07:00",
+  "schema_version": 1
+}
