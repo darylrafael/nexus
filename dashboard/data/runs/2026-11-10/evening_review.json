@@ -1,0 +1,152 @@
+{
+  "date": "2026-11-10",
+  "ihsg_predicted": "Neutral",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 1.02,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Keuangan": true,
+    "Barang Konsumen": true,
+    "Penerbangan/Logistik": true,
+    "Teknologi": true,
+    "Barang Baku": false,
+    "Energi": false,
+    "Properti": false,
+    "Infrastruktur": false
+  },
+  "error_rate_pct": 81,
+  "accuracy_score": 19,
+  "rca_unanticipated": [
+    "Penurunan harga minyak mentah (WTI -6.15%, Brent -8.25%) yang berkontribusi pada kenaikan saham Asia",
+    "Kenaikan harga Natural Gas (+10.01%)",
+    "Penguatan Rupiah yang lebih signifikan dari perkiraan (USD/IDR -0.276%)",
+    "Sektor Industri memimpin kenaikan (+2.68%)",
+    "Sektor Barang Baku mengalami penguatan (+2.41%)"
+  ],
+  "rca_overestimated": [
+    "Risiko rilis data inflasi Amerika Serikat dan kebijakan suku bunga The Federal Reserve yang diprediksi menekan sentimen investor di IDX, namun pasar justru menguat"
+  ],
+  "rca_underestimated": [
+    "Sentimen positif domestik dan global yang mendorong penguatan IHSG",
+    "Penguatan Rupiah yang lebih signifikan dari 'tipis' yang diprediksi",
+    "Potensi penguatan sektor Industri dan Barang Baku"
+  ],
+  "rca_info_delay": [
+    "Polda Metro Pastikan Jakarta Kondusif, 74 Aksi Demo Digelar Hari Ini (03:06:43 GMT)",
+    "IHSG Hari Ini Bersiap Tembus Level 5.200 Jelang Rilis Data Inflasi AS, Diproyeksi Menguat Didorong Sentimen Positif Domestik dan Global (04:02:27 GMT)",
+    "Kado Hari Pahlawan 10 November 2026, Rupiah Menguat ke Rp18.069 per Dolar AS (02:50:00 GMT)",
+    "Asian stocks climb as oil prices slide ahead US CPI (07:08:38 GMT)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi sektor Barang Baku Bearish, namun sektor Barang Baku naik 2.41%.",
+    "Brief memprediksi sektor Energi Bearish, namun sektor Energi naik 1.43%.",
+    "Brief memprediksi sektor Properti Neutral, namun sektor Properti naik 0.97%.",
+    "Brief memprediksi sektor Infrastruktur Neutral, namun sektor Infrastruktur turun 0.06%.",
+    "Brief memprediksi rilis data inflasi AS akan menekan sentimen investor, namun IHSG justru menguat 1.02% menjelang rilis data tersebut."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Neutral, tetapi sentimen positif domestik dan global menjelang rilis data inflasi AS mendorong penguatan, maka IHSG naik 1.02%.",
+    "Ketika sektor Barang Baku diprediksi Bearish, tetapi mengalami penguatan signifikan, maka sektor Barang Baku naik 2.41%.",
+    "Ketika sektor Energi diprediksi Bearish, tetapi mengalami penguatan, maka sektor Energi naik 1.43%.",
+    "Ketika rilis data inflasi AS diprediksi menekan sentimen investor, tetapi pasar merespons positif didorong sentimen domestik dan global, maka IHSG naik 1.02%."
+  ],
+  "summary": "IHSG, yang diprediksi netral, justru menguat 1.02% didorong sentimen positif domestik dan global serta penguatan Rupiah, sementara beberapa prediksi sektor seperti Barang Baku dan Energi berbalik arah dari bearish menjadi bullish.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18045.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.95,
+      "previous_close": 90.52,
+      "change_pct": -6.15,
+      "signal": "Down",
+      "retrieved_at": "2026-11-10T20:00:49+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 90.18,
+      "previous_close": 98.29,
+      "change_pct": -8.25,
+      "signal": "Down",
+      "retrieved_at": "2026-11-10T20:00:50+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.24,
+      "previous_close": 2.95,
+      "change_pct": 10.01,
+      "signal": "Up",
+      "retrieved_at": "2026-11-10T20:00:50+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 258.56,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 09:00:00 GMT | freshness: unknown] Coking Coal - Price - Chart - Historical Data - News\n## Historically, Coking Coal reached an all time high of 635 in March of 2022. This page includes a chart with historical data for Coking Coal. Coking Coal - data, forecasts, historical chart - was last updated on November 10 of 2026.\n\n### Coking Coal is expected to trade at 258.56 USD/T by the end of this quarter, according to Trading Economics global macro models and analysts expectations. Looking forward, we estimate it to trade at 279.61 in 12 months time. [...] ##### Members\n\n#####\nSource IDs: src_6d435e12f8",
+      "source_ids": [
+        "src_6d435e12f8"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-10T20:00:53+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 00:01:38 GMT | freshness: unknown] SD Guthrie’s growth goes beyond palm oil | The Star\nThe group’s core plantation business continues to provide solid operational support, anchored by robust upstream performance.\n\nThe upstream business is poised to benefit from strong crude palm oil (CPO) prices, which analysts and management project to range between RM4,500 and RM5,000 per tonne into 2027. [...] CGSI Research reiterated its “add” rating with a target price (TP) of RM9.20 a share, citing CPO price tailwinds, non-core land monetisation and renewable energy (RE) ventures.\n\nUOB\nSource IDs: src_ffc8688e8e, src_8b435957b9",
+      "source_ids": [
+        "src_ffc8688e8e",
+        "src_8b435957b9"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-10T20:00:55+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 700.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 07:31:23 GMT | freshness: unknown] CNGR Morowali Kantongi Izin Industri Asam Sulfat - Media Nikel Indonesia\nTopik #Morowali →\n\n1. CNGR Morowali Kantongi Izin Industri Asam Sulfat sedang Anda baca\n2. Akibat Berhentinya Beberapa Lini Smelter RKEF, Spot Harga Bijih Nikel Indonesia Terus Melemah\n3. Rencana Pengurangan Produksi Nikel Indonesia, Harga Nikel LME Naik Hinga US$700\n4. Komisi IX DPR RI Tekankan Pentingnya Pengawasan K3 bagi Pekerja Tambang di Morowali\n5. Komisi VII akan Panggil PT ITSS dan Kemenperin Terkait Ledakan Smelter\n6. Kemnaker Ambil Sikap Tegas Jika PT ITSS Te\nSource IDs: src_c4854d14e5, src_15dae784dd",
+      "source_ids": [
+        "src_c4854d14e5",
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-10T20:00:56+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.194,
+    "stored_usdidr_change_pct": -0.276,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.276,
+  "rupiah_signal": "Strengthened"
+}

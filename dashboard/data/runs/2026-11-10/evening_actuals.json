@@ -1,0 +1,172 @@
+{
+  "date": "2026-11-10",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_6d435e12f8",
+    "src_ffc8688e8e",
+    "src_8b435957b9",
+    "src_c4854d14e5",
+    "src_15dae784dd",
+    "src_f0489607c0",
+    "src_4132714701",
+    "src_e0bfccd8f6",
+    "src_9732c1cc53",
+    "src_fc4d41d400",
+    "src_bb7af95121",
+    "src_91215e1719",
+    "src_d3f80a1471",
+    "src_a5e0b171b2",
+    "src_173317323f",
+    "src_7f17bbe700",
+    "src_e7fee3185d",
+    "src_6188a50085",
+    "src_f179381751",
+    "src_e3553feb01",
+    "src_64dbf5872b",
+    "src_d35d2f15f8",
+    "src_156db3dab9",
+    "src_d01789308b",
+    "src_49e219369b",
+    "src_64e31bdbfe"
+  ],
+  "target_date": "2026-11-10",
+  "ihsg": {
+    "status": "ok",
+    "close": 5125.73,
+    "prev": 5073.77,
+    "change_pct": 1.02,
+    "change_pts": 51.96,
+    "signal": "Bullish",
+    "open": 5096.81,
+    "high": 5160.54,
+    "low": 5075.64,
+    "volume": 0,
+    "candle_date": "2026-11-10",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-10T20:00:49+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18045.0,
+    "prev": 18095.0,
+    "change_pct": -0.276,
+    "signal": "Strengthened",
+    "candle_date": "2026-11-10",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-10T20:00:49+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5125.73,
+  "ihsg_prev": 5073.77,
+  "ihsg_change_pct": 1.02,
+  "ihsg_change_pts": 51.96,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-10T20:00:49+07:00",
+  "usdidr_rate": 18045.0,
+  "usdidr_prev": 18095.0,
+  "usdidr_change_pct": -0.276,
+  "rupiah_signal": "Strengthened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-10T20:00:49+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.95,
+      "previous_close": 90.52,
+      "change_pct": -6.15,
+      "signal": "Down",
+      "retrieved_at": "2026-11-10T20:00:49+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 90.18,
+      "previous_close": 98.29,
+      "change_pct": -8.25,
+      "signal": "Down",
+      "retrieved_at": "2026-11-10T20:00:50+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.24,
+      "previous_close": 2.95,
+      "change_pct": 10.01,
+      "signal": "Up",
+      "retrieved_at": "2026-11-10T20:00:50+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 258.56,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 09:00:00 GMT | freshness: unknown] Coking Coal - Price - Chart - Historical Data - News\n## Historically, Coking Coal reached an all time high of 635 in March of 2022. This page includes a chart with historical data for Coking Coal. Coking Coal - data, forecasts, historical chart - was last updated on November 10 of 2026.\n\n### Coking Coal is expected to trade at 258.56 USD/T by the end of this quarter, according to Trading Economics global macro models and analysts expectations. Looking forward, we estimate it to trade at 279.61 in 12 months time. [...] ##### Members\n\n#####\nSource IDs: src_6d435e12f8",
+      "source_ids": [
+        "src_6d435e12f8"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-10T20:00:53+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 00:01:38 GMT | freshness: unknown] SD Guthrie’s growth goes beyond palm oil | The Star\nThe group’s core plantation business continues to provide solid operational support, anchored by robust upstream performance.\n\nThe upstream business is poised to benefit from strong crude palm oil (CPO) prices, which analysts and management project to range between RM4,500 and RM5,000 per tonne into 2027. [...] CGSI Research reiterated its “add” rating with a target price (TP) of RM9.20 a share, citing CPO price tailwinds, non-core land monetisation and renewable energy (RE) ventures.\n\nUOB\nSource IDs: src_ffc8688e8e, src_8b435957b9",
+      "source_ids": [
+        "src_ffc8688e8e",
+        "src_8b435957b9"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-10T20:00:55+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 700.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 07:31:23 GMT | freshness: unknown] CNGR Morowali Kantongi Izin Industri Asam Sulfat - Media Nikel Indonesia\nTopik #Morowali →\n\n1. CNGR Morowali Kantongi Izin Industri Asam Sulfat sedang Anda baca\n2. Akibat Berhentinya Beberapa Lini Smelter RKEF, Spot Harga Bijih Nikel Indonesia Terus Melemah\n3. Rencana Pengurangan Produksi Nikel Indonesia, Harga Nikel LME Naik Hinga US$700\n4. Komisi IX DPR RI Tekankan Pentingnya Pengawasan K3 bagi Pekerja Tambang di Morowali\n5. Komisi VII akan Panggil PT ITSS dan Kemenperin Terkait Ledakan Smelter\n6. Kemnaker Ambil Sikap Tegas Jika PT ITSS Te\nSource IDs: src_c4854d14e5, src_15dae784dd",
+      "source_ids": [
+        "src_c4854d14e5",
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-10T20:00:56+07:00"
+    }
+  },
+  "top_movers": "[Tue, 10 Nov 2026 10:42:40 GMT | freshness: unknown] 8 Sektor Saham Naik, Industri Memimpin (Selasa, 10 November 2026)\nFrekuensi perdagangan saham dalam negeri hari ini 1,25 juta kali transaksi, total saham berpindah tangan 38,04 miliar lembar, dan nilai transaksi mencapai Rp75,64 triliun.\n\nAKKU menjadi emiten top gainer hari ini usai terbang 34,69%, diikuti HELI yang melonjak 27,17% dan PTSP yang naik 24,89%.\n\nLOPI menjadi emiten top loser setelah turun 9,38%, diikuti KREN yang melemah 7,69% dan TFCO turun 7%.\n\n(Baca: 6 Sektor Saham Turun, Teknologi Paling Bawah (Senin, 9 November 2026))\n\nEditor : Adi Ahdiat [...] Menurut data Bursa Efek Indonesia (BEI), Indeks Harga Saham Gabungan (IHSG) naik 1,02% ke level 5.125,73 pada penutupan perdagangan Selasa (10/11/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, delapan sektor saham ditutup menguat hari ini. Sektor industri memimpin setelah naik 2,68%.\n\nSementara, tiga sektor saham ditutup melemah hari ini. Sektor teknologi jatuh paling dalam setelah turun 0,20%. [...] Berikut rincian persentase pergerakan harian Indeks Sektoral IDX-IC pada penutupan perdagangan Selasa (10/11/2026):\n\n1. Industri: 2,68%\n2. Barang baku: 2,41%\n3. Barang konsumen non-primer: 1,80%\n4. Energi: 1,43%\n5. Transportasi dan logistik: 1,23%\n6. Properti: 0,97%\n7. Barang konsumen primer: 0,35%\n8. Keuangan: 0,07%\n9. Infrastruktur: -0,06%\n10. Kesehatan: -0,16%\n11. Teknologi: -0,20%\n\nMenurut data RTI Business, 410 saham ditutup naik hari ini, 174 saham melemah, dan 132 saham stagnan.\nSource: https://databoks.katadata.co.id/pasar/statistik/6af2e5303458e/8-sektor-saham-naik-industri-memimpin-selasa-10-november-2026\nSource ID: src_f0489607c0\n\n[Tue, 10 Nov 2026 10:40:59 GMT | freshness: unknown] Sejalan dengan Bursa Asia, IHSG Ditutup Menguat 1,02% (Selasa, 10 November 2026)\nMenurut data RTI Business, frekuensi perdagangan saham dalam negeri hari ini mencapai 1,25 juta kali transaksi, total saham berpindah tangan 38,04 miliar lembar dengan nilai total transaksi Rp\nSource IDs: src_f0489607c0, src_4132714701, src_e0bfccd8f6, src_9732c1cc53, src_fc4d41d400, src_bb7af95121, src_91215e1719",
+  "sector_performance": "[Mon, 09 Nov 2026 15:19:32 GMT | freshness: unknown] IHSG Menguat 0,46 Persen pada 9 November 2026\nSementara itu, enam sektor lainnya justru berakhir di wilayah negatif sehingga pergerakan sektoral berlangsung beragam.\n\nSektor energi tampil sebagai penyumbang penguatan paling besar dengan kenaikan mencapai 1,89%. Posisi tersebut menempatkan energi sebagai sektor dengan performa terbaik dibandingkan kelompok sektoral lainnya selama perdagangan Senin. [...] Di bawah energi, sektor perindustrian membukukan pertumbuhan sebesar 0,63%. Berikutnya, properti dan real estat mengalami peningkatan 0,51%, sedangkan infrastruktur mencatatkan kenaikan sebesar 0,50%. Satu sektor lain yang turut berada di zona positif adalah barang konsumen nonprimer. Kelompok ini mencatatkan pertumbuhan sebesar 0,14%, sekaligus melengkapi lima sektor yang mengalami penguatan pada penutupan perdagangan. [...] Sektor barang konsumen primer juga mengalami pelemahan sebesar 0,63%, sementara kesehatan mencatatkan koreksi 0,57%. Dua sektor lainnya turut menutup perdagangan dengan penurunan. Transportasi melemah 0,18%, sedangkan sektor keuangan mengalami koreksi paling kecil di antara enam sektor yang berada di zona merah, yakni sebesar 0,07%.\nSource: https://demokratis.co.id/ihsg-menguat-046-persen-pada-9-november-2026\nSource ID: src_d3f80a1471\n\n[Tue, 10 Nov 2026 10:00:00 GMT | freshness: unknown] IHSG Naik 51,95 Poin ke Level 5.125,72 pada Penutupan Perdagangan 10 November 2026\nIndeks Harga Saham Gabungan (IHSG) berada di level 5.125,72 pada penutupan perdagangan Selasa, 10 November 2026. Ini berarti naik 51,95 poin atau 1,02\nSource: https://rri.co.id/ekonomi/keuangan/2885698/ihsg-naik-5195-poin-ke-level-512572-pada-penutupan-perdagangan-10-november-2026\nSource ID: src_a5e0b171b2\n\n[Tue, 10 Nov 2026 10:00:00 GMT | freshness: unknown] IHSG Menguat 1,02 Persen ke Level 5.125,7 di BEI\nIndeks Harga Saham Gabungan (IHSG) mencatat penguatan pada penutupan perdagangan Bursa Efek Indonesia (BEI), Selasa (10/11/2026). Indeks naik 51,96 poin\nSource: https://demokratis.co.id/ihsg-menguat-102-persen-ke-level-51257-di-bei\nSource ID: src_173317323f\n\n[Mon, 09 Nov 2026 15:15:00 GMT | freshness: unknown] Bank Himbara Teratas, Cek Saham Net Sell Terbesar Asing, Senin (9/11)\nMengutip data Bursa Efek Indonesia (BEI) melalui RTI Business, IHSG naik 0,46% atau 23,3 poin ke level 5.073,77 pada penutupan perdagangan.\n\nPenguatan IHSG ditopang oleh kenaikan lima indeks sektoral. Sektor energi mencatat kenaikan tertingg\nSource IDs: src_d3f80a1471, src_a5e0b171b2, src_173317323f, src_7f17bbe700, src_e7fee3185d, src_6188a50085, src_f179381751",
+  "foreign_flow_raw": "[Tue, 10 Nov 2026 03:39:42 GMT | freshness: unknown] Cambodia Among ASEAN Countries in $7.1 Trillion Regional Infrastructure Push - Cambodia Investment Review\n* Last Update November 10, 2026 10:39 am. ## Cambodia’s Cabinet Approves $11.7 Billion Budget Plan for 2027 as Growth Forecast to Reach 4.8%. ## Leader Talks: Moody’s Eugene Tarzimanov on Cambodia’s Banking Growth Story as NPL and Property Risks Rise at 2026 Banking Conference. ## Metfone Highlights AI and Digital Payments as Tools for Cambodian Business Growth at VIDEX 2026. ## KB PRASAC Bank Achieved 1 Million Mobile App Users, Accelerating Digital Banking in Cambodia. ## Cambodia’s Financial Market Expands with First $200M Collective Investment Scheme Mandating 10% Investment in Cambodian Securities. ## Interview of the Week: Daniel Marchette on 10 Years of Hops, Bash Brewing’s Growth and Cambodia’s Craft Beer Scene. Southeast Asia will need an estimated $7.1 trillion in infrastructure investment through 2040 to support economic growth and strengthen regional connectivity, according to a new report from the Asian Development Bank. Electricity and transport account for 85% of the region’s infrastructure requirements, with estimated needs of $3.6 trillion and $2.5 trillion, respectively.\nSource: https://cambodiainvestmentreview.com/2026/11/10/cambodia-among-asean-countries-in-7-1-trillion-regional-infrastructure-push/\nSource ID: src_e3553feb01\n\n[Tue, 10 Nov 2026 06:49:38 GMT | freshness: unknown] Leading Property Devel",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_flow_figure_found",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.194,
+    "stored_usdidr_change_pct": -0.276,
+    "rescored_at": "2026-10-15"
+  }
+}

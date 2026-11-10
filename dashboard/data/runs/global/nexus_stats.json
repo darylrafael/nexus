@@ -1,5 +1,5 @@
 {
-  "total_sessions": 35,
+  "total_sessions": 36,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -35,50 +35,51 @@
     "2026-11-04",
     "2026-11-05",
     "2026-11-06",
-    "2026-11-09"
+    "2026-11-09",
+    "2026-11-10"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 35,
+  "sample_size_n": 36,
   "sample_warning": null,
-  "direction_accuracy_pct": 40.0,
+  "direction_accuracy_pct": 38.9,
   "direction_correct_count": 14,
-  "direction_scorable_sessions": 35,
+  "direction_scorable_sessions": 36,
   "direction_info": {
-    "pct": 40.0,
-    "n": 35,
+    "pct": 38.9,
+    "n": 36,
     "correct": 14,
-    "label": "n = 35",
+    "label": "n = 36",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 25.6,
-    "upper_pct": 56.4,
+    "lower_pct": 24.8,
+    "upper_pct": 55.1,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 51.4,
+    "always_bearish_pct": 50.0,
     "always_bearish_count": 18,
-    "always_bearish_total": 35,
-    "always_bullish_pct": 45.7,
-    "always_bullish_count": 16,
-    "always_bullish_total": 35,
-    "majority_class_pct": 51.4,
-    "persistence_pct": 52.9,
-    "persistence_correct_count": 18,
-    "persistence_scorable_sessions": 34
+    "always_bearish_total": 36,
+    "always_bullish_pct": 47.2,
+    "always_bullish_count": 17,
+    "always_bullish_total": 36,
+    "majority_class_pct": 50.0,
+    "persistence_pct": 54.3,
+    "persistence_correct_count": 19,
+    "persistence_scorable_sessions": 35
   },
   "calibration": {
-    "average_stated_confidence_pct": 74.8,
-    "calibrated_confidence_pct": 40.0,
-    "sample_size_n": 35,
+    "average_stated_confidence_pct": 74.4,
+    "calibrated_confidence_pct": 38.9,
+    "sample_size_n": 36,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 40.0,
+    "realized_hit_rate_pct": 38.9,
     "status_label": "calibrated",
-    "brier_score": 0.3744,
+    "brier_score": 0.3743,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (40.0%, n = 35)",
+    "confidence_label": "Calibrated confidence (38.9%, n = 36)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -103,18 +104,18 @@
     "label": "n = 5, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 39.6,
-  "sector_correct_count": 40,
-  "sector_verifiable_count": 101,
+  "sector_accuracy_pct": 40.4,
+  "sector_correct_count": 44,
+  "sector_verifiable_count": 109,
   "sector_info": {
-    "pct": 39.6,
-    "n": 101,
-    "correct": 40,
-    "label": "n = 101",
+    "pct": 40.4,
+    "n": 109,
+    "correct": 44,
+    "label": "n = 109",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 35.2,
-  "rolling_20_accuracy": 36.1,
+  "rolling_avg_accuracy": 34.7,
+  "rolling_20_accuracy": 37.0,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -170,7 +171,9 @@
     "Ketika sinyal komoditas Oil diprediksi bullish, tetapi Crude Oil (WTI) turun 8.80% dan Brent Crude turun 13.05%, maka prediksi arah komoditas perlu ditinjau ulang dengan data real-time yang lebih akurat.",
     "Ketika IHSG signaled neutral (65% confidence) di pagi hari, tetapi global AI chip selloff terjadi, maka IHSG naik 0.40% (20.2 poin) pada penutupan.",
     "Ketika IHSG diprediksi Bearish, tetapi Indeks Keyakinan Konsumen (IKK) dan data ekonomi domestik lainnya (PDB, PMI, inflasi, cadangan devisa) menunjukkan penguatan yang signifikan, maka IHSG dapat berbalik menjadi Bullish dan menguat 0.46%.",
-    "Ketika Rupiah diproyeksikan fluktuatif atau menguat tipis, tetapi terjadi pelemahan signifikan sebesar 3.438% terhadap USD, maka sentimen mata uang dapat berbeda dari pergerakan IHSG yang menguat 0.46%."
+    "Ketika Rupiah diproyeksikan fluktuatif atau menguat tipis, tetapi terjadi pelemahan signifikan sebesar 3.438% terhadap USD, maka sentimen mata uang dapat berbeda dari pergerakan IHSG yang menguat 0.46%.",
+    "Ketika IHSG diprediksi Neutral, tetapi sentimen positif domestik dan global menjelang rilis data inflasi AS mendorong penguatan, maka IHSG naik 1.02%.",
+    "Ketika sektor Barang Baku diprediksi Bearish, tetapi mengalami penguatan signifikan, maka sektor Barang Baku naik 2.41%."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -329,12 +332,20 @@
     "Kinerja manufaktur menunjukkan ekspansi dengan PMI Oktober naik ke level 54,0.": 1,
     "Tingkat inflasi Oktober melandai di angka 3,23% yoy, serta posisi cadangan devisa akhir Oktober meningkat menjadi USD146,8 miliar.": 1,
     "Dampak positif dari data ekonomi domestik yang solid (IKK, PDB, PMI, inflasi, cadangan devisa) terhadap sentimen pasar dan penguatan IHSG.": 1,
-    "Pelemahan Rupiah yang signifikan sebesar 3.438% terhadap USD, jauh melebihi proyeksi fluktuatif atau penguatan tipis.": 1
+    "Pelemahan Rupiah yang signifikan sebesar 3.438% terhadap USD, jauh melebihi proyeksi fluktuatif atau penguatan tipis.": 1,
+    "Penurunan harga minyak mentah (WTI -6.15%, Brent -8.25%) yang berkontribusi pada kenaikan saham Asia": 1,
+    "Kenaikan harga Natural Gas (+10.01%)": 1,
+    "Penguatan Rupiah yang lebih signifikan dari perkiraan (USD/IDR -0.276%)": 1,
+    "Sektor Industri memimpin kenaikan (+2.68%)": 1,
+    "Sektor Barang Baku mengalami penguatan (+2.41%)": 1,
+    "Sentimen positif domestik dan global yang mendorong penguatan IHSG": 1,
+    "Penguatan Rupiah yang lebih signifikan dari 'tipis' yang diprediksi": 1,
+    "Potensi penguatan sektor Industri dan Barang Baku": 1
   },
-  "last_updated": "2026-11-09",
+  "last_updated": "2026-11-10",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-09",
-  "history_rescore_note": "Rescored across 35 genuine sessions (2026-09-22 to 2026-11-09) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-10",
+  "history_rescore_note": "Rescored across 36 genuine sessions (2026-09-22 to 2026-11-10) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -465,6 +476,16 @@
       "date": "2026-11-06",
       "lesson": "Ketika perkiraan foreign flow stagnant dan rupiah diperkirakan kuat, tetapi USD/IDR melemah 3.393% (rate naik menjadi 18,103) terjadi, maka investor mengalami peningkatan volatilitas dan IHSG naik 0.40% (20.2 poin).",
       "reason": "unreliable_source_data: stored usdidr_change_pct (3.393%) diverges from consecutive spot close (0.155%)"
+    },
+    {
+      "date": "2026-11-10",
+      "lesson": "Ketika sektor Energi diprediksi Bearish, tetapi mengalami penguatan, maka sektor Energi naik 1.43%.",
+      "reason": "session_limit_exceeded: max 2 lessons per session"
+    },
+    {
+      "date": "2026-11-10",
+      "lesson": "Ketika rilis data inflasi AS diprediksi menekan sentimen investor, tetapi pasar merespons positif didorong sentimen domestik dan global, maka IHSG naik 1.02%.",
+      "reason": "session_limit_exceeded: max 2 lessons per session"
     }
   ],
   "heuristics": [
@@ -1182,14 +1203,40 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-09"
+    },
+    {
+      "id": "rule-56",
+      "rule": "Ketika IHSG diprediksi Neutral, tetapi sentimen positif domestik dan global menjelang rilis data inflasi AS mendorong penguatan, maka IHSG naik 1.02%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-10"
+    },
+    {
+      "id": "rule-57",
+      "rule": "Ketika sektor Barang Baku diprediksi Bearish, tetapi mengalami penguatan signifikan, maka sektor Barang Baku naik 2.41%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-10"
     }
   ],
   "active_heuristics_count": 23,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 32,
-  "ihsg_accuracy_pct": 40.0,
+  "hypothesis_heuristics_count": 34,
+  "ihsg_accuracy_pct": 38.9,
   "ihsg_correct_count": 14,
   "ff_accuracy_pct": 40.0,
   "ff_correct_count": 2,
-  "total_accuracy_sum": 1231.0
+  "total_accuracy_sum": 1250.0
 }
