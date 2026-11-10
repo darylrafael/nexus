@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-10",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": 8.55,
+      "line_number": 20,
+      "line": "- **Summary**: Selama periode observasi, Crude Oil (WTI) turun 1.88% menjadi 86.46 dan Brent Crude turun 2.41% menjadi 92.34. Harga batu bara Newcastle terpukul, turun 7.45% (src_d4e64de25a). Harga referensi CPO November 2026 turun 6.07% (src_f71168b535). Sebaliknya, Natural Gas melonjak 8.55% menjadi 3.21, dan Nickel (LME) melompat 3.8% menjadi $16,375 (src_faac30c7b3).",
+      "issue": "Natural Gas is positive (+8.55%) in data, but line uses negative term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Nickel",
+      "reference_value": 3.8,
+      "line_number": 20,
+      "line": "- **Summary**: Selama periode observasi, Crude Oil (WTI) turun 1.88% menjadi 86.46 dan Brent Crude turun 2.41% menjadi 92.34. Harga batu bara Newcastle terpukul, turun 7.45% (src_d4e64de25a). Harga referensi CPO November 2026 turun 6.07% (src_f71168b535). Sebaliknya, Natural Gas melonjak 8.55% menjadi 3.21, dan Nickel (LME) melompat 3.8% menjadi $16,375 (src_faac30c7b3).",
+      "issue": "Nickel is positive (+3.80%) in data, but line uses negative term"
+    }
+  ],
+  "count": 2,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 20,
+      "issue": "Natural Gas is positive (+8.55%) in data, but line uses negative term",
+      "line": "- **Summary**: Selama periode observasi, Crude Oil (WTI) turun 1.88% menjadi 86.46 dan Brent Crude turun 2.41% menjadi 92.34. Harga batu bara Newcastle terpukul, turun 7.45% (src_d4e64de25a). Harga referensi CPO November 2026 turun 6.07% (src_f71168b535). Sebaliknya, Natural Gas melonjak 8.55% menjadi 3.21, dan Nickel (LME) melompat 3.8% menjadi $16,375 (src_faac30c7b3).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 20,
+      "issue": "Nickel is positive (+3.80%) in data, but line uses negative term",
+      "line": "- **Summary**: Selama periode observasi, Crude Oil (WTI) turun 1.88% menjadi 86.46 dan Brent Crude turun 2.41% menjadi 92.34. Harga batu bara Newcastle terpukul, turun 7.45% (src_d4e64de25a). Harga referensi CPO November 2026 turun 6.07% (src_f71168b535). Sebaliknya, Natural Gas melonjak 8.55% menjadi 3.21, dan Nickel (LME) melompat 3.8% menjadi $16,375 (src_faac30c7b3).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}

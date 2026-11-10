@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-10",
+  "ihsg_signal": "Neutral",
+  "ihsg_confidence": 61,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Buy Rp109,30 miliar di pasar reguler (src_5c0d129d03, src_774ba36b3d). Total beli bersih sebesar Rp329,34 miliar di seluruh pasar (src_5c0d129d03, src_774ba36b3d).",
+  "sector_bullish": [
+    "Keuangan",
+    "Barang Konsumen",
+    "Penerbangan/Logistik"
+  ],
+  "sector_bearish": [
+    "Teknologi",
+    "Barang Baku",
+    "Energi (Upstream Oil & Gas, Coal, CPO)"
+  ],
+  "sector_neutral": [
+    "Properti",
+    "Infrastruktur"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BMRI",
+    "DCII",
+    "GOTO",
+    "NATO"
+  ],
+  "key_risk": "Rilis data inflasi Amerika Serikat dan arah kebijakan suku bunga The Federal Reserve dapat memicu volatilitas pasar global dan menekan sentimen investor di IDX.",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_0a93fe2975",
+    "src_1626f345e4",
+    "src_3aa008aa58",
+    "src_4b8db545cb",
+    "src_5c0d129d03",
+    "src_6f30048e4f",
+    "src_72ae983073",
+    "src_774ba36b3d",
+    "src_8ed3829981",
+    "src_9986bfe5e3",
+    "src_9f9af18e16",
+    "src_c2b87218ee",
+    "src_d4e64de25a",
+    "src_ee8635acfd",
+    "src_f71168b535",
+    "src_faac30c7b3"
+  ],
+  "raw_ihsg_signal": "Mixed",
+  "calibrated_confidence": 40.0,
+  "lock_hash": "acc8790469521c96",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-10",
+  "created_at": "2026-11-10T07:32:11+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-10T07:32:11+07:00",
+  "schema_version": 1
+}
