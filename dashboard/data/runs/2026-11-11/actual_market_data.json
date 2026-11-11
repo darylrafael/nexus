@@ -1,0 +1,208 @@
+{
+  "date": "2026-11-11",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_8054827e8f",
+    "src_c062453b18",
+    "src_1882d0bc19",
+    "src_7de5fa4a92",
+    "src_c52e3c3e46",
+    "src_b47745b6ec",
+    "src_15dae784dd",
+    "src_bca8bdeb23",
+    "src_6938fcb51d",
+    "src_8735ca2471",
+    "src_2e4b7de5ac",
+    "src_5a89de8d35",
+    "src_a75b3999a7",
+    "src_816d13d17c",
+    "src_1d4305050e",
+    "src_2353738a99",
+    "src_b90405cda8",
+    "src_f98e9151f7",
+    "src_eb867d26e2",
+    "src_fd538061ab",
+    "src_915246ad2d",
+    "src_2d52c64e48",
+    "src_e986cfd940",
+    "src_e9f3a49eef",
+    "src_5d8244931d",
+    "src_00e8292ba8"
+  ],
+  "target_date": "2026-11-11",
+  "ihsg": {
+    "status": "ok",
+    "close": 5115.04,
+    "prev": 5125.73,
+    "change_pct": -0.21,
+    "change_pts": -10.69,
+    "signal": "Bearish",
+    "open": 5139.09,
+    "high": 5144.79,
+    "low": 5086.02,
+    "volume": 0,
+    "candle_date": "2026-11-11",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-11T20:00:58+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18140.0,
+    "prev": 18058.0,
+    "change_pct": 0.454,
+    "signal": "Weakened",
+    "candle_date": "2026-11-11",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-11T20:00:58+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5115.04,
+  "ihsg_prev": 5125.73,
+  "ihsg_change_pct": -0.21,
+  "ihsg_change_pts": -10.69,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-11T20:00:58+07:00",
+  "usdidr_rate": 18140.0,
+  "usdidr_prev": 18058.0,
+  "usdidr_change_pct": 0.454,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-11T20:00:58+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 87.36,
+      "previous_close": 90.83,
+      "change_pct": -3.82,
+      "signal": "Down",
+      "retrieved_at": "2026-11-11T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 93.37,
+      "previous_close": 98.32,
+      "change_pct": -5.03,
+      "signal": "Down",
+      "retrieved_at": "2026-11-11T20:00:59+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.33,
+      "previous_close": 3.0,
+      "change_pct": 11.14,
+      "signal": "Up",
+      "retrieved_at": "2026-11-11T20:00:59+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "No fresh results found for today.",
+      "source_ids": [],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-11T20:01:02+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 0.02,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 23:00:00 GMT | freshness: unknown] Harga CPO KPBN Inacom Selasa (10/11) Naik Jadi Rp14.278/kg, Tender CPKO dan PK WD\nKPBN Inacom menetapkan harga CPO Franco Dumai sebesar Rp14.278/kg pada Selasa (10/11/2026), naik 0,02% dibandingkan hari sebelumnya. Namun, tender CPO di.\nSource: https://www.agricom.id/2026/1942/harga-minyak-sawit-cpo/harga-cpo-kpbn-inacom-selasa-10-11-naik-jadi-rp14-278-kg-tender-cpko-dan-pk-wd\nSource ID: src_8054827e8f\n\n[Wed, 11 Nov 2026 05:00:00 GMT | freshness: unknown] Daftar Harga TBS Sawit Aceh Wilayah Barat Periode 4 – 17 November\nHarga tandan buah seg\nSource IDs: src_8054827e8f, src_c062453b18, src_1882d0bc19, src_7de5fa4a92, src_c52e3c3e46, src_b47745b6ec",
+      "source_ids": [
+        "src_8054827e8f",
+        "src_c062453b18",
+        "src_1882d0bc19",
+        "src_7de5fa4a92",
+        "src_c52e3c3e46",
+        "src_b47745b6ec"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-11T20:01:03+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] ## Products and services\nKeywords: health care, medical device, wholesale, h\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-11T20:01:07+07:00"
+    }
+  },
+  "top_movers": "[Wed, 11 Nov 2026 10:51:09 GMT | freshness: unknown] IHSG Ditutup Melemah Jelang Pengumuman MSCI (Rabu, 11 November 2026)\nEmiten top loser hari ini adalah BTEK setelah jatuh 9,09%, diikuti PLAN dan UDNG yang masing-masing terkoreksi 8,16% dan 7,96%.\n\nSementara itu, emiten top gainer diisi oleh HRME yang terbang 34,15%, diikuti WMUU yang naik 29,63% dan AGAR yang menguat 24,89%. [...] Indeks Harga Saham Gabungan (IHSG) melemah 0,21% ke level 5.115,04 pada penutupan perdagangan Rabu (11/11/2026).\n\nPenurunan indeks ini terjadi menjelang pengumuman rebalancing indeks MSCI periode November 2026, yang akan dirilis pada Kamis (12/11/2026).\n\nBerdasarkan Indeks Sektoral IDX-IC, empat sektor saham dalam negeri menguat hari ini. Sektor transportasi memimpin dengan kenaikan 0,91%, diikuti sektor energi dan sektor barang konsumen primer yang masing-masing naik 0,50% dan 0,25%. [...] Sementara, tujuh sektor saham lainnya terkoreksi. Sektor barang baku turun paling dalam 1,86%, diikuti sektor industri dan sektor barang konsumen non-primer yang masing-masing turun 0,93% dan 0,74%.\n\nMenurut data RTI Business, frekuensi perdagangan saham dalam negeri hari ini mencapai 1,28 juta kali transaksi, total saham berpindah tangan 32,01 miliar lembar, dan nilai transaksi mencapai Rp9,22 triliun.\n\nSebanyak 383 saham ditutup melemah hari ini, 180 saham menguat, dan 152 saham stagnan.\nSource: https://databoks.katadata.co.id/pasar/statistik/6af4383023adf/ihsg-ditutup-melemah-jelang-pengumuman-msci-rabu-11-november-2026\nSource ID: src_bca8bdeb23\n\n[Wed, 11 Nov 2026 10:00:00 GMT | freshness: unknown] 10 Saham Top Gainer Perdagangan Rabu 11 November 2026, Ada WMUU hingga RAJA\nSaham PT Menteng Heritage Realty Tbk HRME menempati urutan teratas top gainer hari ini dengan kenaikan harga sebesar 34,15 persen di Rp55 per unit.\nSource: https://www.idxchannel.com/amp/market-news/10-saham-top-gainer-perdagangan-rabu-11-november-2026-ada-wmuu-hingga-raja\nSource ID: src_6938fcb51d\n\n[Wed, 11 Nov 2026 10:00:00 GM\nSource IDs: src_bca8bdeb23, src_6938fcb51d, src_8735ca2471, src_2e4b7de5ac, src_5a89de8d35",
+  "sector_performance": "[Wed, 11 Nov 2026 11:00:00 GMT | freshness: unknown] IHSG Melemah 0,21 Persen pada 11 November 2026\nIHSG ditutup turun 0,21 persen ke level 5.115,03 pada 11 November 2026. Sebanyak 446 saham melemah, sementara empat sektor menguat.\nSource: https://suaragarut.id/ihsg-melemah-021-persen-pada-11-november-2026\nSource ID: src_a75b3999a7\n\n[Wed, 11 Nov 2026 11:00:00 GMT | freshness: unknown] IHSG Melemah 0,21 Persen ke Level 5.115,03\nIHSG ditutup turun 0,21 persen ke 5.115,03 pada 11 November 2026. Sebanyak 446 saham melemah dengan nilai transaksi Rp 9215 triliun.\nSource: https://cwibc.co.id/ihsg-melemah-11-november-2026\nSource ID: src_816d13d17c\n\n[Wed, 11 Nov 2026 12:00:00 GMT | freshness: unknown] Turun Tipis Hari Ini (11/11), IHSG Mengakhiri Reli Kenaikan 5 Hari Disertai Net Sell\nRabu (11/11), IHSG melemah 10,69 poin atau 0,21% menjadi 5.115,03 pada perdagangan di Bursa Efek Indonesia (BEI).\nSource: https://pusatdata.kontan.co.id/news/turun-tipis-hari-ini-1111-ihsg-mengakhiri-reli-kenaikan-5-hari-disertai-net-sell\nSource ID: src_1d4305050e\n\n[Tue, 10 Nov 2026 15:00:00 GMT | freshness: unknown] IHSG Menguat 1,02 Persen ke Level 5.125,72\nIHSG naik 1,02% ke level 5.125,72 pada 10 November 2026. Sektor perindustrian memimpin penguatan dengan kenaikan 2,68%.\nSource: https://demokratis.co.id/ihsg-menguat-level-512572\nSource ID: src_2353738a99\n\n[Tue, 10 Nov 2026 15:00:00 GMT | freshness: unknown] IHSG Menguat 1,02% ke 5.125,72 pada 10 November 2026\nIHSG naik 1,02% ke 5.125,72 pada 10 November 2026. Sektor perindustrian memimpin penguatan, sementara investor asing mencatatkan net buy Rp 171,89 miliar.\nSource: https://www.cirebontimes.com/ihsg-menguat-102-ke-512572-pada-10-november-2026\nSource ID: src_b90405cda8\n\n[Tue, 10 Nov 2026 15:00:00 GMT | freshness: unknown] IHSG Menguat 1,02 Persen Selama Lima Hari Berturut-turut\nIHSG naik 1,02% ke level 5.125,72 pada 10 November 2026. Sektor perindustrian memimpin penguatan, sementara investor asing mencatat net buy Rp 171,89\nSource: https://www.cirebontimes.com/ihsg-menguat-10-november-2026\nSource ID: src_f98e9151f7\n\n[Wed, 11 Nov 2026 02:00:00 GMT | freshness: unknown] IHSG Menguat 1%, Simak 5 Saham Pilihan Hari Ini\nIHSG menguat 1,02% pada 10 November, didorong oleh saham ASII dan AMMN. Investor asing mencatat net buy Rp115,36 miliar.\nSource: https://www.cnbcindonesia.com/market/20261111081558-17-784091/ihsg-menguat-1-simak-5-saham-pilihan-hari-ini/amp\nSource ID: src_eb867d26e2\n\nSource IDs: src_a75b3999a7, src_816d13d17c, src_1d4305050e, src_2353738a99, src_b90405cda8, src_f98e9151f7, src_eb867d26e2",
+  "foreign_flow_raw": "[Wed, 11 Nov 2026 01:00:19 GMT | freshness: unknown] ANALIS MARKET (11/11/2026): IHSG Berpotensi Melanjutkan Tren Penguatan | Pasardana Portal\n1. Riset harian Korea Investment and Sekuritas Indonesia (KISI) menyebutkan IHSG berpotensi melanjutkan tren penguatan dengan menguji area resistance terdekat pada kisaran level 5.150-5.200 pada perdagangan Rabu, 11 November 2026.\n2. IHSG pada perdagangan sebelumnya ditutup menguat 1,02% dengan aksi beli bersih asing (net foreign buy) sebesar Rp115,36 miliar di pasar reguler, sementara Wall Street melemah setelah data inflasi AS di atas ekspektasi. [...] Sementara itu, dari pasar domestik, Indeks Harga Saham Gabungan (IHSG) pada perdagangan sebelumnya ditutup menguat 1,02% dengan investor asing membukukan aksi beli bersih (net foreign buy) sebesar Rp115,36 miliar di pasar reguler, meskipun terjadi gejolak politik domestik.\n\nMemasuki awal November, tren capital outflow asing terpantau mulai mereda, bahkan beberapa kali mencatatkan arus modal masuk (inflow) meskipun masih relatif terbatas. [...] “Untuk perdagangan hari ini, IHSG berpotensi melanjutkan tren penguatan dengan menguji area resistance terdekat pada kisaran level 5.150-5.200,” sebut Ahmad Faris Mu’tashim - Investment Growth Specialist Team PT Korea Investment and Sekuritas Indonesia dalam riset Rabu (11/11).\n\nSelanjutnya disebutkan beberapa saham yang bisa menjadi pilihan pelaku pasar diperdagangan hari ini, yaitu:\n\n• HRUM - Trading Buy, Entry: 650-685, Target: 730, 770 SL if\n",
+  "foreign_flow": {
+    "signal": "Stagnant",
+    "net_trillion": 0.1154,
+    "raw_figure": "115.36 miliar",
+    "direction": "Buy",
+    "market_scope": "regular",
+    "is_all_market": false,
+    "regular_net_trillion": 0.1154,
+    "all_market_net_trillion": null,
+    "divergence_alert": null,
+    "reason": "classified_successfully",
+    "matched_date": "2026-11-11",
+    "target_date": "2026-11-11",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Stagnant",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-11-11, target=2026-11-11",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-11-11, target=2026-11-11",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-11",
+        "retrieved_at": "2026-11-11T20:00:58+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-11",
+        "retrieved_at": "2026-11-11T20:00:58+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-11",
+        "retrieved_at": "2026-11-11T20:01:11+07:00",
+        "valid": true,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-11",
+        "retrieved_at": "2026-11-11T20:01:11+07:00",
+        "valid": true
+      }
+    }
+  }
+}

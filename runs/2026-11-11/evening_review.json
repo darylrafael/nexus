@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-11",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 55,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.21,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Barang Konsumen": null,
+    "Transportasi": true,
+    "Energi": true,
+    "Keuangan": null,
+    "Barang Baku": true,
+    "Teknologi": null,
+    "Barang Konsumen Primer": false,
+    "Kesehatan": null,
+    "Industri": false,
+    "Properti": null,
+    "Infrastruktur": null
+  },
+  "error_rate_pct": 62,
+  "accuracy_score": 38,
+  "rca_unanticipated": [
+    "Antisipasi pengumuman rebalancing indeks MSCI periode November 2026 yang akan dirilis pada Kamis (12/11/2026) menyebabkan penurunan IHSG.",
+    "Rupiah melemah signifikan sebesar +0.454% terhadap USD.",
+    "Stok minyak AS bertambah 9 juta barel, menyebabkan harga Crude Oil (WTI) dan Brent Crude turun drastis (-3.82% dan -5.03%).",
+    "IHSG melemah sendirian saat mayoritas Bursa Asia menguat."
+  ],
+  "rca_overestimated": [
+    "Sentimen bullish IHSG dengan kepercayaan 55% yang diprediksi oleh brief, namun IHSG justru ditutup bearish.",
+    "Dampak positif dari penguatan Rupiah dan stimulus domestik yang diantisipasi brief, padahal Rupiah justru melemah."
+  ],
+  "rca_underestimated": [
+    "Potensi dampak negatif dari antisipasi rebalancing indeks MSCI.",
+    "Risiko pelemahan Rupiah, yang justru terjadi berlawanan dengan prediksi penguatan.",
+    "Penurunan signifikan harga minyak mentah global yang dapat mempengaruhi sektor energi secara keseluruhan."
+  ],
+  "rca_info_delay": [
+    "Berita 'Charts suggest AI selloff may not derail broader stock rally' yang muncul pada 11:00 GMT, terlalu lambat untuk brief pra-pasar.",
+    "Berita 'Bursa Asia Hijau Berkat Harga Minyak, IHSG Merah Sendirian' yang muncul pada 10:00 GMT, terlalu lambat untuk brief pra-pasar.",
+    "Berita 'WTI ke US$85,60, Stok Minyak AS Bertambah 9 Juta Barel' yang muncul pada 01:00 GMT (08:00 WIB), sangat dekat dengan pembukaan pasar sehingga sulit diintegrasikan sepenuhnya."
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi Rupiah menguat dan IHSG Bullish, namun Rupiah justru melemah (+0.454%) dan IHSG ditutup Bearish (-0.21%), menunjukkan korelasi terbalik dari yang diantisipasi.",
+    "IHSG ditutup merah sendirian sementara mayoritas Bursa Asia menguat, menunjukkan kinerja yang berlawanan dengan tren regional."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bullish dengan kepercayaan 55%, tetapi antisipasi pengumuman rebalancing indeks MSCI periode November 2026 terjadi, maka IHSG ditutup Bearish sebesar -0.21%.",
+    "Ketika Rupiah diprediksi menguat di tengah kenaikan cadangan devisa, tetapi Rupiah melemah sebesar +0.454%, maka IHSG ditutup Bearish sebesar -0.21%."
+  ],
+  "summary": "Despite a bullish IHSG prediction and stagnant foreign flow, the market closed bearish by 0.21% due to an unexpected Rupiah weakening and anticipation of MSCI rebalancing, while some predicted sectors like transportation and energy performed well.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18140.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 87.36,
+      "previous_close": 90.83,
+      "change_pct": -3.82,
+      "signal": "Down",
+      "retrieved_at": "2026-11-11T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 93.37,
+      "previous_close": 98.32,
+      "change_pct": -5.03,
+      "signal": "Down",
+      "retrieved_at": "2026-11-11T20:00:59+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.33,
+      "previous_close": 3.0,
+      "change_pct": 11.14,
+      "signal": "Up",
+      "retrieved_at": "2026-11-11T20:00:59+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "No fresh results found for today.",
+      "source_ids": [],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-11T20:01:02+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 0.02,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Tue, 10 Nov 2026 23:00:00 GMT | freshness: unknown] Harga CPO KPBN Inacom Selasa (10/11) Naik Jadi Rp14.278/kg, Tender CPKO dan PK WD\nKPBN Inacom menetapkan harga CPO Franco Dumai sebesar Rp14.278/kg pada Selasa (10/11/2026), naik 0,02% dibandingkan hari sebelumnya. Namun, tender CPO di.\nSource: https://www.agricom.id/2026/1942/harga-minyak-sawit-cpo/harga-cpo-kpbn-inacom-selasa-10-11-naik-jadi-rp14-278-kg-tender-cpko-dan-pk-wd\nSource ID: src_8054827e8f\n\n[Wed, 11 Nov 2026 05:00:00 GMT | freshness: unknown] Daftar Harga TBS Sawit Aceh Wilayah Barat Periode 4 – 17 November\nHarga tandan buah seg\nSource IDs: src_8054827e8f, src_c062453b18, src_1882d0bc19, src_7de5fa4a92, src_c52e3c3e46, src_b47745b6ec",
+      "source_ids": [
+        "src_8054827e8f",
+        "src_c062453b18",
+        "src_1882d0bc19",
+        "src_7de5fa4a92",
+        "src_c52e3c3e46",
+        "src_b47745b6ec"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-11T20:01:03+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LME\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 10,849 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment\nEmail: info@lifemeduae.com, info@lifemed-group.com [...] ## Products and services\nKeywords: health care, medical device, wholesale, h\nSource IDs: src_15dae784dd",
+      "source_ids": [
+        "src_15dae784dd"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-11T20:01:07+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.526,
+    "stored_usdidr_change_pct": 0.454,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.454,
+  "rupiah_signal": "Weakened"
+}
