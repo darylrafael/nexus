@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-11",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": 11.74,
+      "line_number": 19,
+      "line": "- **Summary**: Harga minyak mentah mengalami penurunan signifikan selama periode observasi. Crude Oil (WTI) turun 4.77% menjadi 86.20, dan Brent Crude turun 6.60% menjadi 91.80. Sebaliknya, harga Natural Gas melonjak 11.74% menjadi 3.29. Untuk komoditas Coal, CPO, dan Nickel, tidak ada perkembangan besar yang dilaporkan selama jendela observasi (data yang tersedia lebih lama dari 9-11 November 2026).",
+      "issue": "Natural Gas is positive (+11.74%) in data, but line uses negative term"
+    }
+  ],
+  "count": 1,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 19,
+      "issue": "Natural Gas is positive (+11.74%) in data, but line uses negative term",
+      "line": "- **Summary**: Harga minyak mentah mengalami penurunan signifikan selama periode observasi. Crude Oil (WTI) turun 4.77% menjadi 86.20, dan Brent Crude turun 6.60% menjadi 91.80. Sebaliknya, harga Natural Gas melonjak 11.74% menjadi 3.29. Untuk komoditas Coal, CPO, dan Nickel, tidak ada perkembangan besar yang dilaporkan selama jendela observasi (data yang tersedia lebih lama dari 9-11 November 2026).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
