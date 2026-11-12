@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-12",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 58,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Buy Rp115.36 Miliar di pasar reguler (src_618ab3b5d3).",
+  "sector_bullish": [
+    "Transportasi & Logistik",
+    "Barang Konsumen Non-Primer",
+    "Barang Baku",
+    "Energi",
+    "Keuangan",
+    "Properti",
+    "Industri"
+  ],
+  "sector_bearish": [
+    "Teknologi",
+    "Kesehatan",
+    "Infrastruktur",
+    "Farmasi",
+    "Peternakan & Pakan Ternak"
+  ],
+  "sector_neutral": [
+    "Barang Konsumen Primer"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BBRI",
+    "BMRI",
+    "MBMA",
+    "RAJA",
+    "TLKM",
+    "WMUU",
+    "AMMN",
+    "ANTM",
+    "ASII"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_02d54fadc5",
+    "src_06b03913df",
+    "src_0a023e6dd2",
+    "src_0abd3baf69",
+    "src_18e0deec97",
+    "src_4d09a320d8",
+    "src_4dc9b952f1",
+    "src_5b386d1dd9",
+    "src_618ab3b5d3",
+    "src_9b859dc89d",
+    "src_9f81af9ff7",
+    "src_bb5d33e454",
+    "src_bca8bdeb23",
+    "src_d7cb1ab6a9",
+    "src_e098a40ad2",
+    "src_e27785a1e4",
+    "src_ef429a0791",
+    "src_f71168b535"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 37.8,
+  "lock_hash": "f74a820f143f5f46",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-12",
+  "created_at": "2026-11-12T07:34:04+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-12T07:34:04+07:00",
+  "schema_version": 1
+}

@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-12",
+  "flags": [
+    {
+      "type": "sign_contradiction",
+      "line_number": 49,
+      "line": "- **Transportasi & Logistik**: Diuntungkan oleh penurunan harga minyak mentah (biaya input lebih rendah) dan kinerja positif pada 10 November (+1.23%) dan 11 November (+0.91%).",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 50,
+      "line": "- **Barang Konsumen Non-Primer**: Diuntungkan oleh penurunan harga CPO (biaya input lebih rendah) dan kinerja positif pada 10 November (+1.80%).",
+      "issue": "Negative direction term used with positive percentage"
+    },
+    {
+      "type": "sign_contradiction",
+      "line_number": 58,
+      "line": "- **Barang Konsumen Primer**: Mixed sentimen dari penurunan harga CPO (bullish) dan pelemahan Rupiah (bearish untuk bahan baku impor). Kinerja positif pada 10 November (+0.35%) dan 11 November (+0.25%).",
+      "issue": "Negative direction term used with positive percentage"
+    }
+  ],
+  "count": 3,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 49,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Transportasi & Logistik**: Diuntungkan oleh penurunan harga minyak mentah (biaya input lebih rendah) dan kinerja positif pada 10 November (+1.23%) dan 11 November (+0.91%).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 50,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Barang Konsumen Non-Primer**: Diuntungkan oleh penurunan harga CPO (biaya input lebih rendah) dan kinerja positif pada 10 November (+1.80%).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 58,
+      "issue": "Negative direction term used with positive percentage",
+      "line": "- **Barang Konsumen Primer**: Mixed sentimen dari penurunan harga CPO (bullish) dan pelemahan Rupiah (bearish untuk bahan baku impor). Kinerja positif pada 10 November (+0.35%) dan 11 November (+0.25%).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
