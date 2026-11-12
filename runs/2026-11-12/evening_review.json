@@ -1,0 +1,158 @@
+{
+  "date": "2026-11-12",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 58,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 2.66,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Transportasi & Logistik": null,
+    "Barang Konsumen Non-Primer": null,
+    "Barang Baku": true,
+    "Energi": null,
+    "Keuangan": null,
+    "Properti": true,
+    "Industri": null,
+    "Teknologi": null,
+    "Kesehatan": null,
+    "Infrastruktur": false,
+    "Farmasi": null,
+    "Peternakan & Pakan Ternak": null,
+    "Barang Konsumen Primer": null
+  },
+  "error_rate_pct": 60,
+  "accuracy_score": 40,
+  "rca_unanticipated": [
+    "Positive resolution of MSCI rebalancing sentiment, leading to market strengthening.",
+    "Broad-based rally across all sectors, with no sector ending in negative territory."
+  ],
+  "rca_overestimated": [
+    "Negative impact of MSCI rebalancing on IHSG.",
+    "Negative impact of Rupiah weakening on IHSG."
+  ],
+  "rca_underestimated": [
+    "Strength of the market's bullish momentum, leading to a +2.66% gain.",
+    "The positive catalyst from the resolution of MSCI rebalancing sentiment."
+  ],
+  "rca_info_delay": [
+    "News regarding 'Sentimen MSCI Mereda' and its positive impact on IHSG was published at 10:00:00 GMT (17:00 local time), after the morning brief.",
+    "Detailed sector performance and top gainers were reported after market close, indicating the full extent of the rally was not known pre-market."
+  ],
+  "rca_inverse_correlation": [
+    "The brief assumed Rupiah weakening (+0.485%) would contribute to a Bearish IHSG, but the IHSG closed Bullish (+2.66%).",
+    "The brief anticipated MSCI rebalancing as a factor for weakness, but the resolution of this sentiment ('Sentimen MSCI Mereda') actually led to a strong Bullish IHSG (+2.66%)."
+  ],
+  "lessons": [
+    "Ketika morning brief memprediksi IHSG Bearish dengan sentimen negatif dari rebalancing MSCI, tetapi sentimen MSCI mereda dan menjadi katalis positif, maka IHSG dapat melonjak Bullish sebesar +2.66%.",
+    "Ketika morning brief memprediksi IHSG Bearish dan foreign flow Stagnant dengan Net Buy, tetapi Rupiah melemah 0.485% dan terjadi foreign net sell sebesar Rp 20,76 miliar, maka IHSG tetap dapat menguat Bullish sebesar +2.66% didukung oleh kenaikan seluruh sektor.",
+    "Ketika morning brief memprediksi beberapa sektor Bearish atau Neutral, tetapi terjadi penguatan pasar yang luas di mana seluruh sektor berakhir positif, maka IHSG dapat ditutup Bullish sebesar +2.66%, dengan sektor Industri memimpin kenaikan sebesar +4.53%."
+  ],
+  "summary": "The morning brief incorrectly predicted a Bearish IHSG and mixed sector performance, while the market actually saw a strong Bullish rally of +2.66% with all sectors closing positive, despite a weakening Rupiah and foreign net sell, largely due to the positive resolution of MSCI sentiment.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18228.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 85.81,
+      "previous_close": 86.85,
+      "change_pct": -1.2,
+      "signal": "Down",
+      "retrieved_at": "2026-11-12T20:00:51+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 92.14,
+      "previous_close": 92.57,
+      "change_pct": -0.46,
+      "signal": "Down",
+      "retrieved_at": "2026-11-12T20:00:51+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.28,
+      "previous_close": 3.22,
+      "change_pct": 1.86,
+      "signal": "Up",
+      "retrieved_at": "2026-11-12T20:00:51+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 133.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 12 Nov 2026 02:00:00 GMT | freshness: unknown] Harga Batu Bara Newcastle Rata-rata US$133 per Ton ...\nHarga batu bara Newcastle mencatat rata-rata US$133 per ton sepanjang 2026, meningkat dibandingkan US$106 per ton pada 2025. Pada Kamis (12/11/2026),\nSource: https://www.beritadata.com/harga-batu-bara-newcastle-rata-rata-133-dolar-2026\nSource ID: src_2a4e6c7157\n\n[Thu, 12 Nov 2026 07:00:00 GMT | freshness: unknown] Saham: PART - PT. Cipta Perdana Lancar Tbk\nEmas turun 1,84% ke US$4.038,70 per ons. Data terakhir Senin (9/11): batu bara Newcastle US$138,05/ton (−2,02%) dan CPO MYR 4.258/ton\nSource IDs: src_2a4e6c7157, src_95cd5087cc, src_1744cddc29, src_0dd13e78e6, src_28ee0fb196",
+      "source_ids": [
+        "src_2a4e6c7157",
+        "src_95cd5087cc",
+        "src_1744cddc29",
+        "src_0dd13e78e6",
+        "src_28ee0fb196"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-12T20:00:54+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 12 Nov 2026 06:00:00 GMT | freshness: unknown] Harga CPO KPBN Rabu (11/11) WD di Rp14.002/Kg, Bursa Malaysia Rebound 3,55% ke RM4.407\nHarga tender CPO KPBN Inacom turun Rp276 per kg atau 1,93% menjadi Rp14.002 per kg pada 11 November 2026, sedangkan kontrak Januari 2027 di Bursa Malaysia.\nSource: https://www.agricom.id/2026/1963/harga-minyak-sawit-cpo/harga-cpo-kpbn-rabu-11-11-wd-di-rp14-002-kg-bursa-malaysia-rebound-355-ke-rm4-407\nSource ID: src_9cb30a4582\n\n[Thu, 12 Nov 2026 12:00:00 GMT | freshness: unknown] B50 Dongkrak Serapan Sawit, Ekspor Indonesia Terancam Turun\nProgram B50 menyer\nSource IDs: src_9cb30a4582, src_c601b77335, src_35aab26eae, src_93518163cb, src_9c2056c519, src_5664a70470, src_09a411475a",
+      "source_ids": [
+        "src_9cb30a4582",
+        "src_c601b77335",
+        "src_35aab26eae",
+        "src_93518163cb",
+        "src_9c2056c519",
+        "src_5664a70470",
+        "src_09a411475a"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-12T20:00:56+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 3.8,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Thu, 12 Nov 2026 10:00:00 GMT | freshness: unknown] 2 Katalis Angkat Harga Nikel, Ini Emiten yang Untung dan yang Tertekan\nKey Takeaways. Harga nikel LME naik 3,8% pada 5 November setelah penegakan hukum terhadap sejumlah badan usaha tambang di Sulawesi Tenggara, lalu berada di\nSource: https://ajaib.co.id/belajar/analisa-fundamental-saham/katalis-harga-nikel-emiten-untung-dan-tertekan\nSource ID: src_51f63acdf2\n\n[Thu, 12 Nov 2026 10:00:00 GMT | freshness: unknown] Rencana Pemangkasan Kuota Bijih Nikel Indonesia Mendukung Kenaikan Harga Nikel dan NPI\nNIKEL.CO.ID, JAKARTA – Guna mengatasi kelebi\nSource IDs: src_51f63acdf2, src_c46d49e4d9, src_1302b39b16",
+      "source_ids": [
+        "src_51f63acdf2",
+        "src_c46d49e4d9",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-12T20:00:58+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.485,
+    "stored_usdidr_change_pct": 0.485,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.485,
+  "rupiah_signal": "Weakened"
+}
