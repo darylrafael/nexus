@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-13",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 58,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Sell Rp20.08 miliar di pasar reguler.",
+  "sector_bullish": [
+    "Banking",
+    "Energy (Upstream)"
+  ],
+  "sector_bearish": [
+    "Transportation (Airlines/Shipping)",
+    "Utilities (Gas Distribution)",
+    "Consumer Goods",
+    "Pharmaceutical"
+  ],
+  "sector_neutral": [
+    "Property",
+    "Toll Road"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BBRI",
+    "BMRI",
+    "ENRG",
+    "PGAS",
+    "RAJA",
+    "SHIP",
+    "BRPT",
+    "BUVA",
+    "PTRO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "BULLISH"
+  },
+  "evidence_ids": [
+    "src_18e0deec97",
+    "src_1e2da98266",
+    "src_3c2b69c0b9",
+    "src_4dc9b952f1",
+    "src_7f7d275a51",
+    "src_a19e6ea71c",
+    "src_a51a449580",
+    "src_aee46f9c6b",
+    "src_d7cb1ab6a9",
+    "src_f9da335169"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 36.8,
+  "lock_hash": "44c7e0ae9f56cf64",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-13",
+  "created_at": "2026-11-13T07:31:55+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-13T07:31:55+07:00",
+  "schema_version": 1
+}
