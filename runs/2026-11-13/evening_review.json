@@ -1,0 +1,149 @@
+{
+  "date": "2026-11-13",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 58,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 1.78,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Banking": true,
+    "Energy (Upstream)": true,
+    "Transportation (Airlines/Shipping)": false,
+    "Utilities (Gas Distribution)": false,
+    "Consumer Goods": false,
+    "Pharmaceutical": false,
+    "Property": false,
+    "Toll Road": false
+  },
+  "error_rate_pct": 72,
+  "accuracy_score": 28,
+  "rca_unanticipated": [
+    "Broad-based market rally with all sectors closing in positive territory, led by Technology (+3.94%), which was not mentioned as a bullish sector.",
+    "Gejolak Nvidia (global sentiment) mentioned as a factor for IHSG rally."
+  ],
+  "rca_overestimated": [
+    "The bearish impact of foreign net sell, as actual net sell was significantly higher (Rp 176.35 miliar vs predicted Rp 20.08 miliar) yet IHSG rallied.",
+    "The overall bearish signal for IHSG, which was contradicted by a strong bullish close."
+  ],
+  "rca_underestimated": [
+    "The strength of \"fundamental domestik yang solid\" which likely contributed to the broad market rally despite negative signals.",
+    "The potential for a broad-based market rally across all sectors, especially Technology, which significantly outperformed."
+  ],
+  "rca_info_delay": [
+    "The full extent of foreign flow data (Net sell Rp 176.35 miliar) was only available post-market (11:12 GMT).",
+    "The confirmation that \"Semua Sektor Saham Naik\" and detailed sector performance data were available post-market (09:42 GMT for Top Movers)."
+  ],
+  "rca_inverse_correlation": [
+    "The morning brief predicted a \"Bearish\" IHSG signal with a \"Stagnant (Net Sell Rp20.08 miliar)\" foreign flow, but the actual result was a \"Bullish\" IHSG (+1.78%) despite a significantly larger foreign net sell of Rp 176.35 miliar in the regular market. This indicates that foreign selling did not lead to a bearish market as anticipated.",
+    "The morning brief noted \"Rupiah Melemah\", implying a potential negative sentiment, but the actual significant weakening of Rupiah (+4.002%) coincided with a strong bullish rally in IHSG (+1.78%)."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan foreign flow net sell Rp20.08 miliar, tetapi fundamental domestik solid dan semua sektor saham naik, maka IHSG dapat menguat 1.78%.",
+    "Ketika Rupiah melemah signifikan sebesar 4.002%, tetapi sentimen global positif (Gejolak Nvidia) dan terjadi broad-based rally di semua sektor, maka IHSG dapat menguat 1.78%."
+  ],
+  "summary": "Despite a bearish IHSG prediction and significant Rupiah weakening, the market closed strongly bullish by 1.78% due to solid domestic fundamentals and a broad-based rally across all sectors, including an unanticipated strong foreign net sell.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18190.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 88.59,
+      "previous_close": 86.85,
+      "change_pct": 2.0,
+      "signal": "Up",
+      "retrieved_at": "2026-11-13T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 96.16,
+      "previous_close": 92.57,
+      "change_pct": 3.88,
+      "signal": "Up",
+      "retrieved_at": "2026-11-13T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.29,
+      "previous_close": 3.22,
+      "change_pct": 2.27,
+      "signal": "Up",
+      "retrieved_at": "2026-11-13T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 138.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 12 Nov 2026 21:00:00 GMT | freshness: unknown] Saham: PART - PT. Cipta Perdana Lancar Tbk\nEmas turun 1,84% ke US$4.038,70 per ons. Data terakhir Senin (9/11): batu bara Newcastle US$138,05/ton (−2,02%) dan CPO MYR 4.258/ton (−2,72%). Kenapa\nSource: https://stockbit.com/symbol/PART\nSource ID: src_95cd5087cc\n\n[Thu, 12 Nov 2026 22:00:00 GMT | freshness: unknown] Coking Coal - Price - Chart - Historical Data - News\n## Historically, Coking Coal reached an all time high of 635 in March of 2022. This page includes a chart with historical data for Coking Coal. Coking Coal - data, forecasts, hist\nSource IDs: src_95cd5087cc, src_6d435e12f8, src_cf7947ee86, src_f2389bec8b",
+      "source_ids": [
+        "src_95cd5087cc",
+        "src_6d435e12f8",
+        "src_cf7947ee86",
+        "src_f2389bec8b"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-13T20:00:58+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 13 Nov 2026 11:00:00 GMT | freshness: unknown] El Nino Dorong Proyeksi Harga CPO ke 5.000 Ringgit\nHarga minyak kelapa sawit mentah atau crude palm oil (CPO) berpeluang menembus 5.000 ringgit Malaysia per metrik ton pada pertengahan 2027.\nSource: https://www.limapagi.id/proyeksi-harga-cpo-5000-ringgit\nSource ID: src_37dd177746\n\n[Fri, 13 Nov 2026 11:00:00 GMT | freshness: unknown] Harga CPO Diproyeksi Tembus 5.000 Ringgit pada 2027\nHarga minyak kelapa sawit mentah atau crude palm oil (CPO) diperkirakan mencapai 5.000 ringgit Malaysia per metrik ton pada pertengahan 2027.\nSource: https://ww\nSource IDs: src_37dd177746, src_7a8e20ae75, src_f983d81e46, src_7c4df40c54, src_f3333934cf, src_b58783f15b, src_198a78d18c",
+      "source_ids": [
+        "src_37dd177746",
+        "src_7a8e20ae75",
+        "src_f983d81e46",
+        "src_7c4df40c54",
+        "src_f3333934cf",
+        "src_b58783f15b",
+        "src_198a78d18c"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-13T20:01:00+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-13T20:01:04+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.208,
+    "stored_usdidr_change_pct": 4.002,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 4.002,
+  "rupiah_signal": "Weakened"
+}
