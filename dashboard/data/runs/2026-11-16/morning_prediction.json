@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-16",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 64,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Net Sell Rp176.35 miliar di pasar reguler.",
+  "sector_bullish": [
+    "Energy (Upstream Oil & Coal)",
+    "Utilities & Fertilizer",
+    "Metals (Mining)"
+  ],
+  "sector_bearish": [
+    "Airlines & Petrochemicals",
+    "Gas Upstream",
+    "Consumer Goods",
+    "Pharmaceuticals",
+    "Poultry & Animal Feed",
+    "Technology"
+  ],
+  "sector_neutral": [
+    "Banking",
+    "Automotive/EV related"
+  ],
+  "recommended_tickers": [
+    "GOTO",
+    "ASII",
+    "BBCA",
+    "BBNI",
+    "BBRI",
+    "BMRI",
+    "ELSA",
+    "GIAA",
+    "MEDC",
+    "ADRO"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_686964ef95"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 35.9,
+  "lock_hash": "23101198b5214e8c",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-16",
+  "created_at": "2026-11-16T07:32:20+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-16T07:32:20+07:00",
+  "schema_version": 1
+}
