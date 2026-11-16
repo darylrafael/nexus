@@ -1,0 +1,158 @@
+{
+  "date": "2026-11-16",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 64,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.44,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Energy": false,
+    "Utilities & Fertilizer": null,
+    "Metals (Mining)": false,
+    "Airlines": true,
+    "Petrochemicals": null,
+    "Gas Upstream": null,
+    "Consumer Goods": false,
+    "Pharmaceuticals": false,
+    "Poultry & Animal Feed": null,
+    "Technology": true,
+    "Banking": false,
+    "Automotive/EV related": null
+  },
+  "error_rate_pct": 21,
+  "accuracy_score": 79,
+  "rca_unanticipated": [
+    "Significant weakening of Rupiah (USD/IDR +3.499%)",
+    "FTSE Russell evaluation",
+    "Labor protests in Jombang",
+    "Geopolitical news regarding ASEAN Power Grid"
+  ],
+  "rca_overestimated": [
+    "Government target for 9.633 SPKLU development"
+  ],
+  "rca_underestimated": [
+    "Magnitude of Rupiah weakening (USD/IDR +3.499%)",
+    "Impact of FTSE Russell evaluation"
+  ],
+  "rca_info_delay": [
+    "BI Policy Surprise (Kurs Rupiah Tertekan Jelang RDG BI, Suku Bunga Acuan Diproyeksi Tetap 5,75%)",
+    "Labor / Demo (Buruh Jombang Tuntut Kenaikan Upah Layak 2027, Soroti Jam Kerja 12 Jam)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed Energy (Upstream Oil & Coal) would be bullish, but Sektor energi merosot 2.91% despite crude oil gains.",
+    "Brief assumed Metals (Mining) would be bullish, but Sektor barang baku terjun 4.34%.",
+    "Brief assumed Pharmaceuticals would be bearish, but Sektor kesehatan menanjak 0.07%.",
+    "Brief assumed Consumer Goods would be bearish, but Sektor barang konsumsi primer naik 0.05% while non-primer fell."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan Foreign Flow Stagnant, tetapi Rupiah melemah signifikan sebesar 3.499% dan sektor energi merosot 2.91% meskipun harga minyak mentah naik, maka IHSG ditutup Bearish sebesar -0.44%.",
+    "Ketika sektor Energy dan Metals diprediksi Bullish, tetapi Sektor energi merosot 2.91% dan Sektor barang baku terjun 4.34%, maka IHSG ditutup Bearish sebesar -0.44%.",
+    "Ketika sektor Pharmaceuticals diprediksi Bearish, tetapi Sektor kesehatan menanjak 0.07%, maka IHSG ditutup Bearish sebesar -0.44%."
+  ],
+  "summary": "The market correctly predicted a bearish IHSG close at -0.44% and stagnant foreign flow, but several sector predictions were incorrect, notably Energy and Metals, while the Rupiah weakened significantly more than anticipated.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18250.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 87.62,
+      "previous_close": 86.53,
+      "change_pct": 1.26,
+      "signal": "Up",
+      "retrieved_at": "2026-11-16T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 94.6,
+      "previous_close": 92.76,
+      "change_pct": 1.98,
+      "signal": "Up",
+      "retrieved_at": "2026-11-16T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.17,
+      "previous_close": 3.21,
+      "change_pct": -1.28,
+      "signal": "Down",
+      "retrieved_at": "2026-11-16T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 16 Nov 2026 11:00:00 GMT | freshness: unknown] Kenaikan HBA Batubara November 2026 Belum Cerminkan Lonjakan Permintaan Global\nKenaikan HBA batubara November 2026 lebih dipengaruhi keterbatasan pasokan dan harga LNG. Bagaimana prospeknya pada 2027?\nSource: https://industri.kontan.co.id/news/kenaikan-hba-batubara-november-2026-belum-cerminkan-lonjakan-permintaan-global\nSource ID: src_d570f52274\n\n[Mon, 16 Nov 2026 04:00:00 GMT | freshness: unknown] Mirae Naikkan Target Saham ITMG 8,9 Persen\nDi luar kegiatan pertambangan batu bara, ITMG mulai memperluas portofolio bisnis melalui pengembangan\nSource IDs: src_d570f52274, src_93ba1a82fd, src_9a31d23147, src_9a977a630c",
+      "source_ids": [
+        "src_d570f52274",
+        "src_93ba1a82fd",
+        "src_9a31d23147",
+        "src_9a977a630c"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-16T20:00:56+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": 1.3,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 16 Nov 2026 04:00:00 GMT | freshness: unknown] El Nino Ancam Produksi Sawit Dunia 2027, Harga CPO Diproyeksi Tembus US$1.300 per Ton\nPasar minyak sawit mentah atau crude palm oil (CPO) dunia berpotensi menghadapi kenaikan harga pada 2027. Ancaman penurunan produksi akibat fenomena El Nino\nSource: https://www.sawitsetara.co/artikel/Berita/el-nino-ancam-produksi-sawit-dunia-2027-harga-cpo-diproyeksi-tembus-us-1-300-per-ton\nSource ID: src_ae19162cd9\n\n[Mon, 16 Nov 2026 04:00:00 GMT | freshness: unknown] Pasokan Sawit Dunia Terancam Defisit pada 2027\nDENPASAR (RIAUPOS.CO) - Harga minyak sawit\nSource IDs: src_ae19162cd9, src_825fe1b1c4, src_7107c854a3, src_7765347b45, src_a92e0b2891, src_591d0aa427, src_79b855eee2",
+      "source_ids": [
+        "src_ae19162cd9",
+        "src_825fe1b1c4",
+        "src_7107c854a3",
+        "src_7765347b45",
+        "src_a92e0b2891",
+        "src_591d0aa427",
+        "src_79b855eee2"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-16T20:00:57+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 16 Nov 2026 08:00:00 GMT | freshness: unknown] DSI Dinilai Bisa Tekan Transfer Pricing, tetapi Mekanisme Ekspor Perlu Diperjelas\nNIKEL.CO.ID, JAKARTA — Kebijakan ekspor satu pintu melalui Danantara Sumberdaya Indonesa (DSI) dinilai berpotensi menekan praktik transfer pricing, menjaga.\nSource: https://nikel.co.id/2026/11/16/dsi-dinilai-bisa-tekan-transfer-pricing-tetapi-mekanisme-ekspor-perlu-diperjelas\nSource ID: src_1b27c6a427\n\n[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters\nSource IDs: src_1b27c6a427, src_1302b39b16",
+      "source_ids": [
+        "src_1b27c6a427",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-16T20:00:58+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.33,
+    "stored_usdidr_change_pct": 3.499,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.499,
+  "rupiah_signal": "Weakened"
+}

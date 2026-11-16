@@ -75,48 +75,48 @@ Designed with buy-side quantitative rigor: deterministic economic rules prevent 
 All performance figures, baselines, confidence intervals, calibration metrics, payoff structures, and self-learning hygiene counts are generated deterministically from `runs/global/nexus_stats.json` and `runs/index.json` via `python scripts/evaluate.py`:
 
 <!-- METRICS:START -->
-**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-11-13`, Verified Runs: **39**, Scored Reviews: **n=39**, Unreviewed Pending: **0**)
+**Canonical Artifact Summary** (Scoring Engine `v2.2.0`, Rescored `2026-11-16`, Verified Runs: **40**, Scored Reviews: **n=40**, Unreviewed Pending: **0**)
 
 ### TABLE 1: HEADLINE DIRECTION TRACK RECORD & UNCERTAINTY
 | Metric | Realized Value | Statistical Note / Wilson 95% CI |
 | :--- | :--- | :--- |
-| Scored Sessions (n) | **39** | Sufficient (n >= 30) |
-| Direction Hit Rate | **35.9%** (14/39) | 95% Wilson CI: [22.7%, 51.6%] |
-| Rolling Accuracy | **34.8%** | Trailing dynamic 50/30/20 attribution average |
+| Scored Sessions (n) | **40** | Sufficient (n >= 30) |
+| Direction Hit Rate | **37.5%** (15/40) | 95% Wilson CI: [24.2%, 53.0%] |
+| Rolling Accuracy | **35.9%** | Trailing dynamic 50/30/20 attribution average |
 
 ### TABLE 2: EMPIRICAL NAIVE BASELINES COMPARISON
 | Strategy / Baseline | Accuracy (Hits/n) | Delta vs Nexus Model | Buy-Side Assessment |
 | :--- | :--- | :--- | :--- |
-| **Nexus Multi-Agent Model** | **35.9%** (14/39) | 0.0% | Active directional thesis |
-| Always-Bearish (Down Only) | **48.7%** (19/39) | +12.8% | Outperforms model due to prevailing market downtrend |
-| Persistence (Repeat T-1) | **52.6%** (20/38) | +16.7% | Exploits directional momentum across consecutive sessions |
-| Always-Bullish (Up Only) | **48.7%** (19/39) | +12.8% | Passive long bias leads model in current sample |
+| **Nexus Multi-Agent Model** | **37.5%** (15/40) | 0.0% | Active directional thesis |
+| Always-Bearish (Down Only) | **50.0%** (20/40) | +12.5% | Outperforms model due to prevailing market downtrend |
+| Persistence (Repeat T-1) | **51.3%** (20/39) | +13.8% | Exploits directional momentum across consecutive sessions |
+| Always-Bullish (Up Only) | **47.5%** (19/40) | +10.0% | Passive long bias leads model in current sample |
 
 ### TABLE 3: PIPELINE SUB-COMPONENT SCORING BREAKDOWN
 | Component | Nominal Weight | Scorable (n) | Realized Hit Rate | Institutional Interpretation |
 | :--- | :--- | :--- | :--- | :--- |
-| IHSG Direction | 50% | n = 39 | 35.9% (14/39) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
-| Sector Breakdown | 30% | n = 125 | 40.8% (51/125) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
-| Foreign Flow | 20% | n = 8 | n = 8, sample too small | Suppressed from scoring when scorable n < 5; treated as institutional context |
+| IHSG Direction | 50% | n = 40 | 37.5% (15/40) | Primary directional bias (Bullish/Bearish/Neutral ±0.20% band) |
+| Sector Breakdown | 30% | n = 132 | 40.2% (53/132) | Evaluated across 11 IDX-IC closing returns; midday snapshots rejected |
+| Foreign Flow | 20% | n = 9 | n = 9, sample too small | Suppressed from scoring when scorable n < 5; treated as institutional context |
 
 ### TABLE 4: PROBABILISTIC CONFIDENCE CALIBRATION & BRIER SCORE
 | Calibration Metric | Measured Value | Plain Language Buy-Side Interpretation |
 | :--- | :--- | :--- |
-| Model Stated Confidence (Uncalibrated) | **73.1%** | Raw uncalibrated LLM confidence output across n=39 scored sessions |
-| Realized Direction Hit Rate | **35.9%** | Actual empirical accuracy (14/39 scored sessions) |
-| Calibrated Confidence (Shrinkage) | **35.9%** (n=39, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
-| Brier Score | **0.3705** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
+| Model Stated Confidence (Uncalibrated) | **72.9%** | Raw uncalibrated LLM confidence output across n=40 scored sessions |
+| Realized Direction Hit Rate | **37.5%** | Actual empirical accuracy (15/40 scored sessions) |
+| Calibrated Confidence (Shrinkage) | **37.5%** (n=40, illustrative shrinkage estimate) | Bayesian shrinkage with prior strength N0=30 and prior cap 55.0% |
+| Brier Score | **0.3645** | Probabilistic error (0.00 = perfect, 0.25 = random coin toss, >0.25 = overconfident) |
 
 ### TABLE 5: ECONOMIC PAYOFF STRUCTURE (BASIS POINTS)
 | Strategy Portfolio | Realized Payoff (bps) | Trade Count | Tradability / Practical Feasibility |
 | :--- | :--- | :--- | :--- |
 | **Long-Only (Headline Payoff)** | **-385.0 bps** | 6 calls | Realizable long exposure on retail Indonesian brokerage accounts |
-| Short-Side Payoff | **+1446.0 bps** | 29 calls | **Theoretical only; not retail-tradable on IDX cash index** |
-| Combined Theoretical Long/Short | **+1061.0 bps** | 35 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
+| Short-Side Payoff | **+1490.0 bps** | 30 calls | **Theoretical only; not retail-tradable on IDX cash index** |
+| Combined Theoretical Long/Short | **+1105.0 bps** | 36 calls | Pure hypothetical synthetic index return before borrow fees and slippage |
 
 ### TABLE 6: SELF-LEARNING LOOP HYGIENE & QUARANTINE AUDIT
-- Valid Injected Lessons: **62** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
-- Quarantined / Rejected Lessons: **30** (prevented from corrupting future pre-market intelligence)
+- Valid Injected Lessons: **63** (sanitized, validated against stored actuals, genuine data_quality-passing sessions only)
+- Quarantined / Rejected Lessons: **32** (prevented from corrupting future pre-market intelligence)
 
 | Session Date | Quarantine Reason | Sample Quarantined Content |
 | :--- | :--- | :--- |
@@ -150,6 +150,8 @@ All performance figures, baselines, confidence intervals, calibration metrics, p
 | 2026-11-10 | `session_limit_exceeded: max 2 lessons per session` | Ketika rilis data inflasi AS diprediksi menekan sentimen investor... |
 | 2026-11-11 | `numeric_contradiction: stated IHSG 55.0% vs actual -0.21%` | Ketika IHSG diprediksi Bullish dengan kepercayaan 55%, tetapi ant... |
 | 2026-11-12 | `session_limit_exceeded: max 2 lessons per session` | Ketika morning brief memprediksi beberapa sektor Bearish atau Neu... |
+| 2026-11-16 | `unreliable_source_data: stored usdidr_change_pct (3.499%) diverges from consecutive spot close (0.33%)` | Ketika IHSG diprediksi Bearish dengan Foreign Flow Stagnant, teta... |
+| 2026-11-16 | `duplicate_tail: maka ihsg ditutup bearish sebesar -0` | Ketika sektor Pharmaceuticals diprediksi Bearish, tetapi Sektor k... |
 <!-- METRICS:END -->
 
 ---

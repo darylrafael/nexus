@@ -1,5 +1,5 @@
 {
-  "total_sessions": 39,
+  "total_sessions": 40,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -39,50 +39,51 @@
     "2026-11-10",
     "2026-11-11",
     "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-16"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 39,
+  "sample_size_n": 40,
   "sample_warning": null,
-  "direction_accuracy_pct": 35.9,
-  "direction_correct_count": 14,
-  "direction_scorable_sessions": 39,
+  "direction_accuracy_pct": 37.5,
+  "direction_correct_count": 15,
+  "direction_scorable_sessions": 40,
   "direction_info": {
-    "pct": 35.9,
-    "n": 39,
-    "correct": 14,
-    "label": "n = 39",
+    "pct": 37.5,
+    "n": 40,
+    "correct": 15,
+    "label": "n = 40",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 22.7,
-    "upper_pct": 51.6,
+    "lower_pct": 24.2,
+    "upper_pct": 53.0,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 48.7,
-    "always_bearish_count": 19,
-    "always_bearish_total": 39,
-    "always_bullish_pct": 48.7,
+    "always_bearish_pct": 50.0,
+    "always_bearish_count": 20,
+    "always_bearish_total": 40,
+    "always_bullish_pct": 47.5,
     "always_bullish_count": 19,
-    "always_bullish_total": 39,
-    "majority_class_pct": 48.7,
-    "persistence_pct": 52.6,
+    "always_bullish_total": 40,
+    "majority_class_pct": 50.0,
+    "persistence_pct": 51.3,
     "persistence_correct_count": 20,
-    "persistence_scorable_sessions": 38
+    "persistence_scorable_sessions": 39
   },
   "calibration": {
-    "average_stated_confidence_pct": 73.1,
-    "calibrated_confidence_pct": 35.9,
-    "sample_size_n": 39,
+    "average_stated_confidence_pct": 72.9,
+    "calibrated_confidence_pct": 37.5,
+    "sample_size_n": 40,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 35.9,
+    "realized_hit_rate_pct": 37.5,
     "status_label": "calibrated",
-    "brier_score": 0.3705,
+    "brier_score": 0.3645,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (35.9%, n = 39)",
+    "confidence_label": "Calibrated confidence (37.5%, n = 40)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -90,35 +91,35 @@
     "long_only_total_bps": -385.0,
     "long_only_avg_bps": -64.2,
     "long_only_trades": 6,
-    "short_only_total_bps": 1446.0,
-    "short_only_avg_bps": 49.9,
-    "short_only_trades": 29,
+    "short_only_total_bps": 1490.0,
+    "short_only_avg_bps": 49.7,
+    "short_only_trades": 30,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1061.0,
+    "long_short_total_bps": 1105.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
-  "flow_accuracy_pct": 62.5,
-  "flow_correct_count": 5,
-  "flow_scorable_sessions": 8,
+  "flow_accuracy_pct": 66.7,
+  "flow_correct_count": 6,
+  "flow_scorable_sessions": 9,
   "flow_info": {
-    "pct": 62.5,
-    "n": 8,
-    "correct": 5,
-    "label": "n = 8, sample too small",
+    "pct": 66.7,
+    "n": 9,
+    "correct": 6,
+    "label": "n = 9, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 40.8,
-  "sector_correct_count": 51,
-  "sector_verifiable_count": 125,
+  "sector_accuracy_pct": 40.2,
+  "sector_correct_count": 53,
+  "sector_verifiable_count": 132,
   "sector_info": {
-    "pct": 40.8,
-    "n": 125,
-    "correct": 51,
-    "label": "n = 125",
+    "pct": 40.2,
+    "n": 132,
+    "correct": 53,
+    "label": "n = 132",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 34.8,
-  "rolling_20_accuracy": 35.8,
+  "rolling_avg_accuracy": 35.9,
+  "rolling_20_accuracy": 35.6,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -181,7 +182,8 @@
     "Ketika morning brief memprediksi IHSG Bearish dengan sentimen negatif dari rebalancing MSCI, tetapi sentimen MSCI mereda dan menjadi katalis positif, maka IHSG dapat melonjak Bullish sebesar +2.66%.",
     "Ketika morning brief memprediksi IHSG Bearish dan foreign flow Stagnant dengan Net Buy, tetapi Rupiah melemah 0.485% dan terjadi foreign net sell sebesar Rp 20,76 miliar, maka IHSG tetap dapat menguat Bullish sebesar +2.66% didukung oleh kenaikan seluruh sektor.",
     "Ketika IHSG diprediksi Bearish dengan foreign flow net sell Rp20.08 miliar, tetapi fundamental domestik solid dan semua sektor saham naik, maka IHSG dapat menguat 1.78%.",
-    "Ketika Rupiah melemah signifikan sebesar 4.002%, tetapi sentimen global positif (Gejolak Nvidia) dan terjadi broad-based rally di semua sektor, maka IHSG dapat menguat 1.78%."
+    "Ketika Rupiah melemah signifikan sebesar 4.002%, tetapi sentimen global positif (Gejolak Nvidia) dan terjadi broad-based rally di semua sektor, maka IHSG dapat menguat 1.78%.",
+    "Ketika sektor Energy dan Metals diprediksi Bullish, tetapi Sektor energi merosot 2.91% dan Sektor barang baku terjun 4.34%, maka IHSG ditutup Bearish sebesar -0.44%."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -363,12 +365,18 @@
     "Broad-based market rally with all sectors closing in positive territory, led by Technology (+3.94%), which was not mentioned as a bullish sector.": 1,
     "Gejolak Nvidia (global sentiment) mentioned as a factor for IHSG rally.": 1,
     "The strength of \"fundamental domestik yang solid\" which likely contributed to the broad market rally despite negative signals.": 1,
-    "The potential for a broad-based market rally across all sectors, especially Technology, which significantly outperformed.": 1
+    "The potential for a broad-based market rally across all sectors, especially Technology, which significantly outperformed.": 1,
+    "Significant weakening of Rupiah (USD/IDR +3.499%)": 1,
+    "FTSE Russell evaluation": 1,
+    "Labor protests in Jombang": 1,
+    "Geopolitical news regarding ASEAN Power Grid": 1,
+    "Magnitude of Rupiah weakening (USD/IDR +3.499%)": 1,
+    "Impact of FTSE Russell evaluation": 1
   },
-  "last_updated": "2026-11-13",
+  "last_updated": "2026-11-16",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-13",
-  "history_rescore_note": "Rescored across 39 genuine sessions (2026-09-22 to 2026-11-13) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-16",
+  "history_rescore_note": "Rescored across 40 genuine sessions (2026-09-22 to 2026-11-16) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -519,6 +527,16 @@
       "date": "2026-11-12",
       "lesson": "Ketika morning brief memprediksi beberapa sektor Bearish atau Neutral, tetapi terjadi penguatan pasar yang luas di mana seluruh sektor berakhir positif, maka IHSG dapat ditutup Bullish sebesar +2.66%, dengan sektor Industri memimpin kenaikan sebesar +4.53%.",
       "reason": "session_limit_exceeded: max 2 lessons per session"
+    },
+    {
+      "date": "2026-11-16",
+      "lesson": "Ketika IHSG diprediksi Bearish dengan Foreign Flow Stagnant, tetapi Rupiah melemah signifikan sebesar 3.499% dan sektor energi merosot 2.91% meskipun harga minyak mentah naik, maka IHSG ditutup Bearish sebesar -0.44%.",
+      "reason": "unreliable_source_data: stored usdidr_change_pct (3.499%) diverges from consecutive spot close (0.33%)"
+    },
+    {
+      "date": "2026-11-16",
+      "lesson": "Ketika sektor Pharmaceuticals diprediksi Bearish, tetapi Sektor kesehatan menanjak 0.07%, maka IHSG ditutup Bearish sebesar -0.44%.",
+      "reason": "duplicate_tail: maka ihsg ditutup bearish sebesar -0"
     }
   ],
   "heuristics": [
@@ -1327,14 +1345,27 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-13"
+    },
+    {
+      "id": "rule-63",
+      "rule": "Ketika sektor Energy dan Metals diprediksi Bullish, tetapi Sektor energi merosot 2.91% dan Sektor barang baku terjun 4.34%, maka IHSG ditutup Bearish sebesar -0.44%.",
+      "status": "ACTIVE",
+      "observed": 1,
+      "validated": 1,
+      "contradicted": 0,
+      "validation_rate": 100.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-11-16"
     }
   ],
-  "active_heuristics_count": 23,
+  "active_heuristics_count": 24,
   "superseded_heuristics_count": 0,
   "hypothesis_heuristics_count": 39,
-  "ihsg_accuracy_pct": 35.9,
-  "ihsg_correct_count": 14,
-  "ff_accuracy_pct": 62.5,
-  "ff_correct_count": 5,
-  "total_accuracy_sum": 1356.0
+  "ihsg_accuracy_pct": 37.5,
+  "ihsg_correct_count": 15,
+  "ff_accuracy_pct": 66.7,
+  "ff_correct_count": 6,
+  "total_accuracy_sum": 1435.0
 }
