@@ -1,0 +1,163 @@
+{
+  "date": "2026-11-17",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 62,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.3,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Technology": null,
+    "Coal Mining": null,
+    "Airlines, Shipping, Petrochemical": false,
+    "Fertilizer & Utility": null,
+    "Oil & Gas Upstream": null,
+    "Palm Oil Plantation": null,
+    "Pharmaceuticals": false,
+    "Consumer Goods": null,
+    "Property": false,
+    "Banking": null
+  },
+  "error_rate_pct": 30,
+  "accuracy_score": 70,
+  "rca_unanticipated": [
+    "Ratusan ribu warga akan unjuk rasa protes biaya hidup di Prancis",
+    "Badai Datang dari Jepang-China, IHSG-Rupiah Kencangkan Sabuk Pengaman",
+    "Sektor kesehatan menguat 0,70%",
+    "Sektor infrastruktur terangkat 0,69%",
+    "Sektor barang konsumsi primer naik 0,46%",
+    "Sektor keuangan menanjak 0,45%",
+    "Sektor properti dan real estat naik 0,34%"
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "Kenaikan harga Coal (Newcastle) sebesar +33.65%",
+    "Kenaikan harga CPO KPBN sebesar 2,61%",
+    "Kekuatan sektor kesehatan, infrastruktur, barang konsumsi primer, keuangan, dan properti"
+  ],
+  "rca_info_delay": [
+    "Berita unjuk rasa di Prancis (02:45:14 GMT)",
+    "Berita 'Badai Datang dari Jepang-China' (06:27:41 GMT)",
+    "Data kinerja sektor dan top movers yang dirilis setelah jam perdagangan (mulai 10:06:26 GMT)"
+  ],
+  "rca_inverse_correlation": [
+    "Morning brief memprediksi sektor Technology Bullish, tetapi sektor teknologi terpangkas 0,52%.",
+    "Morning brief memprediksi komoditas CPO Bearish, tetapi harga CPO KPBN melonjak 2,61%.",
+    "Morning brief memprediksi sektor Pharmaceuticals Bearish, tetapi sektor kesehatan menguat 0,70%.",
+    "Morning brief memprediksi sektor Property Bearish, tetapi sektor properti dan real estat naik 0,34%.",
+    "Morning brief memprediksi sektor Banking Neutral, tetapi sektor keuangan menanjak 0,45%."
+  ],
+  "lessons": [
+    "Ketika prediksi sektor Technology adalah Bullish, tetapi sektor teknologi terpangkas 0,52% terjadi, maka IHSG ditutup melemah 0,30%.",
+    "Ketika prediksi komoditas CPO adalah Bearish, tetapi harga CPO KPBN melonjak 2,61% terjadi, maka IHSG ditutup melemah 0,30%.",
+    "Ketika prediksi sektor Pharmaceuticals adalah Bearish, tetapi sektor kesehatan menguat 0,70% terjadi, maka IHSG ditutup melemah 0,30%.",
+    "Ketika prediksi sektor Property adalah Bearish, tetapi sektor properti dan real estat naik 0,34% terjadi, maka IHSG ditutup melemah 0,30%."
+  ],
+  "summary": "Morning brief secara akurat memprediksi IHSG Bearish dan Foreign Flow Stagnant, namun banyak prediksi sektor (Technology, Coal Mining, Airlines, Shipping, Petrochemical, Fertilizer, Pharmaceuticals, Property, Banking) dan komoditas (CPO) meleset dari perkiraan, dengan beberapa sektor menunjukkan kekuatan tak terduga dan berita geopolitik serta demo muncul setelah brief.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18240.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 86.28,
+      "previous_close": 88.74,
+      "change_pct": -2.77,
+      "signal": "Down",
+      "retrieved_at": "2026-11-17T20:00:54+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 93.09,
+      "previous_close": 95.82,
+      "change_pct": -2.85,
+      "signal": "Down",
+      "retrieved_at": "2026-11-17T20:00:54+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.15,
+      "previous_close": 3.34,
+      "change_pct": -5.57,
+      "signal": "Down",
+      "retrieved_at": "2026-11-17T20:00:54+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 145.0,
+      "change_pct": 33.65,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Tue, 17 Nov 2026 02:00:00 GMT | freshness: unknown] Saham ITMG dan AADI Dijagokan Analis, Harga Batu Bara ...\nHarga Batu Bara Naik 33,65% Selasa, 17 November 2026 • Harga acuan Newcastle berada di US$ 145,75 per ton pada Senin (16/11), Newcastle ditutup di US$ 146,75\nSource: https://papuaonline.id/detail/27452/saham-itmg-dan-aadi-dijagokan-analis-harga-batu-bara-naik-3365\nSource ID: src_70e446070f\n\n[Tue, 17 Nov 2026 06:03:00 GMT | freshness: unknown] Musim Dingin Hangatkan Harga Batu Bara, AADI, PTBA hingga ITMG Siap Bangkit? - Bursa Katadata.co.id\nDia mencatat, harga batu bara Newcastle pada\nSource IDs: src_70e446070f, src_4b2c940606, src_7bbf9b5007, src_a138817736, src_15cbb9703d, src_b7f5107270",
+      "source_ids": [
+        "src_70e446070f",
+        "src_4b2c940606",
+        "src_7bbf9b5007",
+        "src_a138817736",
+        "src_15cbb9703d",
+        "src_b7f5107270"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-17T20:00:57+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 17 Nov 2026 03:00:00 GMT | freshness: unknown] Harga CPO KPBN Melonjak 2,61 Persen, Bursa Malaysia Justru Berbalik Melemah\nHarga minyak sawit mentah atau crude palm oil (CPO) di pasar domestik melonjak pada perdagangan Senin (16/11/2026). Kenaikan terjadi di tengah pelemahan\nSource: https://sawitsetara.co/artikel/harga-cpo-kpbn-melonjak-2-61-persen-bursa-malaysia-justru-berbalik-melemah\nSource ID: src_6270cd6ff2\n\n[Tue, 17 Nov 2026 08:00:00 GMT | freshness: unknown] Harga CPO Malaysia Terkoreksi 0,39%, Persediaan Tinggi Tekan Pasar, KPBN Inacom Justru Naik 2,61%\nAGRICOM, JAKARTA – Harga m\nSource IDs: src_6270cd6ff2, src_201051f114, src_d2b40f1416, src_5fab471321, src_e2d1c88b7a, src_f335cd92da, src_bee8a2eb43",
+      "source_ids": [
+        "src_6270cd6ff2",
+        "src_201051f114",
+        "src_d2b40f1416",
+        "src_5fab471321",
+        "src_e2d1c88b7a",
+        "src_f335cd92da",
+        "src_bee8a2eb43"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-17T20:00:58+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 17 Nov 2026 06:00:00 GMT | freshness: unknown] Weak Ore, Stable Iron, Rising Inventories: Nickel Prices ...\nAs of the end of the week, the spot price for nickel stood at 1,239,683.33 RMB/ton—a decrease of 0.51% from the beginning of the week, yet an increase of 2.34%\nSource: https://www.sunsirs.com/commodity-news/petail-37737.html\nSource ID: src_34b10b8c1a\n\n[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/com\nSource IDs: src_34b10b8c1a, src_1302b39b16",
+      "source_ids": [
+        "src_34b10b8c1a",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-17T20:01:03+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.055,
+    "stored_usdidr_change_pct": 0.099,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.099,
+  "rupiah_signal": "Weakened"
+}
