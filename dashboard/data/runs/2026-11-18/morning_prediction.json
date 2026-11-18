@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-18",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 61,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Foreign flow data for IDX on November 16, 2026, is not explicitly provided in the observation window.",
+  "sector_bullish": [
+    "Basic Materials (CPO)",
+    "Technology"
+  ],
+  "sector_bearish": [
+    "Energy (Upstream Oil & Gas, Coal Mining)",
+    "Property",
+    "Pharmaceuticals",
+    "Consumer Goods"
+  ],
+  "sector_neutral": [
+    "Financials (Banking)",
+    "Airlines/Petrochemicals"
+  ],
+  "recommended_tickers": [
+    "BMRI",
+    "BBCA",
+    "BBRI",
+    "BRMS",
+    "DSNG",
+    "TAPG",
+    "BRPT",
+    "PWON",
+    "TRIN",
+    "WIFI"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "bearish",
+    "Coal": "bearish",
+    "Natural Gas": "bearish"
+  },
+  "evidence_ids": [
+    "src_007152573d",
+    "src_35ab67592a",
+    "src_3e25db6b7e",
+    "src_50100f9b48",
+    "src_5595643374",
+    "src_5e83c5ac51",
+    "src_79c7624539",
+    "src_7bbe4a056e",
+    "src_8cd3a26001",
+    "src_9346312b57",
+    "src_af4c7ec30c",
+    "src_d32b2bc3ac",
+    "src_e2a3d0cb5d"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 39.0,
+  "lock_hash": "5f7ccf377cc8d239",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-18",
+  "created_at": "2026-11-18T07:32:34+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-18T07:32:34+07:00",
+  "schema_version": 1
+}
