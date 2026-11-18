@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-18",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.07,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Basic Materials (CPO)": null,
+    "Technology": null,
+    "Energy (Upstream Oil & Gas, Coal Mining)": true,
+    "Property": null,
+    "Pharmaceuticals": null,
+    "Consumer Goods": null,
+    "Financials (Banking)": null,
+    "Airlines/Petrochemicals": null
+  },
+  "error_rate_pct": 0,
+  "accuracy_score": 100,
+  "rca_unanticipated": [
+    "Bank Indonesia's surprise interest rate hike by 25 bps to 6.00%, which was a direct cause of IHSG's decline.",
+    "Significant global market concerns regarding Washington's rising interest bill, reaching 4.03% of GDP in Q3 2026."
+  ],
+  "rca_overestimated": [
+    "The morning brief's prediction of 'Basic Materials (CPO)' being bullish was overestimated, as the 'sektor barang baku' (basic materials) actually ambles 3.00% and became the main drag."
+  ],
+  "rca_underestimated": [
+    "The magnitude of Rupiah weakening, with USD/IDR depreciating by 3.2% compared to minor weakening trends in previous days.",
+    "The bearish impact of a potential BI rate hike on the IHSG; while the decision was flagged as looming, the market's strong negative reaction to the actual hike was underestimated."
+  ],
+  "rca_info_delay": [
+    "The official announcement and market reaction to BI's interest rate hike to 6.00%, which occurred during market hours or was reported after the brief.",
+    "News regarding Washington's rising interest bill, published at 06:00 GMT (13:00 WIB), after the pre-market brief."
+  ],
+  "rca_inverse_correlation": [
+    "The morning brief predicted 'Basic Materials (CPO)' to be bullish, but the 'sektor barang baku' (basic materials) actually ambles 3.00%, becoming the main drag on the index. This suggests that the expected CPO strength either did not materialize or was overshadowed by other bearish factors affecting the broader basic materials sector."
+  ],
+  "lessons": [
+    "Ketika Bank Indonesia sedang dalam periode keputusan suku bunga dan Rupiah terus melemah, tetapi Bank Indonesia secara tak terduga menaikkan suku bunga acuan menjadi 6.00%, maka IHSG dapat melemah signifikan sebesar 1.07%.",
+    "Ketika sektor Basic Materials (CPO) diprediksi bullish, tetapi sektor barang baku ambles 3.00% dan menjadi pemberat utama indeks, maka prediksi berdasarkan komoditas tunggal mungkin tidak mencerminkan kinerja sektor secara keseluruhan."
+  ],
+  "summary": "The morning brief correctly predicted a bearish IHSG, which fell 1.07% driven by an unexpected BI rate hike and significant Rupiah weakening, while some sector predictions like Basic Materials proved inversely correlated with actual performance.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18158.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.3,
+      "previous_close": 88.56,
+      "change_pct": -4.81,
+      "signal": "Down",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 90.39,
+      "previous_close": 95.84,
+      "change_pct": -5.69,
+      "signal": "Down",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.25,
+      "previous_close": 3.23,
+      "change_pct": 0.5,
+      "signal": "Up",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 130.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 18 Nov 2026 01:00:00 GMT | freshness: unknown] Perbandingan Kinerja & Rekomendasi Saham Batu Bara 2027\nAcuan Batu Bara Terbaru November 2026, Kalori Tinggi Tembus US$130,8 per Ton Sementara. Asam (Persero) Newcastle dan ICI-3 masing-masing sebesar 25% dan 26%\nSource: https://market.bisnis.com/read/20261118/192/2022279/perbandingan-kinerja-rekomendasi-saham-batu-bara-2027-ptba-indy-byan-aadi\nSource ID: src_f77d0c6789\n\n[Tue, 17 Nov 2026 19:00:00 GMT | freshness: unknown] Komoditas Topang Prospek Grup Saratoga\nHal tersebut didukung oleh harga batu bara Newcastle yang masih berada di atas US\nSource IDs: src_f77d0c6789, src_0e99775733, src_bfe3880d95",
+      "source_ids": [
+        "src_f77d0c6789",
+        "src_0e99775733",
+        "src_bfe3880d95"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-18T20:00:50+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 18 Nov 2026 05:00:00 GMT | freshness: unknown] RUPSLB CENT SETUJUI SUSUNAN DIREKSI BARU | Panin Sekuritas Tbk\nBerdasarkan Berita Acara Penetapan Harga Nomor 500.10.6.3/890/Disbun/2026 yang disepakati tim perumus pada Jumat (13/11), harga rata-rata tertimbang CPO\nSource: https://post-pro.co.id/news-and-research/71256/rupslb-cent-setujui-susunan-direksi-baru\nSource ID: src_a8d97c075b\n\nSource IDs: src_a8d97c075b",
+      "source_ids": [
+        "src_a8d97c075b"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-18T20:00:53+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-18T20:00:58+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.45,
+    "stored_usdidr_change_pct": 3.2,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.2,
+  "rupiah_signal": "Weakened"
+}

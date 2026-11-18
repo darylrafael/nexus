@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-18",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_f77d0c6789",
+    "src_0e99775733",
+    "src_bfe3880d95",
+    "src_a8d97c075b",
+    "src_1302b39b16",
+    "src_4bc996d59e",
+    "src_5d583f0708",
+    "src_7009193493",
+    "src_dccc85f455",
+    "src_c0de892ff7",
+    "src_59bc5bc94a",
+    "src_d468d98535",
+    "src_a6aef7f2c2",
+    "src_581dc76a60",
+    "src_9171a12167",
+    "src_1fa39ad455",
+    "src_a81cb1645e"
+  ],
+  "target_date": "2026-11-18",
+  "ihsg": {
+    "status": "ok",
+    "close": 5247.88,
+    "prev": 5304.75,
+    "change_pct": -1.07,
+    "change_pts": -56.88,
+    "signal": "Bearish",
+    "open": 5323.49,
+    "high": 5374.36,
+    "low": 5240.69,
+    "volume": 0,
+    "candle_date": "2026-11-18",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-18T20:00:47+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18158.0,
+    "prev": 17595.0,
+    "change_pct": 3.2,
+    "signal": "Weakened",
+    "candle_date": "2026-11-18",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-18T20:00:48+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5247.88,
+  "ihsg_prev": 5304.75,
+  "ihsg_change_pct": -1.07,
+  "ihsg_change_pts": -56.88,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-18T20:00:47+07:00",
+  "usdidr_rate": 18158.0,
+  "usdidr_prev": 17595.0,
+  "usdidr_change_pct": 3.2,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-18T20:00:48+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.3,
+      "previous_close": 88.56,
+      "change_pct": -4.81,
+      "signal": "Down",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 90.39,
+      "previous_close": 95.84,
+      "change_pct": -5.69,
+      "signal": "Down",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.25,
+      "previous_close": 3.23,
+      "change_pct": 0.5,
+      "signal": "Up",
+      "retrieved_at": "2026-11-18T20:00:48+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 130.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 18 Nov 2026 01:00:00 GMT | freshness: unknown] Perbandingan Kinerja & Rekomendasi Saham Batu Bara 2027\nAcuan Batu Bara Terbaru November 2026, Kalori Tinggi Tembus US$130,8 per Ton Sementara. Asam (Persero) Newcastle dan ICI-3 masing-masing sebesar 25% dan 26%\nSource: https://market.bisnis.com/read/20261118/192/2022279/perbandingan-kinerja-rekomendasi-saham-batu-bara-2027-ptba-indy-byan-aadi\nSource ID: src_f77d0c6789\n\n[Tue, 17 Nov 2026 19:00:00 GMT | freshness: unknown] Komoditas Topang Prospek Grup Saratoga\nHal tersebut didukung oleh harga batu bara Newcastle yang masih berada di atas US\nSource IDs: src_f77d0c6789, src_0e99775733, src_bfe3880d95",
+      "source_ids": [
+        "src_f77d0c6789",
+        "src_0e99775733",
+        "src_bfe3880d95"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-18T20:00:50+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 18 Nov 2026 05:00:00 GMT | freshness: unknown] RUPSLB CENT SETUJUI SUSUNAN DIREKSI BARU | Panin Sekuritas Tbk\nBerdasarkan Berita Acara Penetapan Harga Nomor 500.10.6.3/890/Disbun/2026 yang disepakati tim perumus pada Jumat (13/11), harga rata-rata tertimbang CPO\nSource: https://post-pro.co.id/news-and-research/71256/rupslb-cent-setujui-susunan-direksi-baru\nSource ID: src_a8d97c075b\n\nSource IDs: src_a8d97c075b",
+      "source_ids": [
+        "src_a8d97c075b"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-18T20:00:53+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-18T20:00:58+07:00"
+    }
+  },
+  "top_movers": "[Wed, 18 Nov 2026 11:00:00 GMT | freshness: unknown] IHSG Turun Usai BI Naikkan Suku Bunga Acuan (Rabu, 18 November ...\nMenurut data Bursa Efek Indonesia (BEI), Indeks Harga Saham Gabungan (IHSG) jatuh 1,07% ke level 5.247,88 pada penutupan perdagangan Rabu (18/11/2026).\nSource: https://databoks.katadata.co.id/pasar/statistik/6afd750f75d04/ihsg-turun-usai-bi-naikkan-suku-bunga-acuan-rabu-18-november-2026\nSource ID: src_4bc996d59e\n\nSource IDs: src_4bc996d59e",
+  "sector_performance": "[Wed, 18 Nov 2026 05:58:57 GMT | freshness: unknown] IHSG Menguat Tipis, Mayoritas Sektor Saham Justru Melemah\nmempertahankan posisinya hingga akhir perdagangan sesi pertama, Rabu (18/11/2026). Indeks ditutup menguat 0,40 persen ke level 5.326.\n\nPerforma IHSG ditopang sejumlah saham berkapitalisasi besar atau big caps. Saham PT Bank Central Asia Tbk (BBCA) melonjak 3,2 persen. [...] + Cantikpreneurship\n  + Jernihkan Bumi\n  + Jernihkan Harapan\n  + Festival Ceban\n  + Jurnalisme Berkebangsaan\n  + Generasi BangkitLihat semua\n\nBagikan:\n\nIHSG Menguat Tipis, Mayoritas Sektor Saham Justru Melemah\n\nKomentar:\n\nBaca berita tanpa iklan. Gabung Kompas.com+\n\n Kompas.com\n Money\n Cuan\n\n# IHSG Menguat Tipis, Mayoritas Sektor Saham Justru Melemah\n\nKompas.com, 18 November 2026, 12:58 WIB\n\nSuparjo Ramalan ,\n\nAndika Aditia\n\nTim Redaksi\n\nSuparjo Ramalan\n\nPenulis Andika Aditia\n\nEditor [...] Kemenko Perekonomian Bongkar Strategi China Kuasai Pasar Dunia\n\nKemenko Perekonomian Bongkar Strategi China Kuasai Pasar Dunia\n\nEkbis\n\n18/11/2026, 13:08 WIB\n\nIHSG Menguat Tipis, Mayoritas Sektor Saham Justru Melemah\n\nIHSG Menguat Tipis, Mayoritas Sektor Saham Justru Melemah\n\nCuan\n\n18/11/2026, 12:58 WIB\n\nPasar Ekonomi Digital ASEAN Diproyeksi Tembus 2 Triliun Dollar AS pada 2030\n\nPasar Ekonomi Digital ASEAN Diproyeksi Tembus 2 Triliun Dollar AS pada 2030\n\nKeuangan\n\n18/11/2026, 12:54 WIB\nSource: https://money.kompas.com/read/2026/11/18/125857726/ihsg-menguat-tipis-mayoritas-sektor-saham-justru-melemah\nSource ID: src_5d583f0708\n\n[Wed, 18 Nov 2026 10:35:34 GMT | freshness: unknown] IHSG Hari Ini Ditutup Melemah 1,07% Usai BI Rate Naik ke 6% - MerahPutih\n- Satu-satunya Sektor Menguat: Sektor kesehatan yang berhasil mencuri kenaikan tipis sebesar 0,28 persen.\n- Tiga Sektor Paling Terpuruk: Sektor barang baku menjadi pemberat utama indeks setelah ambles 3,00 persen, disusul sektor industri yang terpangkas 2,52 persen, serta sektor energi yang merosot 2,49 persen. Total ada sepuluh sektor yang kompak memerah. [...] Merahputih.com - Laju IHSG Hari Ini di Bursa Efek Indonesia (BEI) terpaksa parkir di zona merah pada penutupan perdagangan Rabu (18/11/2026) sore. Indeks acuan pasar modal Tanah Air ini tergerus 56,88 poin atau anjlok 1,07 persen menuju level 5.247,88. [...] > IHSG ditutup melemah lebih dari 1 persen pada Rabu (18/11) atau berbalik dari teritori positif pada sesi pertama. Tekanan pasar dipicu oleh keputusan BI kembali menaikkan BI Rate sebesar 25 bps menjadi 6,00 persen,\n> \n> Ratna Lim.\nSo\nSource IDs: src_5d583f0708, src_7009193493, src_dccc85f455, src_c0de892ff7",
+  "foreign_flow_raw": "[Wed, 18 Nov 2026 07:00:00 GMT | freshness: unknown] Press Release - Mining.com\nMicro Gold Futures $ 3772.1 / ozt  -2.19%. **18 November 2026** - Amaroq Ltd. (LSE and NASDAQ Iceland: AMRQ, OTCQX: AMRQF), an independent mine development company focused on unlocking Greenland’s mineral potential, announces that it has been notified of the purchase of 54,700 common shares of no par value in the Company by Annette Pia Brøndholt Sørensen, a Non-Executive Director. Details of the transaction(s)** |  |. | b) Nature of the transaction | Purchase of common shares of no par value in Amaroq Ltd. | e) Date of the transaction(s) | 16 November 2026 |. Amaroq’s focus is the identification, acquisition, exploration and development of gold and strategic metals in Greenland. The Company’s strategy is to unlock the resource potential in Greenland through the continued exploration and development of its wider portfolio, while building a responsible, full-cycle mining company, including through its Suliaq subsidiary, which provides mining services and logistics capabilities for Greenland’s developing mining sector, and Imeq ApS, Greenland's first private hydroelectric project.\nSource: https://www.mining.com/press-release?id=6afd52827dcf28e71655aff5\nSource ID: src_59bc5bc94a\n\n[Wed, 18 Nov 2026 10:30:00 GMT | freshness: unknown] EQS-Adhoc: Stillwater Mining Company: OPTIONAL REDEMPTION NOTICE - boerse.de - boerse.de\nboerse.de-Fonds myChampions100  boerse.de Vermögensverwaltung boerse.de-Indizes boe",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-11-16",
+    "target_date": "2026-11-18",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.45,
+    "stored_usdidr_change_pct": 3.2,
+    "rescored_at": "2026-10-15"
+  }
+}
