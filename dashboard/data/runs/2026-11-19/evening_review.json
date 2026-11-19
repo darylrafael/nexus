@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-19",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -1.02,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Financials": null,
+    "Industrials": true,
+    "Basic Materials": false,
+    "Property": null,
+    "Telecommunication": null
+  },
+  "error_rate_pct": 35,
+  "accuracy_score": 65,
+  "rca_unanticipated": [
+    "Significant weakening of Rupiah by +3.284% despite BI rate hike intended for stability.",
+    "Nickel (LME) commodity price increased by +3.80%, contrary to bearish sector prediction.",
+    "Natural Gas commodity price increased by +7.01%."
+  ],
+  "rca_overestimated": [],
+  "rca_underestimated": [
+    "The strength of external pressures on Rupiah, overriding the BI rate hike's intended stabilizing effect.",
+    "The positive performance of certain Basic Materials components (Nickel and the sector itself gaining) despite a bearish prediction for the sector."
+  ],
+  "rca_info_delay": [
+    "Indian Rupee hits roadblock after rally amid fears of back-to-back Fed rate hikes (06:00:49 GMT / 13:00:49 WIB), potentially influencing market sentiment during the trading day."
+  ],
+  "rca_inverse_correlation": [
+    "Brief assumed BI Rate hike would strengthen Rupiah, but today Rupiah weakened by +3.284%.",
+    "Brief predicted Basic Materials sector to be bearish, but today IDX Sektor Barang Baku gained."
+  ],
+  "lessons": [
+    "Ketika Bank Indonesia menaikkan suku bunga acuan untuk memperkuat stabilitas Rupiah, tetapi Rupiah justru melemah sebesar +3.284%, maka sentimen pasar dapat mengabaikan kebijakan moneter domestik jika tekanan eksternal lebih dominan.",
+    "Ketika sektor Basic Materials diprediksi bearish, tetapi IDX Sektor Barang Baku menguat, maka perlu analisis lebih mendalam terhadap sub-sektor atau komoditas spesifik yang mendorong penguatan tersebut."
+  ],
+  "summary": "The market's bearish prediction for IHSG was correct, but the Rupiah significantly weakened despite the BI rate hike, and some predicted bearish sectors actually gained.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18240.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 83.25,
+      "previous_close": 85.72,
+      "change_pct": -2.88,
+      "signal": "Down",
+      "retrieved_at": "2026-11-19T20:00:47+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 90.22,
+      "previous_close": 92.44,
+      "change_pct": -2.4,
+      "signal": "Down",
+      "retrieved_at": "2026-11-19T20:00:47+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.34,
+      "previous_close": 3.12,
+      "change_pct": 7.01,
+      "signal": "Up",
+      "retrieved_at": "2026-11-19T20:00:47+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": 1.0,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 19 Nov 2026 07:00:00 GMT | freshness: unknown] Harga Batu Bara Dunia Turun, Kebutuhan PLN Naik 173 Juta Ton\nBerdasarkan data perdagangan, harga batu bara Newcastle kontrak November 2026 turun US$1,8 menjadi US$143,15 per ton. Kontrak Desember 2026 terkoreksi US$4,2 ke\nSource: https://listrikindonesia.com/detail/21838/permintaan-batu-bara-dunia-anjlok-indonesia-justru-naik-hingga-173-juta-ton\nSource ID: src_a36cfa6eea\n\nSource IDs: src_a36cfa6eea",
+      "source_ids": [
+        "src_a36cfa6eea"
+      ],
+      "parse_confidence": "low",
+      "retrieved_at": "2026-11-19T20:00:50+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 19 Nov 2026 00:00:00 GMT | freshness: unknown] The Palm Oil Industry Prepares Strategies to Face a Fragmented ...\n19 Nov 2026 07:00. The Indonesian Palm Oil Conference (IPOC) 2026, terms of crude palm oil (CPO) prices and market demand.\nSource: https://www.kompas.id/artikel/palm-oil-industry-prepares-strategy-to-face-a-fragmented-world?open_from=English_Page\nSource ID: src_33d606d7bc\n\n[Wed, 18 Nov 2026 15:00:00 GMT | freshness: unknown] Harga Sawit Sumsel Turun Lagi, TBS Umur Produktif Kini Dibanderol Rp3 ...\ncrude palm oil (CPO) CPO ditetapkan sebesar Rp14.197 per kg. Angka tersebut tur\nSource IDs: src_33d606d7bc, src_e6b9e4c568, src_f369d385c2",
+      "source_ids": [
+        "src_33d606d7bc",
+        "src_e6b9e4c568",
+        "src_f369d385c2"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-19T20:00:53+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 16462.0,
+      "change_pct": 3.8,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Wed, 18 Nov 2026 19:00:00 GMT | freshness: unknown] Nickel jumps 3.8% as Anglo flags Brazil ferronickel closure risk\nThree-month nickel on the London Metal Exchange (LME) rose 3.8% on November 17 to $16,462/t, deal is valued at about $500 million. nikel Indonesia turun $14/mt\nSource: https://news.metal.com/id/newscontent/UKNYIGBGGTXPXTGYODZCSQNNK3YCBJD4HBAHIJI-nickel-jumps-38-as-anglo-flags-brazil-ferronickel-closure-risk\nSource ID: src_6a400fbbb2\n\nSource IDs: src_6a400fbbb2",
+      "source_ids": [
+        "src_6a400fbbb2"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-19T20:00:55+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.452,
+    "stored_usdidr_change_pct": 3.284,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.284,
+  "rupiah_signal": "Weakened"
+}
