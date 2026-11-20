@@ -1,0 +1,145 @@
+{
+  "date": "2026-11-20",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 58,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.92,
+  "ihsg_correct": true,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": true,
+  "sector_accuracy": {
+    "Transportation & Logistics": null,
+    "Energy (Gas Upstream)": null,
+    "Basic Materials (Coal)": null,
+    "Energy (Oil Upstream)": null,
+    "Property & Real Estate": true,
+    "Consumer Non-Cyclicals & Health": null,
+    "Technology": null,
+    "Financial": true
+  },
+  "error_rate_pct": 0,
+  "accuracy_score": 100,
+  "rca_unanticipated": [
+    "Wall Street crash of over 2% causing global risk-off sentiment",
+    "IHSG turun 1,50% pada siang hari (hingga 5.116) tidak terduga"
+  ],
+  "rca_overestimated": [
+    "BI Rate hike sebesar 25 bps dianggap sebagai faktor utama menurunkan IHSG",
+    "Perkiraan sektor transportasi dan gas upward dianggap penting tetapi dampaknya kecil"
+  ],
+  "rca_underestimated": [
+    "Kenaikan tekanan global dari Wall Street crash yang tidak disebutkan dalam brief",
+    "Penurunan IHSG yang lebih besar (1,50%) pada siang hari"
+  ],
+  "rca_info_delay": [
+    "Berita Wall Street crash muncul setelah 08:30, sehingga tidak tercapture dalam brief",
+    "Laporan penurunan IHSG pada siang hari (5.116) tidak ada di brief"
+  ],
+  "rca_inverse_correlation": [
+    "Brief mengasumsikan kenaikan harga gas alami (natural gas +15.28%) akan mendukung IHSG, tetapi IHSG tetap turun 0.92% karena sentimen risk-off global mengalahkan efek positif gas."
+  ],
+  "lessons": [
+    "Ketika IHSG menampilkan sinyal bearish (58% confidence) di pagi hari, tetapi Wall Street crash 2%+ terjadi, maka IHSG turun 0.92% (47.8 poin) pada penutupan, menandakan tekanan global yang mengguncang pasar domest"
+  ],
+  "summary": "IHSG ditutup Bearish -0.92% (prediksi Bearish); foreign flow tercatat Stagnant (prediksi Stagnant).",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18260.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 82.59,
+      "previous_close": 85.72,
+      "change_pct": -3.65,
+      "signal": "Down",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 89.61,
+      "previous_close": 92.44,
+      "change_pct": -3.06,
+      "signal": "Down",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.6,
+      "previous_close": 3.12,
+      "change_pct": 15.28,
+      "signal": "Up",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 20 Nov 2026 09:28:28 GMT | freshness: unknown] Wide Open Agriculture Notifies Market of 45,550,000 Unlisted Options - TipRanks\n# Wide Open Agriculture Notifies Market of 45,550,000 Unlisted Options. The latest update is out from Wide Open Agriculture Ltd. (ASX: WOA) notified the market of the issue of 45,550,000 unlisted options on 20 November 2026. Each option is exercisable at $0.02 and expires on 20 November 2027; the securities are unquoted and are identified as issued as part of transactions previously announced in an Appendix 3B. **More about Wide Open Agriculture Ltd.**. Learn mor\nSource IDs: src_97d1ce9aa0, src_755d03116a, src_5bc5faaf60, src_fba6ff4559, src_8a396e4e0c, src_597190cafb, src_ef6c334d36",
+      "source_ids": [
+        "src_97d1ce9aa0",
+        "src_755d03116a",
+        "src_5bc5faaf60",
+        "src_fba6ff4559",
+        "src_8a396e4e0c",
+        "src_597190cafb",
+        "src_ef6c334d36"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:09+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 19 Nov 2026 16:00:00 GMT | freshness: unknown] BMI revises down the 2026 CPO price forecast | The Star\nKUALA LUMPUR: BMI, a FitchSolutions company, has revised down its average 2026 crude palm oil (CPO) futures price forecast to RM4,382 per tonne from RM4,453 per tonne, reflecting weaker-than-expected price performance in the fourth quarter of 2026 (4Q26). [...] BMI said CPO price volatility had increased significantly since mid-September, with prices falling to RM4,200 per tonne on Oct 12 before rebounding to RM4,595 per tonne on Oct 20, amid conflicting market signals as optimism over\nSource IDs: src_8f17b782e7, src_1c87e8666d",
+      "source_ids": [
+        "src_8f17b782e7",
+        "src_1c87e8666d"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:12+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:14+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": 0.11,
+    "stored_usdidr_change_pct": 3.532,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 3.532,
+  "rupiah_signal": "Weakened"
+}

@@ -1,0 +1,211 @@
+{
+  "date": "2026-11-20",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_97d1ce9aa0",
+    "src_755d03116a",
+    "src_5bc5faaf60",
+    "src_fba6ff4559",
+    "src_8a396e4e0c",
+    "src_597190cafb",
+    "src_ef6c334d36",
+    "src_8f17b782e7",
+    "src_1c87e8666d",
+    "src_1302b39b16",
+    "src_0bf98d733b",
+    "src_817d46d758",
+    "src_d35779a82f",
+    "src_578b198f52",
+    "src_a0dba96778",
+    "src_71b05921e4",
+    "src_578b198f52",
+    "src_788ff87222",
+    "src_b6b565ff33",
+    "src_5622d07ee5",
+    "src_1353c262c0",
+    "src_efc09869e8",
+    "src_bbf730a2ad",
+    "src_ca9f0531bc",
+    "src_61cf402945"
+  ],
+  "target_date": "2026-11-20",
+  "ihsg": {
+    "status": "ok",
+    "close": 5146.33,
+    "prev": 5194.14,
+    "change_pct": -0.92,
+    "change_pts": -47.81,
+    "signal": "Bearish",
+    "open": 5152.16,
+    "high": 5196.28,
+    "low": 5094.89,
+    "volume": 0,
+    "candle_date": "2026-11-20",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-20T20:01:05+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18260.0,
+    "prev": 17637.0,
+    "change_pct": 3.532,
+    "signal": "Weakened",
+    "candle_date": "2026-11-20",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-20T20:01:06+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5146.33,
+  "ihsg_prev": 5194.14,
+  "ihsg_change_pct": -0.92,
+  "ihsg_change_pts": -47.81,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-20T20:01:05+07:00",
+  "usdidr_rate": 18260.0,
+  "usdidr_prev": 17637.0,
+  "usdidr_change_pct": 3.532,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-20T20:01:06+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 82.59,
+      "previous_close": 85.72,
+      "change_pct": -3.65,
+      "signal": "Down",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 89.61,
+      "previous_close": 92.44,
+      "change_pct": -3.06,
+      "signal": "Down",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.6,
+      "previous_close": 3.12,
+      "change_pct": 15.28,
+      "signal": "Up",
+      "retrieved_at": "2026-11-20T20:01:06+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 20 Nov 2026 09:28:28 GMT | freshness: unknown] Wide Open Agriculture Notifies Market of 45,550,000 Unlisted Options - TipRanks\n# Wide Open Agriculture Notifies Market of 45,550,000 Unlisted Options. The latest update is out from Wide Open Agriculture Ltd. (ASX: WOA) notified the market of the issue of 45,550,000 unlisted options on 20 November 2026. Each option is exercisable at $0.02 and expires on 20 November 2027; the securities are unquoted and are identified as issued as part of transactions previously announced in an Appendix 3B. **More about Wide Open Agriculture Ltd.**. Learn mor\nSource IDs: src_97d1ce9aa0, src_755d03116a, src_5bc5faaf60, src_fba6ff4559, src_8a396e4e0c, src_597190cafb, src_ef6c334d36",
+      "source_ids": [
+        "src_97d1ce9aa0",
+        "src_755d03116a",
+        "src_5bc5faaf60",
+        "src_fba6ff4559",
+        "src_8a396e4e0c",
+        "src_597190cafb",
+        "src_ef6c334d36"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:09+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 19 Nov 2026 16:00:00 GMT | freshness: unknown] BMI revises down the 2026 CPO price forecast | The Star\nKUALA LUMPUR: BMI, a FitchSolutions company, has revised down its average 2026 crude palm oil (CPO) futures price forecast to RM4,382 per tonne from RM4,453 per tonne, reflecting weaker-than-expected price performance in the fourth quarter of 2026 (4Q26). [...] BMI said CPO price volatility had increased significantly since mid-September, with prices falling to RM4,200 per tonne on Oct 12 before rebounding to RM4,595 per tonne on Oct 20, amid conflicting market signals as optimism over\nSource IDs: src_8f17b782e7, src_1c87e8666d",
+      "source_ids": [
+        "src_8f17b782e7",
+        "src_1c87e8666d"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:12+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-20T20:01:14+07:00"
+    }
+  },
+  "top_movers": "[Fri, 20 Nov 2026 09:08:07 GMT | freshness: unknown] IHSG Melemah 0,92% ke 5.146 pada Jumat (20/11), EMTK, INDY, MDKA Top Losers LQ45\nReporter: Herlina KD | Editor: Herlina Kartika Dewi\n\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) ditutup melemah 47,81 poin atau 0,92% ke 5.146,32 pada akhir perdagangan Jumat (20/11/2026).\n\nSebanyak 102 saham naik, 265 saham turun dan 91 saham stagnan.\n\nHanya dua indeks sektoral yang selamat ke zona hijau, yakni sektor kesehatan yang naik 0,81% dan sektor infrastruktur yang naik 0,10%.\n\nSedangkan sembilan indeks sektoral lainnya masuk zona merah, mengikuti pelemahan IHSG. [...] PT Merdeka Battery Materials Tbk (MBMA) (15,44%)  \n2\\. PT XLSMART Telecom Sejahtera Tbk (EXCL) (4,23%)  \n3\\. PT Elnusa Tbk (ELSA) (3,39%)\n\nTop losers LQ45 hari ini adalah:\n\nPT Elang Mahkota Teknologi Tbk (EMTK) (-6,34%)  \n2\\. PT Indika Energy Tbk (INDY) (-5,70%)  \n3\\. PT Merdeka Copper Gold Tbk (MDKA) (-5%)\n\nCek Berita dan Artikel yang lain di Google News [...] Baca Juga: Rupiah Spot Ditutup Melemah 0,09% ke Rp 18.270 per Dolar AS pada Jumat (20/11)\n\nIndeks sektoral dengan pelemahan terdalam adalah sektor energi yang turun 1,42%, sektor barang konsumen siklikal turun 1,26% dan sektor perindustrian yang turun 1,25%.\n\nTotal volume perdagangan saham di bursa hari ini mencapai 20,64 miliar saham, dengan total nilai Rp 7,77 triliun.\n\nTop gainers LQ45 hari ini adalah:\nSource: https://investasi.kontan.co.id/news/ihsg-melemah-092-ke-5146-pada-jumat-2011-emtk-indy-mdka-top-losers-lq45\nSource ID: src_0bf98d733b\n\n[Fri, 20 Nov 2026 02:00:00 GMT | freshness: unknown] DAILY RESEARCH\n20 November 2026 Top Gainers IDR. Tekanan juga datang dari saham semikonduktor, terutama Nvidia yang turun 3,3% IHSG diperkirakan masih cenderung tertekan, (\nSource: https://www.facsekuritas.co.id/riset/view/238\nSource ID: src_817d46d758\n\n[Fri, 20 Nov 2026 02:16:52 GMT | freshness: unknown] IHSG Melemah ke 5.178,3 di Pagi Ini (20/11), INDY, MDKA, SMGR Jadi Top Losers LQ45 — Berita\nSource IDs: src_0bf98d733b, src_817d46d758, src_d35779a82f, src_578b198f52, src_a0dba96778, src_71b05921e4",
+  "sector_performance": "[Fri, 20 Nov 2026 09:48:52 GMT | freshness: unknown] IHSG Ditutup Turun 0,92% ke Level 5.146 Sore Ini\nIlustrasi. Dok MI\n\nGervin Nathaniel Purba • 20 November 2026 16:48\n\nJakarta: Gerak Indeks Harga Saham Gabungan (IHSG) masih nyaman terperosok di zona merah pada penutupan perdagangan sore ini, Jumat, 20 November 2026. IHSG ditutup melemah 47,815 poin atau setara 0,92 persen ke level 5.146,326.\n\nDikutip dari laman RTI, volume perdagangan ini tercatat sebanyak 20,967 miliar lembar saham, senilai Rp8,090 triliun. Sebanyak 102 saham menguat, 265 saham melemah, dan 91 saham stagnan. [...] Sedangkan tiga sektor yang mengalami penurunan paling banyak terdiri dari sector energi (turun 1,42 persen), cyclical (turun 1,26 persen), dan industrial (turun 1,25 persen).\n\nAdapun saham-saham yang mengalami penguatan terbesar (top gainers), yaitu TGUK, NTBK, MASB, YUPI, dan ICON. Sedangkan, saham-saham yang mengalami pelemahan terbesar (top losers), yakni HBAT, IBOS, KLIN, CASH, dan KOPI. [...] IHSG sempat dibuka pada level 5.152,160. Gerak indeks sempat menyentuh level tertinggi pada posisi 5.196,277 dan menyentuh level terendah 5.094,892.\n\nIlustrasi. Foto: Dok MI\n\nSebanyak sembilan dari 11 sektor berguguran pada penutupan perdagangan sore ini. Hanya dua sektor yang berada di zona hijau, yakni kesehatan (naik 0,81 persen) dan infrastruktur (naik 0,10 persen).\nSource: https://www.metrotvnews.com/read/kqYC0prV-ihsg-ditutup-turun-0-92-ke-level-5-146-sore-ini\nSource ID: src_578b198f52\n\n[Fri, 20 Nov 2026 02:14:56 GMT | freshness: unknown] IHSG Hari Ini Kembali Tertekan ke 5.152, Mayoritas Sektor Saham Melemah\nLiputan6.com, Jakarta - Laju Indeks Harga Saham Gabungan (IHSG) bergerak di zona merah pada awal sesi perdagangan saham Jumat, (20/11/2026). Penurunan IHSG hari ini mengikuti bursa saham Asia Pasifik yang tertekan dan mayoritas sektor saham memerah.\n\nMengutip data RTI, IHSG hari ini dibuka anjlok 0,81% menjadi 5.152. Saat dipantau pukul 09.03 WIB, IHSG turun 0,49% menjadi 5.169. Indeks saham LQ45 tergelincir 0,43% menjadi 537,25. Sebagian besar indeks saham acuan memerah. [...] Advertisement\n\nSebagian besar sektor saham tertekan. Sektor saham basic turun 1,14%, dan catat koreksi terbesar. Sektor saham energi melemah 0,25%, sektor saham industri merosot 0,21%, sektor saham keuangan melemah 0,08%. Lalu sektor saham properti turun 0,23%, sektor saham teknologi terpangkas 0,36%, sektor saham infrastruktur susut 0,19% dan sektor saham transportasi tergelincir 0,53%. [...] Harga\nSource IDs: src_578b198f52, src_788ff87222, src_b6b565ff33, src_5622d07ee5, src_1353c262c0",
+  "foreign_flow_raw": "[Fri, 20 Nov 2026 01:10:00 GMT | freshness: unknown] IHSG Diperkirakan Terkoreksi, Dibebani Pelemahan Rupiah dan Aksi Jual Saham - RRI.co.id\n# IHSG Diperkirakan Terkoreksi, Dibebani Pelemahan Rupiah dan Aksi Jual Saham\n\n- 20 Nov 2026 08:10 WIB\n- Pusat Pemberitaan\n\n###### Poin Utama\n\n- Indeks Harga Saham Gabungan (IHSG) diperkirakan akan terkoreksi dalam perdagangan di Bursa Efek Indonesia (BEI) hari ini\n- Pada Kamis kemarin net sell atau jual bersih saham oleh investor asing tercatat sebesar Rp662 miliar\n- Berlanjutnya depresiasi tupiah menjadi salah satu faktor negatif yang membebani indeks [...] RRI.CO.ID, Jakarta - Indeks Harga Saham Gabungan (IHSG) diperkirakan akan terkoreksi dalam perdagangan di Bursa Efek Indonesia (BEI) hari ini. Pada penutupan perdagangan Kamis kemarin, IHSG turun 1,02 persen ke level 5.194, disertai aksi jual saham oleh investor asing.\n\nNet sell atau jual bersih saham oleh asing tercatat sebesar Rp662 miliar. Saham yang paling banyak dijual asing adalah BBCA, BMRI, TLKM, TPIA, dan ISAT. [...] \"Hari ini ada potensi IHSG akan kembali melanjutkan koreksi. Karena IHSG sudah tembus level support kuat di 5.200,\" kata Head of Retail Research BNI Sekuritas, Fanny Suherman, Jumat, 20 November 2026.\n\nFanny memperkirakan IHSG akan bergerak di rentang 5.000-5.080 di level support. Sedangkan level resistansi di rentang 5.200-5.250.\nSource: https://rri.co.id/ekonomi/keuangan/2910730/ihsg-diperkirakan-terkoreksi-dibebani-pelemahan-rupiah-dan-aksi-jual-saham\nSource",
+  "foreign_flow": {
+    "signal": "Stagnant",
+    "net_trillion": -0.662,
+    "raw_figure": "662 miliar",
+    "direction": "Sell",
+    "market_scope": "regular",
+    "is_all_market": false,
+    "regular_net_trillion": -0.662,
+    "all_market_net_trillion": null,
+    "divergence_alert": null,
+    "reason": "classified_successfully",
+    "matched_date": "2026-11-20",
+    "target_date": "2026-11-20",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Stagnant",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-11-20, target=2026-11-20",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-11-20, target=2026-11-20",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-20",
+        "retrieved_at": "2026-11-20T20:01:05+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-20",
+        "retrieved_at": "2026-11-20T20:01:06+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-20",
+        "retrieved_at": "2026-11-20T20:01:22+07:00",
+        "valid": true,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-20",
+        "retrieved_at": "2026-11-20T20:01:22+07:00",
+        "valid": true
+      }
+    }
+  }
+}
