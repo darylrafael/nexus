@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-23",
+  "flags": [
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Natural Gas",
+      "reference_value": 13.12,
+      "line_number": 31,
+      "line": "- **Summary**: Crude Oil (WTI) fell 3.71% to $82.82, and Brent Crude dropped 4.14% to $89.28. Natural Gas, however, surged 13.12% to $3.63. Nickel (LME) saw a significant decline of 5.50% to $12,502.50 a ton, its largest percentage drop since April 2025 (src_a71b4b3b75). No fresh results were found for Coal and CPO during the observation window.",
+      "issue": "Natural Gas is positive (+13.12%) in data, but line uses negative term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Crude Oil",
+      "reference_value": -3.71,
+      "line_number": 33,
+      "line": "- **Rationale**: The decline in crude oil prices is bearish for oil and gas upstream companies but bullish for consumers like airlines and petrochemicals due to lower input costs. The sharp rise in natural gas is bullish for gas upstream companies but bearish for fertilizer and utility companies. The significant drop in nickel prices is bearish for nickel mining companies but bullish for EV battery and stainless steel manufacturers. The mixed commodity movements create a somewhat balanced impact on the overall index, though specific sectors will see clear directional pressure.",
+      "issue": "Crude Oil is negative (-3.71%) in data, but line uses positive term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Nickel",
+      "reference_value": -5.5,
+      "line_number": 33,
+      "line": "- **Rationale**: The decline in crude oil prices is bearish for oil and gas upstream companies but bullish for consumers like airlines and petrochemicals due to lower input costs. The sharp rise in natural gas is bullish for gas upstream companies but bearish for fertilizer and utility companies. The significant drop in nickel prices is bearish for nickel mining companies but bullish for EV battery and stainless steel manufacturers. The mixed commodity movements create a somewhat balanced impact on the overall index, though specific sectors will see clear directional pressure.",
+      "issue": "Nickel is negative (-5.50%) in data, but line uses positive term"
+    },
+    {
+      "type": "reference_data_contradiction",
+      "entity": "Nickel",
+      "reference_value": -5.5,
+      "line_number": 37,
+      "line": "*   **MBMA**: Naik 2,01% (Jumat, 20 Nov 2026) (src_d35779a82f). Despite falling nickel prices, MBMA was a top gainer on Nov 20 morning, possibly due to stock-specific factors or foreign accumulation (net buy asing Rp 49,7 miliar on Nov 20) (src_47479259e9).",
+      "issue": "Nickel is negative (-5.50%) in data, but line uses positive term"
+    }
+  ],
+  "count": 4,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 31,
+      "issue": "Natural Gas is positive (+13.12%) in data, but line uses negative term",
+      "line": "- **Summary**: Crude Oil (WTI) fell 3.71% to $82.82, and Brent Crude dropped 4.14% to $89.28. Natural Gas, however, surged 13.12% to $3.63. Nickel (LME) saw a significant decline of 5.50% to $12,502.50 a ton, its largest percentage drop since April 2025 (src_a71b4b3b75). No fresh results were found for Coal and CPO during the observation window.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 33,
+      "issue": "Crude Oil is negative (-3.71%) in data, but line uses positive term",
+      "line": "- **Rationale**: The decline in crude oil prices is bearish for oil and gas upstream companies but bullish for consumers like airlines and petrochemicals due to lower input costs. The sharp rise in natural gas is bullish for gas upstream companies but bearish for fertilizer and utility companies. The significant drop in nickel prices is bearish for nickel mining companies but bullish for EV battery and stainless steel manufacturers. The mixed commodity movements create a somewhat balanced impact on the overall index, though specific sectors will see clear directional pressure.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 33,
+      "issue": "Nickel is negative (-5.50%) in data, but line uses positive term",
+      "line": "- **Rationale**: The decline in crude oil prices is bearish for oil and gas upstream companies but bullish for consumers like airlines and petrochemicals due to lower input costs. The sharp rise in natural gas is bullish for gas upstream companies but bearish for fertilizer and utility companies. The significant drop in nickel prices is bearish for nickel mining companies but bullish for EV battery and stainless steel manufacturers. The mixed commodity movements create a somewhat balanced impact on the overall index, though specific sectors will see clear directional pressure.",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    },
+    {
+      "line_number": 37,
+      "issue": "Nickel is negative (-5.50%) in data, but line uses positive term",
+      "line": "*   **MBMA**: Naik 2,01% (Jumat, 20 Nov 2026) (src_d35779a82f). Despite falling nickel prices, MBMA was a top gainer on Nov 20 morning, possibly due to stock-specific factors or foreign accumulation (net buy asing Rp 49,7 miliar on Nov 20) (src_47479259e9).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
