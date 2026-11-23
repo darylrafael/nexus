@@ -1,5 +1,5 @@
 {
-  "total_sessions": 44,
+  "total_sessions": 45,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -44,50 +44,51 @@
     "2026-11-17",
     "2026-11-18",
     "2026-11-19",
-    "2026-11-20"
+    "2026-11-20",
+    "2026-11-23"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 44,
+  "sample_size_n": 45,
   "sample_warning": null,
-  "direction_accuracy_pct": 43.2,
+  "direction_accuracy_pct": 42.2,
   "direction_correct_count": 19,
-  "direction_scorable_sessions": 44,
+  "direction_scorable_sessions": 45,
   "direction_info": {
-    "pct": 43.2,
-    "n": 44,
+    "pct": 42.2,
+    "n": 45,
     "correct": 19,
-    "label": "n = 44",
+    "label": "n = 45",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 29.7,
-    "upper_pct": 57.8,
+    "lower_pct": 29.0,
+    "upper_pct": 56.7,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 54.5,
+    "always_bearish_pct": 53.3,
     "always_bearish_count": 24,
-    "always_bearish_total": 44,
-    "always_bullish_pct": 43.2,
-    "always_bullish_count": 19,
-    "always_bullish_total": 44,
-    "majority_class_pct": 54.5,
-    "persistence_pct": 55.8,
+    "always_bearish_total": 45,
+    "always_bullish_pct": 44.4,
+    "always_bullish_count": 20,
+    "always_bullish_total": 45,
+    "majority_class_pct": 53.3,
+    "persistence_pct": 54.5,
     "persistence_correct_count": 24,
-    "persistence_scorable_sessions": 43
+    "persistence_scorable_sessions": 44
   },
   "calibration": {
-    "average_stated_confidence_pct": 71.8,
-    "calibrated_confidence_pct": 43.2,
-    "sample_size_n": 44,
+    "average_stated_confidence_pct": 71.5,
+    "calibrated_confidence_pct": 42.2,
+    "sample_size_n": 45,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 43.2,
+    "realized_hit_rate_pct": 42.2,
     "status_label": "calibrated",
-    "brier_score": 0.3456,
+    "brier_score": 0.3462,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (43.2%, n = 44)",
+    "confidence_label": "Calibrated confidence (42.2%, n = 45)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -95,21 +96,21 @@
     "long_only_total_bps": -385.0,
     "long_only_avg_bps": -64.2,
     "long_only_trades": 6,
-    "short_only_total_bps": 1821.0,
-    "short_only_avg_bps": 53.6,
-    "short_only_trades": 34,
+    "short_only_total_bps": 1686.0,
+    "short_only_avg_bps": 48.2,
+    "short_only_trades": 35,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1436.0,
+    "long_short_total_bps": 1301.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
-  "flow_accuracy_pct": 66.7,
+  "flow_accuracy_pct": 61.5,
   "flow_correct_count": 8,
-  "flow_scorable_sessions": 12,
+  "flow_scorable_sessions": 13,
   "flow_info": {
-    "pct": 66.7,
-    "n": 12,
+    "pct": 61.5,
+    "n": 13,
     "correct": 8,
-    "label": "n = 12, sample too small",
+    "label": "n = 13, sample too small",
     "is_sufficient": false
   },
   "sector_accuracy_pct": 40.7,
@@ -122,8 +123,8 @@
     "label": "n = 140",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 40.2,
-  "rolling_20_accuracy": 50.9,
+  "rolling_avg_accuracy": 39.3,
+  "rolling_20_accuracy": 45.9,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -192,7 +193,9 @@
     "Ketika Bank Indonesia sedang dalam periode keputusan suku bunga dan Rupiah terus melemah, tetapi Bank Indonesia secara tak terduga menaikkan suku bunga acuan menjadi 6.00%, maka IHSG dapat melemah signifikan sebesar 1.07%.",
     "Ketika sektor Basic Materials (CPO) diprediksi bullish, tetapi sektor barang baku ambles 3.00% dan menjadi pemberat utama indeks, maka prediksi berdasarkan komoditas tunggal mungkin tidak mencerminkan kinerja sektor secara keseluruhan.",
     "Ketika sektor Basic Materials diprediksi bearish, tetapi IDX Sektor Barang Baku menguat, maka perlu analisis lebih mendalam terhadap sub-sektor atau komoditas spesifik yang mendorong penguatan tersebut.",
-    "Ketika IHSG menampilkan sinyal bearish (58% confidence) di pagi hari, tetapi Wall Street crash 2%+ terjadi, maka IHSG turun 0.92% (47.8 poin) pada penutupan, menandakan tekanan global yang mengguncang pasar domest"
+    "Ketika IHSG menampilkan sinyal bearish (58% confidence) di pagi hari, tetapi Wall Street crash 2%+ terjadi, maka IHSG turun 0.92% (47.8 poin) pada penutupan, menandakan tekanan global yang mengguncang pasar domest",
+    "Ketika IHSG diprediksi Bearish dengan confidence 61% dan Rupiah diproyeksikan melemah, tetapi IHSG bangkit menguat 1.35% setelah lima hari beruntun dan Rupiah menguat 0.323%, maka sentimen rebound pasar domestik dapat mengalahkan tekanan eksternal yang diproyeksikan.",
+    "Ketika Foreign Flow diprediksi distribusi (Net Sell Rp 947.02 miliar) dan IHSG diprediksi Bearish, tetapi Foreign Flow aktual stagnan (Net Sell Rp 512 miliar di Sesi I) dan IHSG menguat 1.35%, maka aliran dana asing yang tidak sekuat prediksi distribusi dapat mendukung penguatan IHSG."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -403,12 +406,18 @@
     "Wall Street crash of over 2% causing global risk-off sentiment": 1,
     "IHSG turun 1,50% pada siang hari (hingga 5.116) tidak terduga": 1,
     "Kenaikan tekanan global dari Wall Street crash yang tidak disebutkan dalam brief": 1,
-    "Penurunan IHSG yang lebih besar (1,50%) pada siang hari": 1
+    "Penurunan IHSG yang lebih besar (1,50%) pada siang hari": 1,
+    "IHSG's strong rebound of +1.35% after five consecutive days of decline.": 1,
+    "Rupiah strengthening by 0.323% against the USD, contrary to predicted weakening.": 1,
+    "Global market volatility with VIX nearly doubling to 37.24 and a flight to safety into bonds (10-year Treasury yield fell -24 basis points).": 1,
+    "The potential for a strong IHSG rebound (+1.35%) after a period of decline.": 1,
+    "Factors contributing to the Rupiah's strengthening by 0.323%.": 1,
+    "The positive performance of Natural Gas (+4.80%), which was correctly predicted as bullish but its overall market impact might have been underestimated.": 1
   },
-  "last_updated": "2026-11-20",
+  "last_updated": "2026-11-23",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-20",
-  "history_rescore_note": "Rescored across 44 genuine sessions (2026-09-22 to 2026-11-20) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-23",
+  "history_rescore_note": "Rescored across 45 genuine sessions (2026-09-22 to 2026-11-23) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -589,6 +598,11 @@
       "date": "2026-11-19",
       "lesson": "Ketika Bank Indonesia menaikkan suku bunga acuan untuk memperkuat stabilitas Rupiah, tetapi Rupiah justru melemah sebesar +3.284%, maka sentimen pasar dapat mengabaikan kebijakan moneter domestik jika tekanan eksternal lebih dominan.",
       "reason": "unreliable_source_data: stored usdidr_change_pct (3.284%) diverges from consecutive spot close (0.452%)"
+    },
+    {
+      "date": "2026-11-23",
+      "lesson": "Ketika komoditas Oil dan Nickel diprediksi bearish dan aktualnya turun masing-masing -1.33% dan -10.10%, tetapi IHSG menguat 1.35%, maka dampak negatif dari penurunan komoditas tertentu dapat diimbangi oleh faktor pendorong pasar domestik lainnya.",
+      "reason": "session_limit_exceeded: max 2 lessons per session"
     }
   ],
   "heuristics": [
@@ -1475,14 +1489,40 @@
         "BEARISH_TREND"
       ],
       "last_observed": "2026-11-20"
+    },
+    {
+      "id": "rule-69",
+      "rule": "Ketika IHSG diprediksi Bearish dengan confidence 61% dan Rupiah diproyeksikan melemah, tetapi IHSG bangkit menguat 1.35% setelah lima hari beruntun dan Rupiah menguat 0.323%, maka sentimen rebound pasar domestik dapat mengalahkan tekanan eksternal yang diproyeksikan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-23"
+    },
+    {
+      "id": "rule-70",
+      "rule": "Ketika Foreign Flow diprediksi distribusi (Net Sell Rp 947.02 miliar) dan IHSG diprediksi Bearish, tetapi Foreign Flow aktual stagnan (Net Sell Rp 512 miliar di Sesi I) dan IHSG menguat 1.35%, maka aliran dana asing yang tidak sekuat prediksi distribusi dapat mendukung penguatan IHSG.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-23"
     }
   ],
   "active_heuristics_count": 29,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 39,
-  "ihsg_accuracy_pct": 43.2,
+  "hypothesis_heuristics_count": 41,
+  "ihsg_accuracy_pct": 42.2,
   "ihsg_correct_count": 19,
-  "ff_accuracy_pct": 66.7,
+  "ff_accuracy_pct": 61.5,
   "ff_correct_count": 8,
   "total_accuracy_sum": 1770.0
 }

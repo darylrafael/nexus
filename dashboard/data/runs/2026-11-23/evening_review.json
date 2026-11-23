@@ -1,0 +1,152 @@
+{
+  "date": "2026-11-23",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 1.35,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Stagnant",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Healthcare": null,
+    "Consumer Non-Cyclicals": null,
+    "Energy": null,
+    "Basic Materials": null,
+    "Technology": null,
+    "Property & Real Estate": null,
+    "Transportation & Logistics": null,
+    "Banking": null
+  },
+  "error_rate_pct": 100,
+  "accuracy_score": 0,
+  "rca_unanticipated": [
+    "IHSG's strong rebound of +1.35% after five consecutive days of decline.",
+    "Rupiah strengthening by 0.323% against the USD, contrary to predicted weakening.",
+    "Global market volatility with VIX nearly doubling to 37.24 and a flight to safety into bonds (10-year Treasury yield fell -24 basis points)."
+  ],
+  "rca_overestimated": [
+    "The negative impact of 'persistent external pressures' on the Rupiah and subsequently on the IHSG.",
+    "The magnitude of foreign flow distribution, as actual net sell (Rp 512 miliar in Sesi I) was less than predicted (Rp 947.02 miliar) leading to a 'Stagnant' classification."
+  ],
+  "rca_underestimated": [
+    "The potential for a strong IHSG rebound (+1.35%) after a period of decline.",
+    "Factors contributing to the Rupiah's strengthening by 0.323%.",
+    "The positive performance of Natural Gas (+4.80%), which was correctly predicted as bullish but its overall market impact might have been underestimated."
+  ],
+  "rca_info_delay": [
+    "IHSG closing data and full foreign flow data for the day (available post-market).",
+    "Detailed sector performance data for Indonesian sectors (not available in the provided actuals before 08:30 GMT+7)."
+  ],
+  "rca_inverse_correlation": [
+    "The brief predicted a bearish IHSG partly due to expected Rupiah weakening, but the Rupiah actually strengthened by 0.323% while the IHSG turned bullish by 1.35%. This suggests the assumed negative correlation or the premise of Rupiah weakening was incorrect.",
+    "The brief predicted a significant foreign flow distribution (net sell Rp 947.02 miliar) contributing to a bearish IHSG, but the actual foreign flow was 'Stagnant' (net sell Rp 512 miliar in Sesi I) and the IHSG was bullish by 1.35%. The predicted level of foreign selling did not materialize to the extent expected, and the market moved inversely to the bearish prediction."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 61% dan Rupiah diproyeksikan melemah, tetapi IHSG bangkit menguat 1.35% setelah lima hari beruntun dan Rupiah menguat 0.323%, maka sentimen rebound pasar domestik dapat mengalahkan tekanan eksternal yang diproyeksikan.",
+    "Ketika Foreign Flow diprediksi distribusi (Net Sell Rp 947.02 miliar) dan IHSG diprediksi Bearish, tetapi Foreign Flow aktual stagnan (Net Sell Rp 512 miliar di Sesi I) dan IHSG menguat 1.35%, maka aliran dana asing yang tidak sekuat prediksi distribusi dapat mendukung penguatan IHSG.",
+    "Ketika komoditas Oil dan Nickel diprediksi bearish dan aktualnya turun masing-masing -1.33% dan -10.10%, tetapi IHSG menguat 1.35%, maka dampak negatif dari penurunan komoditas tertentu dapat diimbangi oleh faktor pendorong pasar domestik lainnya."
+  ],
+  "summary": "The morning brief predicted a bearish IHSG and foreign flow distribution, but the market saw a bullish IHSG close of +1.35% and stagnant foreign flow, with the Rupiah strengthening by 0.323% against expectations.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18195.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 82.15,
+      "previous_close": 83.26,
+      "change_pct": -1.33,
+      "signal": "Down",
+      "retrieved_at": "2026-11-23T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 88.53,
+      "previous_close": 91.95,
+      "change_pct": -3.72,
+      "signal": "Down",
+      "retrieved_at": "2026-11-23T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.53,
+      "previous_close": 3.37,
+      "change_pct": 4.8,
+      "signal": "Up",
+      "retrieved_at": "2026-11-23T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 23 Nov 2026 11:10:36 GMT | freshness: unknown] Gold Price Today on November 23, 2026 - USA Today\n# Gold Price Today on November 23, 2026. ## How much is gold per ounce today? As of Nov. 23, 2026, at 6:00 a.m. ET, the spot price of gold was **$** per ounce, according to the latest market data. Prices are unchanged from the previous day. One year ago, gold traded at $4,075.23 per ounce, with prices essentially unchanged over the past 12 months. ## What is the historical price of gold? | Today | One Week Ago | One Month Ago | One Year Ago |. A week ago, gold traded at $3,862.96 per ounce. P\nSource IDs: src_3df47d16fa, src_1b2112628d, src_77fad240ef, src_560191847f, src_3f15de92f1, src_a044bb336e, src_b1b99ca8fc",
+      "source_ids": [
+        "src_3df47d16fa",
+        "src_1b2112628d",
+        "src_77fad240ef",
+        "src_560191847f",
+        "src_3f15de92f1",
+        "src_a044bb336e",
+        "src_b1b99ca8fc"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-23T20:00:59+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Mon, 23 Nov 2026 08:00:00 GMT | freshness: unknown] Ekspor Sawit RI Naik Jadi 3,92 Juta Ton pada September 2026, Stok Justru ...\nRata-rata harga ekspor CPO pada September 2026 tercatat sebesar 1.171 ... Produksi gabungan CPO dan palm kernel oil (PKO) diperkirakan mencapai 59,87\nSource: https://money.kompas.com/read/2026/11/23/144938726/ekspor-sawit-ri-naik-jadi-392-juta-ton-pada-september-2026-stok-justru-susut?page=all\nSource ID: src_9402f57d74\n\nSource IDs: src_9402f57d74",
+      "source_ids": [
+        "src_9402f57d74"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-23T20:01:01+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": 12230.5,
+      "change_pct": -10.1,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Mon, 23 Nov 2026 10:00:00 GMT | freshness: unknown] BRIDS Market Pulse: Chart of the week – JCI Risk Premium\nLME copper cash declined 10.1% wow to US$12,230.5/t, tin fell 14.8% to US$41,160/t and nickel declined 4.5% to US$15,310/t. Silver declined more than 15% to\nSource: https://www.brights.id/en/research-and-news/research-report/brids-market-pulse-chart-of-the-week-jci-risk-premium\nSource ID: src_b192b8597c\n\n[Mon, 23 Nov 2026 04:00:00 GMT | freshness: unknown] Guangdong continues destocking, spot premiums rise [SMM midday ...\nThe Shanghai-Guangdong price spread widened. Today, suppliers qu\nSource IDs: src_b192b8597c, src_f5fbc2931e, src_2b9206b734, src_1302b39b16",
+      "source_ids": [
+        "src_b192b8597c",
+        "src_f5fbc2931e",
+        "src_2b9206b734",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-23T20:01:03+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": -0.356,
+    "stored_usdidr_change_pct": -0.323,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.323,
+  "rupiah_signal": "Strengthened"
+}
