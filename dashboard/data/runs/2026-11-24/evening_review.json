@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-24",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 66,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 0.49,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Kesehatan": null,
+    "Infrastruktur": true,
+    "Energi (Gas Upstream)": true,
+    "Barang Baku (Batu Bara)": true,
+    "Energi (Oil & Gas Upstream)": true,
+    "Energi (Nikel)": true,
+    "Barang Baku (CPO)": false,
+    "Properti dan Real Estate": null,
+    "Teknologi": null,
+    "Perindustrian": null,
+    "Cyclical": null,
+    "Perbankan": false,
+    "Transportasi dan Logistik": null,
+    "Barang Konsumen Primer & Non-Primer": null
+  },
+  "error_rate_pct": 73,
+  "accuracy_score": 27,
+  "rca_unanticipated": [
+    "Sentimen positif dari pertemuan Presiden Prabowo dengan CEO MSCI",
+    "Penguatan Rupiah sebesar 0.7%",
+    "Kenaikan harga CPO sebesar 47.60%",
+    "Perkembangan positif geopolitik Indonesia-Uni Eropa"
+  ],
+  "rca_overestimated": [
+    "Prediksi Foreign Flow Distribusi (Net Sell Rp 947.02 miliar)",
+    "Prediksi pelemahan Rupiah"
+  ],
+  "rca_underestimated": [
+    "Dampak positif dari pertemuan Presiden Prabowo dengan CEO MSCI",
+    "Potensi penguatan Rupiah",
+    "Potensi kenaikan harga CPO"
+  ],
+  "rca_info_delay": [
+    "Berita mengenai normalisasi kebijakan BI (pukul 14:00 WIB)",
+    "Berita mogok kerja massal di Belgia (pukul 11:00 WIB)"
+  ],
+  "rca_inverse_correlation": [
+    "Brief memprediksi IHSG Bearish berdasarkan sentimen negatif dan foreign flow distribusi, namun IHSG justru menguat 0.49% didorong sentimen positif dari pertemuan Presiden Prabowo dengan CEO MSCI dan penguatan Rupiah.",
+    "Brief memprediksi Foreign Flow Distribusi (Net Sell Rp 947.02 miliar) yang bersifat bearish, namun terdapat indikasi 'Net Buy Asing Masuk' yang berkorelasi positif dengan penguatan IHSG 0.49%.",
+    "Brief memprediksi CPO Bearish, namun harga CPO justru melonjak 47.60%."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 66%, tetapi sentimen positif dari pertemuan Presiden Prabowo dengan CEO MSCI terjadi, maka IHSG justru menguat 0.49% ke level 5241.59.",
+    "Ketika Rupiah diprediksi melemah, tetapi Rupiah justru menguat 0.7% terhadap USD, maka USD/IDR turun 0.7% menjadi 18158.0.",
+    "Ketika sektor Barang Baku (CPO) diprediksi Bearish, tetapi harga komoditas CPO melonjak drastis, maka harga CPO naik 47.60%."
+  ],
+  "summary": "The morning brief incorrectly predicted a bearish IHSG and foreign distribution, as the market closed bullish (+0.49%) driven by positive domestic news and a strengthening Rupiah, while some commodity and sector predictions were also off.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18158.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 80.36,
+      "previous_close": 83.21,
+      "change_pct": -3.43,
+      "signal": "Down",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 87.09,
+      "previous_close": 91.98,
+      "change_pct": -5.32,
+      "signal": "Down",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.59,
+      "previous_close": 3.27,
+      "change_pct": 9.98,
+      "signal": "Up",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 24 Nov 2026 03:00:00 GMT | freshness: unknown] A New Chapter For Bayan Resources: Low Tuck Kwong Steps ...\n24 November 2026. Harga Batu Bara Newcastle. Lintasan Berita. Harga Batu Bara Newcastle Kembali Menguat: India Jadi Pendorong, Pasar China Masih Tertekan. 24\nSource: https://www.indonesiancoalandnickel.com/a-new-chapter-for-bayan-resources-low-tuck-kwong-steps-down-as-president-director-haji-isams-daughter-joins-the-board\nSource ID: src_70175b47fb\n\nSource IDs: src_70175b47fb",
+      "source_ids": [
+        "src_70175b47fb"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-24T20:01:04+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 47.6,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Mon, 23 Nov 2026 22:00:00 GMT | freshness: unknown] Harga CPO Longsor 5 Hari Beruntun, Terendah dalam 9 Bulan\nJAKARTA, investor.id – Harga kontrak crude palm oil (CPO) di Bursa Malaysia Derivatives (BMD) kembali ambles pada perdagangan Senin (23/11/2026),\nSource: https://investor.id/market/463092/harga-cpo-longsor-5-hari-beruntun-terendah-dalam-9-bulan\nSource ID: src_b7094aa215\n\n[Tue, 24 Nov 2026 03:00:00 GMT | freshness: unknown] TH Plantations 3Q2026 PATAMI Jumps 47.6% to RM35.8 Million on Stronger CPO and PK Prices – Minichart\nRevenue growth in the quarter came from higher average realised\nSource IDs: src_b7094aa215, src_b8c9d637d1, src_cdceb02690, src_6cdc1a9b0b, src_8679ba81f2",
+      "source_ids": [
+        "src_b7094aa215",
+        "src_b8c9d637d1",
+        "src_cdceb02690",
+        "src_6cdc1a9b0b",
+        "src_8679ba81f2"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-24T20:01:07+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-24T20:01:10+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.203,
+    "stored_usdidr_change_pct": -0.7,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": -0.7,
+  "rupiah_signal": "Strengthened"
+}

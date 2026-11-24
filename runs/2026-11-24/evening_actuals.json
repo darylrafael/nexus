@@ -1,0 +1,172 @@
+{
+  "date": "2026-11-24",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_70175b47fb",
+    "src_b7094aa215",
+    "src_b8c9d637d1",
+    "src_cdceb02690",
+    "src_6cdc1a9b0b",
+    "src_8679ba81f2",
+    "src_1302b39b16",
+    "src_e49bcc3724",
+    "src_2c8be5d248",
+    "src_ee8ea6deb4",
+    "src_370c83ac03",
+    "src_1445f454be",
+    "src_e7e38eaa67",
+    "src_ed6ed117d0",
+    "src_8723d77672",
+    "src_442cdbd98c",
+    "src_9d92e653bb",
+    "src_2cc6c19bb6",
+    "src_2665f12f25",
+    "src_17ac56c59e",
+    "src_10a4ae3cd2",
+    "src_dcc625de03",
+    "src_6fa2f7f7f2",
+    "src_59bea89429"
+  ],
+  "target_date": "2026-11-24",
+  "ihsg": {
+    "status": "ok",
+    "close": 5241.59,
+    "prev": 5215.85,
+    "change_pct": 0.49,
+    "change_pts": 25.74,
+    "signal": "Bullish",
+    "open": 5283.29,
+    "high": 5314.74,
+    "low": 5198.64,
+    "volume": 0,
+    "candle_date": "2026-11-24",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-24T20:01:01+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18158.0,
+    "prev": 18286.0,
+    "change_pct": -0.7,
+    "signal": "Strengthened",
+    "candle_date": "2026-11-24",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-24T20:01:01+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5241.59,
+  "ihsg_prev": 5215.85,
+  "ihsg_change_pct": 0.49,
+  "ihsg_change_pts": 25.74,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-24T20:01:01+07:00",
+  "usdidr_rate": 18158.0,
+  "usdidr_prev": 18286.0,
+  "usdidr_change_pct": -0.7,
+  "rupiah_signal": "Strengthened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-24T20:01:01+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 80.36,
+      "previous_close": 83.21,
+      "change_pct": -3.43,
+      "signal": "Down",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 87.09,
+      "previous_close": 91.98,
+      "change_pct": -5.32,
+      "signal": "Down",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.59,
+      "previous_close": 3.27,
+      "change_pct": 9.98,
+      "signal": "Up",
+      "retrieved_at": "2026-11-24T20:01:01+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Tue, 24 Nov 2026 03:00:00 GMT | freshness: unknown] A New Chapter For Bayan Resources: Low Tuck Kwong Steps ...\n24 November 2026. Harga Batu Bara Newcastle. Lintasan Berita. Harga Batu Bara Newcastle Kembali Menguat: India Jadi Pendorong, Pasar China Masih Tertekan. 24\nSource: https://www.indonesiancoalandnickel.com/a-new-chapter-for-bayan-resources-low-tuck-kwong-steps-down-as-president-director-haji-isams-daughter-joins-the-board\nSource ID: src_70175b47fb\n\nSource IDs: src_70175b47fb",
+      "source_ids": [
+        "src_70175b47fb"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-24T20:01:04+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 47.6,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Mon, 23 Nov 2026 22:00:00 GMT | freshness: unknown] Harga CPO Longsor 5 Hari Beruntun, Terendah dalam 9 Bulan\nJAKARTA, investor.id – Harga kontrak crude palm oil (CPO) di Bursa Malaysia Derivatives (BMD) kembali ambles pada perdagangan Senin (23/11/2026),\nSource: https://investor.id/market/463092/harga-cpo-longsor-5-hari-beruntun-terendah-dalam-9-bulan\nSource ID: src_b7094aa215\n\n[Tue, 24 Nov 2026 03:00:00 GMT | freshness: unknown] TH Plantations 3Q2026 PATAMI Jumps 47.6% to RM35.8 Million on Stronger CPO and PK Prices – Minichart\nRevenue growth in the quarter came from higher average realised\nSource IDs: src_b7094aa215, src_b8c9d637d1, src_cdceb02690, src_6cdc1a9b0b, src_8679ba81f2",
+      "source_ids": [
+        "src_b7094aa215",
+        "src_b8c9d637d1",
+        "src_cdceb02690",
+        "src_6cdc1a9b0b",
+        "src_8679ba81f2"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-24T20:01:07+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[date unknown | freshness: unknown] LifeMed Group\n# LifeMed Group\nID: 0PCymdf0Zuve\nWebsite: www.lifemed-group.com\nLegal name: Life Medical Equipment\nHeadquarters: Al Hosn, Abu Dhabi, United Arab Emirates\nLinkedIn: www.linkedin.com/company/life-medical-equipment · 11,048 followers\nIndustry: Medical Equipment Manufacturing\nIndustry codes: SIC 50, 504, NAICS 42, 423\nCompany type: Self-Owned\nFounded: 2005\nBusiness model: B2B\nSaaS: no\nSocial profiles: www.crunchbase.com/organization/life-medical-equipment [...] Products: Cardiac Rhythm Management Devices, Heart Failure Treatment Devices, Interventi\nSource IDs: src_1302b39b16",
+      "source_ids": [
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-24T20:01:10+07:00"
+    }
+  },
+  "top_movers": "[Tue, 24 Nov 2026 10:08:58 GMT | freshness: unknown] IHSG Ditutup Naik 0,49% ke Level 5.241 (Selasa, 24 November 2026)\nAdapun PPGL dan TAXI menjadi top losers setelah sama-sama tertekan 10%, diikuti BTEK yang turun 9,09%.\n\nSejalan dengan IHSG, bursa kawasan Asia sore ini cenderung menguat. Indeks Nikkei naik 3,91% ke 58.644,63; indeks Shanghai naik 0,27% ke 3.548,37; indeks Strait Times naik 0,24% ke 4.965,48; sedangkan indeks Hang Seng turun 0,73% ke 22.219,65.\n\n(Baca: IHSG Menguat setelah Turun Sepekan Terakhir (Senin, 23 November 2026))\n\nAdi Ahdiat\n\n## Data Terkait [...] Menurut data RTI Business, frekuensi perdagangan saham hari ini mencapai 1,43 juta kali transaksi, total saham berpindah tangan 30,45 miliar lembar dengan nilai total transaksi sekitar Rp11,75 triliun.\n\nSebanyak 179 saham ditutup melemah hari ini, lalu 168 saham menguat, dan 112 saham stagnan.\n\nEmiten top gainer hari ini adalah AREA yang melonjak 24,51%, diikuti WMUU dan BYAN yang masing-masing naik 21,95% dan 14,70%. [...] ## Data Terkait\n\n## 8 Sektor Saham Menguat, Keuangan Memimpin (Selasa, 24 November 2026)\n\n## CUAN dan BRPT Masuk 10 Emiten \"Top Losers\" Sepekan Terakhir (16-20 November 2026)\n\n## TLKM, Saham Paling Banyak Dilepas Asing saat IHSG Melemah (16-20 November 2026)\n\n## IHSG Menguat setelah Turun Sepekan Terakhir (Senin, 23 November 2026)\n\n## 9 Sektor Saham Naik, Barang Baku Memimpin (Senin, 23 November 2026)\n\n## Hampir Seluruh Sektor Saham BEI Merah dalam Sepekan (16-20 November 2026)\n\n## Data Pasar\nSource: https://databoks.katadata.co.id/pasar/statistik/6b055c2550a2f/ihsg-ditutup-naik-049-ke-level-5241-selasa-24-november-2026\nSource ID: src_e49bcc3724\n\n[Tue, 24 Nov 2026 09:08:54 GMT | freshness: unknown] IHSG Menguat 0,49% ke 5.241 pada Selasa (24/11), ISAT, CPIN, ICBP Top Gainers LQ45\nIHSG Melemah Tipis ke 5.244,8 di Sesi Pertama, INDY, ISAT, HRTA Jadi Top Losers LQ45\n\nReporter: Herlina KD | Editor: Herlina Kartika Dewi\n\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) di\nSource IDs: src_e49bcc3724, src_2c8be5d248, src_ee8ea6deb4, src_370c83ac03, src_1445f454be, src_e7e38eaa67",
+  "sector_performance": "[Tue, 24 Nov 2026 12:00:00 GMT | freshness: unknown] IHSG Naik 0,49% Jadi 5.241 Hari Ini (24/11), Net Buy Asing Masuk di ...\nSektor keuangan melesat 0,89%. Sektor infrastruktur terangkat 0,56%. Tiga indeks sektoral turun pada hari ini. Naik ke Rp 2.505.000, 40.000 per Gram IHSG\nSource: https://pusatdata.kontan.co.id/news/ihsg-naik-049-jadi-5241-hari-ini-2411-net-buy-asing-masuk-di-saham-saham-ini\nSource ID: src_ed6ed117d0\n\n[Tue, 24 Nov 2026 06:06:04 GMT | freshness: unknown] IHSG Ditutup Menguat Tipis 0,25 Persen, Ditopang Saham BBCA hingga BMRI\nBaca berita tanpa iklan. Gabung Kompas.com+\n\nIHSG\n\nJAKARTA, KOMPAS.com - Indeks Harga Saham Gabungan (IHSG) ditutup menguat tipis pada perdagangan sesi pertama, Selasa (24/11/2026). Meski sempat dibuka menguat tajam, indeks akhirnya ditutup naik 0,25 persen ke level 5.229.\n\nPerforma IHSG ditopang sejumlah saham berkapitalisasi pasar besar atau blue chip. Beberapa saham perbankan dan telekomunikasi penopang indeks. [...] 24/11/2026, 16:00 WIB\n\n24/11/2026, 15:57 WIB\n\nIndustri\n\n24/11/2026, 15:45 WIB\n\n24/11/2026, 15:42 WIB\n\nSyariah\n\n24/11/2026, 15:37 WIB\n\n24/11/2026, 15:35 WIB\n\n24/11/2026, 15:33 WIB\n\n24/11/2026, 15:29 WIB\n\nEnergi\n\n24/11/2026, 15:19 WIB\n\n24/11/2026, 15:11 WIB\n\n24/11/2026, 15:03 WIB\n\nUnduh Kompas.com App untuk berita terkini, akurat, dan tepercaya setiap saat\n\nArahkan kamera ke kode QR ini untuk download app [...] - 18 Saham Naik Kasta ke Papan Utama, Ada Emiten Haji Isam dan Happy Hapsoro\n- BEI Coret 109 Saham dari Indeks Papan Utama, Saham HSC Ikut Didepak\n- Wall Street Menguat Usai Jensen Huang Kembali Pimpin Nvidia, Saham AI Terbang\n- Jensen Huang Kembali Jadi CEO Nvidia, Saham Langsung Melonjak 30 Persen\n- Pemerintah Diminta Bongkar Jaringan Saham Gorengan\n\nPilihan Untukmu\n\nTerkini Lainnya\n\nEkbis\n\n24/11/2026, 16:29 WIB\n\nCuan\n\n24/11/2026, 16:20 WIB\n\n24/11/2026, 16:08 WIB\n\n24/11/2026, 16:01 WIB\nSource: https://money.kompas.com/read/2026/11/24/130604526/ihsg-ditutup-menguat-tipis-025-persen-ditopang-saham-bbca-hingga-bmri\nSource ID: src_8723d77672\n\n[Tue, 24 Nov 2026 02:00:00 GMT | freshness: unknown] IHSG Rebound 1,35 Persen Saham Konglomerasi Menguat\nPada penutupan Senin (23/11), indeks berhasil naik 1,35% ke posisi 5.215,85, didukung penguatan saham konglomerasi dan komoditas serta sentimen positif\nSource: https://suaragarut.id/ihsg-rebound-saham-konglomerasi\nSource ID: src_442cdbd98c\n\n[Tue, 24 Nov 2026 09:00:00 GMT | freshness: unknown] Ringkasan Saham\nBatalkan 24 November 2026|07:00. Ringkasan Saha\nSource IDs: src_ed6ed117d0, src_8723d77672, src_442cdbd98c, src_9d92e653bb",
+  "foreign_flow_raw": "[Tue, 24 Nov 2026 09:58:41 GMT | freshness: unknown] True Green Bio Energy resumes manufacturing at Ahmedabad plant after maintenance - scanx.trade\nScanXNewsTrue Green Bio Energy resumes manufacturing at Ahmedabad plant after maintenance. # True Green Bio Energy resumes manufacturing at Ahmedabad plant after maintenance. * True Green Bio Energy Limited resumed manufacturing operations at its Ahmedabad plant. * The facility is now fully operational as of November 24, 2026. True Green Bio Energy Limited  has resumed manufacturing operations at its plant in Ahmedabad, Gujarat, following a temporary suspension for maintenance activities. The company confirmed that the facility is now operational. | **Company** | True Green Bio Energy Limited |. How will the resumption of production at the Ahmedabad plant impact True Green Bio Energy's quarterly revenue guidance for the remainder of FY2027? # True Green Bio Energy Q2FY27 Results: Net profit soars 2005% YoY to ₹18.02 crore. True Green Bio Energy Limited  reported a standalone net profit of **₹18.02 crore** and EBITDA of **₹31.11 crore** for the second quarter of fiscal year 2027.\nSource: https://scanx.trade/stock-market-news/companies/true-green-bio-energy-resumes-manufacturing-ahmedabad-plant/57059750\nSource ID: src_2cc6c19bb6\n\n[Tue, 24 Nov 2026 06:11:00 GMT | freshness: unknown] AI Boost Puts Singapore Economy on Track for Best Performance in Years - WSJ\nNov. 24, 2026 1:11 am ET. SINGAPORE—Singapore is known as a financial hub, b",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_flow_figure_found",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "no_flow_figure_found",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.203,
+    "stored_usdidr_change_pct": -0.7,
+    "rescored_at": "2026-10-15"
+  }
+}
