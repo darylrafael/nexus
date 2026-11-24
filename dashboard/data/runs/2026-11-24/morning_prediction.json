@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-24",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 66,
+  "foreign_flow_signal": "Distribution",
+  "foreign_flow_net": "Net Sell Rp 947.02 miliar di seluruh pasar. Net Sell di pasar reguler sebesar Rp 855.03 miliar (src_47479259e9).",
+  "sector_bullish": [
+    "Kesehatan",
+    "Infrastruktur",
+    "Energi (Gas Upstream)",
+    "Barang Baku (Batu Bara)"
+  ],
+  "sector_bearish": [
+    "Energi (Oil & Gas Upstream, Nikel)",
+    "Barang Baku (CPO)",
+    "Properti dan Real Estate",
+    "Teknologi",
+    "Perindustrian",
+    "Cyclical"
+  ],
+  "sector_neutral": [
+    "Perbankan",
+    "Transportasi dan Logistik",
+    "Barang Konsumen Primer & Non-Primer"
+  ],
+  "recommended_tickers": [
+    "AMMN",
+    "ANTM",
+    "BBCA",
+    "BMRI",
+    "MBMA",
+    "BBNI",
+    "BBRI",
+    "PTBA",
+    "TLKM"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "Bearish",
+    "Coal": "Bullish",
+    "CPO": "Bearish",
+    "Nickel": "Bearish",
+    "Natural Gas": "Bullish"
+  },
+  "evidence_ids": [
+    "src_07e937f1f3",
+    "src_08842cb80c",
+    "src_137802e852",
+    "src_1445f454be",
+    "src_170bf820e5",
+    "src_27b749d1de",
+    "src_284b7af165",
+    "src_32b9a5750e",
+    "src_4423d798d8",
+    "src_47479259e9",
+    "src_53262cf9a9",
+    "src_5509496c61",
+    "src_578b198f52",
+    "src_7f192afc14",
+    "src_828f3b1e5a",
+    "src_96774d4cd1",
+    "src_a2616efb5b",
+    "src_c35239a2ae",
+    "src_d35779a82f"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 42.2,
+  "lock_hash": "f5eac715d5b801d5",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-24",
+  "created_at": "2026-11-24T07:31:53+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-24T07:31:53+07:00",
+  "schema_version": 1
+}
