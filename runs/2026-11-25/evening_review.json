@@ -1,0 +1,145 @@
+{
+  "date": "2026-11-25",
+  "ihsg_predicted": "Bullish",
+  "ihsg_confidence": 61,
+  "ihsg_actual": "Bearish",
+  "ihsg_actual_pct": -0.84,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Stagnant",
+  "foreign_flow_actual": "Accumulation",
+  "foreign_flow_correct": false,
+  "sector_accuracy": {
+    "Barang Baku": false,
+    "Energi": false,
+    "Transportasi dan Logistik": null,
+    "Infrastruktur": false,
+    "Barang Konsumsi Nonprimer": null,
+    "Perindustrian": true,
+    "Properti dan Real Estat": null,
+    "Keuangan": null,
+    "Kesehatan": true,
+    "Barang Konsumsi Primer": null,
+    "Teknologi": null,
+    "Toll Road": null
+  },
+  "error_rate_pct": 88,
+  "accuracy_score": 12,
+  "rca_unanticipated": [
+    "BI-Rate unexpectedly increased by 25 Bps to 6% in November 2026",
+    "Geopolitical tensions escalated in the Strait of Hormuz"
+  ],
+  "rca_overestimated": [
+    "Positive sentiment from MSCI regarding Indonesia's market status",
+    "Expected strengthening of the Rupiah against the USD"
+  ],
+  "rca_underestimated": [
+    "Potential for significant negative market drivers, leading to a bearish IHSG performance"
+  ],
+  "rca_info_delay": [
+    "BI-Rate hike announcement (date unknown, likely after morning brief cut-off)",
+    "News of escalating geopolitical tensions in the Strait of Hormuz (published 03:00:00 GMT, which is 10:00 AM WIB, after market open)"
+  ],
+  "rca_inverse_correlation": [
+    "The brief assumed Rupiah strengthening would be a positive catalyst for large-cap stocks, but Rupiah weakened by 0.704% while IHSG fell by 0.84%.",
+    "The brief predicted a Bullish IHSG based on positive MSCI sentiment, but IHSG closed Bearish."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bullish didorong sentimen positif MSCI dan penguatan Rupiah, tetapi tensi geopolitik di Selat Hormuz memanas dan BI-Rate naik 25 Bps, maka IHSG melemah 0.84% dan Rupiah melemah 0.704%.",
+    "Ketika sektor Barang Baku, Energi, dan Infrastruktur diprediksi Bullish, tetapi IHSG secara keseluruhan melemah dan sektor-sektor tersebut masuk kategori pelemahan terdalam, maka sektor Barang Baku turun 2.55% dan sektor Energi serta Infrastruktur juga mengalami pelemahan signifikan."
+  ],
+  "summary": "The morning brief's bullish IHSG prediction and stagnant foreign flow were incorrect, as IHSG fell by 0.84% amidst unexpected geopolitical tensions, a BI-Rate hike, and a weakening Rupiah, despite some sectors like Perindustrian and Kesehatan performing as predicted.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18310.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 82.27,
+      "previous_close": 83.98,
+      "change_pct": -2.04,
+      "signal": "Down",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 89.0,
+      "previous_close": 92.57,
+      "change_pct": -3.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.61,
+      "previous_close": 3.41,
+      "change_pct": 5.89,
+      "signal": "Up",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 02:00:00 GMT | freshness: unknown] Harga Bitcoin (BTC) Turun ke US$ 59.490, Ini Penyebab dan Level Penting yang Perlu Dicermati\nHarga Bitcoin (BTC) kembali mengalami tekanan pada perdagangan Rabu (25/11/2026), setelah menembus ke bawah level US$ 60.000. Pelemahan pasar terjadi ketika\nSource: https://bewara.co.id/harga-bitcoin-btc-turun-ke-us-59-490-ini-penyebab-dan-level-penting-yang-perlu-dicermati\nSource ID: src_f5935a6ddc\n\nSource IDs: src_f5935a6ddc",
+      "source_ids": [
+        "src_f5935a6ddc"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-25T20:01:00+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 01:00:00 GMT | freshness: unknown] Embun Pagi\nNovember 25, 2026. Market Index. Last Trade Chg (%) MoM YoY. JCI. 5,241.6. 0.5 ... Crude Oil Inventories. 3.4M. Note: Time is based on Indonesian local time.\nSource: https://cdn.miraeasset.co.id/prd-strapi-v2/Embun_Pagi_2026_11_25_15691481b2.pdf\nSource ID: src_de42490b88\n\nSource IDs: src_de42490b88",
+      "source_ids": [
+        "src_de42490b88"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-25T20:01:02+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": -1.32,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 05:00:00 GMT | freshness: unknown] Aluminum - Price - Chart - Historical Data - News\n33.38% Nov/24 Bitumen 4,189.00 -56.00 -1.32% -16.27% 38.75% Nov/25 Cobalt 33,525.00 0 0% -3.16% -30.98% Nov/24 Lead 1,823.65 -12.55 -0.68% -5.47% -7.66% Nov/25 Aluminum 2,735.30 -39.90 -1.44% -10.03% -4.75% Nov/25 Tin 39,539.00 -3091 -7.25% -22.50% 5.31% Nov/24 Zinc 3,389.40 -51.95 -1.51% -11.38% 10.94% Nov/25 Nickel 15,111.50 -158 -1.04% -2.66% 1.80% Nov/25 Molybdenum 607.50 0 0% 1.17% 33.37% Nov/25 Palladium 844.00 -17.00 -1.97% -19.81% -42.27% Nov/25 Gallium 1,730.00 0 0% -0.57% 3.90% Nov/\nSource IDs: src_75fad80ee1, src_1361078a45, src_1302b39b16",
+      "source_ids": [
+        "src_75fad80ee1",
+        "src_1361078a45",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-25T20:01:04+07:00"
+    }
+  },
+  "market_regime": "BEARISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.837,
+    "stored_usdidr_change_pct": 0.704,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.704,
+  "rupiah_signal": "Weakened"
+}

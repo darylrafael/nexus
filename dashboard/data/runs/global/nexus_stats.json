@@ -1,5 +1,5 @@
 {
-  "total_sessions": 46,
+  "total_sessions": 47,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -46,85 +46,86 @@
     "2026-11-19",
     "2026-11-20",
     "2026-11-23",
-    "2026-11-24"
+    "2026-11-24",
+    "2026-11-25"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 46,
+  "sample_size_n": 47,
   "sample_warning": null,
-  "direction_accuracy_pct": 41.3,
+  "direction_accuracy_pct": 40.4,
   "direction_correct_count": 19,
-  "direction_scorable_sessions": 46,
+  "direction_scorable_sessions": 47,
   "direction_info": {
-    "pct": 41.3,
-    "n": 46,
+    "pct": 40.4,
+    "n": 47,
     "correct": 19,
-    "label": "n = 46",
+    "label": "n = 47",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 28.3,
-    "upper_pct": 55.7,
+    "lower_pct": 27.6,
+    "upper_pct": 54.7,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 52.2,
-    "always_bearish_count": 24,
-    "always_bearish_total": 46,
-    "always_bullish_pct": 45.7,
+    "always_bearish_pct": 53.2,
+    "always_bearish_count": 25,
+    "always_bearish_total": 47,
+    "always_bullish_pct": 44.7,
     "always_bullish_count": 21,
-    "always_bullish_total": 46,
-    "majority_class_pct": 52.2,
-    "persistence_pct": 55.6,
+    "always_bullish_total": 47,
+    "majority_class_pct": 53.2,
+    "persistence_pct": 54.3,
     "persistence_correct_count": 25,
-    "persistence_scorable_sessions": 45
+    "persistence_scorable_sessions": 46
   },
   "calibration": {
-    "average_stated_confidence_pct": 71.4,
-    "calibrated_confidence_pct": 41.3,
-    "sample_size_n": 46,
+    "average_stated_confidence_pct": 71.2,
+    "calibrated_confidence_pct": 40.4,
+    "sample_size_n": 47,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 41.3,
+    "realized_hit_rate_pct": 40.4,
     "status_label": "calibrated",
-    "brier_score": 0.3481,
+    "brier_score": 0.3486,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (41.3%, n = 46)",
+    "confidence_label": "Calibrated confidence (40.4%, n = 47)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
-    "headline_payoff_bps": -385.0,
-    "long_only_total_bps": -385.0,
-    "long_only_avg_bps": -64.2,
-    "long_only_trades": 6,
+    "headline_payoff_bps": -469.0,
+    "long_only_total_bps": -469.0,
+    "long_only_avg_bps": -67.0,
+    "long_only_trades": 7,
     "short_only_total_bps": 1637.0,
     "short_only_avg_bps": 45.5,
     "short_only_trades": 36,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1252.0,
+    "long_short_total_bps": 1168.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
-  "flow_accuracy_pct": 61.5,
+  "flow_accuracy_pct": 57.1,
   "flow_correct_count": 8,
-  "flow_scorable_sessions": 13,
+  "flow_scorable_sessions": 14,
   "flow_info": {
-    "pct": 61.5,
-    "n": 13,
+    "pct": 57.1,
+    "n": 14,
     "correct": 8,
-    "label": "n = 13, sample too small",
+    "label": "n = 14, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 42.2,
-  "sector_correct_count": 62,
-  "sector_verifiable_count": 147,
+  "sector_accuracy_pct": 42.1,
+  "sector_correct_count": 64,
+  "sector_verifiable_count": 152,
   "sector_info": {
-    "pct": 42.2,
-    "n": 147,
-    "correct": 62,
-    "label": "n = 147",
+    "pct": 42.1,
+    "n": 152,
+    "correct": 64,
+    "label": "n = 152",
     "is_sufficient": true
   },
-  "rolling_avg_accuracy": 39.1,
+  "rolling_avg_accuracy": 38.5,
   "rolling_20_accuracy": 44.1,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
@@ -198,7 +199,9 @@
     "Ketika IHSG diprediksi Bearish dengan confidence 61% dan Rupiah diproyeksikan melemah, tetapi IHSG bangkit menguat 1.35% setelah lima hari beruntun dan Rupiah menguat 0.323%, maka sentimen rebound pasar domestik dapat mengalahkan tekanan eksternal yang diproyeksikan.",
     "Ketika Foreign Flow diprediksi distribusi (Net Sell Rp 947.02 miliar) dan IHSG diprediksi Bearish, tetapi Foreign Flow aktual stagnan (Net Sell Rp 512 miliar di Sesi I) dan IHSG menguat 1.35%, maka aliran dana asing yang tidak sekuat prediksi distribusi dapat mendukung penguatan IHSG.",
     "Ketika IHSG diprediksi Bearish dengan confidence 66%, tetapi sentimen positif dari pertemuan Presiden Prabowo dengan CEO MSCI terjadi, maka IHSG justru menguat 0.49% ke level 5241.59.",
-    "Ketika sektor Barang Baku (CPO) diprediksi Bearish, tetapi harga komoditas CPO melonjak drastis, maka harga CPO naik 47.60%."
+    "Ketika sektor Barang Baku (CPO) diprediksi Bearish, tetapi harga komoditas CPO melonjak drastis, maka harga CPO naik 47.60%.",
+    "Ketika IHSG diprediksi Bullish didorong sentimen positif MSCI dan penguatan Rupiah, tetapi tensi geopolitik di Selat Hormuz memanas dan BI-Rate naik 25 Bps, maka IHSG melemah 0.84% dan Rupiah melemah 0.704%.",
+    "Ketika sektor Barang Baku, Energi, dan Infrastruktur diprediksi Bullish, tetapi IHSG secara keseluruhan melemah dan sektor-sektor tersebut masuk kategori pelemahan terdalam, maka sektor Barang Baku turun 2.55% dan sektor Energi serta Infrastruktur juga mengalami pelemahan signifikan."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -422,12 +425,15 @@
     "Perkembangan positif geopolitik Indonesia-Uni Eropa": 1,
     "Dampak positif dari pertemuan Presiden Prabowo dengan CEO MSCI": 1,
     "Potensi penguatan Rupiah": 1,
-    "Potensi kenaikan harga CPO": 1
+    "Potensi kenaikan harga CPO": 1,
+    "BI-Rate unexpectedly increased by 25 Bps to 6% in November 2026": 1,
+    "Geopolitical tensions escalated in the Strait of Hormuz": 1,
+    "Potential for significant negative market drivers, leading to a bearish IHSG performance": 1
   },
-  "last_updated": "2026-11-24",
+  "last_updated": "2026-11-25",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-24",
-  "history_rescore_note": "Rescored across 46 genuine sessions (2026-09-22 to 2026-11-24) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-25",
+  "history_rescore_note": "Rescored across 47 genuine sessions (2026-09-22 to 2026-11-25) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -1556,14 +1562,40 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-24"
+    },
+    {
+      "id": "rule-73",
+      "rule": "Ketika IHSG diprediksi Bullish didorong sentimen positif MSCI dan penguatan Rupiah, tetapi tensi geopolitik di Selat Hormuz memanas dan BI-Rate naik 25 Bps, maka IHSG melemah 0.84% dan Rupiah melemah 0.704%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-11-25"
+    },
+    {
+      "id": "rule-74",
+      "rule": "Ketika sektor Barang Baku, Energi, dan Infrastruktur diprediksi Bullish, tetapi IHSG secara keseluruhan melemah dan sektor-sektor tersebut masuk kategori pelemahan terdalam, maka sektor Barang Baku turun 2.55% dan sektor Energi serta Infrastruktur juga mengalami pelemahan signifikan.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BEARISH_TREND"
+      ],
+      "last_observed": "2026-11-25"
     }
   ],
   "active_heuristics_count": 29,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 43,
-  "ihsg_accuracy_pct": 41.3,
+  "hypothesis_heuristics_count": 45,
+  "ihsg_accuracy_pct": 40.4,
   "ihsg_correct_count": 19,
-  "ff_accuracy_pct": 61.5,
+  "ff_accuracy_pct": 57.1,
   "ff_correct_count": 8,
-  "total_accuracy_sum": 1797.0
+  "total_accuracy_sum": 1809.0
 }

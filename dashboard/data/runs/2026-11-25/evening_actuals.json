@@ -1,0 +1,173 @@
+{
+  "date": "2026-11-25",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_f5935a6ddc",
+    "src_de42490b88",
+    "src_75fad80ee1",
+    "src_1361078a45",
+    "src_1302b39b16",
+    "src_ffe84d2b3b",
+    "src_2d6e423b66",
+    "src_272649fd04",
+    "src_c276b2d85f",
+    "src_407381aebc",
+    "src_4821a9a953",
+    "src_1ca4a24862",
+    "src_bccc04090d",
+    "src_f343f46284",
+    "src_3139b013d6",
+    "src_9d92e653bb",
+    "src_136804a7cb",
+    "src_b3f1ccc0e2",
+    "src_0c9e070115"
+  ],
+  "target_date": "2026-11-25",
+  "ihsg": {
+    "status": "ok",
+    "close": 5197.61,
+    "prev": 5241.59,
+    "change_pct": -0.84,
+    "change_pts": -43.97,
+    "signal": "Bearish",
+    "open": 5235.83,
+    "high": 5246.79,
+    "low": 5165.67,
+    "volume": 0,
+    "candle_date": "2026-11-25",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-25T20:00:56+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18310.0,
+    "prev": 18182.0,
+    "change_pct": 0.704,
+    "signal": "Weakened",
+    "candle_date": "2026-11-25",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-25T20:00:57+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5197.61,
+  "ihsg_prev": 5241.59,
+  "ihsg_change_pct": -0.84,
+  "ihsg_change_pts": -43.97,
+  "ihsg_signal": "Bearish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-25T20:00:56+07:00",
+  "usdidr_rate": 18310.0,
+  "usdidr_prev": 18182.0,
+  "usdidr_change_pct": 0.704,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-25T20:00:57+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 82.27,
+      "previous_close": 83.98,
+      "change_pct": -2.04,
+      "signal": "Down",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 89.0,
+      "previous_close": 92.57,
+      "change_pct": -3.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.61,
+      "previous_close": 3.41,
+      "change_pct": 5.89,
+      "signal": "Up",
+      "retrieved_at": "2026-11-25T20:00:57+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 02:00:00 GMT | freshness: unknown] Harga Bitcoin (BTC) Turun ke US$ 59.490, Ini Penyebab dan Level Penting yang Perlu Dicermati\nHarga Bitcoin (BTC) kembali mengalami tekanan pada perdagangan Rabu (25/11/2026), setelah menembus ke bawah level US$ 60.000. Pelemahan pasar terjadi ketika\nSource: https://bewara.co.id/harga-bitcoin-btc-turun-ke-us-59-490-ini-penyebab-dan-level-penting-yang-perlu-dicermati\nSource ID: src_f5935a6ddc\n\nSource IDs: src_f5935a6ddc",
+      "source_ids": [
+        "src_f5935a6ddc"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-25T20:01:00+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 01:00:00 GMT | freshness: unknown] Embun Pagi\nNovember 25, 2026. Market Index. Last Trade Chg (%) MoM YoY. JCI. 5,241.6. 0.5 ... Crude Oil Inventories. 3.4M. Note: Time is based on Indonesian local time.\nSource: https://cdn.miraeasset.co.id/prd-strapi-v2/Embun_Pagi_2026_11_25_15691481b2.pdf\nSource ID: src_de42490b88\n\nSource IDs: src_de42490b88",
+      "source_ids": [
+        "src_de42490b88"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-25T20:01:02+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": -1.32,
+      "signal": "Down",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 05:00:00 GMT | freshness: unknown] Aluminum - Price - Chart - Historical Data - News\n33.38% Nov/24 Bitumen 4,189.00 -56.00 -1.32% -16.27% 38.75% Nov/25 Cobalt 33,525.00 0 0% -3.16% -30.98% Nov/24 Lead 1,823.65 -12.55 -0.68% -5.47% -7.66% Nov/25 Aluminum 2,735.30 -39.90 -1.44% -10.03% -4.75% Nov/25 Tin 39,539.00 -3091 -7.25% -22.50% 5.31% Nov/24 Zinc 3,389.40 -51.95 -1.51% -11.38% 10.94% Nov/25 Nickel 15,111.50 -158 -1.04% -2.66% 1.80% Nov/25 Molybdenum 607.50 0 0% 1.17% 33.37% Nov/25 Palladium 844.00 -17.00 -1.97% -19.81% -42.27% Nov/25 Gallium 1,730.00 0 0% -0.57% 3.90% Nov/\nSource IDs: src_75fad80ee1, src_1361078a45, src_1302b39b16",
+      "source_ids": [
+        "src_75fad80ee1",
+        "src_1361078a45",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-25T20:01:04+07:00"
+    }
+  },
+  "top_movers": "[Wed, 25 Nov 2026 09:08:58 GMT | freshness: unknown] IHSG Melemah 0,84% ke 5.197 pada Rabu (25/11/2026), ISAT, BRPT, WIFI Top Losers LQ45\nTop gainers LQ45 hari ini adalah:\n\nPT Unilever Indonesia Tbk (UNVR) (3,86%)  \n2\\. PT United Tractors Tbk (UNTR) (2,04%)  \n3\\. PT Astra International Tbk (ASII) (1,83%)\n\nTop losers LQ45 hari ini adalah:\n\nPT Indosat Tbk (ISAT) (-6,95%)  \n2\\. PT Barito Pacific Tbk (BRPT) (-6,62%)  \n3\\. PT Solusi Sinergi Digital Tbk (WIFI) (-5,75%)\n\nCek Berita dan Artikel yang lain di Google News [...] IHSG Melemah Tipis ke 5.244,8 di Sesi Pertama, INDY, ISAT, HRTA Jadi Top Losers LQ45\n\nReporter: Herlina KD | Editor: Herlina Kartika Dewi\n\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) ditutup melemah 43,97 poin atau 0,84% ke 5.197,61 pada akhir perdagangan Rabu (25/11/2026).\n\nSebanyak 194 saham naik, 453 saham turun dan 187 saham stagnan.\n\nHanya dua indeks sektoral yang selamat ke zona hijau. Sedangkan sembilan indeks sektoral lainnya masuk zona merah, mengikuti pelemahan IHSG. [...] Indeks sektoral yang menguat adalah sektor perindustrian yang naik 0,44% dan sektor kesehatan yang naik 0,04 poin (0%).\n\nBaca Juga: Rupiah Ditutup Tembus ke Rp 18.332 Per Dolar AS, Penutupan Terburuk Sepanjang Masa\n\nSedangkan indeks sektoral dengan pelemahan terdalam adalah sektor barang baku yang turun 2,55%, sektor infrastruktur naik 2,39% dan sektor energi yang naik 1,84%.\n\nTotal volume perdagangan saham di bursa hari ini mencapai 20,46 miliar saham, dengan total nilai Rp 6,83 triliun.\nSource: https://investasi.kontan.co.id/news/ihsg-melemah-084-ke-5197-pada-rabu-25112026-isat-brpt-wifi-top-losers-lq45\nSource ID: src_ffe84d2b3b\n\n[Wed, 25 Nov 2026 02:19:00 GMT | freshness: unknown] IHSG Dibuka Melemah 0,17 Persen ke 5.232, MLIA dan KOTA Masuk Top Gainers - KabarBursa.com\nKABARBURSA.COM – Indeks Harga Saham Gabungan (IHSG) dibuka melemah 0,17 persen atau turun 9,15 poin ke level 5.232,44 pada perdagangan Rabu, 25 November 2026. Pada awal sesi, indeks bergerak\nSource IDs: src_ffe84d2b3b, src_2d6e423b66, src_272649fd04, src_c276b2d85f, src_407381aebc, src_4821a9a953",
+  "sector_performance": "[Tue, 24 Nov 2026 20:22:59 GMT | freshness: unknown] Analisa IHSG 25 November 2026: Uji 5.300 Saat Nasdaq Turun 1,9% - Industry.co.id\nIHSG dibuka di 5.283,3, langsung naik hingga 5.314,74, lalu tergelincir ke 5.198,64 sebelum ditutup di 5.241,59. Indeks naik 25,74 poin atau 0,49%, melanjutkan kenaikan 1,35% pada Senin.\n\n| Metrik | Nilai |\n---|\n| Pembukaan | 5.283,3 |\n| Tertinggi | 5.314,74 |\n| Terendah | 5.198,64 |\n| Penutupan | 5.241,59 (+25,74 poin / +0,49%) |\n| Nilai transaksi | Sekitar Rp11,69 triliun |\n| Net buy asing | Sekitar Rp143,55 miliar (seluruh pasar) |\n| Sektor terkuat | Keuangan (+0,89%) | [...] Lonjakan terbesar di jajaran saham berkapitalisasi besar datang dari BYAN yang melesat 14,7% ke 9.950. Di sisi lain, sektor konsumer siklikal, bahan baku, dan transportasi ditutup melemah.\n\n## Analisa Teknikal IHSG\n\nSecara teknikal, IHSG kini berada di atas MA5 (5.209), MA10 (5.238), dan MA20 (5.151). Posisi ini menandakan tren jangka pendek kembali positif setelah sempat turun empat hari beruntun pekan lalu. [...] Key Takeaways\n\n- IHSG ditutup 5.241,59 (+0,49%) pada 24 November 2026, asing net buy sekitar Rp143,55 miliar.\n- Proyeksi hari ini 5.185-5.305, support 5.188-5.198, resistance 5.300-5.315.\n- Nasdaq turun sekitar 1,9%, Nvidia anjlok lebih dari 7%.\n- MSCI belum memutuskan, keputusan paling lambat 30 Juni 2027.\n- IHSG masih turun 39,4% sejak akhir 2025.\nSource: https://www.industry.co.id/read/159813/analisa-ihsg-25-november-2026-uji-5300-saat-nasdaq-turun-19\nSource ID: src_1ca4a24862\n\n[Tue, 24 Nov 2026 20:58:36 GMT | freshness: unknown] Prediksi IHSG Hari Ini 25 November 2026: Menguat Terbatas, Cermati Saham Sektor Perbankan & Konsumer - PortalMadura.com\nSentimen positif utama bagi IHSG hari ini datang dari dalam negeri, terutama rilis data kinerja keuangan emiten kuartal ketiga tahun 2026 yang solid serta ekspektasi pemulihan daya beli masyarakat menjelang akhir tahun. Selain itu, penguatan nilai tukar Rupiah terhadap Dolar Amerika Serikat turut memberikan katalis positif bagi saham-saham berkapitalisasi besar. [...] JAKARTA, portalmadura.com – Indeks Harga Saham Gabungan (IHSG) pada perdagangan hari ini, Rabu, 25 November 2026 diproyeksikan bergerak menguat terbatas. Berdasarkan analisis teknikal dari sejumlah sekuritas seperti Phintraco Sekuritas dan MNC Sekuritas, pergerakan indeks akan berada dalam rentang konsolidasi positif dengan potensi uji resistance di level 7.280. [...] Untuk perdagangan hari ini, beberapa sektor yang layak dicerma\nSource IDs: src_1ca4a24862, src_bccc04090d, src_f343f46284, src_3139b013d6, src_9d92e653bb",
+  "foreign_flow_raw": "[Wed, 25 Nov 2026 07:20:52 GMT | freshness: unknown] Asing Lepas Rp 1,46 Triliun di Sesi I, Saham BUMN Paling Banyak Dijual\nBaca berita tanpa iklan. Gabung Kompas.com+\n\nIlustrasi IHSG. Indeks Harga Saham Gabungan. IHSG hari ini.\n\nJAKARTA, KOMPAS.com - Aksi jual bersih atau net sell investor asing mencapai Rp 265,02 miliar pada perdagangan sesi pertama Rabu (25/11/2026).\n\nAksi jual terjadi ketika nilai transaksi jual asing mencapai Rp 1,46 triliun, lebih besar dibandingkan transaksi beli Rp 1,19 triliun. [...] - IHSG Ditutup Menguat Tipis 0,25 Persen, Ditopang Saham BBCA hingga BMRI\n- Prabowo Ajukan Amran dan Sugiono Jadi Kandidat Wapres, Apa Dampaknya ke IHSG?\n- MSCI Buka Peluang Bursa RI Bertahan di Emerging Market, IHSG Bisa Tembus 5.360\n- IHSG Hari Ini Ditutup Hijau, Menguat 1,35 Persen ke Level 5.215\n- IHSG Menguat 1,59 Persen, Asing Justru Kabur dari Bursa RI Rp 512 Miliar\n\nPilihan Untukmu\n\nTerkini Lainnya\n\nEkbis\n\n25/11/2026, 16:57 WIB\n\n25/11/2026, 16:44 WIB\n\n25/11/2026, 16:38 WIB\n\nKeuangan [...] Aksi jual asing juga terjadi di saham PT Barito Pacific Tbk (BRPT) senilai Rp 23,15 miliar, PT Barito Renewables Energy Tbk (BREN) Rp 18,25 miliar, dan PT GoTo Gojek Tokopedia Tbk (GOTO) Rp 16,73 miliar.\n\nSelanjutnya, investor asing membukukan net sell pada saham PT Indosat Tbk (ISAT) Rp 15,56 miliar, PT Darma Henwa Tbk (DEWA) sebesar Rp 13,37 miliar, dan PT MD Entertainment Tbk (MDIA) sebesar Rp 10,70 miliar.\n\nBaca juga: 3 Skenario IHSG 2027, Terburuk 4.520 dan Terbaik 8.640\nSo",
+  "foreign_flow": {
+    "signal": "Accumulation",
+    "net_trillion": 1.46,
+    "raw_figure": "1.46 triliun",
+    "direction": "Buy",
+    "market_scope": "regular",
+    "is_all_market": false,
+    "regular_net_trillion": 1.46,
+    "all_market_net_trillion": null,
+    "divergence_alert": null,
+    "reason": "classified_successfully",
+    "matched_date": "2026-11-25",
+    "target_date": "2026-11-25",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Accumulation",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": true,
+    "flow_reason": "classified_successfully",
+    "fx_reliable": true,
+    "spot_usdidr_change_pct": 0.837,
+    "stored_usdidr_change_pct": 0.704,
+    "rescored_at": "2026-10-15"
+  }
+}
