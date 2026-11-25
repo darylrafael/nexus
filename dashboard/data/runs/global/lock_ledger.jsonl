@@ -21,3 +21,4 @@
 {"date": "2026-11-20", "lock_hash": "5bd5d222cbf9a5a6", "timestamp": "2026-11-20T07:33:24+07:00", "lock_status": "locked_pre_open", "prev_hash": "a09356d2c39e9d93", "entry_hash": "762c3b84e52a955a"}
 {"date": "2026-11-23", "lock_hash": "cd4c4151f78b4707", "timestamp": "2026-11-23T07:32:24+07:00", "lock_status": "locked_pre_open", "prev_hash": "762c3b84e52a955a", "entry_hash": "4c6009b45c140024"}
 {"date": "2026-11-24", "lock_hash": "f5eac715d5b801d5", "timestamp": "2026-11-24T07:31:53+07:00", "lock_status": "locked_pre_open", "prev_hash": "4c6009b45c140024", "entry_hash": "2e8732b4ca75b2a2"}
+{"date": "2026-11-25", "lock_hash": "7d1c557f4289bc68", "timestamp": "2026-11-25T07:32:29+07:00", "lock_status": "locked_pre_open", "prev_hash": "2e8732b4ca75b2a2", "entry_hash": "5a9b213b5206571b"}

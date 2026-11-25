@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-25",
+  "ihsg_signal": "Bullish",
+  "ihsg_confidence": 61,
+  "foreign_flow_signal": "Stagnant",
+  "foreign_flow_net": "Investor asing mencatatkan **Net Sell Rp750,38 miliar** di pasar reguler dan Net Sell Rp673,09 miliar di seluruh pasar (src_1445f454be, src_78cf9948e3).",
+  "sector_bullish": [
+    "Barang Baku",
+    "Energi",
+    "Transportasi dan Logistik",
+    "Infrastruktur",
+    "Barang Konsumsi Nonprimer",
+    "Perindustrian",
+    "Properti dan Real Estat",
+    "Keuangan",
+    "Kesehatan"
+  ],
+  "sector_bearish": [
+    "Barang Konsumsi Primer",
+    "Teknologi"
+  ],
+  "sector_neutral": [
+    "Toll Road"
+  ],
+  "recommended_tickers": [
+    "BBNI",
+    "BBRI",
+    "BMRI",
+    "GOTO",
+    "BBCA",
+    "BRIS",
+    "BRPT",
+    "DEWA",
+    "TLKM",
+    "WIFI"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {
+    "Oil": "BEARISH",
+    "Natural Gas": "BULLISH"
+  },
+  "evidence_ids": [
+    "src_1445f454be",
+    "src_719ffb0b3b",
+    "src_74a9b26893",
+    "src_78cf9948e3",
+    "src_8fa8419ded",
+    "src_cd7a9ab8dc"
+  ],
+  "raw_ihsg_signal": "Bullish",
+  "calibrated_confidence": 41.3,
+  "lock_hash": "7d1c557f4289bc68",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-25",
+  "created_at": "2026-11-25T07:32:29+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-25T07:32:29+07:00",
+  "schema_version": 1
+}
