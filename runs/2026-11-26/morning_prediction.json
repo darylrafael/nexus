@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-26",
+  "ihsg_signal": "Bearish",
+  "ihsg_confidence": 64,
+  "foreign_flow_signal": "Accumulation",
+  "foreign_flow_net": "Investor asing mencatat net buy sebesar Rp49.67 miliar di pasar reguler (src_3eea4f7e61, src_0c9e070115). Total net buy di seluruh pasar mencapai Rp143.54 miliar.",
+  "sector_bullish": [
+    "Energy",
+    "Banking"
+  ],
+  "sector_bearish": [
+    "Basic Materials (CPO)",
+    "Airlines, Shipping, Petrochemical",
+    "Consumer Goods, Pharmaceuticals, Poultry"
+  ],
+  "sector_neutral": [
+    "Technology",
+    "Infrastruktur"
+  ],
+  "recommended_tickers": [
+    "BBCA",
+    "BMRI",
+    "TBIG",
+    "BYAN",
+    "TEBE",
+    "ISAT",
+    "TLKM"
+  ],
+  "key_risk": "",
+  "commodities_predicted": {},
+  "evidence_ids": [
+    "src_0c9e070115",
+    "src_3181611ad2",
+    "src_3eea4f7e61",
+    "src_54f61c3d5e",
+    "src_666a913ae6",
+    "src_de7fe9f016",
+    "src_ee291f58e8"
+  ],
+  "raw_ihsg_signal": "Bearish",
+  "calibrated_confidence": 40.4,
+  "lock_hash": "49da0c7946dd4e2b",
+  "locked_at": "06:55 WIB",
+  "lock_status": "locked_pre_open",
+  "hash_computed_at": "2026-11-26",
+  "created_at": "2026-11-26T07:31:58+07:00",
+  "out_of_sample_verified": true,
+  "lock_note": "Locked pre-open at 2026-11-26T07:31:58+07:00",
+  "schema_version": 1
+}
