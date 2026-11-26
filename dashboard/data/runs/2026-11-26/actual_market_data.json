@@ -1,0 +1,218 @@
+{
+  "date": "2026-11-26",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_e730d8ce9a",
+    "src_4a85191418",
+    "src_024b230f3e",
+    "src_0103bd7d5e",
+    "src_acb1371c8b",
+    "src_134e8e33fd",
+    "src_5e8af4f86f",
+    "src_4f322f22a1",
+    "src_867d5a37fa",
+    "src_58a55691cf",
+    "src_cb6c7832ff",
+    "src_b48be3065e",
+    "src_56d71a86b4",
+    "src_75fad80ee1",
+    "src_718a60ff2d",
+    "src_1302b39b16",
+    "src_1533a4fef8",
+    "src_672295d17f",
+    "src_fc541762fb",
+    "src_7b79533b2c",
+    "src_2e66413fb2",
+    "src_894216cdd5",
+    "src_bf1cd8e6af",
+    "src_48e9927dde",
+    "src_abe5b2e071",
+    "src_5357aa4cb8",
+    "src_9d92e653bb",
+    "src_2e66413fb2",
+    "src_672295d17f",
+    "src_d59711550d",
+    "src_361c3d2407",
+    "src_fc541762fb",
+    "src_4a85191418",
+    "src_9b4b4c51be"
+  ],
+  "target_date": "2026-11-26",
+  "ihsg": {
+    "status": "ok",
+    "close": 5242.17,
+    "prev": 5197.61,
+    "change_pct": 0.86,
+    "change_pts": 44.56,
+    "signal": "Bullish",
+    "open": 5214.62,
+    "high": 5297.46,
+    "low": 5214.57,
+    "volume": 0,
+    "candle_date": "2026-11-26",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-26T20:00:58+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18345.0,
+    "prev": 18214.0,
+    "change_pct": 0.719,
+    "signal": "Weakened",
+    "candle_date": "2026-11-26",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-26T20:00:58+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5242.17,
+  "ihsg_prev": 5197.61,
+  "ihsg_change_pct": 0.86,
+  "ihsg_change_pts": 44.56,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-26T20:00:58+07:00",
+  "usdidr_rate": 18345.0,
+  "usdidr_prev": 18214.0,
+  "usdidr_change_pct": 0.719,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-26T20:00:58+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.57,
+      "previous_close": 83.98,
+      "change_pct": 0.7,
+      "signal": "Up",
+      "retrieved_at": "2026-11-26T20:00:58+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 91.2,
+      "previous_close": 92.57,
+      "change_pct": -1.48,
+      "signal": "Down",
+      "retrieved_at": "2026-11-26T20:00:58+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.62,
+      "previous_close": 3.41,
+      "change_pct": 5.98,
+      "signal": "Up",
+      "retrieved_at": "2026-11-26T20:00:58+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 16:55:41 GMT | freshness: unknown] Crystal Palace vs Real Sociedad Prediction: Londoners lacking attack against visitors who always score - Telecom Asia Sport\n# Crystal Palace vs Real Sociedad Prediction: Londoners lacking attack against visitors who always score. ## Crystal Palace vs Real Sociedad: Prediction for the Match on 26 November 2026. *On November 26, 2026, Crystal Palace will host Real Sociedad at Selhurst Park in a UEFA Europa League league phase match. TelecomAsia presents a free prediction for the Crystal Palace vs Real Sociedad match, along with important stati\nSource IDs: src_e730d8ce9a, src_4a85191418, src_024b230f3e, src_0103bd7d5e, src_acb1371c8b, src_134e8e33fd, src_5e8af4f86f",
+      "source_ids": [
+        "src_e730d8ce9a",
+        "src_4a85191418",
+        "src_024b230f3e",
+        "src_0103bd7d5e",
+        "src_acb1371c8b",
+        "src_134e8e33fd",
+        "src_5e8af4f86f"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-26T20:01:02+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Thu, 26 Nov 2026 03:00:00 GMT | freshness: unknown] Standar Keberlanjutan dan Pembiayaan Global Bisa Menekan Petani Sawit, Arif Havas Ingatkan Risiko Rantai Pasok\n26 November 2026 |. Palm Oil Conference (IPOC) 2026. Harga TBS Sawit Mitra Swadaya Riau Periode 25 November–1 Desember 2026 Turun, Umur 9 Tahun Rp3.527,12 per\nSource: https://www.infosawit.com/2026/11/26/standar-keberlanjutan-dan-pembiayaan-global-bisa-menekan-petani-sawit-arif-havas-ingatkan-risiko-rantai-pasok\nSource ID: src_4f322f22a1\n\n[Wed, 25 Nov 2026 16:00:00 GMT | freshness: unknown] Batu Kawan FY2026 Net Profit Falls 12.3% t\nSource IDs: src_4f322f22a1, src_867d5a37fa, src_58a55691cf, src_cb6c7832ff",
+      "source_ids": [
+        "src_4f322f22a1",
+        "src_867d5a37fa",
+        "src_58a55691cf",
+        "src_cb6c7832ff"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-26T20:01:05+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Wed, 25 Nov 2026 19:00:00 GMT | freshness: unknown] westmetall . market data . prices/lme stocks . copper, tin, lead, zinc, aluminium, nickel, gold, fine silver\n# Market data\n\n| Official LME-Prices in US Dollar | 25\\. November 2026 |  |  |\n------|\n| in US Dollar per ton | Settlement Kasse | 3 months | Chart Table Average |\n| Copper | 11,703.00 | 11,758.00 |    |\n| Tin | 38,200.00 | 38,050.00 |    |\n| Lead | 1,792.00 | 1,827.00 |    |\n| Zinc | 3,520.50 | 3,394.00 |    |\n| Aluminium | 2,849.00 | 2,760.00 |    |\n| Nickel | 15,035.00 | 15,210.00 |    | [...] | LME Stocks | 25\\. November 2026 | Ch\nSource IDs: src_b48be3065e, src_56d71a86b4, src_75fad80ee1, src_718a60ff2d, src_1302b39b16",
+      "source_ids": [
+        "src_b48be3065e",
+        "src_56d71a86b4",
+        "src_75fad80ee1",
+        "src_718a60ff2d",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-26T20:01:07+07:00"
+    }
+  },
+  "top_movers": "[Thu, 26 Nov 2026 10:30:00 GMT | freshness: unknown] India shares higher at close of trade; Nifty 50 up 0.25% - Investing.com UK\n*   iShares Core S&P 500 UCITS USD Dist. At the close in NSE, the Nifty 50 gained 0.25% to hit a new 6-month high, while the BSE Sensex 30 index climbed 0.46%. The biggest gainers of the session on the Nifty 50 were HCL Technologies Ltd (NSE:HCLT), which rose 5.99% or 82.60 points to trade at 1,462.60 at the close. (NSE:TCS) was up 4.24% or 106.70 points to 2,624.00 in late trade. (NSE:ASPN), which lost 2.71% or 71.00 points to trade at 2,550.20 in late trade. (NSE:SHMF) declined 2.66% or 26.35 points to end at 963.60 and Bajaj Finance Ltd (NSE:BJFN) shed 2.58% or 29.15 points to 1,102.20. (BO:TCS) which was up 4.97% to settle at 2,640.00 and Infosys Ltd (BO:INFY) which gained 4.70% to close at 1,182.10. (BO:ASPN) which lost 2.91% to settle at 2,543.00 and Bajaj Finance Ltd (BO:BJFN) which was down 2.74% to 1,099.00 at the close. DX+0.08%GC+0.59%LCO+0.21%CL+0.8%NSEI+0.25%NIFVIX-4.58%ASPN-2.71%BJFN-2.58%HCLT+5.99%INFY+4.53%SHMF-2.66%TCS+4.24%NEST-2.36%BSESN+0.46%.\nSource: https://uk.investing.com/news/stock-market-news/india-shares-higher-at-close-of-trade-nifty-50-up-025-5005567\nSource ID: src_1533a4fef8\n\n[Thu, 26 Nov 2026 08:51:56 GMT | freshness: unknown] World shares push higher, while markets in US will be closed for Thanksgiving - The Sun Chronicle\nA dealer walks near the screens showing the foreign exchange rates at a dealing room of Hana Bank in Seoul, South Korea, Thursday, Nov. 26, 2026. A dealer walks near the screens showing the Korea Composite Stock Price Index (KOSPI) and the foreign exchange rate between U.S. dollar and South Korean won at a dealing room of Hana Bank in Seoul, South Korea, Thursday, Nov. 26, 2026. ## Shares have advanced in Europe and Asia, while U.S. markets will be closed for the Thanksgiving holiday. HONG KONG (AP) — Shares advanced in Europe and Asia on Thursday, while U.S. markets were closed for the Tha\nSource IDs: src_1533a4fef8, src_672295d17f, src_fc541762fb, src_7b79533b2c, src_2e66413fb2, src_894216cdd5, src_bf1cd8e6af",
+  "sector_performance": "[Thu, 26 Nov 2026 11:33:25 GMT | freshness: unknown] IHSG Naik 0,86% Disertai Net Buy Asing Rp 239 Miliar Hari Ini (26/11)\nHanya satu sektor yang turun di tengah kenaikan IHSG. Sektor infrastruktur melemah tipis 0,08%.\n\nTotal volume transaksi bursa mencapai 19,90 miliar saham dengan nilai transaksi Rp 7,75 triliun. Sebanyak 408 saham melemah. Ada 383 saham menguat dan 348 saham flat.\n\nIHSG mengakumulasi kenaikan 0,92% dalam sepekan terakhir. Sedangkan sejak awal tahun, IHSG turun 39,38%.\n\nCek Berita dan Artikel yang lain di Google News [...] Sepuluh indeks sektoral menguat pada hari ini. Sektor energi melonjak 1,40%. Sektor barang baku melesat 1%.\n\nSektor kesehatan menguat 0,77%. Sektor perindustrian menanjak 0,68%. Sektor barang konsumsi nonprimer naik 0,45%.\n\nSektor teknologi terangkat 0,38%. Sektor keuangan naik 0,33%. Sektor barang konsumsi primer menguat 0,20%.\n\nSektor properti dan real estat menguat 0,16%. Sektor transportasi dan logistik menguat 0,12%. [...] Reporter: Wahyu Tri Rahmawati | Editor: Wahyu T.Rahmawati\n\nKONTAN.CO.ID - JAKARTA. Indeks Harga Saham Gabungan (IHSG) menguat di tengah pelemahan nilai tukar rupiah ke posisi paling lemah sepanjang sejarah. Kamis (26/11), IHSG menguat 44,56 poin atau 0,86% menjadi 5.242,17 pada perdagangan di Bursa Efek Indonesia (BEI).\nSource: https://pusatdata.kontan.co.id/news/ihsg-naik-086-disertai-net-buy-asing-rp-239-miliar-hari-ini-2611\nSource ID: src_48e9927dde\n\n[Thu, 26 Nov 2026 05:37:56 GMT | freshness: unknown] IHSG Sesi I Ditutup Hijau, Ditopang Saham BRPT, AADI, hingga ADRO\nBaca berita tanpa iklan. Gabung Kompas.com+\n\nWartawan merekam layar pergerakan Indeks Harga Saham Gabungan (IHSG) di Bursa Efek Indonesia, Jakarta, Jumat (16/10/2026).\n\nJAKARTA, KOMPAS.com- Indeks Harga Saham Gabungan (IHSG) ditutup menguat pada perdagangan sesi pertama, Kamis (26/11/2026). Indeks naik 0,68 persen ke level 5.233.\n\nPerforma IHSG sejalan dengan mayoritas sektor saham yang bergerak di zona hijau.\n\nSebanyak sepuluh dari 11 sektor menguat. [...] Rinciannya, energi menguat 1,36 persen, barang baku naik 1,22 persen, infrastruktur menguat 0,62 persen, teknologi naik 0,50 persen, transportasi: 0,32 persen, kesehatan 0,26 persen, keuangan menguat 0,20 persen.\n\nBaca juga: IHSG Bakal Menguat Hari Ini? Simak Analisis dan Rekomendasi Saham Rabu\n\nLalu, barang konsumen non-primer 0,19 persen, perindustrian naik 0,19 persen, barang konsumen primer 0,08 persen, properti melemah 0,24 persen. [...] 26/11/2026, 13:23 WIB\n\n26/11/2026,\nSource IDs: src_48e9927dde, src_abe5b2e071, src_5357aa4cb8, src_9d92e653bb",
+  "foreign_flow_raw": "[Thu, 26 Nov 2026 10:35:32 GMT | freshness: unknown] Taiwan Stocks Rebound 956 Points, but Foreign Investors Still Pull NT$49.18 Billion; Taiwan Glass Hit with 81,000-Share Selloff as Active ETFs Become the Buying Focus - BigGo Finance\nTaiwan's stock market staged a strong rebound on the 26th, with the weighted index surging 956.38 points to close at 39,151.81, while turnover expanded to NT$817.467 billion (approximately $24.8 billion). Taiwan Glass topped the foreign sell list with 81,441 shares sold, followed by three financial stocks—SinoPac Financial, Mega Financial Holding, and First Financial Holding—while Taiwan Semiconductor Manufacturing, United Microelectronics, and the Yuanta Taiwan Top 50 ETF also saw reductions. On the buy side, active ETFs swept the top five spots, led by Active Fuh Hwa Future 50 with 261,000 shares, while Innolux was the most-bought individual stock at 24,000 shares. Yet the strong rebound in the spot market did not reverse foreign investors' direction—foreign and mainland Chinese investors remained net sellers of NT$49.181 billion (approximately $1.5 billion) on the day, marking a ninth consecutive session on the selling side and bringing cumulative net selling to NT$470.843 billion (approximately $14.3 billion).\nSource: https://finance.biggo.com/news/48216a8d-e717-4eaf-b410-51362ca4d84a\nSource ID: src_2e66413fb2\n\n[Thu, 26 Nov 2026 08:51:56 GMT | freshness: unknown] World shares push higher, while markets in US will be closed for Thanksgiving\n",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "no_flow_figure_found",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=none, target=2026-11-26",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=none, target=2026-11-26",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-26",
+        "retrieved_at": "2026-11-26T20:00:58+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-26",
+        "retrieved_at": "2026-11-26T20:00:58+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-26",
+        "retrieved_at": "2026-11-26T20:01:20+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-26",
+        "retrieved_at": "2026-11-26T20:01:20+07:00",
+        "valid": true
+      }
+    }
+  }
+}
