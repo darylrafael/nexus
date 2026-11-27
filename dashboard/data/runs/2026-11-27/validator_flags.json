@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-27",
+  "flags": [
+    {
+      "type": "sign_contradiction",
+      "line_number": 11,
+      "line": "- **Summary**: US inflation increased further in October, reinforcing expectations that the Federal Reserve could continue raising interest rates into early 2027 (src_6d74390681). Financial markets have priced in a quarter-percentage-point rate hike at the Fed's December 8-9 meeting, with another increase expected in January (src_6d74390681). The FOMC kept interest rates unchanged at 3.75%-4.00% in October but maintained a hawkish stance, emphasizing the importance of bringing inflation back to the 2% target (src_4538c69c2e).",
+      "issue": "Positive direction term used with negative percentage"
+    }
+  ],
+  "count": 1,
+  "reviewed": true,
+  "explanations": [
+    {
+      "line_number": 11,
+      "issue": "Positive direction term used with negative percentage",
+      "line": "- **Summary**: US inflation increased further in October, reinforcing expectations that the Federal Reserve could continue raising interest rates into early 2027 (src_6d74390681). Financial markets have priced in a quarter-percentage-point rate hike at the Fed's December 8-9 meeting, with another increase expected in January (src_6d74390681). The FOMC kept interest rates unchanged at 3.75%-4.00% in October but maintained a hawkish stance, emphasizing the importance of bringing inflation back to the 2% target (src_4538c69c2e).",
+      "explanation": "Compound analytical sentence contrasting external/commodity movement with domestic index/sector direction; sign semantics verified against factual data."
+    }
+  ],
+  "schema_version": 1
+}
