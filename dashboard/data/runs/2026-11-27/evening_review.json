@@ -1,0 +1,151 @@
+{
+  "date": "2026-11-27",
+  "ihsg_predicted": "Bearish",
+  "ihsg_confidence": 66,
+  "ihsg_actual": "Bullish",
+  "ihsg_actual_pct": 1.84,
+  "ihsg_correct": false,
+  "foreign_flow_predicted": "Distribution",
+  "foreign_flow_actual": "Unknown",
+  "foreign_flow_correct": null,
+  "sector_accuracy": {
+    "Energy (Oil & Gas Upstream)": true,
+    "Basic Materials (Gas Upstream)": true,
+    "Exporters": null,
+    "Transportation & Logistics (Airlines, Shipping)": null,
+    "Basic Materials (Petrochemical, Fertilizer)": null,
+    "Financials (Banking)": null,
+    "Property & Real Estate": null,
+    "Consumer Cyclicals & Non-Cyclicals": null,
+    "Healthcare (Pharmaceuticals)": null,
+    "Consumer Goods (Poultry & Animal Feed)": null,
+    "Infrastructure (Toll Road)": null
+  },
+  "error_rate_pct": 63,
+  "accuracy_score": 37,
+  "rca_unanticipated": [
+    "IHSG closed significantly bullish (+1.84%) despite a bearish prediction.",
+    "Sektor jasa akademik dan pendidikan menguat 2.33%, tidak disebutkan dalam brief.",
+    "Sektor industri menguat 1.15%, tidak disebutkan dalam brief.",
+    "Overall market breadth was very positive with 251 stocks gaining against 108 falling."
+  ],
+  "rca_overestimated": [
+    "The bearish signal for IHSG (66% confidence) was significantly overestimated, as IHSG closed strongly bullish (+1.84%).",
+    "The negative impact of the weakening Rupiah (+0.285%) on IHSG was overestimated, as IHSG rallied despite it.",
+    "The prediction of 'Foreign Flow: Distribution' was likely overestimated in its potential impact, as the market rallied strongly."
+  ],
+  "rca_underestimated": [
+    "The underlying bullish momentum that led to IHSG's 1.84% gain was significantly underestimated.",
+    "The strength of key sectors like Energy (+2.22%) and Basic Materials (leading gains) was underestimated."
+  ],
+  "rca_info_delay": [],
+  "rca_inverse_correlation": [
+    "Brief assumed weakening Rupiah would lead to a bearish market, but Rupiah weakened by 0.285% while IHSG closed strongly bullish by 1.84%."
+  ],
+  "lessons": [
+    "Ketika IHSG diprediksi Bearish dengan confidence 66% dan Rupiah melemah 0.285% diprediksi berdampak Bearish, tetapi sektor Energi menguat 2.22% dan Basic Materials memimpin penguatan, maka IHSG ditutup menguat 1.84%.",
+    "Ketika foreign flow diprediksi Distribution (Net Sell Rp336.22 miliar), tetapi IHSG ditutup menguat 1.84% dan 251 saham berhasil ditutup di zona hijau, maka sentimen pasar positif dapat mengesampingkan kekhawatiran arus modal asing."
+  ],
+  "summary": "The morning brief predicted a bearish IHSG and foreign flow distribution, but the IHSG closed strongly bullish by 1.84%, with actual foreign flow for the day remaining unknown, while some predicted bullish sectors like Energy performed well.",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_data_confidence": "normal",
+  "actual_usdidr": 18295.0,
+  "actual_commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.93,
+      "previous_close": 83.98,
+      "change_pct": 1.13,
+      "signal": "Up",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 91.77,
+      "previous_close": 92.57,
+      "change_pct": -0.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.52,
+      "previous_close": 3.41,
+      "change_pct": 3.14,
+      "signal": "Up",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 10:14:00 GMT | freshness: unknown] Canyon Resources' Cameroon Bauxite Project Faces Delay Due to Financing Uncertainty - Shanghai Metals Market\nPublished: Nov 27, 2026 18:14 (GMT+8). On November 24, the Cameroon Minim-Martap bauxite project of Australian mining company Canyon Resources is affected by financing uncertainty and is not expected to achieve its originally scheduled first export target in the fourth quarter of 2026. China's Aluminum Industry PMI Dips to 47.4% in Nov, Slight Recovery Expected in Dec. Nov 27, 2026 18:23 (GMT+8)Shenhuo's 1A00 Aluminum Alloy Approved f\nSource IDs: src_295913a3f0, src_c801161b82, src_f425d57924, src_28d95539cd, src_5e10205349, src_58f1bed8f0, src_ac071fe4b1",
+      "source_ids": [
+        "src_295913a3f0",
+        "src_c801161b82",
+        "src_f425d57924",
+        "src_28d95539cd",
+        "src_5e10205349",
+        "src_58f1bed8f0",
+        "src_ac071fe4b1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-27T20:00:59+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 1.07,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 04:00:00 GMT | freshness: unknown] Harga CPO Malaysia Naik 1,07%, Terangkat Rencana Biaya Ekspor Sawit Indonesia\npalm oil (CPO) Nov 26, 2026, 19:57 GMT-8. Exchange naik 46 ringgit atau 1,07% menjadi 4.338 ringgit per metrik ton pada perdagangan pagi.\nSource: https://www.tradingview.com/news/kontan:abb85c99387ea:0\nSource ID: src_c00bff0eab\n\n[Thu, 26 Nov 2026 22:55:44 GMT | freshness: unknown] El Niño Ancam Produksi Sawit Bisa Kerek Harga CPO di 2027, Ini Saham Pilihan CGS\nAnalis CGS International Sekuritas Rut Yesika merekomendasikan overweight untuk sektor perkebunan kelapa s\nSource IDs: src_c00bff0eab, src_4a4eb37788, src_bcdbdbd9a3",
+      "source_ids": [
+        "src_c00bff0eab",
+        "src_4a4eb37788",
+        "src_bcdbdbd9a3"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-27T20:01:02+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 06:50:00 GMT | freshness: unknown] CNGR Amankan 700.000 Ton Nikel RI, Tak Pangkas Kapasitas Smelter - Energi\n#### HILIRISASI MINERAL\n\n# CNGR Amankan 700.000 Ton Nikel RI, Tak Pangkas Kapasitas Smelter\n\n##### Redaksi\n\n##### 27 November 2026 13:50\n\nMaterial mixed hydroxide precipitate (MHP) dalam rangkaian proses pengolahan nikel milik Harita Nickel. (Dok Dimas Ardian/Bloomberg)\n\nBloomberg Technoz, Jakarta – CNGR mengungkapkan telah mengamankan lebih dari 700 juta metrik ton basah atau wet metric ton (wmt) pasokan bijih nikel dari Indonesia melalui skema investasi ekuitas dan k\nSource IDs: src_04b042e63c, src_1302b39b16",
+      "source_ids": [
+        "src_04b042e63c",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-27T20:01:04+07:00"
+    }
+  },
+  "market_regime": "BULLISH_TREND",
+  "data_quality": {
+    "overall_valid": true,
+    "ohlc_valid": false,
+    "flow_verified": false,
+    "flow_reason": "date_mismatch_rejected",
+    "fx_reliable": false,
+    "spot_usdidr_change_pct": -0.273,
+    "stored_usdidr_change_pct": 0.285,
+    "rescored_at": "2026-10-15"
+  },
+  "divergence_alert": null,
+  "schema_version": 1,
+  "usdidr_change_pct": 0.285,
+  "rupiah_signal": "Weakened"
+}

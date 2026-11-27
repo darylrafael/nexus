@@ -1,0 +1,212 @@
+{
+  "date": "2026-11-27",
+  "schema_version": 2,
+  "evidence_ids": [
+    "src_295913a3f0",
+    "src_c801161b82",
+    "src_f425d57924",
+    "src_28d95539cd",
+    "src_5e10205349",
+    "src_58f1bed8f0",
+    "src_ac071fe4b1",
+    "src_c00bff0eab",
+    "src_4a4eb37788",
+    "src_bcdbdbd9a3",
+    "src_04b042e63c",
+    "src_1302b39b16",
+    "src_ef5af9c46f",
+    "src_6ccc972b9d",
+    "src_872d598f6f",
+    "src_e8014f4a2d",
+    "src_7569b9b8f4",
+    "src_cf7e41f7f9",
+    "src_e8014f4a2d",
+    "src_3368fe0217",
+    "src_e71a3dd8eb",
+    "src_749f3b8846",
+    "src_7c1835f9ff",
+    "src_31a0060b94",
+    "src_ea8a34256a",
+    "src_b8359438d7",
+    "src_2a37394eea",
+    "src_00b7c24b70",
+    "src_f9e84d014e",
+    "src_2f474fa3e7"
+  ],
+  "target_date": "2026-11-27",
+  "ihsg": {
+    "status": "ok",
+    "close": 5338.46,
+    "prev": 5242.17,
+    "change_pct": 1.84,
+    "change_pts": 96.29,
+    "signal": "Bullish",
+    "open": 5263.23,
+    "high": 5340.32,
+    "low": 5245.87,
+    "volume": 0,
+    "candle_date": "2026-11-27",
+    "source": "yahoo_direct:^JKSE",
+    "retrieved_at": "2026-11-27T20:00:54+07:00",
+    "confidence": "normal"
+  },
+  "usdidr": {
+    "status": "ok",
+    "rate": 18295.0,
+    "prev": 18243.0,
+    "change_pct": 0.285,
+    "signal": "Weakened",
+    "candle_date": "2026-11-27",
+    "source": "yahoo_direct:USDIDR=X",
+    "retrieved_at": "2026-11-27T20:00:55+07:00",
+    "confidence": "normal"
+  },
+  "ihsg_close": 5338.46,
+  "ihsg_prev": 5242.17,
+  "ihsg_change_pct": 1.84,
+  "ihsg_change_pts": 96.29,
+  "ihsg_signal": "Bullish",
+  "ihsg_source": "yahoo_direct:^JKSE",
+  "ihsg_confidence": "normal",
+  "ihsg_retrieved_at": "2026-11-27T20:00:54+07:00",
+  "usdidr_rate": 18295.0,
+  "usdidr_prev": 18243.0,
+  "usdidr_change_pct": 0.285,
+  "rupiah_signal": "Weakened",
+  "usdidr_source": "yahoo_direct:USDIDR=X",
+  "usdidr_retrieved_at": "2026-11-27T20:00:55+07:00",
+  "commodities": {
+    "Crude Oil (WTI)": {
+      "name": "Crude Oil (WTI)",
+      "ticker": "CL=F",
+      "price": 84.93,
+      "previous_close": 83.98,
+      "change_pct": 1.13,
+      "signal": "Up",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:CL=F"
+    },
+    "Brent Crude": {
+      "name": "Brent Crude",
+      "ticker": "BZ=F",
+      "price": 91.77,
+      "previous_close": 92.57,
+      "change_pct": -0.86,
+      "signal": "Down",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:BZ=F"
+    },
+    "Natural Gas": {
+      "name": "Natural Gas",
+      "ticker": "NG=F",
+      "price": 3.52,
+      "previous_close": 3.41,
+      "change_pct": 3.14,
+      "signal": "Up",
+      "retrieved_at": "2026-11-27T20:00:55+07:00",
+      "source": "yahoo_direct:NG=F"
+    },
+    "Coal (Newcastle)": {
+      "name": "Coal (Newcastle)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 10:14:00 GMT | freshness: unknown] Canyon Resources' Cameroon Bauxite Project Faces Delay Due to Financing Uncertainty - Shanghai Metals Market\nPublished: Nov 27, 2026 18:14 (GMT+8). On November 24, the Cameroon Minim-Martap bauxite project of Australian mining company Canyon Resources is affected by financing uncertainty and is not expected to achieve its originally scheduled first export target in the fourth quarter of 2026. China's Aluminum Industry PMI Dips to 47.4% in Nov, Slight Recovery Expected in Dec. Nov 27, 2026 18:23 (GMT+8)Shenhuo's 1A00 Aluminum Alloy Approved f\nSource IDs: src_295913a3f0, src_c801161b82, src_f425d57924, src_28d95539cd, src_5e10205349, src_58f1bed8f0, src_ac071fe4b1",
+      "source_ids": [
+        "src_295913a3f0",
+        "src_c801161b82",
+        "src_f425d57924",
+        "src_28d95539cd",
+        "src_5e10205349",
+        "src_58f1bed8f0",
+        "src_ac071fe4b1"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-27T20:00:59+07:00"
+    },
+    "CPO": {
+      "name": "CPO",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": 1.07,
+      "signal": "Up",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 04:00:00 GMT | freshness: unknown] Harga CPO Malaysia Naik 1,07%, Terangkat Rencana Biaya Ekspor Sawit Indonesia\npalm oil (CPO) Nov 26, 2026, 19:57 GMT-8. Exchange naik 46 ringgit atau 1,07% menjadi 4.338 ringgit per metrik ton pada perdagangan pagi.\nSource: https://www.tradingview.com/news/kontan:abb85c99387ea:0\nSource ID: src_c00bff0eab\n\n[Thu, 26 Nov 2026 22:55:44 GMT | freshness: unknown] El Niño Ancam Produksi Sawit Bisa Kerek Harga CPO di 2027, Ini Saham Pilihan CGS\nAnalis CGS International Sekuritas Rut Yesika merekomendasikan overweight untuk sektor perkebunan kelapa s\nSource IDs: src_c00bff0eab, src_4a4eb37788, src_bcdbdbd9a3",
+      "source_ids": [
+        "src_c00bff0eab",
+        "src_4a4eb37788",
+        "src_bcdbdbd9a3"
+      ],
+      "parse_confidence": "high",
+      "retrieved_at": "2026-11-27T20:01:02+07:00"
+    },
+    "Nickel (LME)": {
+      "name": "Nickel (LME)",
+      "ticker": "WEB_SEARCH",
+      "price": null,
+      "change_pct": null,
+      "signal": "Unavailable",
+      "source": "tavily_web",
+      "raw": "[Fri, 27 Nov 2026 06:50:00 GMT | freshness: unknown] CNGR Amankan 700.000 Ton Nikel RI, Tak Pangkas Kapasitas Smelter - Energi\n#### HILIRISASI MINERAL\n\n# CNGR Amankan 700.000 Ton Nikel RI, Tak Pangkas Kapasitas Smelter\n\n##### Redaksi\n\n##### 27 November 2026 13:50\n\nMaterial mixed hydroxide precipitate (MHP) dalam rangkaian proses pengolahan nikel milik Harita Nickel. (Dok Dimas Ardian/Bloomberg)\n\nBloomberg Technoz, Jakarta – CNGR mengungkapkan telah mengamankan lebih dari 700 juta metrik ton basah atau wet metric ton (wmt) pasokan bijih nikel dari Indonesia melalui skema investasi ekuitas dan k\nSource IDs: src_04b042e63c, src_1302b39b16",
+      "source_ids": [
+        "src_04b042e63c",
+        "src_1302b39b16"
+      ],
+      "parse_confidence": "none",
+      "retrieved_at": "2026-11-27T20:01:04+07:00"
+    }
+  },
+  "top_movers": "[Fri, 27 Nov 2026 10:00:00 GMT | freshness: unknown] Ditutup ke Level 5.338, IHSG Akhir Pekan Berhasil Menguat 1,84 Persen - Pasardana.id\nIHSG ditutup menguat 1,84% atau 96,285. Jumat, 27 November 2026. naik 34,61% dan 34,28% dan tercatat sebagai top gainer. termasuk top loser. ke level 5.338,457\nSource: https://pasardana.id/news/2026/11/27/ditutup-ke-level-5-338-ihsg-akhir-pekan-berhasil-menguat-1-84-persen\nSource ID: src_ef5af9c46f\n\n[Fri, 27 Nov 2026 11:00:00 GMT | freshness: unknown] IHSG Menguat, Tembus Level 5.300 (Jumat, 27 November 2026) - Databoks\nEmiten top gainer hari ini adalah NETV yang melonjak 34,62%, masing-masing naik 34,29% dan 24,79%. Adapun NAYZ menjadi emiten top loser setelah turun 9,76%,\nSource: https://databoks.katadata.co.id/datapublish/2026/11/27/ihsg-menguat-tembus-level-5300-jumat-27-november-2026\nSource ID: src_6ccc972b9d\n\n[Fri, 27 Nov 2026 09:58:43 GMT | freshness: unknown] IHSG Ditutup Menguat 1,84 Persen ke 5.338, Bursa Asia Kompak Hijau\nPenulis\n\nJAKARTA, KOMPAS.com – Indeks Harga Saham Gabungan (IHSG) ditutup menguat pada Jumat (27/11/2026). IHSG naik 96,29 poin atau 1,84 persen ke level 5.338,46, dibandingkan penutupan sebelumnya di 5.242,17.\n\nBerdasarkan data Bursa Efek Indonesia (BEI), IHSG hari ini bergerak di rentang 5.245,87 hingga 5.340,32 sepanjang perdagangan hari ini. Indeks dibuka di level 5.263,23 sebelum mengakhiri perdagangan di zona hijau. [...] Pada indeks LQ45, saham PT Darma Henwa Tbk (DEWA) menjadi salah satu saham dengan kenaikan tertinggi, yakni 11,02 persen. Disusul PT Barito Pacific Tbk (BRPT) yang naik 8,22 persen dan PT Bumi Resources Tbk (BUMI) menguat 7,63 persen.\n\nSebaliknya, saham PT GoTo Gojek Tokopedia Tbk (GOTO) menjadi salah satu saham dengan penurunan terbesar di LQ45, yakni 3,70 persen. Kemudian PT Indofood CBP Sukses Makmur Tbk (ICBP) turun 0,70 persen dan PT United Tractors Tbk (UNTR) melemah 0,52 persen. [...] Adapun indeks S&P/ASX 200 Australia turut menguat 0,80 persen ke 8.833,60.\n\nBaca juga: S\nSource IDs: src_ef5af9c46f, src_6ccc972b9d, src_872d598f6f, src_e8014f4a2d, src_7569b9b8f4",
+  "sector_performance": "[Fri, 27 Nov 2026 10:25:46 GMT | freshness: unknown] IHSG Ditutup Melonjak 1,84 Persen ke Level 5.338, Saham Menguat Dominasi Perdagangan\nHalaman Selanjutnya Pada perdagangan Jumat, 27 November 2026, IHSG akhirnya ditutup di level 5.338,4 dengan kenaikan 1,84 persen, setelah bergerak di rentang 5.245,8 hingga 5.340,3 sepanjang hari. [...] # IHSG Ditutup Melonjak 1,84 Persen ke Level 5.338, Saham Menguat Dominasi Perdagangan\n\n Bursa Efek Indonesia (BEI) mengakhiri perdagangan Jumat, 27 November 2026, dengan penguatan signifikan. IHSG berhasil bertahan di zona hijau sepanjang perdagangan dan ditutup di level 5.338,4 atau naik 1,84 persen.\n\nIHSG Menghijau di Awal Perdagangan, Saham Sektor Basic Pimpin Penguatan [...] Total volume transaksi mencapai 28,5 miliar saham dengan nilai perdagangan sebesar Rp8,1 triliun. Adapun frekuensi transaksi tercatat sebanyak 936.760 kali.\n\nDari keseluruhan saham yang diperdagangkan, jumlah saham yang menguat lebih dari dua kali lipat dibandingkan saham yang mengalami pelemahan.\n\nSebanyak 251 saham berhasil ditutup di zona hijau, sementara 108 saham berada di zona merah. Selain itu, terdapat 97 saham yang tidak mengalami perubahan harga hingga perdagangan berakhir.\nSource: https://www.viva.co.id/bisnis/1946853-ihsg-ditutup-melonjak-184-persen-ke-level-5338-saham-menguat-dominasi-perdagangan\nSource ID: src_cf7e41f7f9\n\n[Fri, 27 Nov 2026 01:46:51 GMT | freshness: unknown] IHSG Diprediksi Fluktuatif, Dibayangi Tarif AS dan Pelemahan Rupiah\nJAKARTA, KOMPAS.com - Indeks Harga Saham Gabungan (IHSG) diprediksi bergerak fluktuatif pada perdagangan Jumat (27/11/2026), meski peluang naik masih terbuka.\n\nPada perdagangan Kamis (26/11/2026), IHSG ditutup menguat 0,86 persen ke level 5.242,17 setelah tertekan pada perdagangan hari sebelumnya.\n\nPenguatan indeks ditopang sektor jasa akademik dan pendidikan yang naik 2,33 persen, sektor energi menguat 2,22 persen, serta sektor industri naik 1,15 persen. [...] Inflasi yang masih persisten berpotensi membuat bank sentral AS atau Federal Reserve (The Fed) mempertahankan sikap hawkish dalam kebijakan moneternya.\n\nDari sisi teknikal, IHSG membentuk pola inverted hammer setelah sempat menyentuh angka tertinggi 5.297. Pola ini mengindikasikan adanya tekanan jual di area atas, meskipun indeks berhasil bertahan di zona hijau hingga penutupan perdagangan. [...] Namun, performa tersebut belum sepenuhnya didukung aktivitas perdagangan yang kuat. Nilai transaksi di seluruh pasar tercatat Rp 8,4 triliun. Hal\nSource IDs: src_cf7e41f7f9, src_e8014f4a2d, src_3368fe0217, src_e71a3dd8eb, src_749f3b8846, src_7c1835f9ff",
+  "foreign_flow_raw": "[Fri, 27 Nov 2026 02:42:57 GMT | freshness: unknown] ANALIS MARKET (27/11/2026): IHSG Berpotensi Bullish | Pasardana Portal\n-Indeks Harga Saham Gabungan (IHSG) ditutup menguat 0,86% ke level 5.242,17 pada hari Kamis (26/11/26). Investor asing mencatatkan beli bersih (net buy) sebesar Rp93,29 miliar di pasar reguler dan Rp238,90 miliar di seluruh pasar, sementara transaksi di pasar tunai dan negosiasi mencatatkan beli bersih sebesar Rp145,61 miliar. Secara akumulatif, jual bersih (net sell) asing sepanjang tahun berjalan (year-to-date) mencapai Rp130,22 triliun. Pembelian bersih asing terbesar tercatat pada saham [...] 1. Kiwoom Sekuritas melaporkan IHSG ditutup menguat 0,86% ke level 5.242,17 pada Kamis, 26 November 2026, seiring membaiknya sentimen pasar global.\n2. Investor asing mencatatkan beli bersih Rp238,90 miliar di seluruh pasar, sementara jual bersih asing year-to-date mencapai Rp130,22 triliun dan Rupiah melemah 0,37% ke Rp18.383/US$. [...] tercatat pada saham BBCA, BRPT, ASII, AMRT, AMMN, ANTM, UNVR, INDF, ADRO, dan INDY. Sebaliknya, penjualan bersih asing terbesar terjadi pada saham AADI, TLKM, ISAT, BREN, BUMI, WIFI, UNTR, CPIN, GOTO, dan DEWA. Nilai tukar Rupiah ditutup melemah 0,37% ke level Rp18.383/US$, dipicu oleh kombinasi sentimen global, meningkatnya ekspektasi kenaikan suku bunga The Fed, serta kekhawatiran mengenai potensi reklasifikasi pasar saham Indonesia oleh MSCI yang dapat memicu arus keluar modal (capital\nSource: https://pasardana.id/news/2026/11",
+  "foreign_flow": {
+    "signal": "Unknown",
+    "net_trillion": null,
+    "raw_figure": null,
+    "reason": "date_mismatch_rejected",
+    "matched_date": "2026-11-26",
+    "target_date": "2026-11-27",
+    "status": "ok"
+  },
+  "foreign_flow_signal": "Unknown",
+  "divergence_alert": null,
+  "data_quality": {
+    "overall_valid": true,
+    "flow_date_matched": "matched=2026-11-26, target=2026-11-27",
+    "checks": {
+      "ohlc_valid": true,
+      "fx_consistent": true,
+      "flow_date_matched": "matched=2026-11-26, target=2026-11-27",
+      "sector_data_is_close": true
+    },
+    "fields": {
+      "ihsg": {
+        "source": "yahoo_direct:^JKSE",
+        "date": "2026-11-27",
+        "retrieved_at": "2026-11-27T20:00:54+07:00",
+        "valid": true
+      },
+      "usdidr": {
+        "source": "yahoo_direct:USDIDR=X",
+        "date": "2026-11-27",
+        "retrieved_at": "2026-11-27T20:00:55+07:00",
+        "valid": true
+      },
+      "foreign_flow": {
+        "source": "news_search",
+        "date": "2026-11-27",
+        "retrieved_at": "2026-11-27T20:01:11+07:00",
+        "valid": false,
+        "scope": "regular"
+      },
+      "sectors": {
+        "source": "news_search",
+        "date": "2026-11-27",
+        "retrieved_at": "2026-11-27T20:01:11+07:00",
+        "valid": true
+      }
+    }
+  }
+}

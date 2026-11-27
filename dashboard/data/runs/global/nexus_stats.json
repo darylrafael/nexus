@@ -1,5 +1,5 @@
 {
-  "total_sessions": 48,
+  "total_sessions": 49,
   "processed_dates": [
     "2026-09-22",
     "2026-09-23",
@@ -48,50 +48,51 @@
     "2026-11-23",
     "2026-11-24",
     "2026-11-25",
-    "2026-11-26"
+    "2026-11-26",
+    "2026-11-27"
   ],
   "is_sample_sufficient": true,
-  "sample_size_n": 48,
+  "sample_size_n": 49,
   "sample_warning": null,
-  "direction_accuracy_pct": 39.6,
+  "direction_accuracy_pct": 38.8,
   "direction_correct_count": 19,
-  "direction_scorable_sessions": 48,
+  "direction_scorable_sessions": 49,
   "direction_info": {
-    "pct": 39.6,
-    "n": 48,
+    "pct": 38.8,
+    "n": 49,
     "correct": 19,
-    "label": "n = 48",
+    "label": "n = 49",
     "is_sufficient": true
   },
   "direction_ci_95": {
-    "lower_pct": 27.0,
-    "upper_pct": 53.7,
+    "lower_pct": 26.4,
+    "upper_pct": 52.8,
     "confidence_level": 0.95
   },
   "baselines": {
-    "always_bearish_pct": 52.1,
+    "always_bearish_pct": 51.0,
     "always_bearish_count": 25,
-    "always_bearish_total": 48,
-    "always_bullish_pct": 45.8,
-    "always_bullish_count": 22,
-    "always_bullish_total": 48,
-    "majority_class_pct": 52.1,
-    "persistence_pct": 53.2,
-    "persistence_correct_count": 25,
-    "persistence_scorable_sessions": 47
+    "always_bearish_total": 49,
+    "always_bullish_pct": 46.9,
+    "always_bullish_count": 23,
+    "always_bullish_total": 49,
+    "majority_class_pct": 51.0,
+    "persistence_pct": 54.2,
+    "persistence_correct_count": 26,
+    "persistence_scorable_sessions": 48
   },
   "calibration": {
-    "average_stated_confidence_pct": 71.0,
-    "calibrated_confidence_pct": 39.6,
-    "sample_size_n": 48,
+    "average_stated_confidence_pct": 70.9,
+    "calibrated_confidence_pct": 38.8,
+    "sample_size_n": 49,
     "prior_pct": 55.0,
     "prior_strength_n0": 30,
     "empirical_weight": 1.0,
-    "realized_hit_rate_pct": 39.6,
+    "realized_hit_rate_pct": 38.8,
     "status_label": "calibrated",
-    "brier_score": 0.3499,
+    "brier_score": 0.3516,
     "brier_interpretation": "Brier score measures probabilistic error (0.0 is perfect, 0.25 is random coin flip).",
-    "confidence_label": "Calibrated confidence (39.6%, n = 48)",
+    "confidence_label": "Calibrated confidence (38.8%, n = 49)",
     "formula": "w * (k / n * 100) + (1 - w) * min(stated_conf, 55.0), where w = min(n / 30, 1.0)"
   },
   "payoff": {
@@ -99,11 +100,11 @@
     "long_only_total_bps": -469.0,
     "long_only_avg_bps": -67.0,
     "long_only_trades": 7,
-    "short_only_total_bps": 1551.0,
-    "short_only_avg_bps": 41.9,
-    "short_only_trades": 37,
+    "short_only_total_bps": 1367.0,
+    "short_only_avg_bps": 36.0,
+    "short_only_trades": 38,
     "short_side_note": "theoretical, not retail-tradable",
-    "long_short_total_bps": 1082.0,
+    "long_short_total_bps": 898.0,
     "note": "Theoretical index performance before commissions, financing, borrow fees, and execution slippage. Not retail trading returns."
   },
   "flow_accuracy_pct": 57.1,
@@ -116,18 +117,18 @@
     "label": "n = 14, sample too small",
     "is_sufficient": false
   },
-  "sector_accuracy_pct": 42.6,
-  "sector_correct_count": 66,
-  "sector_verifiable_count": 155,
+  "sector_accuracy_pct": 43.3,
+  "sector_correct_count": 68,
+  "sector_verifiable_count": 157,
   "sector_info": {
-    "pct": 42.6,
-    "n": 155,
-    "correct": 66,
-    "label": "n = 155",
+    "pct": 43.3,
+    "n": 157,
+    "correct": 68,
+    "label": "n = 157",
     "is_sufficient": true
   },
   "rolling_avg_accuracy": 38.2,
-  "rolling_20_accuracy": 41.0,
+  "rolling_20_accuracy": 39.6,
   "all_lessons": [
     "Ketika IHSG diproyeksikan bearish dengan sentimen outflow, tetapi probabilitas kenaikan suku bunga The Fed melonjak ke 71%-72%, maka IHSG tertekan turun -1.69% ke level 6277.04.",
     "Ketika rupiah melemah menembus level kritis dengan USD/IDR di 17878.0 (+0.393%), maka sebanyak 533 saham ditutup melemah di tengah aksi jual institusional domestik.",
@@ -204,7 +205,9 @@
     "Ketika IHSG diprediksi Bullish didorong sentimen positif MSCI dan penguatan Rupiah, tetapi tensi geopolitik di Selat Hormuz memanas dan BI-Rate naik 25 Bps, maka IHSG melemah 0.84% dan Rupiah melemah 0.704%.",
     "Ketika sektor Barang Baku, Energi, dan Infrastruktur diprediksi Bullish, tetapi IHSG secara keseluruhan melemah dan sektor-sektor tersebut masuk kategori pelemahan terdalam, maka sektor Barang Baku turun 2.55% dan sektor Energi serta Infrastruktur juga mengalami pelemahan signifikan.",
     "Ketika IHSG diprediksi Bearish dengan sentimen negatif dari pelemahan Rupiah dan ketidakpastian MSCI, tetapi bursa Asia menguat dan terjadi net buy asing sebesar Rp 239 miliar, maka IHSG menguat 0,86%.",
-    "Ketika sektor Barang Baku, Transportasi dan Logistik, Barang Konsumsi Nonprimer, Barang Konsumsi Primer, dan Kesehatan diprediksi Bearish, tetapi sentimen pasar global yang positif mendorong kenaikan di sektor-sektor tersebut, maka sektor Barang Baku menguat 1%, Transportasi dan Logistik menguat 0,12%, Barang Konsumsi Nonprimer menguat 0,45%, Barang Konsumsi Primer menguat 0,20%, dan Kesehatan menguat 0,77%."
+    "Ketika sektor Barang Baku, Transportasi dan Logistik, Barang Konsumsi Nonprimer, Barang Konsumsi Primer, dan Kesehatan diprediksi Bearish, tetapi sentimen pasar global yang positif mendorong kenaikan di sektor-sektor tersebut, maka sektor Barang Baku menguat 1%, Transportasi dan Logistik menguat 0,12%, Barang Konsumsi Nonprimer menguat 0,45%, Barang Konsumsi Primer menguat 0,20%, dan Kesehatan menguat 0,77%.",
+    "Ketika IHSG diprediksi Bearish dengan confidence 66% dan Rupiah melemah 0.285% diprediksi berdampak Bearish, tetapi sektor Energi menguat 2.22% dan Basic Materials memimpin penguatan, maka IHSG ditutup menguat 1.84%.",
+    "Ketika foreign flow diprediksi Distribution (Net Sell Rp336.22 miliar), tetapi IHSG ditutup menguat 1.84% dan 251 saham berhasil ditutup di zona hijau, maka sentimen pasar positif dapat mengesampingkan kekhawatiran arus modal asing."
   ],
   "missed_factor_counts": {
     "The Fed rate hike probability surge to 71%-72% driven by producer inflation and Brent crude spikes": 1,
@@ -435,12 +438,18 @@
     "IHSG menguat mengikuti bursa Asia": 1,
     "World shares push higher in Europe and Asia": 1,
     "Dampak positif dari sentimen pasar global yang menguat": 1,
-    "Kekuatan net buy asing yang mencapai Rp 239 miliar": 1
+    "Kekuatan net buy asing yang mencapai Rp 239 miliar": 1,
+    "IHSG closed significantly bullish (+1.84%) despite a bearish prediction.": 1,
+    "Sektor jasa akademik dan pendidikan menguat 2.33%, tidak disebutkan dalam brief.": 1,
+    "Sektor industri menguat 1.15%, tidak disebutkan dalam brief.": 1,
+    "Overall market breadth was very positive with 251 stocks gaining against 108 falling.": 1,
+    "The underlying bullish momentum that led to IHSG's 1.84% gain was significantly underestimated.": 1,
+    "The strength of key sectors like Energy (+2.22%) and Basic Materials (leading gains) was underestimated.": 1
   },
-  "last_updated": "2026-11-26",
+  "last_updated": "2026-11-27",
   "scoring_version": "2.2.0",
-  "history_rescored_at": "2026-11-26",
-  "history_rescore_note": "Rescored across 48 genuine sessions (2026-09-22 to 2026-11-26) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
+  "history_rescored_at": "2026-11-27",
+  "history_rescore_note": "Rescored across 49 genuine sessions (2026-09-22 to 2026-11-27) with strict Indonesian D/M/Y date matching, geometric OHLC validation, FX convention & consecutive spot close verification, and scorable-only dynamic components.",
   "rejected_lessons": [
     {
       "date": "2026-09-28",
@@ -1621,14 +1630,40 @@
         "BULLISH_TREND"
       ],
       "last_observed": "2026-11-26"
+    },
+    {
+      "id": "rule-77",
+      "rule": "Ketika IHSG diprediksi Bearish dengan confidence 66% dan Rupiah melemah 0.285% diprediksi berdampak Bearish, tetapi sektor Energi menguat 2.22% dan Basic Materials memimpin penguatan, maka IHSG ditutup menguat 1.84%.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-27"
+    },
+    {
+      "id": "rule-78",
+      "rule": "Ketika foreign flow diprediksi Distribution (Net Sell Rp336.22 miliar), tetapi IHSG ditutup menguat 1.84% dan 251 saham berhasil ditutup di zona hijau, maka sentimen pasar positif dapat mengesampingkan kekhawatiran arus modal asing.",
+      "status": "HYPOTHESIS",
+      "observed": 1,
+      "validated": 0,
+      "contradicted": 1,
+      "validation_rate": 0.0,
+      "regimes": [
+        "BULLISH_TREND"
+      ],
+      "last_observed": "2026-11-27"
     }
   ],
   "active_heuristics_count": 29,
   "superseded_heuristics_count": 0,
-  "hypothesis_heuristics_count": 47,
-  "ihsg_accuracy_pct": 39.6,
+  "hypothesis_heuristics_count": 49,
+  "ihsg_accuracy_pct": 38.8,
   "ihsg_correct_count": 19,
   "ff_accuracy_pct": 57.1,
   "ff_correct_count": 8,
-  "total_accuracy_sum": 1834.0
+  "total_accuracy_sum": 1871.0
 }
